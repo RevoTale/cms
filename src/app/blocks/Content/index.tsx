@@ -4,7 +4,7 @@ import RichText from 'src/app/components/RichText'
 
 import type { Page } from '../../../payload-types'
 
-import { CMSLink } from '../../components/Link'
+import { CMSLink } from '@/components/Link'
 
 type Props = Extract<Page['layout'][0], { blockType: 'content' }>
 
@@ -32,7 +32,7 @@ export const ContentBlock: React.FC<
 
             return (
               <div
-                className={cn(`col-span-4 lg:col-span-${colsSpanClasses[size]}`, {
+                className={cn(`col-span-4`,size?`lg:col-span-${colsSpanClasses[size]}`:null, {
                   'md:col-span-2': size !== 'full',
                 })}
                 key={index}

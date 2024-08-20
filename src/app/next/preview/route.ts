@@ -24,14 +24,13 @@ export async function GET(
   if (!token) {
     new Response('You are not allowed to preview this page', { status: 403 })
   }
-
-  // @ts-ignore
-  const user = jwt.decode(token, process.env.PAYLOAD_SECRET??'')
+  const user = jwt.decode(token )
 
   if (!user) {
     draftMode().disable()
     return new Response('You are not allowed to preview this page', { status: 403 })
   }
+  jwt.verify(token,process.env.PAYLOAD_SECRET??'')
 
   draftMode().enable()
   redirect(path)

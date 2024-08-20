@@ -41,8 +41,8 @@ const generateTitle: GenerateTitle<Post | Page> = ({ doc }) => {
 
 const generateURL: GenerateURL<Post | Page> = ({ doc }) => {
   return doc?.slug
-    ? `${process.env.NEXT_PUBLIC_SERVER_URL}/${doc.slug}`
-    : process.env.NEXT_PUBLIC_SERVER_URL
+    ? `${(process.env.NEXT_PUBLIC_SERVER_URL??'')}/${doc.slug}`
+    : (process.env.NEXT_PUBLIC_SERVER_URL??'')
 }
 
 export default buildConfig({
@@ -93,8 +93,8 @@ export default buildConfig({
           enabledCollections: ['pages', 'posts'],
           fields: ({ defaultFields }) => {
             const defaultFieldsWithoutUrl = defaultFields.filter((field) => {
-              if ('name' in field && field.name === 'url') return false
-              return true
+              return !('name' in field && field.name === 'url');
+
             })
 
             return [
@@ -134,7 +134,6 @@ export default buildConfig({
     redirectsPlugin({
       collections: ['pages', 'posts'],
       overrides: {
-        // @ts-expect-error
         fields: ({ defaultFields }) => {
           return defaultFields.map((field) => {
             if ('name' in field && field.name === 'from') {
@@ -188,7 +187,7 @@ export default buildConfig({
     }),
     payloadCloudPlugin(), // storage-adapter-placeholder
   ],
-  secret: process.env.PAYLOAD_SECRET,
+  secret: (process.env.PAYLOAD_SECRET??''),
   sharp,
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),

@@ -1,5 +1,6 @@
-import PageTemplate, { generateMetadata } from './[slug]/page'
-
-export default PageTemplate
-
-export { generateMetadata }
+const Page = ()=>{
+  return <div>
+    ss
+  </div>
+}
+export default Page

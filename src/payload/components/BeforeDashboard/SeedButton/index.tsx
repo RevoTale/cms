@@ -1,6 +1,6 @@
 'use client'
 
-import React, { Fragment, useCallback, useState } from 'react'
+import React, {Fragment, MouseEventHandler, useCallback, useState} from 'react'
 import { toast } from '@payloadcms/ui'
 
 const SuccessMessage: React.FC = () => (
@@ -15,9 +15,9 @@ const SuccessMessage: React.FC = () => (
 export const SeedButton: React.FC = () => {
   const [loading, setLoading] = useState(false)
   const [seeded, setSeeded] = useState(false)
-  const [error, setError] = useState(null)
+  const [error, setError] = useState<string|null>(null)
 
-  const handleClick = useCallback(
+  const handleClick = useCallback<MouseEventHandler<HTMLAnchorElement>>(
     async (e) => {
       e.preventDefault()
       if (loading || seeded) return
@@ -28,8 +28,8 @@ export const SeedButton: React.FC = () => {
         await fetch('/api/seed')
         setSeeded(true)
         toast.success(<SuccessMessage />, { duration: 5000 })
-      } catch (err) {
-        setError(err)
+      } catch (err:unknown) {
+        setError(typeof err === 'string' || err instanceof Error?err.toString():`Unexpected ${typeof err}`)
       }
     },
     [loading, seeded],

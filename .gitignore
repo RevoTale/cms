@@ -5,6 +5,8 @@ node_modules
 .env
 .next
 .vercel
-
+tsconfig.tsbuildinfo
+yarn.lock
+yarn-error.log
 # Payload default media upload directory
 public/media/

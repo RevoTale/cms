@@ -1,18 +1,22 @@
 FROM node:20.17-alpine as base
 
 FROM base as builder
+
 WORKDIR /home/node/app
 COPY package*.json ./
+
 COPY . .
 RUN yarn install && yarn build
 
 FROM base as runtime
-ENV NODE_ENV=production
+
+ENV NODE_ENV=development
+
 WORKDIR /home/node/app
 COPY package*.json  ./
 COPY yarn.lock ./
-RUN yarn install --production
+
+RUN yarn install
 
 EXPOSE 3000
-
-CMD ["node", "dist/server.js"]
+CMD ["yarn", "dev"]

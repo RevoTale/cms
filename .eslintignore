@@ -3,7 +3,6 @@
 **/.hg
 **/.pnp.*
 **/.svn
-**/.yarn/**
 **/build
 **/dist/**
 **/node_modules

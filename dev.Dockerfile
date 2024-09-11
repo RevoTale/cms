@@ -1,8 +1,9 @@
 FROM node:20.17-alpine
 WORKDIR /home/node/app
 
-COPY package.json  ./
+
 COPY . .
+COPY package.json  ./
 RUN yarn install
 
 ENV NODE_ENV=development

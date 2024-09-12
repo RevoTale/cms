@@ -1,4 +1,4 @@
-import { withPayload } from '@payloadcms/next/withPayload'
+import {withPayload} from '@payloadcms/next/withPayload'
 
 import redirects from './redirects.js'
 
@@ -19,6 +19,7 @@ const nextConfig = {
     ],
   },
   reactStrictMode: true,
+  basePath: '/cms',
   redirects,
 }
 

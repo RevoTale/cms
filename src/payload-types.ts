@@ -92,7 +92,7 @@ export interface Page {
           id?: string | null;
         }[]
       | null;
-    media?: (string | null) | Media;
+    media?: string | Media | null;
   };
   layout: (
     | {
@@ -231,7 +231,7 @@ export interface Page {
   )[];
   meta?: {
     title?: string | null;
-    image?: (string | null) | Media;
+    image?: string | Media | null;
     description?: string | null;
   };
   publishedAt?: string | null;
@@ -319,7 +319,7 @@ export interface Post {
   categories?: (string | Category)[] | null;
   meta?: {
     title?: string | null;
-    image?: (string | null) | Media;
+    image?: string | Media | null;
     description?: string | null;
   };
   publishedAt?: string | null;

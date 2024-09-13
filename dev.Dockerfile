@@ -1,6 +1,6 @@
 FROM node:20.17-alpine
 RUN apk add --no-cache libc6-compat
-WORKDIR /home/node/app
+WORKDIR /app
 COPY . .
 RUN corepack enable pnpm && pnpm i
 

@@ -1,48 +1,48 @@
 // storage-adapter-import-placeholder
-import { mongooseAdapter } from '@payloadcms/db-mongodb'
-
-import { payloadCloudPlugin } from '@payloadcms/plugin-cloud'
-import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
-import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
-import { redirectsPlugin } from '@payloadcms/plugin-redirects'
-import { seoPlugin } from '@payloadcms/plugin-seo'
+import {mongooseAdapter} from '@payloadcms/db-mongodb'
+import {cloudStorage} from '@payloadcms/plugin-cloud-storage'
+import {formBuilderPlugin} from '@payloadcms/plugin-form-builder'
+import {nestedDocsPlugin} from '@payloadcms/plugin-nested-docs'
+import {redirectsPlugin} from '@payloadcms/plugin-redirects'
+import {seoPlugin} from '@payloadcms/plugin-seo'
+import {GenerateTitle, GenerateURL} from '@payloadcms/plugin-seo/types'
 import {
   BoldFeature,
   FixedToolbarFeature,
   HeadingFeature,
   ItalicFeature,
-  LinkFeature,
   lexicalEditor,
+  LinkFeature,
+  UnderlineFeature,
 } from '@payloadcms/richtext-lexical'
-import sharp from 'sharp' // editor-import
-import { UnderlineFeature } from '@payloadcms/richtext-lexical'
 import path from 'path'
-import { buildConfig } from 'payload'
-import { fileURLToPath } from 'url'
+import {buildConfig} from 'payload'
+import sharp from 'sharp' // editor-import
+import {Page, Post} from 'src/payload-types'
+import {fileURLToPath} from 'url'
+import adapter from "./media-adapter";
 
 import Categories from './payload/collections/Categories'
-import { Media } from './payload/collections/Media'
-import { Pages } from './payload/collections/Pages'
-import { Posts } from './payload/collections/Posts'
+import {Media} from './payload/collections/Media'
+import {Pages} from './payload/collections/Pages'
+import {Posts} from './payload/collections/Posts'
 import Users from './payload/collections/Users'
-import { seed } from './payload/endpoints/seed'
-import { Footer } from './payload/globals/Footer/Footer'
-import { Header } from './payload/globals/Header/Header'
-import { revalidateRedirects } from './payload/hooks/revalidateRedirects'
-import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types'
-import { Page, Post } from 'src/payload-types'
+import {seed} from './payload/endpoints/seed'
+import {Footer} from './payload/globals/Footer/Footer'
+import {Header} from './payload/globals/Header/Header'
+import {revalidateRedirects} from './payload/hooks/revalidateRedirects'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
-const generateTitle: GenerateTitle<Post | Page> = ({ doc }) => {
+const generateTitle: GenerateTitle<Post | Page> = ({doc}) => {
   return doc?.title ? `${doc.title} | Payload Website Template` : 'Payload Website Template'
 }
 
-const generateURL: GenerateURL<Post | Page> = ({ doc }) => {
+const generateURL: GenerateURL<Post | Page> = ({doc}) => {
   return doc?.slug
-    ? `${(process.env.NEXT_PUBLIC_SERVER_URL??'')}/${doc.slug}`
-    : (process.env.NEXT_PUBLIC_SERVER_URL??'')
+    ? `${(process.env.NEXT_PUBLIC_SERVER_URL ?? '')}/${doc.slug}`
+    : (process.env.NEXT_PUBLIC_SERVER_URL ?? '')
 }
 
 export default buildConfig({
@@ -91,7 +91,7 @@ export default buildConfig({
         ItalicFeature(),
         LinkFeature({
           enabledCollections: ['pages', 'posts'],
-          fields: ({ defaultFields }) => {
+          fields: ({defaultFields}) => {
             const defaultFieldsWithoutUrl = defaultFields.filter((field) => {
               return !('name' in field && field.name === 'url');
 
@@ -103,9 +103,9 @@ export default buildConfig({
                 name: 'url',
                 type: 'text',
                 admin: {
-                  condition: ({ linkType }) => linkType !== 'internal',
+                  condition: ({linkType}) => linkType !== 'internal',
                 },
-                label: ({ t }) => t('fields:enterURL'),
+                label: ({t}) => t('fields:enterURL'),
                 required: true,
               },
             ]
@@ -131,10 +131,18 @@ export default buildConfig({
   ],
   globals: [Header, Footer],
   plugins: [
+    /*cloudStorage({
+      collections: {
+        'media': {
+          disableLocalStorage: true,
+          adapter: adapter, // see docs for the adapter you want to use
+        },
+      },
+    }),*/
     redirectsPlugin({
       collections: ['pages', 'posts'],
       overrides: {
-        fields: ({ defaultFields }) => {
+        fields: ({defaultFields}) => {
           return defaultFields.map((field) => {
             if ('name' in field && field.name === 'from') {
               return {
@@ -164,17 +172,17 @@ export default buildConfig({
         payment: false,
       },
       formOverrides: {
-        fields: ({ defaultFields }) => {
+        fields: ({defaultFields}) => {
           return defaultFields.map((field) => {
             if ('name' in field && field.name === 'confirmationMessage') {
               return {
                 ...field,
                 editor: lexicalEditor({
-                  features: ({ rootFeatures }) => {
+                  features: ({rootFeatures}) => {
                     return [
                       ...rootFeatures,
                       FixedToolbarFeature(),
-                      HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
+                      HeadingFeature({enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4']}),
                     ]
                   },
                 }),
@@ -185,9 +193,8 @@ export default buildConfig({
         },
       },
     }),
-    payloadCloudPlugin(), // storage-adapter-placeholder
   ],
-  secret: (process.env.PAYLOAD_SECRET??''),
+  secret: (process.env.PAYLOAD_SECRET ?? ''),
   sharp,
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),

@@ -21,6 +21,7 @@ const nextConfig = {
   reactStrictMode: true,
   basePath: '/cms',
   redirects,
+  output:'standalone'
 }
 
 export default withPayload(nextConfig)

@@ -15,12 +15,12 @@ FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-
+ARG NEXT_PUBLIC_SERVER_URL
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
 # Uncomment the following line in case you want to disable telemetry during the build.
 ENV NEXT_TELEMETRY_DISABLED=1
-
+ENV NEXT_PUBLIC_SERVER_URL=$NEXT_PUBLIC_SERVER_URL
 RUN corepack enable pnpm && pnpm run build
 
 # Production image, copy all the files and run next
@@ -30,7 +30,7 @@ ENV NODE_ENV=production
 ENV PAYLOAD_SECRET=''
 ENV DATABASE_URI=''
 ENV PAYLOAD_PUBLIC_SERVER_URL=""
-ENV NEXT_PUBLIC_SERVER_URL=""
+ENV NEXT_PUBLIC_SERVER_URL=$NEXT_PUBLIC_SERVER_URL
 ENV NEXT_PUBLIC_IS_LIVE=1
 ENV PAYLOAD_PUBLIC_DRAFT_SECRET=''
 ENV NEXT_PRIVATE_DRAFT_SECRET=''

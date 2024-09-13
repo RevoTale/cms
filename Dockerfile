@@ -7,12 +7,7 @@ WORKDIR /app
 
 # Install dependencies based on the preferred package manager
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
-RUN \
-  if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
-  elif [ -f package-lock.json ]; then npm ci; \
-  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm i --frozen-lockfile; \
-  else echo "Lockfile not found." && exit 1; \
-  fi
+RUN corepack enable pnpm && pnpm i --frozen-lockfile
 
 
 # Rebuild the source code only when needed
@@ -34,8 +29,8 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV PAYLOAD_SECRET=''
 ENV DATABASE_URI=''
-ENV PAYLOAD_PUBLIC_SERVER_URL="https://${PROJECT_DOMAIN}"
-ENV NEXT_PUBLIC_SERVER_URL="https://${PROJECT_DOMAIN}/cms"
+ENV PAYLOAD_PUBLIC_SERVER_URL=""
+ENV NEXT_PUBLIC_SERVER_URL=""
 ENV NEXT_PUBLIC_IS_LIVE=1
 ENV PAYLOAD_PUBLIC_DRAFT_SECRET=''
 ENV NEXT_PRIVATE_DRAFT_SECRET=''

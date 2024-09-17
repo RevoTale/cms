@@ -94,7 +94,7 @@ export interface Page {
           id?: string | null;
         }[]
       | null;
-    media?: string | Media | null;
+    media?: (string | null) | Media;
   };
   layout: (
     | {
@@ -212,7 +212,7 @@ export interface Page {
   )[];
   meta?: {
     title?: string | null;
-    image?: string | Media | null;
+    image?: (string | null) | Media;
     description?: string | null;
   };
   publishedAt?: string | null;
@@ -310,12 +310,11 @@ export interface Post {
   categories?: (string | Category)[] | null;
   meta: {
     title?: string | null;
-    image?: string | Media | null;
+    image?: (string | null) | Media;
     nofollow: boolean;
     noindex: boolean;
     description?: string | null;
   };
-  shortDescription: string;
   authorSlug?: string | null;
   publishedAt?: string | null;
   authors: (string | Author)[];
@@ -343,7 +342,7 @@ export interface Author {
   name: string;
   slug: string;
   bio?: string | null;
-  avatar?: string | Media | null;
+  avatar?: (string | null) | Media;
   user: string | User;
   updatedAt: string;
   createdAt: string;

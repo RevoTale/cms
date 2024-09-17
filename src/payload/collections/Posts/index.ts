@@ -160,11 +160,6 @@ export const Posts: CollectionConfig = {
       ],
     },
     {
-      name: 'shortDescription',
-      type: 'text',
-      required: true
-    },
-    {
       name: 'authorSlug',
       type: 'text', // This makes it queryable in "where" conditions
       admin: {

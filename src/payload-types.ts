@@ -94,7 +94,7 @@ export interface Page {
           id?: string | null;
         }[]
       | null;
-    media?: (string | null) | Media;
+    media?: string | Media | null;
   };
   layout: (
     | {
@@ -212,7 +212,7 @@ export interface Page {
   )[];
   meta?: {
     title?: string | null;
-    image?: (string | null) | Media;
+    image?: string | Media | null;
     description?: string | null;
   };
   publishedAt?: string | null;
@@ -229,21 +229,7 @@ export interface Media {
   id: string;
   alt: string;
   description?: string | null;
-  caption?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+  caption?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -319,26 +305,12 @@ export interface Post {
   subtitle: string;
   tags?: (string | Tag)[] | null;
   featuredImage: string | Media;
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
+  content: string;
   relatedPosts?: (string | Post)[] | null;
   categories?: (string | Category)[] | null;
   meta: {
     title?: string | null;
-    image?: (string | null) | Media;
+    image?: string | Media | null;
     nofollow: boolean;
     noindex: boolean;
     description?: string | null;
@@ -371,7 +343,7 @@ export interface Author {
   name: string;
   slug: string;
   bio?: string | null;
-  avatar?: (string | null) | Media;
+  avatar?: string | Media | null;
   user: string | User;
   updatedAt: string;
   createdAt: string;
@@ -705,31 +677,6 @@ export interface Footer {
     | null;
   updatedAt?: string | null;
   createdAt?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "BannerBlock".
- */
-export interface BannerBlock {
-  style: 'info' | 'warning' | 'error' | 'success';
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'banner';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

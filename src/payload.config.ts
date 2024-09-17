@@ -87,6 +87,7 @@ export default buildConfig({
       ],
     },
   },
+
   // This config helps us configure global or default features that the other editors can inherit
   editor: lexicalEditor({
     features: () => {
@@ -122,6 +123,7 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
+  serverURL:process.env.PAYLOAD_PUBLIC_SERVER_URL,
   collections: [Pages, Posts, Media, Categories, Users,Tags,Authors],
   cors: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
   csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),

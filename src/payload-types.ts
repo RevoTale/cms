@@ -216,7 +216,7 @@ export interface Page {
     description?: string | null;
   };
   publishedAt?: string | null;
-  slug?: string | null;
+  slug: string;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -318,7 +318,7 @@ export interface Post {
   authorSlug?: string | null;
   publishedAt?: string | null;
   authors: (string | Author)[];
-  slug?: string | null;
+  slug: string;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;

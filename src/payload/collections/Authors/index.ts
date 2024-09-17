@@ -1,5 +1,7 @@
 // collections/Tags.js
 import { CollectionConfig } from 'payload';
+import {anyone} from "../../access/anyone";
+import {authenticated} from "../../access/authenticated";
 import {slugField} from "../../fields/slug";
 
 const Authors: CollectionConfig = {
@@ -8,15 +10,24 @@ const Authors: CollectionConfig = {
     singular: 'Author',
     plural: 'Authors',
   },
+  access: {
+    create: authenticated,
+    delete: authenticated,
+    read: anyone,
+    update: authenticated,
+  },
   fields: [
     {
       name: 'name',
       type: 'text',
       required: true,
-      label: 'Tag Name',
+      label: 'Author Name',
       maxLength:32
     },
-    slugField(),
+    slugField('name',{
+      unique:true,
+      required:true
+    }),
     {
       name:'bio',
       type:'text'

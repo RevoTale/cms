@@ -47,6 +47,7 @@ export const Posts: CollectionConfig = {
       generatePreviewPath({path: `/posts/${typeof doc?.slug === 'string' ? doc.slug : ''}`}),
     useAsTitle: 'title',
   },
+
   fields: [
     {
       name: 'title',
@@ -213,16 +214,19 @@ export const Posts: CollectionConfig = {
       hasMany: true,
       required: true,
     },
-    slugField(),
+    slugField('title',{
+      unique:true,
+    }),
   ],
   hooks: {
     afterChange: [revalidatePost],
+
     beforeChange: [
       async ({ data, req }) => {
-        if (data.author) {
+        if (data.authors && data.authors.length>0) {
           const author = await req.payload.findByID({
             collection: 'authors',
-            id: data.author,
+            id: data.authors[0],
           });
           if (author && author.slug) {
             data.authorSlug = author.slug;

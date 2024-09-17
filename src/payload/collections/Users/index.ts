@@ -20,8 +20,9 @@ const Users: CollectionConfig = {
     {
       name: 'name',
       type: 'text',
-    },
+    }
   ],
+
   timestamps: true,
 }
 

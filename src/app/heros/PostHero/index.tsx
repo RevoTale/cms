@@ -8,7 +8,7 @@ import { Media } from '../../components/Media'
 export const PostHero: React.FC<{
   post: Post
 }> = ({ post }) => {
-  const { categories, meta: { image: metaImage } = {}, populatedAuthors, publishedAt, title } = post
+  const { categories, meta: { image: metaImage } = {}, authors, publishedAt, title } = post
 
   return (
     <div className="relative -mt-[10.4rem] flex items-end">
@@ -40,25 +40,28 @@ export const PostHero: React.FC<{
 
           <div className="flex flex-col md:flex-row gap-4 md:gap-16">
             <div className="flex flex-col gap-4">
-              {populatedAuthors && (
+              {authors && (
                 <div className="flex flex-col gap-1">
                   <p className="text-sm">Author</p>
-                  {populatedAuthors.map((author, index) => {
+                  {authors.map((author, index) => {
+                    if (typeof  author === 'string') {
+                      return;
+                    }
                     const { name } = author
 
-                    const isLast = index === populatedAuthors.length - 1
-                    const secondToLast = index === populatedAuthors.length - 2
+                    const isLast = index === authors.length - 1
+                    const secondToLast = index === authors.length - 2
 
                     return (
                       <React.Fragment key={index}>
                         {name}
-                        {secondToLast && populatedAuthors.length > 2 && (
+                        {secondToLast && authors.length > 2 && (
                           <React.Fragment>, </React.Fragment>
                         )}
-                        {secondToLast && populatedAuthors.length === 2 && (
+                        {secondToLast && authors.length === 2 && (
                           <React.Fragment> </React.Fragment>
                         )}
-                        {!isLast && populatedAuthors.length > 1 && (
+                        {!isLast && authors.length > 1 && (
                           <React.Fragment>and </React.Fragment>
                         )}
                       </React.Fragment>

@@ -21,11 +21,13 @@ import sharp from 'sharp' // editor-import
 import {Page, Post} from 'src/payload-types'
 import {fileURLToPath} from 'url'
 import adapter from "./media-adapter";
+import Authors from "./payload/collections/Authors";
 
 import Categories from './payload/collections/Categories'
 import {Media} from './payload/collections/Media'
 import {Pages} from './payload/collections/Pages'
 import {Posts} from './payload/collections/Posts'
+import Tags from "./payload/collections/Tags";
 import Users from './payload/collections/Users'
 import {seed} from './payload/endpoints/seed'
 import {Footer} from './payload/globals/Footer/Footer'
@@ -120,7 +122,7 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
-  collections: [Pages, Posts, Media, Categories, Users],
+  collections: [Pages, Posts, Media, Categories, Users,Tags,Authors],
   cors: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
   csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
   endpoints: [

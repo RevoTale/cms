@@ -1,4 +1,10 @@
-import type { CollectionConfig } from 'payload'
+import {
+  MetaDescriptionField,
+  MetaImageField,
+  MetaTitleField,
+  OverviewField,
+  PreviewField,
+} from '@payloadcms/plugin-seo/fields'
 
 import {
   BlocksFeature,
@@ -8,24 +14,16 @@ import {
   InlineToolbarFeature,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
+import type {CollectionConfig} from 'payload'
 
-import { authenticated } from '../../access/authenticated'
-import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
-import { Banner } from '../../blocks/Banner'
-import { Code } from '../../blocks/Code'
-import { MediaBlock } from '../../blocks/MediaBlock'
-import { slugField } from '../../fields/slug'
-import { generatePreviewPath } from '../../utilities/generatePreviewPath'
-import { populateAuthors } from './hooks/populateAuthors'
-import { revalidatePost } from './hooks/revalidatePost'
-
-import {
-  MetaDescriptionField,
-  MetaImageField,
-  MetaTitleField,
-  OverviewField,
-  PreviewField,
-} from '@payloadcms/plugin-seo/fields'
+import {authenticated} from '../../access/authenticated'
+import {authenticatedOrPublished} from '../../access/authenticatedOrPublished'
+import {Banner} from '../../blocks/Banner'
+import {Code} from '../../blocks/Code'
+import {MediaBlock} from '../../blocks/MediaBlock'
+import {slugField} from '../../fields/slug'
+import {generatePreviewPath} from '../../utilities/generatePreviewPath'
+import {revalidatePost} from './hooks/revalidatePost'
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
@@ -38,7 +36,7 @@ export const Posts: CollectionConfig = {
   admin: {
     defaultColumns: ['title', 'slug', 'updatedAt'],
     livePreview: {
-      url: ({ data }) => {
+      url: ({data}) => {
         const path = generatePreviewPath({
           path: `/posts/${typeof data?.slug === 'string' ? data.slug : ''}`,
         })
@@ -46,7 +44,7 @@ export const Posts: CollectionConfig = {
       },
     },
     preview: (doc) =>
-      generatePreviewPath({ path: `/posts/${typeof doc?.slug === 'string' ? doc.slug : ''}` }),
+      generatePreviewPath({path: `/posts/${typeof doc?.slug === 'string' ? doc.slug : ''}`}),
     useAsTitle: 'title',
   },
   fields: [
@@ -56,6 +54,26 @@ export const Posts: CollectionConfig = {
       required: true,
     },
     {
+      name: 'subtitle',
+      type: 'text',
+      required: true,
+    },
+    {
+      name: 'tags',
+      type: 'relationship',
+      relationTo: 'tags',
+      hasMany: true,
+      label: 'Tags'
+    },
+    {
+      name:'featuredImage',
+      type:'upload',
+      relationTo:'media',
+      required:true,
+      label:'Featured image'
+    },
+
+    {
       type: 'tabs',
       tabs: [
         {
@@ -64,11 +82,11 @@ export const Posts: CollectionConfig = {
               name: 'content',
               type: 'richText',
               editor: lexicalEditor({
-                features: ({ rootFeatures }) => {
+                features: ({rootFeatures}) => {
                   return [
                     ...rootFeatures,
-                    HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-                    BlocksFeature({ blocks: [Banner, Code, MediaBlock] }),
+                    HeadingFeature({enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4']}),
+                    BlocksFeature({blocks: [Banner, Code, MediaBlock]}),
                     FixedToolbarFeature(),
                     InlineToolbarFeature(),
                     HorizontalRuleFeature(),
@@ -89,7 +107,7 @@ export const Posts: CollectionConfig = {
               admin: {
                 position: 'sidebar',
               },
-              filterOptions: ({ id }) => {
+              filterOptions: ({id}) => {
                 return {
                   id: {
                     not_in: [id],
@@ -126,6 +144,18 @@ export const Posts: CollectionConfig = {
             MetaImageField({
               relationTo: 'media',
             }),
+            {
+              name: 'nofollow',
+              defaultValue: false,
+              type: 'checkbox',
+              required: true
+            },
+            {
+              name: 'noindex',
+              defaultValue: false,
+              type: 'checkbox',
+              required: true
+            },
 
             MetaDescriptionField({}),
             PreviewField({
@@ -141,6 +171,18 @@ export const Posts: CollectionConfig = {
       ],
     },
     {
+      name: 'shortDescription',
+      type: 'text',
+      required: true
+    },
+    {
+      name: 'authorSlug',
+      type: 'text', // This makes it queryable in "where" conditions
+      admin: {
+        readOnly: true,  // Optional: make it read-only
+      },
+    },
+    {
       name: 'publishedAt',
       type: 'date',
       admin: {
@@ -151,7 +193,7 @@ export const Posts: CollectionConfig = {
       },
       hooks: {
         beforeChange: [
-          ({ siblingData, value }) => {
+          ({siblingData, value}) => {
             if (siblingData._status === 'published' && !value) {
               return new Date()
             }
@@ -160,44 +202,35 @@ export const Posts: CollectionConfig = {
         ],
       },
     },
-    {
-      name: 'authors',
-      type: 'relationship',
-      admin: {
-        position: 'sidebar',
-      },
-      hasMany: true,
-      relationTo: 'users',
-    },
     // This field is only used to populate the user data via the `populateAuthors` hook
     // This is because the `user` collection has access control locked to protect user privacy
     // GraphQL will also not return mutated user data that differs from the underlying schema
     {
-      name: 'populatedAuthors',
-      type: 'array',
-      access: {
-        update: () => false,
-      },
-      admin: {
-        disabled: true,
-        readOnly: true,
-      },
-      fields: [
-        {
-          name: 'id',
-          type: 'text',
-        },
-        {
-          name: 'name',
-          type: 'text',
-        },
-      ],
+      name: 'authors',
+      type: 'relationship',
+      relationTo: 'authors',
+      admin:{position: 'sidebar',},
+      hasMany: true,
+      required: true,
     },
     slugField(),
   ],
   hooks: {
     afterChange: [revalidatePost],
-    afterRead: [populateAuthors],
+    beforeChange: [
+      async ({ data, req }) => {
+        if (data.author) {
+          const author = await req.payload.findByID({
+            collection: 'authors',
+            id: data.author,
+          });
+          if (author && author.slug) {
+            data.authorSlug = author.slug;
+          }
+        }
+        return data;
+      },
+    ],
   },
   versions: {
     drafts: {

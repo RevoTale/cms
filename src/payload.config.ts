@@ -50,18 +50,8 @@ const s3PluginConfig = s3Storage({
     [Media.slug]: {
       prefix:'main_',
       disableLocalStorage:true,
-      generateFileURL:({filename,prefix='',size})=>{
-        let config = ''
-        if (size?.width) {
-          config += `width=${size.width}`
-        }
-        if (size?.height) {
-          config += `height=${size.height}`
-        }
-
-        config += `quality=90,format=auto`
-
-        return `https://revotale.com/cdn-cgi/image/${config}/https://media.revotale.com/${prefix}/${filename}`
+      generateFileURL:({filename,prefix=''})=>{
+        return `https://media.revotale.com/${prefix}/${filename}`
       }
     },
   },

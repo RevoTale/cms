@@ -47,14 +47,30 @@ const generateURL: GenerateURL<Post | Page> = ({doc}) => {
 }
 const s3PluginConfig = s3Storage({
   collections: {
-    'media': {
+    [Media.slug]: {
       prefix:'main_',
       disableLocalStorage:true,
+      generateFileURL:({filename,prefix='',size})=>{
+        let config = ''
+        if (size?.width) {
+          config += `width=${size.width}`
+        }
+        if (size?.height) {
+          config += `height=${size.height}`
+        }
+
+        config += `quality=90`
+
+        return `https://revotale.com/cdn-cgi/image/${config}/https://media.revotale.com/${prefix}/${filename}`
+      }
     },
   },
+  disableLocalStorage:true,
   bucket: process.env.S3_BUCKET??'',
   config: {
+    endpoint:process.env.S3_ENDPOINT,
     credentials: {
+
       accessKeyId: process.env.S3_ACCESS_KEY_ID??'',
       secretAccessKey: process.env.S3_SECRET_ACCESS_KEY??'',
     },

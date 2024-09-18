@@ -38,8 +38,10 @@ ENV PAYLOAD_PUBLIC_DRAFT_SECRET=''
 ENV NEXT_PRIVATE_DRAFT_SECRET=''
 ENV REVALIDATION_KEY=''
 ENV S3_BUCKET=''
+ENV S3_ENDPOINT=''
 ENV S3_ACCESS_KEY_ID=''
 ENV S3_SECRET_ACCESS_KEY=''
+ENV S3_REGION=''
 ENV NEXT_PRIVATE_REVALIDATION_KEY=''
 ENV NODE_ENV=production
 # Uncomment the following line in case you want to disable telemetry during runtime.
@@ -51,10 +53,9 @@ RUN adduser --system --uid 1001 nextjs
 COPY --from=builder /app/public ./public
 
 # Set the correct permission for prerender cache
-RUN mkdir .next && mkdir  /app/file-storage
+RUN mkdir .next
 
-RUN chown nextjs:nodejs .next && chown nextjs:nodejs /app/file-storage && chown nextjs:nodejs ./public
-VOLUME /app/file-storage
+RUN chown nextjs:nodejs .next && chown nextjs:nodejs ./public
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./

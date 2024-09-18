@@ -59,7 +59,7 @@ const s3PluginConfig = s3Storage({
           config += `height=${size.height}`
         }
 
-        config += `quality=90`
+        config += `quality=90,format=auto`
 
         return `https://revotale.com/cdn-cgi/image/${config}/https://media.revotale.com/${prefix}/${filename}`
       }

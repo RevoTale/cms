@@ -15,6 +15,9 @@ const Tags: CollectionConfig = {
     read: anyone,
     update: authenticated,
   },
+  admin:{
+    useAsTitle:'name'
+  },
   fields: [
     {
       name: 'name',

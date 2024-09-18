@@ -6,21 +6,11 @@ import {
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
 
-import {
-  BlocksFeature,
-  FixedToolbarFeature,
-  HeadingFeature,
-  HorizontalRuleFeature,
-  InlineToolbarFeature,
-  lexicalEditor,
-} from '@payloadcms/richtext-lexical'
+
 import type {CollectionConfig} from 'payload'
 
 import {authenticated} from '../../access/authenticated'
 import {authenticatedOrPublished} from '../../access/authenticatedOrPublished'
-import {Banner} from '../../blocks/Banner'
-import {Code} from '../../blocks/Code'
-import {MediaBlock} from '../../blocks/MediaBlock'
 import {slugField} from '../../fields/slug'
 import {generatePreviewPath} from '../../utilities/generatePreviewPath'
 import {revalidatePost} from './hooks/revalidatePost'
@@ -199,6 +189,7 @@ export const Posts: CollectionConfig = {
     },
     slugField('title',{
       unique:true,
+      required:true
     }),
   ],
   hooks: {

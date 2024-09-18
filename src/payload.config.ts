@@ -14,7 +14,9 @@ import {
   LinkFeature,
   UnderlineFeature,
 } from '@payloadcms/richtext-lexical'
-import {s3Storage} from "@payloadcms/storage-s3";
+import { s3Adapter } from '@payloadcms/plugin-cloud-storage/s3'
+import { cloudStoragePlugin } from '@payloadcms/plugin-cloud-storage'
+
 import path from 'path'
 import {buildConfig} from 'payload'
 import sharp from 'sharp' // editor-import
@@ -44,10 +46,8 @@ const generateURL: GenerateURL<Post | Page> = ({doc}) => {
     ? `${(process.env.NEXT_PUBLIC_SERVER_URL ?? '')}/${doc.slug}`
     : (process.env.NEXT_PUBLIC_SERVER_URL ?? '')
 }
-const s3PluginConfig = s3Storage({
-  collections: {
-    'media': true,
-  },
+const s3PluginConfig = s3Adapter({
+
   bucket: process.env.S3_BUCKET??'',
   config: {
     credentials: {
@@ -57,7 +57,6 @@ const s3PluginConfig = s3Storage({
     region: process.env.S3_REGION,
     // ... Other S3 configuration
   },
-  disableLocalStorage:true
 })
 export default buildConfig({
   graphQL:{
@@ -159,7 +158,16 @@ export default buildConfig({
         },
       },
     }),*/
-    s3PluginConfig,
+    cloudStoragePlugin({
+
+      collections: {
+        'media': {
+          prefix:'media_',
+          disableLocalStorage:true,
+          adapter:s3PluginConfig
+        },
+      },
+    }),
     redirectsPlugin({
       collections: ['pages', 'posts'],
       overrides: {

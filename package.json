@@ -24,7 +24,7 @@
     "@payloadcms/live-preview-react": "3.0.0-beta.87",
     "@payloadcms/next": "3.0.0-beta.87",
     "@payloadcms/plugin-cloud": "3.0.2",
-    "@payloadcms/plugin-cloud-storage": "^1.1.3",
+    "@payloadcms/plugin-cloud-storage": "3.0.0-beta.87",
     "@payloadcms/plugin-form-builder": "3.0.0-beta.87",
     "@payloadcms/plugin-nested-docs": "3.0.0-beta.87",
     "@payloadcms/plugin-redirects": "3.0.0-beta.87",

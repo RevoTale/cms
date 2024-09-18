@@ -14,8 +14,7 @@ import {
   LinkFeature,
   UnderlineFeature,
 } from '@payloadcms/richtext-lexical'
-import { s3Adapter } from '@payloadcms/plugin-cloud-storage/s3'
-import { cloudStoragePlugin } from '@payloadcms/plugin-cloud-storage'
+import { s3Storage } from '@payloadcms/storage-s3'
 
 import path from 'path'
 import {buildConfig} from 'payload'
@@ -46,8 +45,13 @@ const generateURL: GenerateURL<Post | Page> = ({doc}) => {
     ? `${(process.env.NEXT_PUBLIC_SERVER_URL ?? '')}/${doc.slug}`
     : (process.env.NEXT_PUBLIC_SERVER_URL ?? '')
 }
-const s3PluginConfig = s3Adapter({
-
+const s3PluginConfig = s3Storage({
+  collections: {
+    'media': {
+      prefix:'main_',
+      disableLocalStorage:true,
+    },
+  },
   bucket: process.env.S3_BUCKET??'',
   config: {
     credentials: {
@@ -158,16 +162,7 @@ export default buildConfig({
         },
       },
     }),*/
-    cloudStoragePlugin({
-
-      collections: {
-        'media': {
-          prefix:'media_',
-          disableLocalStorage:true,
-          adapter:s3PluginConfig
-        },
-      },
-    }),
+    s3PluginConfig,
     redirectsPlugin({
       collections: ['pages', 'posts'],
       overrides: {

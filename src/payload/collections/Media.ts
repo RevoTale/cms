@@ -1,10 +1,7 @@
-import {FixedToolbarFeature, InlineToolbarFeature, lexicalEditor,} from '@payloadcms/richtext-lexical'
 import type {CollectionConfig} from 'payload'
 
 import {anyone} from '../access/anyone'
 import {authenticated} from '../access/authenticated'
-
-
 export const Media: CollectionConfig = {
   slug: 'media',
   access: {
@@ -29,6 +26,7 @@ export const Media: CollectionConfig = {
     },
   ],
   upload: {
+
 
     adminThumbnail: 'card',
     imageSizes: [

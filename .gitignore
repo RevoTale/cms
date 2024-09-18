@@ -8,3 +8,4 @@ node_modules
 tsconfig.tsbuildinfo
 # Payload default media upload directory
 public/media/
+.pnpm-store/

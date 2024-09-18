@@ -1,6 +1,5 @@
 // storage-adapter-import-placeholder
 import {mongooseAdapter} from '@payloadcms/db-mongodb'
-import {cloudStorage} from '@payloadcms/plugin-cloud-storage'
 import {formBuilderPlugin} from '@payloadcms/plugin-form-builder'
 import {nestedDocsPlugin} from '@payloadcms/plugin-nested-docs'
 import {redirectsPlugin} from '@payloadcms/plugin-redirects'
@@ -15,12 +14,12 @@ import {
   LinkFeature,
   UnderlineFeature,
 } from '@payloadcms/richtext-lexical'
+import {s3Storage} from "@payloadcms/storage-s3";
 import path from 'path'
 import {buildConfig} from 'payload'
 import sharp from 'sharp' // editor-import
 import {Page, Post} from 'src/payload-types'
 import {fileURLToPath} from 'url'
-import adapter from "./media-adapter";
 import Authors from "./payload/collections/Authors";
 
 import Categories from './payload/collections/Categories'
@@ -45,7 +44,21 @@ const generateURL: GenerateURL<Post | Page> = ({doc}) => {
     ? `${(process.env.NEXT_PUBLIC_SERVER_URL ?? '')}/${doc.slug}`
     : (process.env.NEXT_PUBLIC_SERVER_URL ?? '')
 }
-
+const s3PluginConfig = s3Storage({
+  collections: {
+    'media': true,
+  },
+  bucket: process.env.S3_BUCKET??'',
+  config: {
+    credentials: {
+      accessKeyId: process.env.S3_ACCESS_KEY_ID??'',
+      secretAccessKey: process.env.S3_SECRET_ACCESS_KEY??'',
+    },
+    region: process.env.S3_REGION,
+    // ... Other S3 configuration
+  },
+  disableLocalStorage:true
+})
 export default buildConfig({
   graphQL:{
     disablePlaygroundInProduction:false,
@@ -146,6 +159,7 @@ export default buildConfig({
         },
       },
     }),*/
+    s3PluginConfig,
     redirectsPlugin({
       collections: ['pages', 'posts'],
       overrides: {

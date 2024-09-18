@@ -1,11 +1,9 @@
-import { BannerBlock } from '@/blocks/Banner'
 import { CallToActionBlock } from '@/blocks/CallToAction'
 import { CodeBlock, CodeBlockProps } from '@/blocks/Code'
 import { MediaBlock } from '@/blocks/MediaBlock'
 import React, { Fragment, JSX } from 'react'
 import { CMSLink } from 'src/app/components/Link'
 import { DefaultNodeTypes, SerializedBlockNode } from '@payloadcms/richtext-lexical'
-import type { BannerBlock as BannerBlockProps } from 'src/payload-types'
 
 import {
   IS_BOLD,
@@ -24,7 +22,6 @@ export type NodeTypes =
       // @ts-ignore // TODO: Fix this
       | Extract<Page['layout'][0], { blockType: 'cta' }>
       | Extract<Page['layout'][0], { blockType: 'mediaBlock' }>
-      | BannerBlockProps
       | CodeBlockProps
     >
 
@@ -120,8 +117,6 @@ export function serializeLexical({ nodes }: Props): JSX.Element {
                   enableGutter={false}
                 />
               )
-            case 'banner':
-              return <BannerBlock className="col-start-2 mb-4" key={index} {...block} />
             case 'code':
               return <CodeBlock className="col-start-2" key={index} {...block} />
             default:

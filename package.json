@@ -49,15 +49,15 @@
     "payload": "3.0.0-beta.111",
     "payload-admin-bar": "^1.0.6",
     "prism-react-renderer": "^2.4.0",
-    "react": "19.0.0-rc-06d0b89e-20240801",
-    "react-dom": "19.0.0-rc-06d0b89e-20240801",
+    "react": "19.0.0-rc-3edc000d-20240926",
+    "react-dom": "19.0.0-rc-3edc000d-20240926",
     "react-hook-form": "7.53.0",
     "sharp": "0.33.5",
     "tailwind-merge": "^2.5.3",
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
-    "@next/eslint-plugin-next": "^15.0.0-canary.179",
+    "@next/eslint-plugin-next": "15.0.0-rc.0",
     "@payloadcms/eslint-config": "^1.1.1",
     "@tailwindcss/typography": "^0.5.15",
     "@types/escape-html": "^1.0.4",

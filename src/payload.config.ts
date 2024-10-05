@@ -42,8 +42,8 @@ const generateTitle: GenerateTitle<Post | Page> = ({doc}) => {
 
 const generateURL: GenerateURL<Post | Page> = ({doc}) => {
   return doc?.slug
-    ? `${(process.env.NEXT_PUBLIC_SERVER_URL ?? '')}/${doc.slug}`
-    : (process.env.NEXT_PUBLIC_SERVER_URL ?? '')
+    ? `${(process.env.PAYLOAD_PUBLIC_SERVER_URL ?? '')}/blog/${doc.slug}`
+    : (process.env.PAYLOAD_PUBLIC_SERVER_URL ?? '')
 }
 const s3PluginConfig = s3Storage({
   collections: {

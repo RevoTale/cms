@@ -27,11 +27,11 @@ export async function GET(
   const user = jwt.decode(token )
 
   if (!user) {
-    draftMode().disable()
+   ( await draftMode()).disable()
     return new Response('You are not allowed to preview this page', { status: 403 })
   }
-  jwt.verify(token,process.env.PAYLOAD_SECRET??'')
+  jwt.verify(token,process.env.PAYLOAD_SECRET??'');
 
-  draftMode().enable()
+  (await draftMode()).enable()
   redirect(path)
 }

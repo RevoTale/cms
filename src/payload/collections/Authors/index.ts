@@ -25,7 +25,8 @@ const Authors: CollectionConfig = {
       type: 'text',
       required: true,
       label: 'Author Name',
-      maxLength:32
+      maxLength:32,
+      localized:true
     },
     slugField('name',{
       unique:true,
@@ -33,7 +34,8 @@ const Authors: CollectionConfig = {
     }),
     {
       name:'bio',
-      type:'text'
+      type:'text',
+      localized:true
     },
     {
       name:'avatar',

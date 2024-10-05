@@ -32,7 +32,7 @@ export interface Config {
     header: Header;
     footer: Footer;
   };
-  locale: null;
+  locale: 'en-US' | 'uk-UA' | 'de-DE' | 'hi-IN' | 'ja-JP' | 'ru' | 'fr-FR' | 'es-ES';
   user: User & {
     collection: 'users';
   };

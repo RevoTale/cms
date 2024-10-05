@@ -73,6 +73,11 @@ export default buildConfig({
     disablePlaygroundInProduction:false,
     schemaOutputFile: path.resolve(dirname, './graphql/schema.graphql'),
   },
+  localization: {
+    locales: ['en-US', 'uk-UA', 'de-DE','hi-IN','ja-JP','ru-RU','fr-FR','es-ES'],
+    defaultLocale: 'en',
+    fallback: true,
+  },
   admin: {
     components: {
       // The `BeforeLogin` component renders a message that you see while logging into your admin panel.

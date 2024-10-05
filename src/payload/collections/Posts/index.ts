@@ -43,11 +43,14 @@ export const Posts: CollectionConfig = {
       name: 'title',
       type: 'text',
       required: true,
+      localized:true
     },
     {
       name: 'subtitle',
       type: 'text',
       required: true,
+      localized:true
+
     },
     {
       name: 'tags',
@@ -74,6 +77,7 @@ export const Posts: CollectionConfig = {
               type: 'textarea',
               label: false,
               required: true,
+              localized:true
             },
           ],
           label: 'Content',

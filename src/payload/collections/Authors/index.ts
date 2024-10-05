@@ -30,7 +30,8 @@ const Authors: CollectionConfig = {
     },
     slugField('name',{
       unique:true,
-      required:true
+      required:true,
+      localized:false
     }),
     {
       name:'bio',
@@ -41,13 +42,15 @@ const Authors: CollectionConfig = {
       name:'avatar',
       required:false,
       type:'upload',
-      relationTo:'media'
+      relationTo:'media',
+      localized:false
     },
     {
       name:'user',
       type:'relationship',
       relationTo:'users',
-      required:true
+      required:true,
+      localized:false
     }
   ],
 };

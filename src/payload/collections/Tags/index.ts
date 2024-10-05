@@ -24,6 +24,7 @@ const Tags: CollectionConfig = {
       type: 'text',
       required: true,
       label: 'Tag Name',
+      localized:false
     },
   ],
 };

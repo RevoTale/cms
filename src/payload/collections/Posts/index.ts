@@ -64,7 +64,8 @@ export const Posts: CollectionConfig = {
       type:'upload',
       relationTo:'media',
       required:true,
-      label:'Featured image'
+      label:'Featured image',
+      localized:false
     },
 
     {
@@ -87,6 +88,7 @@ export const Posts: CollectionConfig = {
             {
               name: 'relatedPosts',
               type: 'relationship',
+              localized:false,
               admin: {
                 position: 'sidebar',
               },
@@ -126,18 +128,21 @@ export const Posts: CollectionConfig = {
             }),
             MetaImageField({
               relationTo: 'media',
+              localized:false
             }),
             {
               name: 'nofollow',
               defaultValue: false,
               type: 'checkbox',
-              required: true
+              required: true,
+              localized:false
             },
             {
               name: 'noindex',
               defaultValue: false,
               type: 'checkbox',
-              required: true
+              required: true,
+              localized:false
             },
 
             MetaDescriptionField({}),
@@ -159,10 +164,12 @@ export const Posts: CollectionConfig = {
       admin: {
         readOnly: true,  // Optional: make it read-only
       },
+      localized:false
     },
     {
       name: 'publishedAt',
       type: 'date',
+      localized:false,
       admin: {
         date: {
           pickerAppearance: 'dayAndTime',
@@ -190,10 +197,12 @@ export const Posts: CollectionConfig = {
       admin:{position: 'sidebar',},
       hasMany: true,
       required: true,
+      localized:false
     },
     slugField('title',{
       unique:true,
-      required:true
+      required:true,
+      localized:false
     }),
   ],
   hooks: {

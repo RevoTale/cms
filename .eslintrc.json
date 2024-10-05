@@ -1,0 +1,11 @@
+{
+	"extends": [
+		"next/core-web-vitals",
+    "next/typescript"
+	],
+  "root": true,
+	"rules": {},
+	"parserOptions": {
+		"project": "./tsconfig.json"
+	}
+}

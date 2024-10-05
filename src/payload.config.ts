@@ -75,7 +75,7 @@ export default buildConfig({
   },
   localization: {
     locales: ['en-US', 'uk-UA', 'de-DE','hi-IN','ja-JP','ru-RU','fr-FR','es-ES'],
-    defaultLocale: 'en',
+    defaultLocale: 'en-US',
     fallback: true,
   },
   admin: {

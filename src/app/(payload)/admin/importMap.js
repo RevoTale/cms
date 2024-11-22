@@ -1,37 +1,35 @@
-import { RichTextCell as RichTextCell_0 } from '@payloadcms/richtext-lexical/client'
-import { RichTextField as RichTextField_1 } from '@payloadcms/richtext-lexical/client'
-import { getGenerateComponentMap as getGenerateComponentMap_2 } from '@payloadcms/richtext-lexical/generateComponentMap'
-import { InlineToolbarFeatureClient as InlineToolbarFeatureClient_3 } from '@payloadcms/richtext-lexical/client'
-import { FixedToolbarFeatureClient as FixedToolbarFeatureClient_4 } from '@payloadcms/richtext-lexical/client'
-import { HeadingFeatureClient as HeadingFeatureClient_5 } from '@payloadcms/richtext-lexical/client'
-import { UnderlineFeatureClient as UnderlineFeatureClient_6 } from '@payloadcms/richtext-lexical/client'
-import { BoldFeatureClient as BoldFeatureClient_7 } from '@payloadcms/richtext-lexical/client'
-import { ItalicFeatureClient as ItalicFeatureClient_8 } from '@payloadcms/richtext-lexical/client'
-import { LinkFeatureClient as LinkFeatureClient_9 } from '@payloadcms/richtext-lexical/client'
-import { OverviewComponent as OverviewComponent_10 } from '@payloadcms/plugin-seo/client'
-import { MetaTitleComponent as MetaTitleComponent_11 } from '@payloadcms/plugin-seo/client'
-import { MetaImageComponent as MetaImageComponent_12 } from '@payloadcms/plugin-seo/client'
-import { MetaDescriptionComponent as MetaDescriptionComponent_13 } from '@payloadcms/plugin-seo/client'
-import { PreviewComponent as PreviewComponent_14 } from '@payloadcms/plugin-seo/client'
-import { default as default_15 } from 'src/payload/components/BeforeDashboard'
-import { default as default_16 } from 'src/payload/components/BeforeLogin'
+import { RscEntryLexicalCell as RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
+import { RscEntryLexicalField as RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
+import { InlineToolbarFeatureClient as InlineToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { FixedToolbarFeatureClient as FixedToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { HeadingFeatureClient as HeadingFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { UnderlineFeatureClient as UnderlineFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { BoldFeatureClient as BoldFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { ItalicFeatureClient as ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { LinkFeatureClient as LinkFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { OverviewComponent as OverviewComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
+import { MetaTitleComponent as MetaTitleComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
+import { MetaImageComponent as MetaImageComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
+import { MetaDescriptionComponent as MetaDescriptionComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
+import { PreviewComponent as PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
+import { default as default_6bf288f4387b1ea5c71ce14579a9098c } from 'src/payload/components/BeforeDashboard'
+import { default as default_85bc59714294c8b0fddcdba92bbdc31b } from 'src/payload/components/BeforeLogin'
 
 export const importMap = {
-  "@payloadcms/richtext-lexical/client#RichTextCell": RichTextCell_0,
-  "@payloadcms/richtext-lexical/client#RichTextField": RichTextField_1,
-  "@payloadcms/richtext-lexical/generateComponentMap#getGenerateComponentMap": getGenerateComponentMap_2,
-  "@payloadcms/richtext-lexical/client#InlineToolbarFeatureClient": InlineToolbarFeatureClient_3,
-  "@payloadcms/richtext-lexical/client#FixedToolbarFeatureClient": FixedToolbarFeatureClient_4,
-  "@payloadcms/richtext-lexical/client#HeadingFeatureClient": HeadingFeatureClient_5,
-  "@payloadcms/richtext-lexical/client#UnderlineFeatureClient": UnderlineFeatureClient_6,
-  "@payloadcms/richtext-lexical/client#BoldFeatureClient": BoldFeatureClient_7,
-  "@payloadcms/richtext-lexical/client#ItalicFeatureClient": ItalicFeatureClient_8,
-  "@payloadcms/richtext-lexical/client#LinkFeatureClient": LinkFeatureClient_9,
-  "@payloadcms/plugin-seo/client#OverviewComponent": OverviewComponent_10,
-  "@payloadcms/plugin-seo/client#MetaTitleComponent": MetaTitleComponent_11,
-  "@payloadcms/plugin-seo/client#MetaImageComponent": MetaImageComponent_12,
-  "@payloadcms/plugin-seo/client#MetaDescriptionComponent": MetaDescriptionComponent_13,
-  "@payloadcms/plugin-seo/client#PreviewComponent": PreviewComponent_14,
-  "/payload/components/BeforeDashboard#default": default_15,
-  "/payload/components/BeforeLogin#default": default_16
+  "@payloadcms/richtext-lexical/rsc#RscEntryLexicalCell": RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,
+  "@payloadcms/richtext-lexical/rsc#RscEntryLexicalField": RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e,
+  "@payloadcms/richtext-lexical/client#InlineToolbarFeatureClient": InlineToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#FixedToolbarFeatureClient": FixedToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#HeadingFeatureClient": HeadingFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#UnderlineFeatureClient": UnderlineFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#BoldFeatureClient": BoldFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#ItalicFeatureClient": ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/richtext-lexical/client#LinkFeatureClient": LinkFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "@payloadcms/plugin-seo/client#OverviewComponent": OverviewComponent_a8a977ebc872c5d5ea7ee689724c0860,
+  "@payloadcms/plugin-seo/client#MetaTitleComponent": MetaTitleComponent_a8a977ebc872c5d5ea7ee689724c0860,
+  "@payloadcms/plugin-seo/client#MetaImageComponent": MetaImageComponent_a8a977ebc872c5d5ea7ee689724c0860,
+  "@payloadcms/plugin-seo/client#MetaDescriptionComponent": MetaDescriptionComponent_a8a977ebc872c5d5ea7ee689724c0860,
+  "@payloadcms/plugin-seo/client#PreviewComponent": PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860,
+  "/payload/components/BeforeDashboard#default": default_6bf288f4387b1ea5c71ce14579a9098c,
+  "/payload/components/BeforeLogin#default": default_85bc59714294c8b0fddcdba92bbdc31b
 }

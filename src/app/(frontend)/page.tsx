@@ -1,6 +1,7 @@
 const Page = ()=>{
   return <div>
-    ss
+    sss
   </div>
 }
+
 export default Page

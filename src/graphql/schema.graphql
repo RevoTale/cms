@@ -389,7 +389,6 @@ type User {
   hash: String
   loginAttempts: Float
   lockUntil: DateTime
-  password: String!
 }
 
 """
@@ -4259,7 +4258,6 @@ type UsersDocAccessFields {
   updatedAt: UsersDocAccessFields_updatedAt
   createdAt: UsersDocAccessFields_createdAt
   email: UsersDocAccessFields_email
-  password: UsersDocAccessFields_password
 }
 
 type UsersDocAccessFields_name {
@@ -4351,29 +4349,6 @@ type UsersDocAccessFields_email_Update {
 }
 
 type UsersDocAccessFields_email_Delete {
-  permission: Boolean!
-}
-
-type UsersDocAccessFields_password {
-  create: UsersDocAccessFields_password_Create
-  read: UsersDocAccessFields_password_Read
-  update: UsersDocAccessFields_password_Update
-  delete: UsersDocAccessFields_password_Delete
-}
-
-type UsersDocAccessFields_password_Create {
-  permission: Boolean!
-}
-
-type UsersDocAccessFields_password_Read {
-  permission: Boolean!
-}
-
-type UsersDocAccessFields_password_Update {
-  permission: Boolean!
-}
-
-type UsersDocAccessFields_password_Delete {
   permission: Boolean!
 }
 
@@ -9287,7 +9262,6 @@ type UsersFields {
   updatedAt: UsersFields_updatedAt
   createdAt: UsersFields_createdAt
   email: UsersFields_email
-  password: UsersFields_password
 }
 
 type UsersFields_name {
@@ -9379,29 +9353,6 @@ type UsersFields_email_Update {
 }
 
 type UsersFields_email_Delete {
-  permission: Boolean!
-}
-
-type UsersFields_password {
-  create: UsersFields_password_Create
-  read: UsersFields_password_Read
-  update: UsersFields_password_Update
-  delete: UsersFields_password_Delete
-}
-
-type UsersFields_password_Create {
-  permission: Boolean!
-}
-
-type UsersFields_password_Read {
-  permission: Boolean!
-}
-
-type UsersFields_password_Update {
-  permission: Boolean!
-}
-
-type UsersFields_password_Delete {
   permission: Boolean!
 }
 
@@ -11459,6 +11410,7 @@ type Mutation {
   createMedia(data: mutationMediaInput!, draft: Boolean, locale: LocaleInputType): Media
   updateMedia(id: String!, autosave: Boolean, data: mutationMediaUpdateInput!, draft: Boolean, locale: LocaleInputType): Media
   deleteMedia(id: String!): Media
+  duplicateMedia(id: String!): Media
   createCategory(data: mutationCategoryInput!, draft: Boolean, locale: LocaleInputType): Category
   updateCategory(id: String!, autosave: Boolean, data: mutationCategoryUpdateInput!, draft: Boolean, locale: LocaleInputType): Category
   deleteCategory(id: String!): Category

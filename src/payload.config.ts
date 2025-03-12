@@ -33,6 +33,7 @@ import {seed} from './payload/endpoints/seed'
 import {Footer} from './payload/globals/Footer/Footer'
 import {Header} from './payload/globals/Header/Header'
 import {revalidateRedirects} from './payload/hooks/revalidateRedirects'
+import { GenerateFileURL } from '@payloadcms/plugin-cloud-storage/types'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
@@ -45,14 +46,15 @@ const generateURL: GenerateURL<Post | Page> = ({doc}) => {
     ? `${(process.env.PAYLOAD_PUBLIC_SERVER_URL ?? '')}/blog/${doc.slug}`
     : (process.env.PAYLOAD_PUBLIC_SERVER_URL ?? '')
 }
+const sss:GenerateFileURL =({filename,prefix=''})=>{
+  return `https://media.revotale.com/${prefix}/${filename}`
+}
 const s3PluginConfig = s3Storage({
   collections: {
     [Media.slug]: {
       prefix:'main_',
       disableLocalStorage:true,
-      generateFileURL:({filename,prefix=''})=>{
-        return `https://media.revotale.com/${prefix}/${filename}`
-      }
+      generateFileURL:sss
     },
   },
   disableLocalStorage:true,

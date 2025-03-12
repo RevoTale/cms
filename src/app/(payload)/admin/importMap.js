@@ -14,6 +14,7 @@ import { MetaDescriptionComponent as MetaDescriptionComponent_a8a977ebc872c5d5ea
 import { PreviewComponent as PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { default as default_6bf288f4387b1ea5c71ce14579a9098c } from 'src/payload/components/BeforeDashboard'
 import { default as default_85bc59714294c8b0fddcdba92bbdc31b } from 'src/payload/components/BeforeLogin'
+import { S3ClientUploadHandler as S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24 } from '@payloadcms/storage-s3/client'
 
 export const importMap = {
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalCell": RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,
@@ -31,5 +32,6 @@ export const importMap = {
   "@payloadcms/plugin-seo/client#MetaDescriptionComponent": MetaDescriptionComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@payloadcms/plugin-seo/client#PreviewComponent": PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "/payload/components/BeforeDashboard#default": default_6bf288f4387b1ea5c71ce14579a9098c,
-  "/payload/components/BeforeLogin#default": default_85bc59714294c8b0fddcdba92bbdc31b
+  "/payload/components/BeforeLogin#default": default_85bc59714294c8b0fddcdba92bbdc31b,
+  "@payloadcms/storage-s3/client#S3ClientUploadHandler": S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24
 }

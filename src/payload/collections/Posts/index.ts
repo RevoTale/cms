@@ -127,8 +127,7 @@ export const Posts: CollectionConfig = {
               hasGenerateFn: true,
             }),
             MetaImageField({
-              relationTo: 'media',
-              localized:false
+              relationTo: 'media'
             }),
             {
               name: 'nofollow',

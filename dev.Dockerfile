@@ -1,4 +1,4 @@
-FROM node:20.17-alpine
+FROM node:23-alpine
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY . .
@@ -23,4 +23,4 @@ ENV S3_SECRET_ACCESS_KEY=''
 ENV S3_REGION=''
 
 EXPOSE 3000
-CMD ["pnpm", "dev"]
+CMD pnpm install && pnpm dev

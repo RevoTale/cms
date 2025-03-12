@@ -12,8 +12,8 @@ import { MetaTitleComponent as MetaTitleComponent_a8a977ebc872c5d5ea7ee689724c08
 import { MetaImageComponent as MetaImageComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { MetaDescriptionComponent as MetaDescriptionComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { PreviewComponent as PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
-import { default as default_6bf288f4387b1ea5c71ce14579a9098c } from 'src/payload/components/BeforeDashboard'
-import { default as default_85bc59714294c8b0fddcdba92bbdc31b } from 'src/payload/components/BeforeLogin'
+import { default as default_6bf288f4387b1ea5c71ce14579a9098c } from '../../../payload/components/BeforeDashboard'
+import { default as default_85bc59714294c8b0fddcdba92bbdc31b } from '../../../payload/components/BeforeLogin'
 import { S3ClientUploadHandler as S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24 } from '@payloadcms/storage-s3/client'
 
 export const importMap = {

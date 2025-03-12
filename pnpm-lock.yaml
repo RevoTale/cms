@@ -78,8 +78,8 @@ importers:
         specifier: 9.0.2
         version: 9.0.2
       lexical:
-        specifier: 0.27.2
-        version: 0.27.2
+        specifier: 0.27.1
+        version: 0.27.1
       lucide-react:
         specifier: ^0.479.0
         version: 0.479.0(react@19.0.0)
@@ -3177,9 +3177,6 @@ packages:
 
   lexical@0.27.1:
     resolution: {integrity: sha512-EXlRE/NQO9quKFuz4Z2pu5f48oF8LZOAw0YpN0RmGQx2CbqmEi7SIgO+d+NUKVx9Qs1vX0DL5S7GJpvpZBOE3w==}
-
-  lexical@0.27.2:
-    resolution: {integrity: sha512-R255V+4VBqZmSMWeuMrCNHJZd3L+qBkYYFrxkiO3FLg/36HatZLUdZLRYx+fOMWeSddo0DP9EVl0GTZzNb7v0w==}
 
   lib0@0.2.99:
     resolution: {integrity: sha512-vwztYuUf1uf/1zQxfzRfO5yzfNKhTtgOByCruuiQQxWQXnPb8Itaube5ylofcV0oM0aKal9Mv+S1s1Ky0UYP1w==}
@@ -8558,8 +8555,6 @@ snapshots:
       type-check: 0.4.0
 
   lexical@0.27.1: {}
-
-  lexical@0.27.2: {}
 
   lib0@0.2.99:
     dependencies:

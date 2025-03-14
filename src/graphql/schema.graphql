@@ -1,56 +1,56 @@
 type Query {
   Page(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Page
-  Pages(draft: Boolean, where: Page_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, sort: String): Pages
+  Pages(draft: Boolean, where: Page_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): Pages
   countPages(draft: Boolean, where: Page_where, locale: LocaleInputType): countPages
   docAccessPage(id: String!): pagesDocAccess
   versionPage(id: String, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): PageVersion
-  versionsPages(where: versionsPage_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, sort: String): versionsPages
+  versionsPages(where: versionsPage_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): versionsPages
   Post(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Post
-  Posts(draft: Boolean, where: Post_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, sort: String): Posts
+  Posts(draft: Boolean, where: Post_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): Posts
   countPosts(draft: Boolean, where: Post_where, locale: LocaleInputType): countPosts
   docAccessPost(id: String!): postsDocAccess
   versionPost(id: String, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): PostVersion
-  versionsPosts(where: versionsPost_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, sort: String): versionsPosts
+  versionsPosts(where: versionsPost_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): versionsPosts
   Media(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Media
-  allMedia(draft: Boolean, where: Media_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, sort: String): allMedia
+  allMedia(draft: Boolean, where: Media_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): allMedia
   countallMedia(draft: Boolean, where: Media_where, locale: LocaleInputType): countallMedia
   docAccessMedia(id: String!): mediaDocAccess
   Category(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Category
-  Categories(draft: Boolean, where: Category_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, sort: String): Categories
+  Categories(draft: Boolean, where: Category_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): Categories
   countCategories(draft: Boolean, where: Category_where, locale: LocaleInputType): countCategories
   docAccessCategory(id: String!): categoriesDocAccess
   User(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): User
-  Users(draft: Boolean, where: User_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, sort: String): Users
+  Users(draft: Boolean, where: User_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): Users
   countUsers(draft: Boolean, where: User_where, locale: LocaleInputType): countUsers
   docAccessUser(id: String!): usersDocAccess
   meUser: usersMe
   initializedUser: Boolean
   Tag(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Tag
-  Tags(draft: Boolean, where: Tag_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, sort: String): Tags
+  Tags(draft: Boolean, where: Tag_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): Tags
   countTags(draft: Boolean, where: Tag_where, locale: LocaleInputType): countTags
   docAccessTag(id: String!): tagsDocAccess
   Author(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Author
-  Authors(draft: Boolean, where: Author_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, sort: String): Authors
+  Authors(draft: Boolean, where: Author_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): Authors
   countAuthors(draft: Boolean, where: Author_where, locale: LocaleInputType): countAuthors
   docAccessAuthor(id: String!): authorsDocAccess
   Redirect(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Redirect
-  Redirects(draft: Boolean, where: Redirect_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, sort: String): Redirects
+  Redirects(draft: Boolean, where: Redirect_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): Redirects
   countRedirects(draft: Boolean, where: Redirect_where, locale: LocaleInputType): countRedirects
   docAccessRedirect(id: String!): redirectsDocAccess
   Form(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Form
-  Forms(draft: Boolean, where: Form_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, sort: String): Forms
+  Forms(draft: Boolean, where: Form_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): Forms
   countForms(draft: Boolean, where: Form_where, locale: LocaleInputType): countForms
   docAccessForm(id: String!): formsDocAccess
   FormSubmission(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): FormSubmission
-  FormSubmissions(draft: Boolean, where: FormSubmission_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, sort: String): FormSubmissions
+  FormSubmissions(draft: Boolean, where: FormSubmission_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): FormSubmissions
   countFormSubmissions(draft: Boolean, where: FormSubmission_where, locale: LocaleInputType): countFormSubmissions
   docAccessFormSubmission(id: String!): form_submissionsDocAccess
   PayloadLockedDocument(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): PayloadLockedDocument
-  PayloadLockedDocuments(draft: Boolean, where: PayloadLockedDocument_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, sort: String): PayloadLockedDocuments
+  PayloadLockedDocuments(draft: Boolean, where: PayloadLockedDocument_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): PayloadLockedDocuments
   countPayloadLockedDocuments(draft: Boolean, where: PayloadLockedDocument_where, locale: LocaleInputType): countPayloadLockedDocuments
   docAccessPayloadLockedDocument(id: String!): payload_locked_documentsDocAccess
   PayloadPreference(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): PayloadPreference
-  PayloadPreferences(draft: Boolean, where: PayloadPreference_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, sort: String): PayloadPreferences
+  PayloadPreferences(draft: Boolean, where: PayloadPreference_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): PayloadPreferences
   countPayloadPreferences(draft: Boolean, where: PayloadPreference_where, locale: LocaleInputType): countPayloadPreferences
   docAccessPayloadPreference(id: String!): payload_preferencesDocAccess
   Header(draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Header
@@ -11400,21 +11400,21 @@ type Mutation {
   createPage(data: mutationPageInput!, draft: Boolean, locale: LocaleInputType): Page
   updatePage(id: String!, autosave: Boolean, data: mutationPageUpdateInput!, draft: Boolean, locale: LocaleInputType): Page
   deletePage(id: String!): Page
-  duplicatePage(id: String!): Page
+  duplicatePage(id: String!, data: mutationPageInput!): Page
   restoreVersionPage(id: String, draft: Boolean): Page
   createPost(data: mutationPostInput!, draft: Boolean, locale: LocaleInputType): Post
   updatePost(id: String!, autosave: Boolean, data: mutationPostUpdateInput!, draft: Boolean, locale: LocaleInputType): Post
   deletePost(id: String!): Post
-  duplicatePost(id: String!): Post
+  duplicatePost(id: String!, data: mutationPostInput!): Post
   restoreVersionPost(id: String, draft: Boolean): Post
   createMedia(data: mutationMediaInput!, draft: Boolean, locale: LocaleInputType): Media
   updateMedia(id: String!, autosave: Boolean, data: mutationMediaUpdateInput!, draft: Boolean, locale: LocaleInputType): Media
   deleteMedia(id: String!): Media
-  duplicateMedia(id: String!): Media
+  duplicateMedia(id: String!, data: mutationMediaInput!): Media
   createCategory(data: mutationCategoryInput!, draft: Boolean, locale: LocaleInputType): Category
   updateCategory(id: String!, autosave: Boolean, data: mutationCategoryUpdateInput!, draft: Boolean, locale: LocaleInputType): Category
   deleteCategory(id: String!): Category
-  duplicateCategory(id: String!): Category
+  duplicateCategory(id: String!, data: mutationCategoryInput!): Category
   createUser(data: mutationUserInput!, draft: Boolean, locale: LocaleInputType): User
   updateUser(id: String!, autosave: Boolean, data: mutationUserUpdateInput!, draft: Boolean, locale: LocaleInputType): User
   deleteUser(id: String!): User
@@ -11428,31 +11428,31 @@ type Mutation {
   createTag(data: mutationTagInput!, draft: Boolean, locale: LocaleInputType): Tag
   updateTag(id: String!, autosave: Boolean, data: mutationTagUpdateInput!, draft: Boolean, locale: LocaleInputType): Tag
   deleteTag(id: String!): Tag
-  duplicateTag(id: String!): Tag
+  duplicateTag(id: String!, data: mutationTagInput!): Tag
   createAuthor(data: mutationAuthorInput!, draft: Boolean, locale: LocaleInputType): Author
   updateAuthor(id: String!, autosave: Boolean, data: mutationAuthorUpdateInput!, draft: Boolean, locale: LocaleInputType): Author
   deleteAuthor(id: String!): Author
-  duplicateAuthor(id: String!): Author
+  duplicateAuthor(id: String!, data: mutationAuthorInput!): Author
   createRedirect(data: mutationRedirectInput!, draft: Boolean, locale: LocaleInputType): Redirect
   updateRedirect(id: String!, autosave: Boolean, data: mutationRedirectUpdateInput!, draft: Boolean, locale: LocaleInputType): Redirect
   deleteRedirect(id: String!): Redirect
-  duplicateRedirect(id: String!): Redirect
+  duplicateRedirect(id: String!, data: mutationRedirectInput!): Redirect
   createForm(data: mutationFormInput!, draft: Boolean, locale: LocaleInputType): Form
   updateForm(id: String!, autosave: Boolean, data: mutationFormUpdateInput!, draft: Boolean, locale: LocaleInputType): Form
   deleteForm(id: String!): Form
-  duplicateForm(id: String!): Form
+  duplicateForm(id: String!, data: mutationFormInput!): Form
   createFormSubmission(data: mutationFormSubmissionInput!, draft: Boolean, locale: LocaleInputType): FormSubmission
   updateFormSubmission(id: String!, autosave: Boolean, data: mutationFormSubmissionUpdateInput!, draft: Boolean, locale: LocaleInputType): FormSubmission
   deleteFormSubmission(id: String!): FormSubmission
-  duplicateFormSubmission(id: String!): FormSubmission
+  duplicateFormSubmission(id: String!, data: mutationFormSubmissionInput!): FormSubmission
   createPayloadLockedDocument(data: mutationPayloadLockedDocumentInput!, draft: Boolean, locale: LocaleInputType): PayloadLockedDocument
   updatePayloadLockedDocument(id: String!, autosave: Boolean, data: mutationPayloadLockedDocumentUpdateInput!, draft: Boolean, locale: LocaleInputType): PayloadLockedDocument
   deletePayloadLockedDocument(id: String!): PayloadLockedDocument
-  duplicatePayloadLockedDocument(id: String!): PayloadLockedDocument
+  duplicatePayloadLockedDocument(id: String!, data: mutationPayloadLockedDocumentInput!): PayloadLockedDocument
   createPayloadPreference(data: mutationPayloadPreferenceInput!, draft: Boolean, locale: LocaleInputType): PayloadPreference
   updatePayloadPreference(id: String!, autosave: Boolean, data: mutationPayloadPreferenceUpdateInput!, draft: Boolean, locale: LocaleInputType): PayloadPreference
   deletePayloadPreference(id: String!): PayloadPreference
-  duplicatePayloadPreference(id: String!): PayloadPreference
+  duplicatePayloadPreference(id: String!, data: mutationPayloadPreferenceInput!): PayloadPreference
   updateHeader(data: mutationHeaderInput!, draft: Boolean, locale: LocaleInputType): Header
   updateFooter(data: mutationFooterInput!, draft: Boolean, locale: LocaleInputType): Footer
 }

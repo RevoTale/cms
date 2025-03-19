@@ -19,7 +19,7 @@ const nextConfig = {
     ]:undefined,
   },
   reactStrictMode: true,
-  basePath: '/cms',
+  basePath: '',
   redirects,
   output:'standalone'
 }

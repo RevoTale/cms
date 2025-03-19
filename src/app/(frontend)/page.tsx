@@ -1,6 +1,6 @@
 const Page = ()=>{
   return <div>
-    sss
+    Silence is golden...
   </div>
 }
 

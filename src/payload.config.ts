@@ -19,13 +19,12 @@ import { s3Storage } from '@payloadcms/storage-s3'
 import path from 'path'
 import {buildConfig} from 'payload'
 import sharp from 'sharp' // editor-import
-import {Page, Post} from 'src/payload-types'
+import { Post} from 'src/payload-types'
 import {fileURLToPath} from 'url'
 import Authors from "./payload/collections/Authors";
 
 import Categories from './payload/collections/Categories'
 import {Media} from './payload/collections/Media'
-import {Pages} from './payload/collections/Pages'
 import {Posts} from './payload/collections/Posts'
 import Tags from "./payload/collections/Tags";
 import Users from './payload/collections/Users'
@@ -39,11 +38,11 @@ import { GenerateFileURL } from '@payloadcms/plugin-cloud-storage/types'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
-const generateTitle: GenerateTitle<Post | Page> = ({doc}) => {
+const generateTitle: GenerateTitle<Post > = ({doc}) => {
   return doc?.title ? `${doc.title} | Payload Website Template` : 'Payload Website Template'
 }
 
-const generateURL: GenerateURL<Post | Page> = ({doc}) => {
+const generateURL: GenerateURL<Post > = ({doc}) => {
   return doc?.slug
     ? `${(process.env.PAYLOAD_PUBLIC_SERVER_URL ?? '')}/blog/${doc.slug}`
     : (process.env.PAYLOAD_PUBLIC_SERVER_URL ?? '')
@@ -131,7 +130,7 @@ export default buildConfig({
         BoldFeature(),
         ItalicFeature(),
         LinkFeature({
-          enabledCollections: ['pages', 'posts'],
+          enabledCollections: [ 'posts'],
           fields: ({defaultFields}) => {
             const defaultFieldsWithoutUrl = defaultFields.filter((field) => {
               return !('name' in field && field.name === 'url');
@@ -159,7 +158,7 @@ export default buildConfig({
     url: process.env.DATABASE_URI || '',
   }),
   serverURL:process.env.PAYLOAD_PUBLIC_SERVER_URL,
-  collections: [Pages, Posts, Media, Categories, Users,Tags,Authors],
+  collections: [Posts, Media, Categories, Users,Tags,Authors],
   cors: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
   csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
   endpoints: [
@@ -183,7 +182,7 @@ export default buildConfig({
     }),*/
     s3PluginConfig,
     redirectsPlugin({
-      collections: ['pages', 'posts'],
+      collections: [ 'posts'],
       overrides: {
         fields: ({defaultFields}) => {
           return defaultFields.map((field) => {

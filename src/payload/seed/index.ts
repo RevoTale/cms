@@ -37,8 +37,11 @@ export const seed = async ({
   payload: Payload
   req: PayloadRequest
 }): Promise<void> => {
+  if (process.env.NODE_ENV !== 'development') {
+    return
+  }
   payload.logger.info('Seeding database...')
-
+  
   // we need to clear the media directory before seeding
   // as well as the collections and globals
   // this is because while `yarn seed` drops the database

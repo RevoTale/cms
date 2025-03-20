@@ -68,7 +68,6 @@ export interface Config {
   collections: {
     posts: Post;
     media: Media;
-    categories: Category;
     users: User;
     tags: Tag;
     authors: Author;
@@ -83,7 +82,6 @@ export interface Config {
   collectionsSelect: {
     posts: PostsSelect<false> | PostsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
-    categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
     authors: AuthorsSelect<false> | AuthorsSelect<true>;
@@ -140,11 +138,10 @@ export interface Post {
   id: string;
   title: string;
   subtitle: string;
-  tags?: (string | Tag)[] | null;
   featuredImage: string | Media;
   content: string;
   relatedPosts?: (string | Post)[] | null;
-  categories?: (string | Category)[] | null;
+  tags?: (string | Tag)[] | null;
   meta: {
     title?: string | null;
     /**
@@ -162,16 +159,6 @@ export interface Post {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "tags".
- */
-export interface Tag {
-  id: string;
-  name: string;
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -197,20 +184,12 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "categories".
+ * via the `definition` "tags".
  */
-export interface Category {
+export interface Tag {
   id: string;
   title: string;
-  parent?: (string | null) | Category;
-  breadcrumbs?:
-    | {
-        doc?: (string | null) | Category;
-        url?: string | null;
-        label?: string | null;
-        id?: string | null;
-      }[]
-    | null;
+  name: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -470,10 +449,6 @@ export interface PayloadLockedDocument {
         value: string | Media;
       } | null)
     | ({
-        relationTo: 'categories';
-        value: string | Category;
-      } | null)
-    | ({
         relationTo: 'users';
         value: string | User;
       } | null)
@@ -546,11 +521,10 @@ export interface PayloadMigration {
 export interface PostsSelect<T extends boolean = true> {
   title?: T;
   subtitle?: T;
-  tags?: T;
   featuredImage?: T;
   content?: T;
   relatedPosts?: T;
-  categories?: T;
+  tags?: T;
   meta?:
     | T
     | {
@@ -591,24 +565,6 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "categories_select".
- */
-export interface CategoriesSelect<T extends boolean = true> {
-  title?: T;
-  parent?: T;
-  breadcrumbs?:
-    | T
-    | {
-        doc?: T;
-        url?: T;
-        label?: T;
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
@@ -628,6 +584,7 @@ export interface UsersSelect<T extends boolean = true> {
  * via the `definition` "tags_select".
  */
 export interface TagsSelect<T extends boolean = true> {
+  title?: T;
   name?: T;
   updatedAt?: T;
   createdAt?: T;

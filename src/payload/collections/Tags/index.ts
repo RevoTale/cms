@@ -1,8 +1,21 @@
 // collections/Tags.js
-import { CollectionConfig } from 'payload';
+import { CollectionConfig, Field, TextField } from 'payload';
 import {anyone} from "../../access/anyone";
 import {authenticated} from "../../access/authenticated";
-
+const nameField:TextField = {
+  name: 'name',
+  type: 'text',
+  required: true,
+  label: 'Tag Name',
+  localized:false,
+  validate: (value) => {
+    var re = /^\w+$/;
+    if (re.test(value??''))  {
+      return 'This field is required'
+    }
+    return true;
+  }, 
+}
 const Tags: CollectionConfig = {
   slug: 'tags',
   labels: {
@@ -16,16 +29,17 @@ const Tags: CollectionConfig = {
     update: authenticated,
   },
   admin:{
-    useAsTitle:'name'
+    useAsTitle:'title'
   },
   fields: [
     {
-      name: 'name',
+      name: 'title',
       type: 'text',
+      label: 'Title',
+      localized:true,
       required: true,
-      label: 'Tag Name',
-      localized:false
     },
+    nameField
   ],
 };
 

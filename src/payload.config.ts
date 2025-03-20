@@ -1,7 +1,7 @@
 // storage-adapter-import-placeholder
 import {mongooseAdapter} from '@payloadcms/db-mongodb'
 import {formBuilderPlugin} from '@payloadcms/plugin-form-builder'
-import {nestedDocsPlugin} from '@payloadcms/plugin-nested-docs'
+
 import {redirectsPlugin} from '@payloadcms/plugin-redirects'
 import {seoPlugin} from '@payloadcms/plugin-seo'
 import {GenerateTitle, GenerateURL} from '@payloadcms/plugin-seo/types'
@@ -23,7 +23,6 @@ import { Post} from 'src/payload-types'
 import {fileURLToPath} from 'url'
 import Authors from "./payload/collections/Authors";
 
-import Categories from './payload/collections/Categories'
 import {Media} from './payload/collections/Media'
 import {Posts} from './payload/collections/Posts'
 import Tags from "./payload/collections/Tags";
@@ -158,7 +157,7 @@ export default buildConfig({
     url: process.env.DATABASE_URI || '',
   }),
   serverURL:process.env.PAYLOAD_PUBLIC_SERVER_URL,
-  collections: [Posts, Media, Categories, Users,Tags,Authors],
+  collections: [Posts, Media, Users,Tags,Authors],
   cors: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
   csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
   endpoints: [
@@ -201,9 +200,6 @@ export default buildConfig({
           afterChange: [revalidateRedirects],
         },
       },
-    }),
-    nestedDocsPlugin({
-      collections: ['categories'],
     }),
     seoPlugin({
       generateTitle,

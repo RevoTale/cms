@@ -9,10 +9,6 @@ type Query {
   allMedia(draft: Boolean, where: Media_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): allMedia
   countallMedia(draft: Boolean, where: Media_where, locale: LocaleInputType): countallMedia
   docAccessMedia(id: String!): mediaDocAccess
-  Category(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Category
-  Categories(draft: Boolean, where: Category_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): Categories
-  countCategories(draft: Boolean, where: Category_where, locale: LocaleInputType): countCategories
-  docAccessCategory(id: String!): categoriesDocAccess
   User(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): User
   Users(draft: Boolean, where: User_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): Users
   countUsers(draft: Boolean, where: User_where, locale: LocaleInputType): countUsers
@@ -58,11 +54,10 @@ type Post {
   id: String!
   title: String
   subtitle: String
-  tags(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Tag!]
   featuredImage(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Media
   content: String
   relatedPosts(draft: Boolean, locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Post!]
-  categories(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Category!]
+  tags(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Tag!]
   meta: Post_Meta
   authorSlug: String
   publishedAt: DateTime
@@ -73,11 +68,23 @@ type Post {
   _status: Post__status
 }
 
-type Tag {
+type Media {
   id: String!
-  name: String!
+  alt: String
+  description: String
+  caption: String
+  prefix: String
   updatedAt: DateTime
   createdAt: DateTime
+  url: String
+  thumbnailURL: String
+  filename: String
+  mimeType: String
+  filesize: Float
+  width: Float
+  height: Float
+  focalX: Float
+  focalY: Float
 }
 
 """
@@ -108,39 +115,12 @@ enum FallbackLocaleInputType {
   none
 }
 
-type Media {
-  id: String!
-  alt: String
-  description: String
-  caption: String
-  prefix: String
-  updatedAt: DateTime
-  createdAt: DateTime
-  url: String
-  thumbnailURL: String
-  filename: String
-  mimeType: String
-  filesize: Float
-  width: Float
-  height: Float
-  focalX: Float
-  focalY: Float
-}
-
-type Category {
+type Tag {
   id: String!
   title: String
-  parent(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Category
-  breadcrumbs: [Category_Breadcrumbs!]
+  name: String!
   updatedAt: DateTime
   createdAt: DateTime
-}
-
-type Category_Breadcrumbs {
-  doc(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Category
-  url: String
-  label: String
-  id: String
 }
 
 type Post_Meta {
@@ -203,11 +183,10 @@ type Posts {
 input Post_where {
   title: Post_title_operator
   subtitle: Post_subtitle_operator
-  tags: Post_tags_operator
   featuredImage: Post_featuredImage_operator
   content: Post_content_operator
   relatedPosts: Post_relatedPosts_operator
-  categories: Post_categories_operator
+  tags: Post_tags_operator
   meta__title: Post_meta__title_operator
   meta__image: Post_meta__image_operator
   meta__nofollow: Post_meta__nofollow_operator
@@ -245,20 +224,6 @@ input Post_subtitle_operator {
   all: [String]
 }
 
-input Post_tags_operator {
-  equals: JSON
-  not_equals: JSON
-  in: [JSON]
-  not_in: [JSON]
-  all: [JSON]
-  exists: Boolean
-}
-
-"""
-The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
-"""
-scalar JSON @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
-
 input Post_featuredImage_operator {
   equals: JSON
   not_equals: JSON
@@ -266,6 +231,11 @@ input Post_featuredImage_operator {
   not_in: [JSON]
   all: [JSON]
 }
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
 
 input Post_content_operator {
   equals: String
@@ -283,7 +253,7 @@ input Post_relatedPosts_operator {
   exists: Boolean
 }
 
-input Post_categories_operator {
+input Post_tags_operator {
   equals: JSON
   not_equals: JSON
   in: [JSON]
@@ -420,11 +390,10 @@ input Post_id_operator {
 input Post_where_and {
   title: Post_title_operator
   subtitle: Post_subtitle_operator
-  tags: Post_tags_operator
   featuredImage: Post_featuredImage_operator
   content: Post_content_operator
   relatedPosts: Post_relatedPosts_operator
-  categories: Post_categories_operator
+  tags: Post_tags_operator
   meta__title: Post_meta__title_operator
   meta__image: Post_meta__image_operator
   meta__nofollow: Post_meta__nofollow_operator
@@ -445,11 +414,10 @@ input Post_where_and {
 input Post_where_or {
   title: Post_title_operator
   subtitle: Post_subtitle_operator
-  tags: Post_tags_operator
   featuredImage: Post_featuredImage_operator
   content: Post_content_operator
   relatedPosts: Post_relatedPosts_operator
-  categories: Post_categories_operator
+  tags: Post_tags_operator
   meta__title: Post_meta__title_operator
   meta__image: Post_meta__image_operator
   meta__nofollow: Post_meta__nofollow_operator
@@ -483,11 +451,10 @@ type postsDocAccess {
 type PostsDocAccessFields {
   title: PostsDocAccessFields_title
   subtitle: PostsDocAccessFields_subtitle
-  tags: PostsDocAccessFields_tags
   featuredImage: PostsDocAccessFields_featuredImage
   content: PostsDocAccessFields_content
   relatedPosts: PostsDocAccessFields_relatedPosts
-  categories: PostsDocAccessFields_categories
+  tags: PostsDocAccessFields_tags
   image: PostsDocAccessFields_image
   nofollow: PostsDocAccessFields_nofollow
   noindex: PostsDocAccessFields_noindex
@@ -544,29 +511,6 @@ type PostsDocAccessFields_subtitle_Update {
 }
 
 type PostsDocAccessFields_subtitle_Delete {
-  permission: Boolean!
-}
-
-type PostsDocAccessFields_tags {
-  create: PostsDocAccessFields_tags_Create
-  read: PostsDocAccessFields_tags_Read
-  update: PostsDocAccessFields_tags_Update
-  delete: PostsDocAccessFields_tags_Delete
-}
-
-type PostsDocAccessFields_tags_Create {
-  permission: Boolean!
-}
-
-type PostsDocAccessFields_tags_Read {
-  permission: Boolean!
-}
-
-type PostsDocAccessFields_tags_Update {
-  permission: Boolean!
-}
-
-type PostsDocAccessFields_tags_Delete {
   permission: Boolean!
 }
 
@@ -639,26 +583,26 @@ type PostsDocAccessFields_relatedPosts_Delete {
   permission: Boolean!
 }
 
-type PostsDocAccessFields_categories {
-  create: PostsDocAccessFields_categories_Create
-  read: PostsDocAccessFields_categories_Read
-  update: PostsDocAccessFields_categories_Update
-  delete: PostsDocAccessFields_categories_Delete
+type PostsDocAccessFields_tags {
+  create: PostsDocAccessFields_tags_Create
+  read: PostsDocAccessFields_tags_Read
+  update: PostsDocAccessFields_tags_Update
+  delete: PostsDocAccessFields_tags_Delete
 }
 
-type PostsDocAccessFields_categories_Create {
+type PostsDocAccessFields_tags_Create {
   permission: Boolean!
 }
 
-type PostsDocAccessFields_categories_Read {
+type PostsDocAccessFields_tags_Read {
   permission: Boolean!
 }
 
-type PostsDocAccessFields_categories_Update {
+type PostsDocAccessFields_tags_Update {
   permission: Boolean!
 }
 
-type PostsDocAccessFields_categories_Delete {
+type PostsDocAccessFields_tags_Delete {
   permission: Boolean!
 }
 
@@ -960,11 +904,10 @@ type PostVersion {
 type PostVersion_Version {
   title: String
   subtitle: String
-  tags(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Tag!]
   featuredImage(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Media
   content: String
   relatedPosts(draft: Boolean, locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Post!]
-  categories(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Category!]
+  tags(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Tag!]
   meta: PostVersion_Version_Meta
   authorSlug: String
   publishedAt: DateTime
@@ -1017,11 +960,10 @@ input versionsPost_where {
   parent: versionsPost_parent_operator
   version__title: versionsPost_version__title_operator
   version__subtitle: versionsPost_version__subtitle_operator
-  version__tags: versionsPost_version__tags_operator
   version__featuredImage: versionsPost_version__featuredImage_operator
   version__content: versionsPost_version__content_operator
   version__relatedPosts: versionsPost_version__relatedPosts_operator
-  version__categories: versionsPost_version__categories_operator
+  version__tags: versionsPost_version__tags_operator
   meta__title: versionsPost_meta__title_operator
   meta__image: versionsPost_meta__image_operator
   meta__nofollow: versionsPost_meta__nofollow_operator
@@ -1074,15 +1016,6 @@ input versionsPost_version__subtitle_operator {
   all: [String]
 }
 
-input versionsPost_version__tags_operator {
-  equals: JSON
-  not_equals: JSON
-  in: [JSON]
-  not_in: [JSON]
-  all: [JSON]
-  exists: Boolean
-}
-
 input versionsPost_version__featuredImage_operator {
   equals: JSON
   not_equals: JSON
@@ -1107,7 +1040,7 @@ input versionsPost_version__relatedPosts_operator {
   exists: Boolean
 }
 
-input versionsPost_version__categories_operator {
+input versionsPost_version__tags_operator {
   equals: JSON
   not_equals: JSON
   in: [JSON]
@@ -1305,11 +1238,10 @@ input versionsPost_where_and {
   parent: versionsPost_parent_operator
   version__title: versionsPost_version__title_operator
   version__subtitle: versionsPost_version__subtitle_operator
-  version__tags: versionsPost_version__tags_operator
   version__featuredImage: versionsPost_version__featuredImage_operator
   version__content: versionsPost_version__content_operator
   version__relatedPosts: versionsPost_version__relatedPosts_operator
-  version__categories: versionsPost_version__categories_operator
+  version__tags: versionsPost_version__tags_operator
   meta__title: versionsPost_meta__title_operator
   meta__image: versionsPost_meta__image_operator
   meta__nofollow: versionsPost_meta__nofollow_operator
@@ -1337,11 +1269,10 @@ input versionsPost_where_or {
   parent: versionsPost_parent_operator
   version__title: versionsPost_version__title_operator
   version__subtitle: versionsPost_version__subtitle_operator
-  version__tags: versionsPost_version__tags_operator
   version__featuredImage: versionsPost_version__featuredImage_operator
   version__content: versionsPost_version__content_operator
   version__relatedPosts: versionsPost_version__relatedPosts_operator
-  version__categories: versionsPost_version__categories_operator
+  version__tags: versionsPost_version__tags_operator
   meta__title: versionsPost_meta__title_operator
   meta__image: versionsPost_meta__image_operator
   meta__nofollow: versionsPost_meta__nofollow_operator
@@ -2007,411 +1938,6 @@ type MediaDeleteDocAccess {
   where: JSONObject
 }
 
-type Categories {
-  docs: [Category]
-  hasNextPage: Boolean
-  hasPrevPage: Boolean
-  limit: Int
-  nextPage: Int
-  offset: Int
-  page: Int
-  pagingCounter: Int
-  prevPage: Int
-  totalDocs: Int
-  totalPages: Int
-}
-
-input Category_where {
-  title: Category_title_operator
-  parent: Category_parent_operator
-  breadcrumbs__doc: Category_breadcrumbs__doc_operator
-  breadcrumbs__url: Category_breadcrumbs__url_operator
-  breadcrumbs__label: Category_breadcrumbs__label_operator
-  breadcrumbs__id: Category_breadcrumbs__id_operator
-  updatedAt: Category_updatedAt_operator
-  createdAt: Category_createdAt_operator
-  id: Category_id_operator
-  AND: [Category_where_and]
-  OR: [Category_where_or]
-}
-
-input Category_title_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-}
-
-input Category_parent_operator {
-  equals: JSON
-  not_equals: JSON
-  in: [JSON]
-  not_in: [JSON]
-  all: [JSON]
-  exists: Boolean
-}
-
-input Category_breadcrumbs__doc_operator {
-  equals: JSON
-  not_equals: JSON
-  in: [JSON]
-  not_in: [JSON]
-  all: [JSON]
-  exists: Boolean
-}
-
-input Category_breadcrumbs__url_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Category_breadcrumbs__label_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Category_breadcrumbs__id_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Category_updatedAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Category_createdAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Category_id_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Category_where_and {
-  title: Category_title_operator
-  parent: Category_parent_operator
-  breadcrumbs__doc: Category_breadcrumbs__doc_operator
-  breadcrumbs__url: Category_breadcrumbs__url_operator
-  breadcrumbs__label: Category_breadcrumbs__label_operator
-  breadcrumbs__id: Category_breadcrumbs__id_operator
-  updatedAt: Category_updatedAt_operator
-  createdAt: Category_createdAt_operator
-  id: Category_id_operator
-  AND: [Category_where_and]
-  OR: [Category_where_or]
-}
-
-input Category_where_or {
-  title: Category_title_operator
-  parent: Category_parent_operator
-  breadcrumbs__doc: Category_breadcrumbs__doc_operator
-  breadcrumbs__url: Category_breadcrumbs__url_operator
-  breadcrumbs__label: Category_breadcrumbs__label_operator
-  breadcrumbs__id: Category_breadcrumbs__id_operator
-  updatedAt: Category_updatedAt_operator
-  createdAt: Category_createdAt_operator
-  id: Category_id_operator
-  AND: [Category_where_and]
-  OR: [Category_where_or]
-}
-
-type countCategories {
-  totalDocs: Int
-}
-
-type categoriesDocAccess {
-  fields: CategoriesDocAccessFields
-  create: CategoriesCreateDocAccess
-  read: CategoriesReadDocAccess
-  update: CategoriesUpdateDocAccess
-  delete: CategoriesDeleteDocAccess
-}
-
-type CategoriesDocAccessFields {
-  title: CategoriesDocAccessFields_title
-  parent: CategoriesDocAccessFields_parent
-  breadcrumbs: CategoriesDocAccessFields_breadcrumbs
-  updatedAt: CategoriesDocAccessFields_updatedAt
-  createdAt: CategoriesDocAccessFields_createdAt
-}
-
-type CategoriesDocAccessFields_title {
-  create: CategoriesDocAccessFields_title_Create
-  read: CategoriesDocAccessFields_title_Read
-  update: CategoriesDocAccessFields_title_Update
-  delete: CategoriesDocAccessFields_title_Delete
-}
-
-type CategoriesDocAccessFields_title_Create {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_title_Read {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_title_Update {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_title_Delete {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_parent {
-  create: CategoriesDocAccessFields_parent_Create
-  read: CategoriesDocAccessFields_parent_Read
-  update: CategoriesDocAccessFields_parent_Update
-  delete: CategoriesDocAccessFields_parent_Delete
-}
-
-type CategoriesDocAccessFields_parent_Create {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_parent_Read {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_parent_Update {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_parent_Delete {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_breadcrumbs {
-  create: CategoriesDocAccessFields_breadcrumbs_Create
-  read: CategoriesDocAccessFields_breadcrumbs_Read
-  update: CategoriesDocAccessFields_breadcrumbs_Update
-  delete: CategoriesDocAccessFields_breadcrumbs_Delete
-  fields: CategoriesDocAccessFields_breadcrumbs_Fields
-}
-
-type CategoriesDocAccessFields_breadcrumbs_Create {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_breadcrumbs_Read {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_breadcrumbs_Update {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_breadcrumbs_Delete {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_breadcrumbs_Fields {
-  doc: CategoriesDocAccessFields_breadcrumbs_doc
-  url: CategoriesDocAccessFields_breadcrumbs_url
-  label: CategoriesDocAccessFields_breadcrumbs_label
-  id: CategoriesDocAccessFields_breadcrumbs_id
-}
-
-type CategoriesDocAccessFields_breadcrumbs_doc {
-  create: CategoriesDocAccessFields_breadcrumbs_doc_Create
-  read: CategoriesDocAccessFields_breadcrumbs_doc_Read
-  update: CategoriesDocAccessFields_breadcrumbs_doc_Update
-  delete: CategoriesDocAccessFields_breadcrumbs_doc_Delete
-}
-
-type CategoriesDocAccessFields_breadcrumbs_doc_Create {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_breadcrumbs_doc_Read {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_breadcrumbs_doc_Update {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_breadcrumbs_doc_Delete {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_breadcrumbs_url {
-  create: CategoriesDocAccessFields_breadcrumbs_url_Create
-  read: CategoriesDocAccessFields_breadcrumbs_url_Read
-  update: CategoriesDocAccessFields_breadcrumbs_url_Update
-  delete: CategoriesDocAccessFields_breadcrumbs_url_Delete
-}
-
-type CategoriesDocAccessFields_breadcrumbs_url_Create {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_breadcrumbs_url_Read {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_breadcrumbs_url_Update {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_breadcrumbs_url_Delete {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_breadcrumbs_label {
-  create: CategoriesDocAccessFields_breadcrumbs_label_Create
-  read: CategoriesDocAccessFields_breadcrumbs_label_Read
-  update: CategoriesDocAccessFields_breadcrumbs_label_Update
-  delete: CategoriesDocAccessFields_breadcrumbs_label_Delete
-}
-
-type CategoriesDocAccessFields_breadcrumbs_label_Create {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_breadcrumbs_label_Read {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_breadcrumbs_label_Update {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_breadcrumbs_label_Delete {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_breadcrumbs_id {
-  create: CategoriesDocAccessFields_breadcrumbs_id_Create
-  read: CategoriesDocAccessFields_breadcrumbs_id_Read
-  update: CategoriesDocAccessFields_breadcrumbs_id_Update
-  delete: CategoriesDocAccessFields_breadcrumbs_id_Delete
-}
-
-type CategoriesDocAccessFields_breadcrumbs_id_Create {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_breadcrumbs_id_Read {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_breadcrumbs_id_Update {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_breadcrumbs_id_Delete {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_updatedAt {
-  create: CategoriesDocAccessFields_updatedAt_Create
-  read: CategoriesDocAccessFields_updatedAt_Read
-  update: CategoriesDocAccessFields_updatedAt_Update
-  delete: CategoriesDocAccessFields_updatedAt_Delete
-}
-
-type CategoriesDocAccessFields_updatedAt_Create {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_updatedAt_Read {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_updatedAt_Update {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_updatedAt_Delete {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_createdAt {
-  create: CategoriesDocAccessFields_createdAt_Create
-  read: CategoriesDocAccessFields_createdAt_Read
-  update: CategoriesDocAccessFields_createdAt_Update
-  delete: CategoriesDocAccessFields_createdAt_Delete
-}
-
-type CategoriesDocAccessFields_createdAt_Create {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_createdAt_Read {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_createdAt_Update {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_createdAt_Delete {
-  permission: Boolean!
-}
-
-type CategoriesCreateDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type CategoriesReadDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type CategoriesUpdateDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type CategoriesDeleteDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
 type Users {
   docs: [User]
   hasNextPage: Boolean
@@ -2670,12 +2196,23 @@ type Tags {
 }
 
 input Tag_where {
+  title: Tag_title_operator
   name: Tag_name_operator
   updatedAt: Tag_updatedAt_operator
   createdAt: Tag_createdAt_operator
   id: Tag_id_operator
   AND: [Tag_where_and]
   OR: [Tag_where_or]
+}
+
+input Tag_title_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
 }
 
 input Tag_name_operator {
@@ -2722,6 +2259,7 @@ input Tag_id_operator {
 }
 
 input Tag_where_and {
+  title: Tag_title_operator
   name: Tag_name_operator
   updatedAt: Tag_updatedAt_operator
   createdAt: Tag_createdAt_operator
@@ -2731,6 +2269,7 @@ input Tag_where_and {
 }
 
 input Tag_where_or {
+  title: Tag_title_operator
   name: Tag_name_operator
   updatedAt: Tag_updatedAt_operator
   createdAt: Tag_createdAt_operator
@@ -2752,9 +2291,33 @@ type tagsDocAccess {
 }
 
 type TagsDocAccessFields {
+  title: TagsDocAccessFields_title
   name: TagsDocAccessFields_name
   updatedAt: TagsDocAccessFields_updatedAt
   createdAt: TagsDocAccessFields_createdAt
+}
+
+type TagsDocAccessFields_title {
+  create: TagsDocAccessFields_title_Create
+  read: TagsDocAccessFields_title_Read
+  update: TagsDocAccessFields_title_Update
+  delete: TagsDocAccessFields_title_Delete
+}
+
+type TagsDocAccessFields_title_Create {
+  permission: Boolean!
+}
+
+type TagsDocAccessFields_title_Read {
+  permission: Boolean!
+}
+
+type TagsDocAccessFields_title_Update {
+  permission: Boolean!
+}
+
+type TagsDocAccessFields_title_Delete {
+  permission: Boolean!
 }
 
 type TagsDocAccessFields_name {
@@ -4759,7 +4322,6 @@ type PayloadLockedDocument_Document_Relationship {
 enum PayloadLockedDocument_Document_RelationTo {
   posts
   media
-  categories
   users
   tags
   authors
@@ -4768,7 +4330,7 @@ enum PayloadLockedDocument_Document_RelationTo {
   form_submissions
 }
 
-union PayloadLockedDocument_Document = Post | Media | Category | User | Tag | Author | Redirect | Form | FormSubmission
+union PayloadLockedDocument_Document = Post | Media | User | Tag | Author | Redirect | Form | FormSubmission
 
 type PayloadLockedDocument_User_Relationship {
   relationTo: PayloadLockedDocument_User_RelationTo
@@ -4814,7 +4376,6 @@ input PayloadLockedDocument_document_Relation {
 enum PayloadLockedDocument_document_Relation_RelationTo {
   posts
   media
-  categories
   users
   tags
   authors
@@ -5874,7 +5435,6 @@ type Access {
   canAccessAdmin: Boolean!
   posts: postsAccess
   media: mediaAccess
-  categories: categoriesAccess
   users: usersAccess
   tags: tagsAccess
   authors: authorsAccess
@@ -5899,11 +5459,10 @@ type postsAccess {
 type PostsFields {
   title: PostsFields_title
   subtitle: PostsFields_subtitle
-  tags: PostsFields_tags
   featuredImage: PostsFields_featuredImage
   content: PostsFields_content
   relatedPosts: PostsFields_relatedPosts
-  categories: PostsFields_categories
+  tags: PostsFields_tags
   image: PostsFields_image
   nofollow: PostsFields_nofollow
   noindex: PostsFields_noindex
@@ -5960,29 +5519,6 @@ type PostsFields_subtitle_Update {
 }
 
 type PostsFields_subtitle_Delete {
-  permission: Boolean!
-}
-
-type PostsFields_tags {
-  create: PostsFields_tags_Create
-  read: PostsFields_tags_Read
-  update: PostsFields_tags_Update
-  delete: PostsFields_tags_Delete
-}
-
-type PostsFields_tags_Create {
-  permission: Boolean!
-}
-
-type PostsFields_tags_Read {
-  permission: Boolean!
-}
-
-type PostsFields_tags_Update {
-  permission: Boolean!
-}
-
-type PostsFields_tags_Delete {
   permission: Boolean!
 }
 
@@ -6055,26 +5591,26 @@ type PostsFields_relatedPosts_Delete {
   permission: Boolean!
 }
 
-type PostsFields_categories {
-  create: PostsFields_categories_Create
-  read: PostsFields_categories_Read
-  update: PostsFields_categories_Update
-  delete: PostsFields_categories_Delete
+type PostsFields_tags {
+  create: PostsFields_tags_Create
+  read: PostsFields_tags_Read
+  update: PostsFields_tags_Update
+  delete: PostsFields_tags_Delete
 }
 
-type PostsFields_categories_Create {
+type PostsFields_tags_Create {
   permission: Boolean!
 }
 
-type PostsFields_categories_Read {
+type PostsFields_tags_Read {
   permission: Boolean!
 }
 
-type PostsFields_categories_Update {
+type PostsFields_tags_Update {
   permission: Boolean!
 }
 
-type PostsFields_categories_Delete {
+type PostsFields_tags_Delete {
   permission: Boolean!
 }
 
@@ -6747,257 +6283,6 @@ type MediaDeleteAccess {
   where: JSONObject
 }
 
-type categoriesAccess {
-  fields: CategoriesFields
-  create: CategoriesCreateAccess
-  read: CategoriesReadAccess
-  update: CategoriesUpdateAccess
-  delete: CategoriesDeleteAccess
-}
-
-type CategoriesFields {
-  title: CategoriesFields_title
-  parent: CategoriesFields_parent
-  breadcrumbs: CategoriesFields_breadcrumbs
-  updatedAt: CategoriesFields_updatedAt
-  createdAt: CategoriesFields_createdAt
-}
-
-type CategoriesFields_title {
-  create: CategoriesFields_title_Create
-  read: CategoriesFields_title_Read
-  update: CategoriesFields_title_Update
-  delete: CategoriesFields_title_Delete
-}
-
-type CategoriesFields_title_Create {
-  permission: Boolean!
-}
-
-type CategoriesFields_title_Read {
-  permission: Boolean!
-}
-
-type CategoriesFields_title_Update {
-  permission: Boolean!
-}
-
-type CategoriesFields_title_Delete {
-  permission: Boolean!
-}
-
-type CategoriesFields_parent {
-  create: CategoriesFields_parent_Create
-  read: CategoriesFields_parent_Read
-  update: CategoriesFields_parent_Update
-  delete: CategoriesFields_parent_Delete
-}
-
-type CategoriesFields_parent_Create {
-  permission: Boolean!
-}
-
-type CategoriesFields_parent_Read {
-  permission: Boolean!
-}
-
-type CategoriesFields_parent_Update {
-  permission: Boolean!
-}
-
-type CategoriesFields_parent_Delete {
-  permission: Boolean!
-}
-
-type CategoriesFields_breadcrumbs {
-  create: CategoriesFields_breadcrumbs_Create
-  read: CategoriesFields_breadcrumbs_Read
-  update: CategoriesFields_breadcrumbs_Update
-  delete: CategoriesFields_breadcrumbs_Delete
-  fields: CategoriesFields_breadcrumbs_Fields
-}
-
-type CategoriesFields_breadcrumbs_Create {
-  permission: Boolean!
-}
-
-type CategoriesFields_breadcrumbs_Read {
-  permission: Boolean!
-}
-
-type CategoriesFields_breadcrumbs_Update {
-  permission: Boolean!
-}
-
-type CategoriesFields_breadcrumbs_Delete {
-  permission: Boolean!
-}
-
-type CategoriesFields_breadcrumbs_Fields {
-  doc: CategoriesFields_breadcrumbs_doc
-  url: CategoriesFields_breadcrumbs_url
-  label: CategoriesFields_breadcrumbs_label
-  id: CategoriesFields_breadcrumbs_id
-}
-
-type CategoriesFields_breadcrumbs_doc {
-  create: CategoriesFields_breadcrumbs_doc_Create
-  read: CategoriesFields_breadcrumbs_doc_Read
-  update: CategoriesFields_breadcrumbs_doc_Update
-  delete: CategoriesFields_breadcrumbs_doc_Delete
-}
-
-type CategoriesFields_breadcrumbs_doc_Create {
-  permission: Boolean!
-}
-
-type CategoriesFields_breadcrumbs_doc_Read {
-  permission: Boolean!
-}
-
-type CategoriesFields_breadcrumbs_doc_Update {
-  permission: Boolean!
-}
-
-type CategoriesFields_breadcrumbs_doc_Delete {
-  permission: Boolean!
-}
-
-type CategoriesFields_breadcrumbs_url {
-  create: CategoriesFields_breadcrumbs_url_Create
-  read: CategoriesFields_breadcrumbs_url_Read
-  update: CategoriesFields_breadcrumbs_url_Update
-  delete: CategoriesFields_breadcrumbs_url_Delete
-}
-
-type CategoriesFields_breadcrumbs_url_Create {
-  permission: Boolean!
-}
-
-type CategoriesFields_breadcrumbs_url_Read {
-  permission: Boolean!
-}
-
-type CategoriesFields_breadcrumbs_url_Update {
-  permission: Boolean!
-}
-
-type CategoriesFields_breadcrumbs_url_Delete {
-  permission: Boolean!
-}
-
-type CategoriesFields_breadcrumbs_label {
-  create: CategoriesFields_breadcrumbs_label_Create
-  read: CategoriesFields_breadcrumbs_label_Read
-  update: CategoriesFields_breadcrumbs_label_Update
-  delete: CategoriesFields_breadcrumbs_label_Delete
-}
-
-type CategoriesFields_breadcrumbs_label_Create {
-  permission: Boolean!
-}
-
-type CategoriesFields_breadcrumbs_label_Read {
-  permission: Boolean!
-}
-
-type CategoriesFields_breadcrumbs_label_Update {
-  permission: Boolean!
-}
-
-type CategoriesFields_breadcrumbs_label_Delete {
-  permission: Boolean!
-}
-
-type CategoriesFields_breadcrumbs_id {
-  create: CategoriesFields_breadcrumbs_id_Create
-  read: CategoriesFields_breadcrumbs_id_Read
-  update: CategoriesFields_breadcrumbs_id_Update
-  delete: CategoriesFields_breadcrumbs_id_Delete
-}
-
-type CategoriesFields_breadcrumbs_id_Create {
-  permission: Boolean!
-}
-
-type CategoriesFields_breadcrumbs_id_Read {
-  permission: Boolean!
-}
-
-type CategoriesFields_breadcrumbs_id_Update {
-  permission: Boolean!
-}
-
-type CategoriesFields_breadcrumbs_id_Delete {
-  permission: Boolean!
-}
-
-type CategoriesFields_updatedAt {
-  create: CategoriesFields_updatedAt_Create
-  read: CategoriesFields_updatedAt_Read
-  update: CategoriesFields_updatedAt_Update
-  delete: CategoriesFields_updatedAt_Delete
-}
-
-type CategoriesFields_updatedAt_Create {
-  permission: Boolean!
-}
-
-type CategoriesFields_updatedAt_Read {
-  permission: Boolean!
-}
-
-type CategoriesFields_updatedAt_Update {
-  permission: Boolean!
-}
-
-type CategoriesFields_updatedAt_Delete {
-  permission: Boolean!
-}
-
-type CategoriesFields_createdAt {
-  create: CategoriesFields_createdAt_Create
-  read: CategoriesFields_createdAt_Read
-  update: CategoriesFields_createdAt_Update
-  delete: CategoriesFields_createdAt_Delete
-}
-
-type CategoriesFields_createdAt_Create {
-  permission: Boolean!
-}
-
-type CategoriesFields_createdAt_Read {
-  permission: Boolean!
-}
-
-type CategoriesFields_createdAt_Update {
-  permission: Boolean!
-}
-
-type CategoriesFields_createdAt_Delete {
-  permission: Boolean!
-}
-
-type CategoriesCreateAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type CategoriesReadAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type CategoriesUpdateAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type CategoriesDeleteAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
 type usersAccess {
   fields: UsersFields
   create: UsersCreateAccess
@@ -7140,9 +6425,33 @@ type tagsAccess {
 }
 
 type TagsFields {
+  title: TagsFields_title
   name: TagsFields_name
   updatedAt: TagsFields_updatedAt
   createdAt: TagsFields_createdAt
+}
+
+type TagsFields_title {
+  create: TagsFields_title_Create
+  read: TagsFields_title_Read
+  update: TagsFields_title_Update
+  delete: TagsFields_title_Delete
+}
+
+type TagsFields_title_Create {
+  permission: Boolean!
+}
+
+type TagsFields_title_Read {
+  permission: Boolean!
+}
+
+type TagsFields_title_Update {
+  permission: Boolean!
+}
+
+type TagsFields_title_Delete {
+  permission: Boolean!
 }
 
 type TagsFields_name {
@@ -9108,10 +8417,6 @@ type Mutation {
   updateMedia(id: String!, autosave: Boolean, data: mutationMediaUpdateInput!, draft: Boolean, locale: LocaleInputType): Media
   deleteMedia(id: String!): Media
   duplicateMedia(id: String!, data: mutationMediaInput!): Media
-  createCategory(data: mutationCategoryInput!, draft: Boolean, locale: LocaleInputType): Category
-  updateCategory(id: String!, autosave: Boolean, data: mutationCategoryUpdateInput!, draft: Boolean, locale: LocaleInputType): Category
-  deleteCategory(id: String!): Category
-  duplicateCategory(id: String!, data: mutationCategoryInput!): Category
   createUser(data: mutationUserInput!, draft: Boolean, locale: LocaleInputType): User
   updateUser(id: String!, autosave: Boolean, data: mutationUserUpdateInput!, draft: Boolean, locale: LocaleInputType): User
   deleteUser(id: String!): User
@@ -9157,11 +8462,10 @@ type Mutation {
 input mutationPostInput {
   title: String
   subtitle: String
-  tags: [String]
   featuredImage: String
   content: String
   relatedPosts: [String]
-  categories: [String]
+  tags: [String]
   meta: mutationPost_MetaInput
   authorSlug: String
   publishedAt: String
@@ -9188,11 +8492,10 @@ enum Post__status_MutationInput {
 input mutationPostUpdateInput {
   title: String
   subtitle: String
-  tags: [String]
   featuredImage: String
   content: String
   relatedPosts: [String]
-  categories: [String]
+  tags: [String]
   meta: mutationPostUpdate_MetaInput
   authorSlug: String
   publishedAt: String
@@ -9252,36 +8555,6 @@ input mutationMediaUpdateInput {
   focalY: Float
 }
 
-input mutationCategoryInput {
-  title: String
-  parent: String
-  breadcrumbs: [mutationCategory_BreadcrumbsInput]
-  updatedAt: String
-  createdAt: String
-}
-
-input mutationCategory_BreadcrumbsInput {
-  doc: String
-  url: String
-  label: String
-  id: String
-}
-
-input mutationCategoryUpdateInput {
-  title: String
-  parent: String
-  breadcrumbs: [mutationCategoryUpdate_BreadcrumbsInput]
-  updatedAt: String
-  createdAt: String
-}
-
-input mutationCategoryUpdate_BreadcrumbsInput {
-  doc: String
-  url: String
-  label: String
-  id: String
-}
-
 input mutationUserInput {
   name: String
   updatedAt: String
@@ -9334,12 +8607,14 @@ type usersResetPassword {
 }
 
 input mutationTagInput {
+  title: String
   name: String!
   updatedAt: String
   createdAt: String
 }
 
 input mutationTagUpdateInput {
+  title: String
   name: String
   updatedAt: String
   createdAt: String
@@ -9505,7 +8780,6 @@ input PayloadLockedDocument_DocumentRelationshipInput {
 enum PayloadLockedDocument_DocumentRelationshipInputRelationTo {
   posts
   media
-  categories
   users
   tags
   authors
@@ -9539,7 +8813,6 @@ input PayloadLockedDocumentUpdate_DocumentRelationshipInput {
 enum PayloadLockedDocumentUpdate_DocumentRelationshipInputRelationTo {
   posts
   media
-  categories
   users
   tags
   authors

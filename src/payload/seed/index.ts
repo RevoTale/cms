@@ -15,7 +15,7 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 const collections: CollectionSlug[] = [
-  'categories',
+  'tags',
   'media',
   'posts',
   'forms',
@@ -130,51 +130,57 @@ export const seed = async ({
     req,
   })
 
-  payload.logger.info(`— Seeding categories...`)
+  payload.logger.info(`— Seeding tags...`)
   const technologyCategory = await payload.create({
-    collection: 'categories',
+    collection: 'tags',
     data: {
       title: 'Technology',
+      name:'ss'
     },
     req,
   })
 
   const newsCategory = await payload.create({
-    collection: 'categories',
+    collection: 'tags',
     data: {
       title: 'News',
+        name:'ssss'
     },
     req,
   })
 
   const financeCategory = await payload.create({
-    collection: 'categories',
+    collection: 'tags',
     data: {
       title: 'Finance',
+        name:'vvv'
     },
     req,
   })
 
   await payload.create({
-    collection: 'categories',
+    collection: 'tags',
     data: {
       title: 'Design',
+        name:'sdfdfsdgfs'
     },
     req,
   })
 
   await payload.create({
-    collection: 'categories',
+    collection: 'tags',
     data: {
       title: 'Software',
+        name:'xcbvvbbcv'
     },
     req,
   })
 
   await payload.create({
-    collection: 'categories',
+    collection: 'tags',
     data: {
       title: 'Engineering',
+        name:'sadfasddfgsdfg'
     },
     req,
   })

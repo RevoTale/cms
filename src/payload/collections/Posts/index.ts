@@ -52,13 +52,7 @@ export const Posts: CollectionConfig = {
       localized:true
 
     },
-    {
-      name: 'tags',
-      type: 'relationship',
-      relationTo: 'tags',
-      hasMany: true,
-      label: 'Tags'
-    },
+   
     {
       name:'featuredImage',
       type:'upload',
@@ -103,13 +97,14 @@ export const Posts: CollectionConfig = {
               relationTo: 'posts',
             },
             {
-              name: 'categories',
+              name: 'tags',
               type: 'relationship',
               admin: {
                 position: 'sidebar',
               },
               hasMany: true,
-              relationTo: 'categories',
+              relationTo: 'tags',
+              label:"Tags"
             },
           ],
           label: 'Meta',

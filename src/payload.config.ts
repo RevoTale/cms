@@ -34,6 +34,8 @@ import {Footer} from './payload/globals/Footer/Footer'
 import {Header} from './payload/globals/Header/Header'
 import {revalidateRedirects} from './payload/hooks/revalidateRedirects'
 import { GenerateFileURL } from '@payloadcms/plugin-cloud-storage/types'
+
+
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
@@ -88,6 +90,10 @@ export default buildConfig({
       // The `BeforeDashboard` component renders the 'welcome' block that you see after logging into your admin panel.
       // Feel free to delete this at any time. Simply remove the line below and the import `BeforeDashboard` statement on line 15.
       beforeDashboard: ['/payload/components/BeforeDashboard'],
+      graphics: {
+        Logo: '/graphics/Logo#default',
+        Icon: '/graphics/Icon#default',
+      },
     },
     importMap: {
       baseDir: path.resolve(dirname),

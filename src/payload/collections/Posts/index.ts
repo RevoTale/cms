@@ -12,7 +12,6 @@ import type {CollectionConfig} from 'payload'
 import {authenticated} from '../../access/authenticated'
 import {authenticatedOrPublished} from '../../access/authenticatedOrPublished'
 import {slugField} from '../../fields/slug'
-import {generatePreviewPath} from '../../utilities/generatePreviewPath'
 import {revalidatePost} from './hooks/revalidatePost'
 
 export const Posts: CollectionConfig = {
@@ -25,16 +24,6 @@ export const Posts: CollectionConfig = {
   },
   admin: {
     defaultColumns: ['title', 'slug', 'updatedAt'],
-    livePreview: {
-      url: ({data}) => {
-        const path = generatePreviewPath({
-          path: `/blog/${typeof data?.slug === 'string' ? data.slug : ''}`,
-        })
-        return `${process.env.PAYLOAD_PUBLIC_SERVER_URL}${path}`
-      },
-    },
-    preview: (doc) =>
-      generatePreviewPath({path: `/blog/${typeof doc?.slug === 'string' ? doc.slug : ''}`}),
     useAsTitle: 'title',
   },
 

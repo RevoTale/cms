@@ -1,10 +1,10 @@
 // storage-adapter-import-placeholder
-import {mongooseAdapter} from '@payloadcms/db-mongodb'
-import {formBuilderPlugin} from '@payloadcms/plugin-form-builder'
+import { mongooseAdapter } from '@payloadcms/db-mongodb'
+import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 
-import {redirectsPlugin} from '@payloadcms/plugin-redirects'
-import {seoPlugin} from '@payloadcms/plugin-seo'
-import {GenerateTitle, GenerateURL} from '@payloadcms/plugin-seo/types'
+import { redirectsPlugin } from '@payloadcms/plugin-redirects'
+import { seoPlugin } from '@payloadcms/plugin-seo'
+import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types'
 import {
   BoldFeature,
   FixedToolbarFeature,
@@ -17,66 +17,67 @@ import {
 import { s3Storage } from '@payloadcms/storage-s3'
 
 import path from 'path'
-import {buildConfig} from 'payload'
-import sharp from 'sharp' // editor-import
-import { Post} from 'src/payload-types'
-import {fileURLToPath} from 'url'
-import Authors from "./payload/collections/Authors";
+import { buildConfig } from 'payload'
+import sharp from 'sharp'; // editor-import
+import { MicroPost, Post } from 'src/payload-types'
+import { fileURLToPath } from 'url'
+import Authors from "./payload/collections/Authors"
 
-import {Media} from './payload/collections/Media'
-import {Posts} from './payload/collections/Posts'
-import Tags from "./payload/collections/Tags";
-import Users from './payload/collections/Users'
-import {seed} from './payload/endpoints/seed'
-import {Footer} from './payload/globals/Footer/Footer'
-import {Header} from './payload/globals/Header/Header'
-import {revalidateRedirects} from './payload/hooks/revalidateRedirects'
 import { GenerateFileURL } from '@payloadcms/plugin-cloud-storage/types'
+import { Media } from './payload/collections/Media'
+import { MicroPosts } from './payload/collections/MicroPosts'
+import { Posts } from './payload/collections/Posts'
+import Tags from "./payload/collections/Tags"
+import Users from './payload/collections/Users'
+import { seed } from './payload/endpoints/seed'
+import { Footer } from './payload/globals/Footer/Footer'
+import { Header } from './payload/globals/Header/Header'
+import { revalidateRedirects } from './payload/hooks/revalidateRedirects'
 
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
-const generateTitle: GenerateTitle<Post > = ({doc}) => {
-  return doc?.title ? `${doc.title} | Payload Website Template` : 'Payload Website Template'
+const generateTitle: GenerateTitle<Post | MicroPost> = ({ doc }) => {
+  return `${doc.title}`
 }
 
-const generateURL: GenerateURL<Post > = ({doc}) => {
+const generateURL: GenerateURL<Post> = ({ doc }) => {
   return doc?.slug
     ? `${(process.env.PAYLOAD_PUBLIC_SERVER_URL ?? '')}/blog/${doc.slug}`
     : (process.env.PAYLOAD_PUBLIC_SERVER_URL ?? '')
 }
-const sss:GenerateFileURL =({filename,prefix=''})=>{
+const sss: GenerateFileURL = ({ filename, prefix = '' }) => {
   return `https://media.revotale.com/${prefix}/${filename}`
 }
 const s3PluginConfig = s3Storage({
   collections: {
     [Media.slug]: {
-      prefix:'main_',
-      disableLocalStorage:true,
-      generateFileURL:sss
+      prefix: 'main_',
+      disableLocalStorage: true,
+      generateFileURL: sss
     },
   },
-  disableLocalStorage:true,
-  bucket: process.env.S3_BUCKET??'',
+  disableLocalStorage: true,
+  bucket: process.env.S3_BUCKET ?? '',
   config: {
-    endpoint:process.env.S3_ENDPOINT,
+    endpoint: process.env.S3_ENDPOINT,
     credentials: {
 
-      accessKeyId: process.env.S3_ACCESS_KEY_ID??'',
-      secretAccessKey: process.env.S3_SECRET_ACCESS_KEY??'',
+      accessKeyId: process.env.S3_ACCESS_KEY_ID ?? '',
+      secretAccessKey: process.env.S3_SECRET_ACCESS_KEY ?? '',
     },
     region: process.env.S3_REGION,
     // ... Other S3 configuration
   },
 })
 export default buildConfig({
-  graphQL:{
-    disablePlaygroundInProduction:false,
+  graphQL: {
+    disablePlaygroundInProduction: false,
     schemaOutputFile: path.resolve(dirname, './graphql/schema.graphql'),
   },
   localization: {
-    locales: ['en-US', 'uk-UA', 'de-DE','hi-IN','ja-JP','ru-RU','fr-FR','es-ES'],
+    locales: ['en-US', 'uk-UA', 'de-DE', 'hi-IN', 'ja-JP', 'ru-RU', 'fr-FR', 'es-ES'],
     defaultLocale: 'en-US',
     fallback: true,
   },
@@ -129,8 +130,8 @@ export default buildConfig({
         BoldFeature(),
         ItalicFeature(),
         LinkFeature({
-          enabledCollections: [ 'posts'],
-          fields: ({defaultFields}) => {
+          enabledCollections: ['posts'],
+          fields: ({ defaultFields }) => {
             const defaultFieldsWithoutUrl = defaultFields.filter((field) => {
               return !('name' in field && field.name === 'url');
 
@@ -142,9 +143,9 @@ export default buildConfig({
                 name: 'url',
                 type: 'text',
                 admin: {
-                  condition: ({linkType}) => linkType !== 'internal',
+                  condition: ({ linkType }) => linkType !== 'internal',
                 },
-                label: ({t}) => t('fields:enterURL'),
+                label: ({ t }) => t('fields:enterURL'),
                 required: true,
               },
             ]
@@ -156,8 +157,8 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
-  serverURL:process.env.PAYLOAD_PUBLIC_SERVER_URL,
-  collections: [Posts, Media, Users,Tags,Authors],
+  serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL,
+  collections: [Posts, Media, Users, Tags, Authors, MicroPosts],
   cors: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
   csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
   endpoints: [
@@ -181,9 +182,9 @@ export default buildConfig({
     }),*/
     s3PluginConfig,
     redirectsPlugin({
-      collections: [ 'posts'],
+      collections: ['posts'],
       overrides: {
-        fields: ({defaultFields}) => {
+        fields: ({ defaultFields }) => {
           return defaultFields.map((field) => {
             if ('name' in field && field.name === 'from') {
               return {
@@ -210,17 +211,17 @@ export default buildConfig({
         payment: false,
       },
       formOverrides: {
-        fields: ({defaultFields}) => {
+        fields: ({ defaultFields }) => {
           return defaultFields.map((field) => {
             if ('name' in field && field.name === 'confirmationMessage') {
               return {
                 ...field,
                 editor: lexicalEditor({
-                  features: ({rootFeatures}) => {
+                  features: ({ rootFeatures }) => {
                     return [
                       ...rootFeatures,
                       FixedToolbarFeature(),
-                      HeadingFeature({enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4']}),
+                      HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
                     ]
                   },
                 }),

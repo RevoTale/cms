@@ -25,7 +25,6 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
     src: srcFromProps,
   } = props
 
-  const [isLoading, setIsLoading] = React.useState(true)
 
   let width: number | undefined
   let height: number | undefined
@@ -63,7 +62,6 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
       height={!fill ? height : undefined}
       onClick={onClick}
       onLoad={() => {
-        setIsLoading(false)
         if (typeof onLoadFromProps === 'function') {
           onLoadFromProps()
         }

@@ -1,15 +1,10 @@
-import { getCachedGlobal } from '@/utilities/getGlobals'
 import Link from 'next/link'
-import React from 'react'
 
-import type { Footer } from '../../../payload-types'
 
 import { ThemeSelector } from '../../providers/Theme/ThemeSelector'
 
 export async function Footer() {
-  const footer: Footer = await getCachedGlobal('footer')()
 
-  const navItems = footer?.navItems || []
 
   return (
     <footer className="border-t border-border bg-black dark:bg-card text-white">

@@ -1,5 +1,5 @@
 // collections/Tags.js
-import { CollectionConfig, Field, TextField } from 'payload';
+import { CollectionConfig, TextField } from 'payload';
 import {anyone} from "../../access/anyone";
 import {authenticated} from "../../access/authenticated";
 const nameField:TextField = {
@@ -9,7 +9,7 @@ const nameField:TextField = {
   label: 'Tag Name',
   localized:false,
   validate: (value) => {
-    var re = /^\w+$/;
+    const re = /^\w+$/;
     if (re.test(value??''))  {
       return 'This field is required'
     }

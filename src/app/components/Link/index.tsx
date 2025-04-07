@@ -1,12 +1,13 @@
-import {Button, type ButtonProps} from '@/components/ui/button'
-import {cn} from '@/utilities/cn'
+import { Button, buttonVariants } from '@/components/ui/button'
+import { cn } from '@/utilities/cn'
 import Link from 'next/link'
 import React from 'react'
 
-import type { Post} from '../../../payload-types'
+import { VariantProps } from 'class-variance-authority'
+import type { Post } from '../../../payload-types'
 
 type CMSLinkType = {
-  appearance?: 'inline' | ButtonProps['variant']
+  appearance?: 'inline' | VariantProps<typeof buttonVariants>['variant']
   children?: React.ReactNode
   className?: string
   label?: string
@@ -15,7 +16,7 @@ type CMSLinkType = {
     relationTo: 'pages' | 'posts'
     value:   Post | string | number
   } | null
-  size?: ButtonProps['size']
+  size?: VariantProps<typeof buttonVariants>['size']
   type?: 'custom' | 'reference' | null
   url?: string | null
 }
@@ -42,7 +43,7 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
 
   if (!href) return null
 
-  const size = appearance === 'link' ? 'clear' : sizeFromProps
+  const size = appearance === 'link' ? 'default' : sizeFromProps
   const newTabProps = newTab ? {rel: 'noopener noreferrer', target: '_blank'} : {}
 
   const finalLink = href || url

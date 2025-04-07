@@ -123,12 +123,7 @@ export const seed = async ({
     filePath: path.resolve(dirname, 'image-post3.webp'),
     req,
   })
-  const imageHomeDoc = await payload.create({
-    collection: 'media',
-    data: image2,
-    filePath: path.resolve(dirname, 'image-hero1.webp'),
-    req,
-  })
+
 
   payload.logger.info(`— Seeding tags...`)
   const technologyCategory = await payload.create({
@@ -188,13 +183,11 @@ export const seed = async ({
   let image1ID: number | string = image1Doc.id
   let image2ID: number | string = image2Doc.id
   let image3ID: number | string = image3Doc.id
-  let imageHomeID: number | string = imageHomeDoc.id
 
   if (payload.db.defaultIDType === 'text') {
     image1ID = `"${image1Doc.id}"`
     image2ID = `"${image2Doc.id}"`
     image3ID = `"${image3Doc.id}"`
-    imageHomeID = `"${imageHomeDoc.id}"`
     demoAuthorID = `"${demoAuthorID}"`
   }
 
@@ -266,17 +259,12 @@ export const seed = async ({
 
   payload.logger.info(`— Seeding contact form...`)
 
-  const contactForm = await payload.create({
+  await payload.create({
     collection: 'forms',
     data: JSON.parse(JSON.stringify(contactFormData)),
     req,
   })
 
-  let contactFormID: number | string = contactForm.id
-
-  if (payload.db.defaultIDType === 'text') {
-    contactFormID = `"${contactFormID}"`
-  }
 
   payload.logger.info(`— Seeding contact page...`)
 

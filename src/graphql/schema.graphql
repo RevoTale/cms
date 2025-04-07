@@ -173,17 +173,17 @@ enum Post__status {
 }
 
 type Posts {
-  docs: [Post]
-  hasNextPage: Boolean
-  hasPrevPage: Boolean
-  limit: Int
-  nextPage: Int
+  docs: [Post!]!
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  nextPage: Int!
   offset: Int
-  page: Int
-  pagingCounter: Int
-  prevPage: Int
-  totalDocs: Int
-  totalPages: Int
+  page: Int!
+  pagingCounter: Int!
+  prevPage: Int!
+  totalDocs: Int!
+  totalPages: Int!
 }
 
 input Post_where {
@@ -949,17 +949,17 @@ enum PostVersion_publishedLocale {
 }
 
 type versionsPosts {
-  docs: [PostVersion]
-  hasNextPage: Boolean
-  hasPrevPage: Boolean
-  limit: Int
-  nextPage: Int
+  docs: [PostVersion!]!
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  nextPage: Int!
   offset: Int
-  page: Int
-  pagingCounter: Int
-  prevPage: Int
-  totalDocs: Int
-  totalPages: Int
+  page: Int!
+  pagingCounter: Int!
+  prevPage: Int!
+  totalDocs: Int!
+  totalPages: Int!
 }
 
 input versionsPost_where {
@@ -1303,17 +1303,17 @@ input versionsPost_where_or {
 }
 
 type allMedia {
-  docs: [Media]
-  hasNextPage: Boolean
-  hasPrevPage: Boolean
-  limit: Int
-  nextPage: Int
+  docs: [Media!]!
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  nextPage: Int!
   offset: Int
-  page: Int
-  pagingCounter: Int
-  prevPage: Int
-  totalDocs: Int
-  totalPages: Int
+  page: Int!
+  pagingCounter: Int!
+  prevPage: Int!
+  totalDocs: Int!
+  totalPages: Int!
 }
 
 input Media_where {
@@ -1945,17 +1945,17 @@ type MediaDeleteDocAccess {
 }
 
 type Users {
-  docs: [User]
-  hasNextPage: Boolean
-  hasPrevPage: Boolean
-  limit: Int
-  nextPage: Int
+  docs: [User!]!
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  nextPage: Int!
   offset: Int
-  page: Int
-  pagingCounter: Int
-  prevPage: Int
-  totalDocs: Int
-  totalPages: Int
+  page: Int!
+  pagingCounter: Int!
+  prevPage: Int!
+  totalDocs: Int!
+  totalPages: Int!
 }
 
 input User_where {
@@ -2188,17 +2188,17 @@ type usersMe {
 }
 
 type Tags {
-  docs: [Tag]
-  hasNextPage: Boolean
-  hasPrevPage: Boolean
-  limit: Int
-  nextPage: Int
+  docs: [Tag!]!
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  nextPage: Int!
   offset: Int
-  page: Int
-  pagingCounter: Int
-  prevPage: Int
-  totalDocs: Int
-  totalPages: Int
+  page: Int!
+  pagingCounter: Int!
+  prevPage: Int!
+  totalDocs: Int!
+  totalPages: Int!
 }
 
 input Tag_where {
@@ -2416,17 +2416,17 @@ type TagsDeleteDocAccess {
 }
 
 type Authors {
-  docs: [Author]
-  hasNextPage: Boolean
-  hasPrevPage: Boolean
-  limit: Int
-  nextPage: Int
+  docs: [Author!]!
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  nextPage: Int!
   offset: Int
-  page: Int
-  pagingCounter: Int
-  prevPage: Int
-  totalDocs: Int
-  totalPages: Int
+  page: Int!
+  pagingCounter: Int!
+  prevPage: Int!
+  totalDocs: Int!
+  totalPages: Int!
 }
 
 input Author_where {
@@ -2779,17 +2779,17 @@ enum Micro_post__status {
 }
 
 type Micro_posts {
-  docs: [Micro_post]
-  hasNextPage: Boolean
-  hasPrevPage: Boolean
-  limit: Int
-  nextPage: Int
+  docs: [Micro_post!]!
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  nextPage: Int!
   offset: Int
-  page: Int
-  pagingCounter: Int
-  prevPage: Int
-  totalDocs: Int
-  totalPages: Int
+  page: Int!
+  pagingCounter: Int!
+  prevPage: Int!
+  totalDocs: Int!
+  totalPages: Int!
 }
 
 input Micro_post_where {
@@ -3367,17 +3367,17 @@ enum Micro_postVersion_publishedLocale {
 }
 
 type versionsMicro_posts {
-  docs: [Micro_postVersion]
-  hasNextPage: Boolean
-  hasPrevPage: Boolean
-  limit: Int
-  nextPage: Int
+  docs: [Micro_postVersion!]!
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  nextPage: Int!
   offset: Int
-  page: Int
-  pagingCounter: Int
-  prevPage: Int
-  totalDocs: Int
-  totalPages: Int
+  page: Int!
+  pagingCounter: Int!
+  prevPage: Int!
+  totalDocs: Int!
+  totalPages: Int!
 }
 
 input versionsMicro_post_where {
@@ -3698,17 +3698,17 @@ enum Redirect_To_Reference_RelationTo {
 union Redirect_To_Reference = Post
 
 type Redirects {
-  docs: [Redirect]
-  hasNextPage: Boolean
-  hasPrevPage: Boolean
-  limit: Int
-  nextPage: Int
+  docs: [Redirect!]!
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  nextPage: Int!
   offset: Int
-  page: Int
-  pagingCounter: Int
-  prevPage: Int
-  totalDocs: Int
-  totalPages: Int
+  page: Int!
+  pagingCounter: Int!
+  prevPage: Int!
+  totalDocs: Int!
+  totalPages: Int!
 }
 
 input Redirect_where {
@@ -4098,6 +4098,7 @@ type Select {
   label: String
   width: Float
   defaultValue: String
+  placeholder: String
   options: [Select_Options!]
   required: Boolean
   id: String
@@ -4164,17 +4165,17 @@ type Form_Emails {
 }
 
 type Forms {
-  docs: [Form]
-  hasNextPage: Boolean
-  hasPrevPage: Boolean
-  limit: Int
-  nextPage: Int
+  docs: [Form!]!
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  nextPage: Int!
   offset: Int
-  page: Int
-  pagingCounter: Int
-  prevPage: Int
-  totalDocs: Int
-  totalPages: Int
+  page: Int!
+  pagingCounter: Int!
+  prevPage: Int!
+  totalDocs: Int!
+  totalPages: Int!
 }
 
 input Form_where {
@@ -4898,17 +4899,17 @@ type FormSubmission_SubmissionData {
 }
 
 type FormSubmissions {
-  docs: [FormSubmission]
-  hasNextPage: Boolean
-  hasPrevPage: Boolean
-  limit: Int
-  nextPage: Int
+  docs: [FormSubmission!]!
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  nextPage: Int!
   offset: Int
-  page: Int
-  pagingCounter: Int
-  prevPage: Int
-  totalDocs: Int
-  totalPages: Int
+  page: Int!
+  pagingCounter: Int!
+  prevPage: Int!
+  totalDocs: Int!
+  totalPages: Int!
 }
 
 input FormSubmission_where {
@@ -5266,17 +5267,17 @@ enum PayloadLockedDocument_User_RelationTo {
 union PayloadLockedDocument_User = User
 
 type PayloadLockedDocuments {
-  docs: [PayloadLockedDocument]
-  hasNextPage: Boolean
-  hasPrevPage: Boolean
-  limit: Int
-  nextPage: Int
+  docs: [PayloadLockedDocument!]!
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  nextPage: Int!
   offset: Int
-  page: Int
-  pagingCounter: Int
-  prevPage: Int
-  totalDocs: Int
-  totalPages: Int
+  page: Int!
+  pagingCounter: Int!
+  prevPage: Int!
+  totalDocs: Int!
+  totalPages: Int!
 }
 
 input PayloadLockedDocument_where {
@@ -5558,17 +5559,17 @@ enum PayloadPreference_User_RelationTo {
 union PayloadPreference_User = User
 
 type PayloadPreferences {
-  docs: [PayloadPreference]
-  hasNextPage: Boolean
-  hasPrevPage: Boolean
-  limit: Int
-  nextPage: Int
+  docs: [PayloadPreference!]!
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  nextPage: Int!
   offset: Int
-  page: Int
-  pagingCounter: Int
-  prevPage: Int
-  totalDocs: Int
-  totalPages: Int
+  page: Int!
+  pagingCounter: Int!
+  prevPage: Int!
+  totalDocs: Int!
+  totalPages: Int!
 }
 
 input PayloadPreference_where {

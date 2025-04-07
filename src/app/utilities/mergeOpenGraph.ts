@@ -5,13 +5,13 @@ const defaultOpenGraph: Metadata['openGraph'] = {
   description: 'An open-source website built with Payload and Next.js.',
   images: [
     {
-      url: process.env.NEXT_PUBLIC_SERVER_URL
-        ? `${process.env.NEXT_PUBLIC_SERVER_URL}/website-template-OG.webp`
+      url: process.env.PAYLOAD_PUBLIC_SERVER_URL
+        ? `${process.env.PAYLOAD_PUBLIC_SERVER_URL}/website-template-OG.webp`
         : '/website-template-OG.webp',
     },
   ],
-  siteName: 'Payload Website Template',
-  title: 'Payload Website Template',
+  siteName: 'RevoTale',
+  title: 'RevoTale',
 }
 
 export const mergeOpenGraph = (og?: Metadata['openGraph']): Metadata['openGraph'] => {

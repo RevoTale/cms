@@ -50,6 +50,16 @@ const generateURL: GenerateURL<Post> = ({ doc }) => {
 const sss: GenerateFileURL = ({ filename, prefix = '' }) => {
   return `https://media.revotale.com/${prefix}/${filename}`
 }
+
+const serverURl:string|null = process.env.PAYLOAD_PUBLIC_SERVER_URL??null
+if (!serverURl ) {
+  throw new Error('Server url is not defined')
+}
+console.log('Server URL:', serverURl)
+const serverDomain = new URL(serverURl).hostname
+const hostnameWithProtocol = `https://${serverDomain}`;
+
+console.log('Server Domain:', serverDomain)
 const s3PluginConfig = s3Storage({
   collections: {
     [Media.slug]: {
@@ -157,10 +167,10 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
-  serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL,
+  serverURL: hostnameWithProtocol,
   collections: [Posts, Media, Users, Tags, Authors, MicroPosts],
-  cors: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
-  csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
+  cors: [hostnameWithProtocol].filter(Boolean),
+  csrf: [hostnameWithProtocol].filter(Boolean),
   endpoints: [
     // The seed endpoint is used to populate the database with some example data
     // You should delete this endpoint before deploying your site to production

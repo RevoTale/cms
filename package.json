@@ -12,6 +12,7 @@
     "lint": "cross-env NODE_OPTIONS=--no-deprecation next lint",
     "lint:fix": "cross-env NODE_OPTIONS=--no-deprecation next lint --fix",
     "tsc": "cross-env NODE_OPTIONS=--no-deprecation tsc --noEmit",
+    "test":"pnpm run tsc && pnpm run lint",
     "reinstall": "cross-env NODE_OPTIONS=--no-deprecation rm -rf node_modules && rm pnpm-lock.yaml && pnpm --ignore-workspace install",
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
     "payload": "payload",

@@ -2843,7 +2843,6 @@ input Micro_post_tags_operator {
   in: [JSON]
   not_in: [JSON]
   all: [JSON]
-  exists: Boolean
 }
 
 input Micro_post_meta__title_operator {
@@ -3447,7 +3446,6 @@ input versionsMicro_post_version__tags_operator {
   in: [JSON]
   not_in: [JSON]
   all: [JSON]
-  exists: Boolean
 }
 
 input versionsMicro_post_meta__title_operator {

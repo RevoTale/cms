@@ -237,7 +237,7 @@ export interface MicroPost {
   title: string;
   attachment?: (string | null) | Media;
   content: string;
-  tags?: (string | Tag)[] | null;
+  tags: (string | Tag)[];
   meta?: {
     title?: string | null;
     /**

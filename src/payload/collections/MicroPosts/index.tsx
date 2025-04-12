@@ -60,7 +60,8 @@ export const MicroPosts: CollectionConfig = {
       },
       hasMany: true,
       relationTo: 'tags',
-      label: "Tags"
+      label: "Tags",
+      required: true
     },
     {
       type: 'tabs',

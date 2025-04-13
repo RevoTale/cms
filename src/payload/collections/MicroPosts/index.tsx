@@ -34,7 +34,7 @@ export const MicroPosts: CollectionConfig = {
       type: 'text',
       required: true,
       localized: true,
-      maxLength: 60
+      maxLength: 90
     },
     {
       name: 'attachment',
@@ -49,7 +49,7 @@ export const MicroPosts: CollectionConfig = {
       label: false,
       required: true,
       localized: true,
-      maxLength: 1000,
+      maxLength: 3000,
       minLength: 3
     },
     {
@@ -149,7 +149,7 @@ export const MicroPosts: CollectionConfig = {
   versions: {
     drafts: {
       autosave: {
-        interval: 100, // We set this interval for optimal live preview
+        interval: 3000, // We set this interval for optimal live preview
       },
     },
     maxPerDoc: 50,

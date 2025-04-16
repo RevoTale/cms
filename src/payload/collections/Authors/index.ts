@@ -1,8 +1,8 @@
 // collections/Tags.js
 import { CollectionConfig } from 'payload';
-import {anyone} from "../../access/anyone";
-import {authenticated} from "../../access/authenticated";
-import {slugField} from "../../fields/slug";
+import { anyone } from "../../access/anyone";
+import { authenticated } from "../../access/authenticated";
+import { slugField } from "../../fields/slug";
 
 const Authors: CollectionConfig = {
   slug: 'authors',
@@ -33,6 +33,18 @@ const Authors: CollectionConfig = {
       required:true,
       localized:false
     }),
+    {
+              name: 'twitter',
+              label: 'Twitter',
+              type:'group',
+              fields: [
+                {
+                  name: 'apiKey',
+                  type: 'text',
+                }
+                  
+              ],
+            },
     {
       name:'bio',
       type:'text',

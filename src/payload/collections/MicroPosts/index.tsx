@@ -95,6 +95,41 @@ export const MicroPosts: CollectionConfig = {
       localized: false
     },
     {
+      name: 'social',
+      type: 'group',
+      label: 'Social',
+      fields: [
+        {
+          name: 'x',
+          type:'group',
+          label: 'X',
+          fields: [
+            {
+              type: 'checkbox',
+              name: 'autoPost',
+              label: 'Post to X',
+              defaultValue: false
+            },
+            {
+              type: 'checkbox',
+              name: 'autoPosted',
+              label: 'Posted to X',
+              defaultValue: false
+            },
+            {
+              type: 'date',
+              name: 'autoPostedAt',
+              label: 'Date posted to X',
+              defaultValue: undefined,
+              admin: {
+                readOnly: true
+              }
+            }
+          ]
+        }
+      ]   
+    },
+    {
       name: 'publishedAt',
       type: 'date',
       localized: false,

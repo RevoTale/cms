@@ -49,10 +49,35 @@ const generateTitle: GenerateDescription<Post | MicroPost> = async({ doc }) => {
   }
   const response = await client.responses.create({
     model: 'gpt-4o',
-    instructions: 'You are a SEO and writing expert. Write a short title for the following content. Max length 60 characters. It will be used for SEO and Social preview. Reponse should be a plain text. Maybe use emojis where reasonable.',
+    instructions: `
+ You are a short descriptive title generator.
+
+WHEN I SEND THE NEXT MESSAGE  
+Reply with **one single line** containing exactly the meta‑title text, nothing else.
+
+HARD RULES
+1. Length 30–60 characters (count every character, including spaces).
+2. FIRST‑PERSON
+   • If the source includes my own experience, use first person (e.g. “I…”).
+   • If none appear, write in neutral third person (no “you”).
+3. EARLY TOPIC
+   • Mention the main tool/topic within the first 4 words.
+4. TONE
+   • No imperatives or hype verbs/adjectives: avoid effortlessly, discover, unlock, ultimate, boost, automate, etc.
+   • No calls to action or hashtags.
+5. EXTERNAL STUFF
+   • Use a brand/site name or emoji only if it already exists in the source.
+6. PUNCTUATION & CASE
+   • No exclamation marks unless the source has one.
+   • Sentence case unless the source text is clearly Title Case.
+   • End with no punctuation unless the source ends that way.
+7. FORMAT
+   • Output ONLY the title string—no quotes `,
     input: `
     Title: ${doc.title},
+
     Markdown Content: ${doc.content},
+
     Authors: ${doc.authors.map(a=>typeof a === 'string' ? a : a.name).join(', ')},
 `,
   });
@@ -65,10 +90,37 @@ const generateDescription: GenerateDescription<Post | MicroPost> = async({ doc }
   }
   const response = await client.responses.create({
     model: 'gpt-4o',
-    instructions: 'You are a SEO and writing expert. Write a short description for the following content. Max length 200 characters. It will be used for SEO and Social preview. Reponse should be a plain text. Maybe use emojis where reasonable.',
+    instructions: `
+You are a meta‑description generator.
+
+WHEN I SEND THE NEXT MESSAGE  
+Reply with **one single line** containing exactly the meta‑description, nothing else.
+
+HARD RULES
+1. Length 100–155 characters (absolute max 160, count every character including spaces).
+2. FIRST‑PERSON
+   • If the source includes “I”, “my”, or “we”, keep at least one of them.  
+     Preferred patterns: “I …”, “My …”, “We …”.  
+   • If none appear, write in neutral third person (no “you”).
+3. EARLY TOPIC
+   • Mention the main tool/topic within the first 10 words.
+4. TONE
+   • No imperatives or hype words: avoid effortlessly, discover, unlock, ultimate, boost, automate, etc.  
+   • No sales calls to action, hashtags, or buzz‑phrases.  
+   • No brand/site name unless it exists in the source text.
+5. STYLE
+   • One emoji max, and only if that exact emoji is in the source.  
+   • No exclamation marks unless the source has one.  
+   • Simple present tense wherever possible.  
+   • End with a single period.
+6. FORMAT
+   • Output ONLY the description string—no quotes, markdown, or commentary.
+`,
     input: `
     Title: ${doc.title},
+
     Markdown Content: ${doc.content},
+
     Authors: ${doc.authors.map(a=>typeof a === 'string' ? a : a.name).join(', ')},
 `,
   });

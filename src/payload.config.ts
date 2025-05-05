@@ -4,7 +4,7 @@ import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
 import { seoPlugin } from '@payloadcms/plugin-seo'
-import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types'
+import { GenerateDescription, GenerateURL } from '@payloadcms/plugin-seo/types'
 import {
   BoldFeature,
   FixedToolbarFeature,
@@ -15,7 +15,7 @@ import {
   UnderlineFeature,
 } from '@payloadcms/richtext-lexical'
 import { s3Storage } from '@payloadcms/storage-s3'
-
+import OpenAI from 'openai'
 import path from 'path'
 import { buildConfig } from 'payload'
 import sharp from 'sharp'; // editor-import
@@ -38,10 +38,43 @@ import { revalidateRedirects } from './payload/hooks/revalidateRedirects'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
-const generateTitle: GenerateTitle<Post | MicroPost> = ({ doc }) => {
-  return `${doc.title}`
-}
 
+const key = process.env['OPENAI_API_KEY']
+const client = key?new OpenAI({
+  apiKey: key, // This is the default and can be omitted
+}):null
+const generateTitle: GenerateDescription<Post | MicroPost> = async({ doc }) => {
+  if (client === null) {
+    throw new Error('OpenAI client is not initialized')
+  }
+  const response = await client.responses.create({
+    model: 'gpt-4o',
+    instructions: 'You are a SEO and writing expert. Write a short title for the following content. Max length 60 characters. It will be used for SEO and Social preview. Reponse should be a plain text. Maybe use emojis where reasonable.',
+    input: `
+    Title: ${doc.title},
+    Markdown Content: ${doc.content},
+    Authors: ${doc.authors.map(a=>typeof a === 'string' ? a : a.name).join(', ')},
+`,
+  });
+
+  return response.output_text
+}
+const generateDescription: GenerateDescription<Post | MicroPost> = async({ doc }) => {
+  if (client === null) {
+    throw new Error('OpenAI client is not initialized')
+  }
+  const response = await client.responses.create({
+    model: 'gpt-4o',
+    instructions: 'You are a SEO and writing expert. Write a short description for the following content. Max length 200 characters. It will be used for SEO and Social preview. Reponse should be a plain text. Maybe use emojis where reasonable.',
+    input: `
+    Title: ${doc.title},
+    Markdown Content: ${doc.content},
+    Authors: ${doc.authors.map(a=>typeof a === 'string' ? a : a.name).join(', ')},
+`,
+  });
+
+  return response.output_text
+}
 const generateURL: GenerateURL<Post> = ({ doc }) => {
   return doc?.slug
     ? `${(process.env.PAYLOAD_PUBLIC_SERVER_URL ?? '')}/blog/${doc.slug}`
@@ -214,6 +247,7 @@ export default buildConfig({
     }),
     seoPlugin({
       generateTitle,
+      generateDescription:generateDescription,
       generateURL,
     }),
     formBuilderPlugin({

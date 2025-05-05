@@ -65,6 +65,7 @@ export const MicroPosts: CollectionConfig = {
     },
     {
       type: 'tabs',
+      label: "Other",
       tabs: [
         {
           name: 'meta',
@@ -81,7 +82,9 @@ export const MicroPosts: CollectionConfig = {
             MetaImageField({
               relationTo: 'media'
             }),
-            MetaDescriptionField({}),
+            MetaDescriptionField({
+              hasGenerateFn: true,
+            }),
           ],
         },
       ],

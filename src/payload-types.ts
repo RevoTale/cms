@@ -204,6 +204,9 @@ export interface Author {
   id: string;
   name: string;
   slug: string;
+  twitter?: {
+    apiKey?: string | null;
+  };
   bio?: string | null;
   avatar?: (string | null) | Media;
   user: string | User;
@@ -247,6 +250,13 @@ export interface MicroPost {
     description?: string | null;
   };
   authorSlug?: string | null;
+  social?: {
+    x?: {
+      autoPost?: boolean | null;
+      autoPosted?: boolean | null;
+      autoPostedAt?: string | null;
+    };
+  };
   publishedAt?: string | null;
   authors: (string | Author)[];
   updatedAt: string;
@@ -629,6 +639,11 @@ export interface TagsSelect<T extends boolean = true> {
 export interface AuthorsSelect<T extends boolean = true> {
   name?: T;
   slug?: T;
+  twitter?:
+    | T
+    | {
+        apiKey?: T;
+      };
   bio?: T;
   avatar?: T;
   user?: T;
@@ -652,6 +667,17 @@ export interface MicroPostsSelect<T extends boolean = true> {
         description?: T;
       };
   authorSlug?: T;
+  social?:
+    | T
+    | {
+        x?:
+          | T
+          | {
+              autoPost?: T;
+              autoPosted?: T;
+              autoPostedAt?: T;
+            };
+      };
   publishedAt?: T;
   authors?: T;
   updatedAt?: T;

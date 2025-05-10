@@ -141,11 +141,16 @@ type Author {
   id: String!
   name: String
   slug: String!
+  twitter: Author_Twitter
   bio: String
   avatar(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Media
   user(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): User!
   updatedAt: DateTime
   createdAt: DateTime
+}
+
+type Author_Twitter {
+  apiKey: String
 }
 
 type User {
@@ -177,11 +182,11 @@ type Posts {
   hasNextPage: Boolean!
   hasPrevPage: Boolean!
   limit: Int!
-  nextPage: Int!
+  nextPage: Int
   offset: Int
   page: Int!
   pagingCounter: Int!
-  prevPage: Int!
+  prevPage: Int
   totalDocs: Int!
   totalPages: Int!
 }
@@ -953,11 +958,11 @@ type versionsPosts {
   hasNextPage: Boolean!
   hasPrevPage: Boolean!
   limit: Int!
-  nextPage: Int!
+  nextPage: Int
   offset: Int
   page: Int!
   pagingCounter: Int!
-  prevPage: Int!
+  prevPage: Int
   totalDocs: Int!
   totalPages: Int!
 }
@@ -1307,11 +1312,11 @@ type allMedia {
   hasNextPage: Boolean!
   hasPrevPage: Boolean!
   limit: Int!
-  nextPage: Int!
+  nextPage: Int
   offset: Int
   page: Int!
   pagingCounter: Int!
-  prevPage: Int!
+  prevPage: Int
   totalDocs: Int!
   totalPages: Int!
 }
@@ -1949,11 +1954,11 @@ type Users {
   hasNextPage: Boolean!
   hasPrevPage: Boolean!
   limit: Int!
-  nextPage: Int!
+  nextPage: Int
   offset: Int
   page: Int!
   pagingCounter: Int!
-  prevPage: Int!
+  prevPage: Int
   totalDocs: Int!
   totalPages: Int!
 }
@@ -2192,11 +2197,11 @@ type Tags {
   hasNextPage: Boolean!
   hasPrevPage: Boolean!
   limit: Int!
-  nextPage: Int!
+  nextPage: Int
   offset: Int
   page: Int!
   pagingCounter: Int!
-  prevPage: Int!
+  prevPage: Int
   totalDocs: Int!
   totalPages: Int!
 }
@@ -2420,11 +2425,11 @@ type Authors {
   hasNextPage: Boolean!
   hasPrevPage: Boolean!
   limit: Int!
-  nextPage: Int!
+  nextPage: Int
   offset: Int
   page: Int!
   pagingCounter: Int!
-  prevPage: Int!
+  prevPage: Int
   totalDocs: Int!
   totalPages: Int!
 }
@@ -2432,6 +2437,7 @@ type Authors {
 input Author_where {
   name: Author_name_operator
   slug: Author_slug_operator
+  twitter__apiKey: Author_twitter__apiKey_operator
   bio: Author_bio_operator
   avatar: Author_avatar_operator
   user: Author_user_operator
@@ -2460,6 +2466,17 @@ input Author_slug_operator {
   in: [String]
   not_in: [String]
   all: [String]
+}
+
+input Author_twitter__apiKey_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
 }
 
 input Author_bio_operator {
@@ -2526,6 +2543,7 @@ input Author_id_operator {
 input Author_where_and {
   name: Author_name_operator
   slug: Author_slug_operator
+  twitter__apiKey: Author_twitter__apiKey_operator
   bio: Author_bio_operator
   avatar: Author_avatar_operator
   user: Author_user_operator
@@ -2539,6 +2557,7 @@ input Author_where_and {
 input Author_where_or {
   name: Author_name_operator
   slug: Author_slug_operator
+  twitter__apiKey: Author_twitter__apiKey_operator
   bio: Author_bio_operator
   avatar: Author_avatar_operator
   user: Author_user_operator
@@ -2564,6 +2583,7 @@ type authorsDocAccess {
 type AuthorsDocAccessFields {
   name: AuthorsDocAccessFields_name
   slug: AuthorsDocAccessFields_slug
+  twitter: AuthorsDocAccessFields_twitter
   bio: AuthorsDocAccessFields_bio
   avatar: AuthorsDocAccessFields_avatar
   user: AuthorsDocAccessFields_user
@@ -2614,6 +2634,57 @@ type AuthorsDocAccessFields_slug_Update {
 }
 
 type AuthorsDocAccessFields_slug_Delete {
+  permission: Boolean!
+}
+
+type AuthorsDocAccessFields_twitter {
+  create: AuthorsDocAccessFields_twitter_Create
+  read: AuthorsDocAccessFields_twitter_Read
+  update: AuthorsDocAccessFields_twitter_Update
+  delete: AuthorsDocAccessFields_twitter_Delete
+  fields: AuthorsDocAccessFields_twitter_Fields
+}
+
+type AuthorsDocAccessFields_twitter_Create {
+  permission: Boolean!
+}
+
+type AuthorsDocAccessFields_twitter_Read {
+  permission: Boolean!
+}
+
+type AuthorsDocAccessFields_twitter_Update {
+  permission: Boolean!
+}
+
+type AuthorsDocAccessFields_twitter_Delete {
+  permission: Boolean!
+}
+
+type AuthorsDocAccessFields_twitter_Fields {
+  apiKey: AuthorsDocAccessFields_twitter_apiKey
+}
+
+type AuthorsDocAccessFields_twitter_apiKey {
+  create: AuthorsDocAccessFields_twitter_apiKey_Create
+  read: AuthorsDocAccessFields_twitter_apiKey_Read
+  update: AuthorsDocAccessFields_twitter_apiKey_Update
+  delete: AuthorsDocAccessFields_twitter_apiKey_Delete
+}
+
+type AuthorsDocAccessFields_twitter_apiKey_Create {
+  permission: Boolean!
+}
+
+type AuthorsDocAccessFields_twitter_apiKey_Read {
+  permission: Boolean!
+}
+
+type AuthorsDocAccessFields_twitter_apiKey_Update {
+  permission: Boolean!
+}
+
+type AuthorsDocAccessFields_twitter_apiKey_Delete {
   permission: Boolean!
 }
 
@@ -2760,6 +2831,7 @@ type Micro_post {
   tags(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Tag!]
   meta: Micro_post_Meta
   authorSlug: String
+  social: Micro_post_Social
   publishedAt: DateTime
   authors(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Author!]
   updatedAt: DateTime
@@ -2773,6 +2845,16 @@ type Micro_post_Meta {
   description: String
 }
 
+type Micro_post_Social {
+  x: Micro_post_Social_X
+}
+
+type Micro_post_Social_X {
+  autoPost: Boolean
+  autoPosted: Boolean
+  autoPostedAt: DateTime
+}
+
 enum Micro_post__status {
   draft
   published
@@ -2783,11 +2865,11 @@ type Micro_posts {
   hasNextPage: Boolean!
   hasPrevPage: Boolean!
   limit: Int!
-  nextPage: Int!
+  nextPage: Int
   offset: Int
   page: Int!
   pagingCounter: Int!
-  prevPage: Int!
+  prevPage: Int
   totalDocs: Int!
   totalPages: Int!
 }
@@ -2801,6 +2883,9 @@ input Micro_post_where {
   meta__image: Micro_post_meta__image_operator
   meta__description: Micro_post_meta__description_operator
   authorSlug: Micro_post_authorSlug_operator
+  social__x__autoPost: Micro_post_social__x__autoPost_operator
+  social__x__autoPosted: Micro_post_social__x__autoPosted_operator
+  social__x__autoPostedAt: Micro_post_social__x__autoPostedAt_operator
   publishedAt: Micro_post_publishedAt_operator
   authors: Micro_post_authors_operator
   updatedAt: Micro_post_updatedAt_operator
@@ -2884,6 +2969,29 @@ input Micro_post_authorSlug_operator {
   exists: Boolean
 }
 
+input Micro_post_social__x__autoPost_operator {
+  equals: Boolean
+  not_equals: Boolean
+  exists: Boolean
+}
+
+input Micro_post_social__x__autoPosted_operator {
+  equals: Boolean
+  not_equals: Boolean
+  exists: Boolean
+}
+
+input Micro_post_social__x__autoPostedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
 input Micro_post_publishedAt_operator {
   equals: DateTime
   not_equals: DateTime
@@ -2959,6 +3067,9 @@ input Micro_post_where_and {
   meta__image: Micro_post_meta__image_operator
   meta__description: Micro_post_meta__description_operator
   authorSlug: Micro_post_authorSlug_operator
+  social__x__autoPost: Micro_post_social__x__autoPost_operator
+  social__x__autoPosted: Micro_post_social__x__autoPosted_operator
+  social__x__autoPostedAt: Micro_post_social__x__autoPostedAt_operator
   publishedAt: Micro_post_publishedAt_operator
   authors: Micro_post_authors_operator
   updatedAt: Micro_post_updatedAt_operator
@@ -2978,6 +3089,9 @@ input Micro_post_where_or {
   meta__image: Micro_post_meta__image_operator
   meta__description: Micro_post_meta__description_operator
   authorSlug: Micro_post_authorSlug_operator
+  social__x__autoPost: Micro_post_social__x__autoPost_operator
+  social__x__autoPosted: Micro_post_social__x__autoPosted_operator
+  social__x__autoPostedAt: Micro_post_social__x__autoPostedAt_operator
   publishedAt: Micro_post_publishedAt_operator
   authors: Micro_post_authors_operator
   updatedAt: Micro_post_updatedAt_operator
@@ -3009,6 +3123,7 @@ type Micro_postsDocAccessFields {
   image: Micro_postsDocAccessFields_image
   description: Micro_postsDocAccessFields_description
   authorSlug: Micro_postsDocAccessFields_authorSlug
+  social: Micro_postsDocAccessFields_social
   publishedAt: Micro_postsDocAccessFields_publishedAt
   authors: Micro_postsDocAccessFields_authors
   updatedAt: Micro_postsDocAccessFields_updatedAt
@@ -3177,6 +3292,133 @@ type Micro_postsDocAccessFields_authorSlug_Delete {
   permission: Boolean!
 }
 
+type Micro_postsDocAccessFields_social {
+  create: Micro_postsDocAccessFields_social_Create
+  read: Micro_postsDocAccessFields_social_Read
+  update: Micro_postsDocAccessFields_social_Update
+  delete: Micro_postsDocAccessFields_social_Delete
+  fields: Micro_postsDocAccessFields_social_Fields
+}
+
+type Micro_postsDocAccessFields_social_Create {
+  permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_social_Read {
+  permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_social_Update {
+  permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_social_Delete {
+  permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_social_Fields {
+  x: Micro_postsDocAccessFields_social_x
+}
+
+type Micro_postsDocAccessFields_social_x {
+  create: Micro_postsDocAccessFields_social_x_Create
+  read: Micro_postsDocAccessFields_social_x_Read
+  update: Micro_postsDocAccessFields_social_x_Update
+  delete: Micro_postsDocAccessFields_social_x_Delete
+  fields: Micro_postsDocAccessFields_social_x_Fields
+}
+
+type Micro_postsDocAccessFields_social_x_Create {
+  permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_social_x_Read {
+  permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_social_x_Update {
+  permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_social_x_Delete {
+  permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_social_x_Fields {
+  autoPost: Micro_postsDocAccessFields_social_x_autoPost
+  autoPosted: Micro_postsDocAccessFields_social_x_autoPosted
+  autoPostedAt: Micro_postsDocAccessFields_social_x_autoPostedAt
+}
+
+type Micro_postsDocAccessFields_social_x_autoPost {
+  create: Micro_postsDocAccessFields_social_x_autoPost_Create
+  read: Micro_postsDocAccessFields_social_x_autoPost_Read
+  update: Micro_postsDocAccessFields_social_x_autoPost_Update
+  delete: Micro_postsDocAccessFields_social_x_autoPost_Delete
+}
+
+type Micro_postsDocAccessFields_social_x_autoPost_Create {
+  permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_social_x_autoPost_Read {
+  permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_social_x_autoPost_Update {
+  permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_social_x_autoPost_Delete {
+  permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_social_x_autoPosted {
+  create: Micro_postsDocAccessFields_social_x_autoPosted_Create
+  read: Micro_postsDocAccessFields_social_x_autoPosted_Read
+  update: Micro_postsDocAccessFields_social_x_autoPosted_Update
+  delete: Micro_postsDocAccessFields_social_x_autoPosted_Delete
+}
+
+type Micro_postsDocAccessFields_social_x_autoPosted_Create {
+  permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_social_x_autoPosted_Read {
+  permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_social_x_autoPosted_Update {
+  permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_social_x_autoPosted_Delete {
+  permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_social_x_autoPostedAt {
+  create: Micro_postsDocAccessFields_social_x_autoPostedAt_Create
+  read: Micro_postsDocAccessFields_social_x_autoPostedAt_Read
+  update: Micro_postsDocAccessFields_social_x_autoPostedAt_Update
+  delete: Micro_postsDocAccessFields_social_x_autoPostedAt_Delete
+}
+
+type Micro_postsDocAccessFields_social_x_autoPostedAt_Create {
+  permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_social_x_autoPostedAt_Read {
+  permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_social_x_autoPostedAt_Update {
+  permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_social_x_autoPostedAt_Delete {
+  permission: Boolean!
+}
+
 type Micro_postsDocAccessFields_publishedAt {
   create: Micro_postsDocAccessFields_publishedAt_Create
   read: Micro_postsDocAccessFields_publishedAt_Read
@@ -3336,6 +3578,7 @@ type Micro_postVersion_Version {
   tags(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Tag!]
   meta: Micro_postVersion_Version_Meta
   authorSlug: String
+  social: Micro_postVersion_Version_Social
   publishedAt: DateTime
   authors(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Author!]
   updatedAt: DateTime
@@ -3347,6 +3590,16 @@ type Micro_postVersion_Version_Meta {
   title: String
   image(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Media
   description: String
+}
+
+type Micro_postVersion_Version_Social {
+  x: Micro_postVersion_Version_Social_X
+}
+
+type Micro_postVersion_Version_Social_X {
+  autoPost: Boolean
+  autoPosted: Boolean
+  autoPostedAt: DateTime
 }
 
 enum Micro_postVersion_Version__status {
@@ -3370,11 +3623,11 @@ type versionsMicro_posts {
   hasNextPage: Boolean!
   hasPrevPage: Boolean!
   limit: Int!
-  nextPage: Int!
+  nextPage: Int
   offset: Int
   page: Int!
   pagingCounter: Int!
-  prevPage: Int!
+  prevPage: Int
   totalDocs: Int!
   totalPages: Int!
 }
@@ -3389,6 +3642,9 @@ input versionsMicro_post_where {
   meta__image: versionsMicro_post_meta__image_operator
   meta__description: versionsMicro_post_meta__description_operator
   version__authorSlug: versionsMicro_post_version__authorSlug_operator
+  version__social__x__autoPost: versionsMicro_post_version__social__x__autoPost_operator
+  version__social__x__autoPosted: versionsMicro_post_version__social__x__autoPosted_operator
+  version__social__x__autoPostedAt: versionsMicro_post_version__social__x__autoPostedAt_operator
   version__publishedAt: versionsMicro_post_version__publishedAt_operator
   version__authors: versionsMicro_post_version__authors_operator
   version__updatedAt: versionsMicro_post_version__updatedAt_operator
@@ -3484,6 +3740,29 @@ input versionsMicro_post_version__authorSlug_operator {
   in: [String]
   not_in: [String]
   all: [String]
+  exists: Boolean
+}
+
+input versionsMicro_post_version__social__x__autoPost_operator {
+  equals: Boolean
+  not_equals: Boolean
+  exists: Boolean
+}
+
+input versionsMicro_post_version__social__x__autoPosted_operator {
+  equals: Boolean
+  not_equals: Boolean
+  exists: Boolean
+}
+
+input versionsMicro_post_version__social__x__autoPostedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
   exists: Boolean
 }
 
@@ -3623,6 +3902,9 @@ input versionsMicro_post_where_and {
   meta__image: versionsMicro_post_meta__image_operator
   meta__description: versionsMicro_post_meta__description_operator
   version__authorSlug: versionsMicro_post_version__authorSlug_operator
+  version__social__x__autoPost: versionsMicro_post_version__social__x__autoPost_operator
+  version__social__x__autoPosted: versionsMicro_post_version__social__x__autoPosted_operator
+  version__social__x__autoPostedAt: versionsMicro_post_version__social__x__autoPostedAt_operator
   version__publishedAt: versionsMicro_post_version__publishedAt_operator
   version__authors: versionsMicro_post_version__authors_operator
   version__updatedAt: versionsMicro_post_version__updatedAt_operator
@@ -3649,6 +3931,9 @@ input versionsMicro_post_where_or {
   meta__image: versionsMicro_post_meta__image_operator
   meta__description: versionsMicro_post_meta__description_operator
   version__authorSlug: versionsMicro_post_version__authorSlug_operator
+  version__social__x__autoPost: versionsMicro_post_version__social__x__autoPost_operator
+  version__social__x__autoPosted: versionsMicro_post_version__social__x__autoPosted_operator
+  version__social__x__autoPostedAt: versionsMicro_post_version__social__x__autoPostedAt_operator
   version__publishedAt: versionsMicro_post_version__publishedAt_operator
   version__authors: versionsMicro_post_version__authors_operator
   version__updatedAt: versionsMicro_post_version__updatedAt_operator
@@ -3700,11 +3985,11 @@ type Redirects {
   hasNextPage: Boolean!
   hasPrevPage: Boolean!
   limit: Int!
-  nextPage: Int!
+  nextPage: Int
   offset: Int
   page: Int!
   pagingCounter: Int!
-  prevPage: Int!
+  prevPage: Int
   totalDocs: Int!
   totalPages: Int!
 }
@@ -4167,11 +4452,11 @@ type Forms {
   hasNextPage: Boolean!
   hasPrevPage: Boolean!
   limit: Int!
-  nextPage: Int!
+  nextPage: Int
   offset: Int
   page: Int!
   pagingCounter: Int!
-  prevPage: Int!
+  prevPage: Int
   totalDocs: Int!
   totalPages: Int!
 }
@@ -4901,11 +5186,11 @@ type FormSubmissions {
   hasNextPage: Boolean!
   hasPrevPage: Boolean!
   limit: Int!
-  nextPage: Int!
+  nextPage: Int
   offset: Int
   page: Int!
   pagingCounter: Int!
-  prevPage: Int!
+  prevPage: Int
   totalDocs: Int!
   totalPages: Int!
 }
@@ -5269,11 +5554,11 @@ type PayloadLockedDocuments {
   hasNextPage: Boolean!
   hasPrevPage: Boolean!
   limit: Int!
-  nextPage: Int!
+  nextPage: Int
   offset: Int
   page: Int!
   pagingCounter: Int!
-  prevPage: Int!
+  prevPage: Int
   totalDocs: Int!
   totalPages: Int!
 }
@@ -5561,11 +5846,11 @@ type PayloadPreferences {
   hasNextPage: Boolean!
   hasPrevPage: Boolean!
   limit: Int!
-  nextPage: Int!
+  nextPage: Int
   offset: Int
   page: Int!
   pagingCounter: Int!
-  prevPage: Int!
+  prevPage: Int
   totalDocs: Int!
   totalPages: Int!
 }
@@ -7477,6 +7762,7 @@ type authorsAccess {
 type AuthorsFields {
   name: AuthorsFields_name
   slug: AuthorsFields_slug
+  twitter: AuthorsFields_twitter
   bio: AuthorsFields_bio
   avatar: AuthorsFields_avatar
   user: AuthorsFields_user
@@ -7527,6 +7813,57 @@ type AuthorsFields_slug_Update {
 }
 
 type AuthorsFields_slug_Delete {
+  permission: Boolean!
+}
+
+type AuthorsFields_twitter {
+  create: AuthorsFields_twitter_Create
+  read: AuthorsFields_twitter_Read
+  update: AuthorsFields_twitter_Update
+  delete: AuthorsFields_twitter_Delete
+  fields: AuthorsFields_twitter_Fields
+}
+
+type AuthorsFields_twitter_Create {
+  permission: Boolean!
+}
+
+type AuthorsFields_twitter_Read {
+  permission: Boolean!
+}
+
+type AuthorsFields_twitter_Update {
+  permission: Boolean!
+}
+
+type AuthorsFields_twitter_Delete {
+  permission: Boolean!
+}
+
+type AuthorsFields_twitter_Fields {
+  apiKey: AuthorsFields_twitter_apiKey
+}
+
+type AuthorsFields_twitter_apiKey {
+  create: AuthorsFields_twitter_apiKey_Create
+  read: AuthorsFields_twitter_apiKey_Read
+  update: AuthorsFields_twitter_apiKey_Update
+  delete: AuthorsFields_twitter_apiKey_Delete
+}
+
+type AuthorsFields_twitter_apiKey_Create {
+  permission: Boolean!
+}
+
+type AuthorsFields_twitter_apiKey_Read {
+  permission: Boolean!
+}
+
+type AuthorsFields_twitter_apiKey_Update {
+  permission: Boolean!
+}
+
+type AuthorsFields_twitter_apiKey_Delete {
   permission: Boolean!
 }
 
@@ -7682,6 +8019,7 @@ type Micro_postsFields {
   image: Micro_postsFields_image
   description: Micro_postsFields_description
   authorSlug: Micro_postsFields_authorSlug
+  social: Micro_postsFields_social
   publishedAt: Micro_postsFields_publishedAt
   authors: Micro_postsFields_authors
   updatedAt: Micro_postsFields_updatedAt
@@ -7847,6 +8185,133 @@ type Micro_postsFields_authorSlug_Update {
 }
 
 type Micro_postsFields_authorSlug_Delete {
+  permission: Boolean!
+}
+
+type Micro_postsFields_social {
+  create: Micro_postsFields_social_Create
+  read: Micro_postsFields_social_Read
+  update: Micro_postsFields_social_Update
+  delete: Micro_postsFields_social_Delete
+  fields: Micro_postsFields_social_Fields
+}
+
+type Micro_postsFields_social_Create {
+  permission: Boolean!
+}
+
+type Micro_postsFields_social_Read {
+  permission: Boolean!
+}
+
+type Micro_postsFields_social_Update {
+  permission: Boolean!
+}
+
+type Micro_postsFields_social_Delete {
+  permission: Boolean!
+}
+
+type Micro_postsFields_social_Fields {
+  x: Micro_postsFields_social_x
+}
+
+type Micro_postsFields_social_x {
+  create: Micro_postsFields_social_x_Create
+  read: Micro_postsFields_social_x_Read
+  update: Micro_postsFields_social_x_Update
+  delete: Micro_postsFields_social_x_Delete
+  fields: Micro_postsFields_social_x_Fields
+}
+
+type Micro_postsFields_social_x_Create {
+  permission: Boolean!
+}
+
+type Micro_postsFields_social_x_Read {
+  permission: Boolean!
+}
+
+type Micro_postsFields_social_x_Update {
+  permission: Boolean!
+}
+
+type Micro_postsFields_social_x_Delete {
+  permission: Boolean!
+}
+
+type Micro_postsFields_social_x_Fields {
+  autoPost: Micro_postsFields_social_x_autoPost
+  autoPosted: Micro_postsFields_social_x_autoPosted
+  autoPostedAt: Micro_postsFields_social_x_autoPostedAt
+}
+
+type Micro_postsFields_social_x_autoPost {
+  create: Micro_postsFields_social_x_autoPost_Create
+  read: Micro_postsFields_social_x_autoPost_Read
+  update: Micro_postsFields_social_x_autoPost_Update
+  delete: Micro_postsFields_social_x_autoPost_Delete
+}
+
+type Micro_postsFields_social_x_autoPost_Create {
+  permission: Boolean!
+}
+
+type Micro_postsFields_social_x_autoPost_Read {
+  permission: Boolean!
+}
+
+type Micro_postsFields_social_x_autoPost_Update {
+  permission: Boolean!
+}
+
+type Micro_postsFields_social_x_autoPost_Delete {
+  permission: Boolean!
+}
+
+type Micro_postsFields_social_x_autoPosted {
+  create: Micro_postsFields_social_x_autoPosted_Create
+  read: Micro_postsFields_social_x_autoPosted_Read
+  update: Micro_postsFields_social_x_autoPosted_Update
+  delete: Micro_postsFields_social_x_autoPosted_Delete
+}
+
+type Micro_postsFields_social_x_autoPosted_Create {
+  permission: Boolean!
+}
+
+type Micro_postsFields_social_x_autoPosted_Read {
+  permission: Boolean!
+}
+
+type Micro_postsFields_social_x_autoPosted_Update {
+  permission: Boolean!
+}
+
+type Micro_postsFields_social_x_autoPosted_Delete {
+  permission: Boolean!
+}
+
+type Micro_postsFields_social_x_autoPostedAt {
+  create: Micro_postsFields_social_x_autoPostedAt_Create
+  read: Micro_postsFields_social_x_autoPostedAt_Read
+  update: Micro_postsFields_social_x_autoPostedAt_Update
+  delete: Micro_postsFields_social_x_autoPostedAt_Delete
+}
+
+type Micro_postsFields_social_x_autoPostedAt_Create {
+  permission: Boolean!
+}
+
+type Micro_postsFields_social_x_autoPostedAt_Read {
+  permission: Boolean!
+}
+
+type Micro_postsFields_social_x_autoPostedAt_Update {
+  permission: Boolean!
+}
+
+type Micro_postsFields_social_x_autoPostedAt_Delete {
   permission: Boolean!
 }
 
@@ -9876,6 +10341,7 @@ input mutationTagUpdateInput {
 input mutationAuthorInput {
   name: String
   slug: String!
+  twitter: mutationAuthor_TwitterInput
   bio: String
   avatar: String
   user: String
@@ -9883,14 +10349,23 @@ input mutationAuthorInput {
   createdAt: String
 }
 
+input mutationAuthor_TwitterInput {
+  apiKey: String
+}
+
 input mutationAuthorUpdateInput {
   name: String
   slug: String
+  twitter: mutationAuthorUpdate_TwitterInput
   bio: String
   avatar: String
   user: String
   updatedAt: String
   createdAt: String
+}
+
+input mutationAuthorUpdate_TwitterInput {
+  apiKey: String
 }
 
 input mutationMicro_postInput {
@@ -9900,6 +10375,7 @@ input mutationMicro_postInput {
   tags: [String]
   meta: mutationMicro_post_MetaInput
   authorSlug: String
+  social: mutationMicro_post_SocialInput
   publishedAt: String
   authors: [String]
   updatedAt: String
@@ -9911,6 +10387,16 @@ input mutationMicro_post_MetaInput {
   title: String
   image: String
   description: String
+}
+
+input mutationMicro_post_SocialInput {
+  x: mutationMicro_post_Social_XInput
+}
+
+input mutationMicro_post_Social_XInput {
+  autoPost: Boolean
+  autoPosted: Boolean
+  autoPostedAt: String
 }
 
 enum Micro_post__status_MutationInput {
@@ -9925,6 +10411,7 @@ input mutationMicro_postUpdateInput {
   tags: [String]
   meta: mutationMicro_postUpdate_MetaInput
   authorSlug: String
+  social: mutationMicro_postUpdate_SocialInput
   publishedAt: String
   authors: [String]
   updatedAt: String
@@ -9936,6 +10423,16 @@ input mutationMicro_postUpdate_MetaInput {
   title: String
   image: String
   description: String
+}
+
+input mutationMicro_postUpdate_SocialInput {
+  x: mutationMicro_postUpdate_Social_XInput
+}
+
+input mutationMicro_postUpdate_Social_XInput {
+  autoPost: Boolean
+  autoPosted: Boolean
+  autoPostedAt: String
 }
 
 enum Micro_postUpdate__status_MutationInput {

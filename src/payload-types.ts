@@ -73,7 +73,6 @@ export interface Config {
     tags: Tag;
     authors: Author;
     micro_posts: MicroPost;
-    'plugin-ai-instructions': PluginAiInstruction;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -89,7 +88,6 @@ export interface Config {
     tags: TagsSelect<false> | TagsSelect<true>;
     authors: AuthorsSelect<false> | AuthorsSelect<true>;
     micro_posts: MicroPostsSelect<false> | MicroPostsSelect<true>;
-    'plugin-ai-instructions': PluginAiInstructionsSelect<false> | PluginAiInstructionsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -264,67 +262,6 @@ export interface MicroPost {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "plugin-ai-instructions".
- */
-export interface PluginAiInstruction {
-  id: string;
-  /**
-   * Please don’t change this unless you're sure of what you're doing
-   */
-  'schema-path'?: string | null;
-  /**
-   * Please don’t change this unless you're sure of what you're doing
-   */
-  'field-type'?: ('text' | 'textarea' | 'upload' | 'richText') | null;
-  'relation-to'?: string | null;
-  'model-id'?: ('Oai-text' | 'dall-e' | 'gpt-image-1' | 'tts' | 'Oai-object') | null;
-  /**
-   * Click 'Compose' to run this custom prompt and generate content
-   */
-  prompt?: string | null;
-  images?:
-    | {
-        /**
-         * Please make sure the image is publicly accessible.
-         */
-        image?: (string | null) | Media;
-        id?: string | null;
-      }[]
-    | null;
-  system?: string | null;
-  layout?: string | null;
-  'Oai-text-settings'?: {
-    model?: ('gpt-4o' | 'gpt-4-turbo' | 'gpt-4o-mini' | 'gpt-3.5-turbo') | null;
-  };
-  'dalle-e-settings'?: {
-    version?: ('dall-e-3' | 'dall-e-2') | null;
-    size?: ('256x256' | '512x512' | '1024x1024' | '1792x1024' | '1024x1792') | null;
-    style?: ('vivid' | 'natural') | null;
-    'enable-prompt-optimization'?: boolean | null;
-  };
-  'gpt-image-1-settings'?: {
-    version?: 'gpt-image-1' | null;
-    size?: ('1024x1024' | '1024x1536' | '1536x1024' | 'auto') | null;
-    quality?: ('low' | 'medium' | 'high' | 'auto') | null;
-    output_format?: ('png' | 'jpeg' | 'webp') | null;
-    output_compression?: number | null;
-    background?: ('white' | 'transparent') | null;
-    moderation?: ('auto' | 'low') | null;
-  };
-  'Oai-tts-settings'?: {
-    voice?: ('alloy' | 'echo' | 'fable' | 'onyx' | 'nova' | 'shimmer') | null;
-    model?: ('tts-1' | 'tts-1-hd') | null;
-    response_format?: ('mp3' | 'opus' | 'aac' | 'flac' | 'wav' | 'pcm') | null;
-    speed?: number | null;
-  };
-  'Oai-object-settings'?: {
-    model?: ('gpt-4o' | 'gpt-4-turbo' | 'gpt-4o-mini' | 'gpt-4.1' | 'o4-mini') | null;
-  };
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -567,10 +504,6 @@ export interface PayloadLockedDocument {
         value: string | MicroPost;
       } | null)
     | ({
-        relationTo: 'plugin-ai-instructions';
-        value: string | PluginAiInstruction;
-      } | null)
-    | ({
         relationTo: 'redirects';
         value: string | Redirect;
       } | null)
@@ -750,64 +683,6 @@ export interface MicroPostsSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "plugin-ai-instructions_select".
- */
-export interface PluginAiInstructionsSelect<T extends boolean = true> {
-  'schema-path'?: T;
-  'field-type'?: T;
-  'relation-to'?: T;
-  'model-id'?: T;
-  prompt?: T;
-  images?:
-    | T
-    | {
-        image?: T;
-        id?: T;
-      };
-  system?: T;
-  layout?: T;
-  'Oai-text-settings'?:
-    | T
-    | {
-        model?: T;
-      };
-  'dalle-e-settings'?:
-    | T
-    | {
-        version?: T;
-        size?: T;
-        style?: T;
-        'enable-prompt-optimization'?: T;
-      };
-  'gpt-image-1-settings'?:
-    | T
-    | {
-        version?: T;
-        size?: T;
-        quality?: T;
-        output_format?: T;
-        output_compression?: T;
-        background?: T;
-        moderation?: T;
-      };
-  'Oai-tts-settings'?:
-    | T
-    | {
-        voice?: T;
-        model?: T;
-        response_format?: T;
-        speed?: T;
-      };
-  'Oai-object-settings'?:
-    | T
-    | {
-        model?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

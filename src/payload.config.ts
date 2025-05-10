@@ -290,6 +290,7 @@ export default buildConfig({
         copyResolver(),
         ...(key !== undefined?[openAIResolver({
           apiKey: key,
+          model:'gpt-4o'
         })]:[]),
       ],
     }),

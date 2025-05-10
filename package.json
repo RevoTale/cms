@@ -22,6 +22,7 @@
     "generate:graphQLSchema": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload-graphql generate:schema"
   },
   "dependencies": {
+    "@ai-stack/payloadcms": "3.2.11-beta",
     "@payloadcms/db-mongodb": "3.34.0",
     "@payloadcms/graphql": "3.34.0",
     "@payloadcms/live-preview-react": "3.34.0",

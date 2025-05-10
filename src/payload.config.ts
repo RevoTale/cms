@@ -23,6 +23,7 @@ import { MicroPost, Post } from 'src/payload-types'
 import { fileURLToPath } from 'url'
 import Authors from "./payload/collections/Authors"
 
+import { payloadAiPlugin } from '@ai-stack/payloadcms'
 import { GenerateFileURL } from '@payloadcms/plugin-cloud-storage/types'
 import { Media } from './payload/collections/Media'
 import { MicroPosts } from './payload/collections/MicroPosts'
@@ -33,7 +34,6 @@ import { seed } from './payload/endpoints/seed'
 import { Footer } from './payload/globals/Footer/Footer'
 import { Header } from './payload/globals/Header/Header'
 import { revalidateRedirects } from './payload/hooks/revalidateRedirects'
-
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -275,6 +275,30 @@ export default buildConfig({
         },
       },
     }),*/
+    payloadAiPlugin({
+      collections: {
+        [Posts.slug]: true,
+        [MicroPosts.slug]: true,
+        [Media.slug]: true,
+        [Tags.slug]: true,
+        [Authors.slug]: true,
+      },
+      debugging: false,
+      disableSponsorMessage: false,
+      
+      generatePromptOnInit: process.env.NODE_ENV !== 'production',
+
+      // Publicly accessible upload collection for gpt-image-1 model, for reference images. Defaults to "media".
+      uploadCollectionSlug: "media"
+
+      /* Enable to restrict access to AI plugin settings only to admin users
+      access: {
+        settings: ({ req }: { req: PayloadRequest }) => {
+          return req.user?.role === 'admin';
+        },
+      },
+      */
+    }),
     s3PluginConfig,
     redirectsPlugin({
       collections: ['posts'],

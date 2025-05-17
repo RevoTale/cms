@@ -2,11 +2,7 @@
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 
-import {
-  copyResolver,
-  openAIResolver,
-  translator
-} from '@payload-enchants/translator'
+
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import { GenerateDescription, GenerateURL } from '@payloadcms/plugin-seo/types'
@@ -279,20 +275,6 @@ export default buildConfig({
         },
       },
     }),*/
-     translator({
-      // collections with the enabled translator in the admin UI
-      collections: ['posts','micro_posts','media','tags','authors'],
-      // globals with the enabled translator in the admin UI
-      globals: [],
-      // add resolvers that you want to include, examples on how to write your own in ./plugin/src/resolvers
-      resolvers: [
-        copyResolver(),
-        ...(key !== undefined?[openAIResolver({
-          apiKey: key,
-          model:'gpt-4o'
-        })]:[]),
-      ],
-    }),
     /*payloadAiPlugin({
       collections: {
         [Posts.slug]: true,

@@ -1,6 +1,7 @@
 'use server'
 
 import config from '@payload-config'
+import { revalidatePath } from 'next/cache'
 import { headers as getHeaders } from 'next/headers'
 import { SelectFromCollectionSlug } from 'node_modules/payload/dist/collections/config/types'
 import { ByIDOptions } from 'node_modules/payload/dist/collections/operations/local/update'
@@ -40,6 +41,7 @@ export const autoTranslate = async ({docId,collection,locale}:AutoTranslateProps
         collection,
         data:dataToUpdate
     })
+    revalidatePath(`/admin/collections/${collection}/${docId}`)
     return { 
         ok:true
      }

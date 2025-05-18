@@ -10,6 +10,7 @@ import type { CollectionConfig } from 'payload'
 
 import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
+import { AutoTranslate } from 'src/payload/fields/autoTranslate'
 
 export const MicroPosts: CollectionConfig = {
   labels: {
@@ -29,6 +30,7 @@ export const MicroPosts: CollectionConfig = {
   },
 
   fields: [
+    AutoTranslate,
     {
       name: 'title',
       type: 'text',

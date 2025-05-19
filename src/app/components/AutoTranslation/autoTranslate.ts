@@ -9,7 +9,7 @@ type RecursivePartial<T> = {
     [P in keyof T]?: RecursivePartial<T[P]>;
 };
 
-const translateFn = async (text: string, locale: TypedLocale,context:string): Promise<string> => {
+const translateFn = async (text: string, locale: TypedLocale,context:string,maxLen?:number): Promise<string> => {
    const key = process.env['OPENAI_API_KEY']
    const message = {
   "content": text,
@@ -17,7 +17,8 @@ const translateFn = async (text: string, locale: TypedLocale,context:string): Pr
   "targetLanguage": locale,      
   "readerProfile": {
     "expertise":  "intermediate",
-  }
+  },
+  "maxLength": maxLen,
 }
    const client = key?new OpenAI({
      apiKey: key, // This is the default and can be omitted
@@ -28,12 +29,14 @@ const translateFn = async (text: string, locale: TypedLocale,context:string): Pr
      const response = await client.responses.create({
        model: 'gpt-4o',
        instructions: `
-You are a professional human translator.  
-• Translate the supplied **content** into the **targetLanguage** so that it reads as if originally written for that audience.  
-• Use the **context** object for background, tone, proper nouns, product names, formatting, and SEO metadata.  
-• Respect markdown/HTML tags and preserve \`{variables}\` or \`{{ handlebars }}\` unchanged.  
-• Keep list bullet styles, links, emojis, and inline code formatting intact.  
-• If the source is ≤ 280 characters, keep the translation equally concise.  
+You are a professional human translator.
+
+• Translate the supplied **content** into the **targetLanguage** exactly once, preserving the original tone, voice, punctuation, and rhythm.  
+• The final output **must not exceed \`maxLength\`** (character count) if provided. If \`maxLength\` is omitted, do not let the translation exceed the source length by more than 10 %.  
+• Use the **context** object for background, proper nouns, product names, formatting, and SEO metadata.  
+• Keep markdown/HTML tags and any variables such as {variable} or {{handlebars}} untouched and in the same order.  
+• Preserve bullet styles, links, emojis, and inline code formatting.  
+
 Return **only** the translated string—no extra commentary.`,
        input: JSON.stringify(message),
      });
@@ -65,7 +68,7 @@ const context = JSON.stringify(post)
 
             for (const field of fields) {
                 if ((field.type === 'text' || field.type === 'textarea') && field.localized === true && field.name === key && typeof value === 'string') {
-                        data[key  ] = await translateFn(value,targetLocale, context)
+                        data[key  ] = await translateFn(value,targetLocale, context,field.maxLength)
                 } else if(field.type === 'tabs') {
                     for (const tab of field.tabs) {
                         if ( ('name' in tab && tab.name === key) ) {

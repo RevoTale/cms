@@ -41,7 +41,7 @@ export const autoTranslate = async ({docId,collection,locale}:AutoTranslateProps
                 } else if(field.type === 'tabs') {
                     for (const tab of field.tabs) {
                         
-                        if (Array.isArray(tab.fields) && tab.name === key) {
+                        if ( ('name' in tab && tab.name === key) ) {
                              const subObj = obj[key as keyof DataFromCollectionSlug<typeof collection>]
                         if (typeof subObj === 'object' && !Array.isArray(subObj) && subObj !== null) {
                             data[key] = data[key] ?? {}

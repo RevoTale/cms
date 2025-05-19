@@ -1,5 +1,5 @@
 'use client'
-import { Button, useDocumentInfo, useLocale } from "@payloadcms/ui";
+import { Button, useConfig, useDocumentInfo, useLocale } from "@payloadcms/ui";
 import { TypedLocale } from "payload";
 import { FunctionComponent, useTransition } from "react";
 import { autoTranslate } from "./autoTranslate";
@@ -7,25 +7,28 @@ import { autoTranslate } from "./autoTranslate";
 
 const AutoTranslateButton:FunctionComponent= () => {
   const { id,collectionSlug, } = useDocumentInfo()
-  const  locale = useLocale()
+ const {config:{localization}}= useConfig()
+const targetLocale = useLocale().code
 
-const [isPending, startTransition]  = useTransition()
+  const [isPending, startTransition]  = useTransition()
 
   // id will be undefined on the create form
-  if (!id || !collectionSlug) {
+  if (!id || !collectionSlug || !localization) {
     return null
   }
+  const sourceLocale = localization.defaultLocale
   const handleSubmit = ()=>{
     startTransition(()=>{
       autoTranslate({
             docId: id.toString(),
             collection: collectionSlug,
-            locale: locale.code as TypedLocale
+            targetLocale: targetLocale as TypedLocale,
+            sourceLocale: sourceLocale as TypedLocale
         })
     })
   }
     return <div>
-        <Button onClick={handleSubmit} disabled={isPending} type="submit">Auto Translate</Button>
+        <Button onClick={handleSubmit} disabled={isPending} type="submit">Auto Translate from {sourceLocale}</Button>
         {isPending ? <div>Translating...</div>:null}
     </div>
 }

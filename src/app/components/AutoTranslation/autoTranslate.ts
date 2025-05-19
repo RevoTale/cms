@@ -7,13 +7,13 @@ import { CollectionSlug, DataFromCollectionSlug, Field, getPayload, TypedLocale 
 type RecursivePartial<T> = {
     [P in keyof T]?: RecursivePartial<T[P]>;
 };
-type ValueOf<T> = T[keyof T];
+
 const translateFn = async (text: string, locale: TypedLocale): Promise<string> => {
     return `is was tran ${locale} ${text}`//TODO FINISH THIS
 }
 
-interface AutoTranslateProps {docId:string,collection:CollectionSlug,locale:TypedLocale}
-export const autoTranslate = async ({docId,collection,locale}:AutoTranslateProps):Promise<{
+interface AutoTranslateProps {docId:string,collection:CollectionSlug,targetLocale:TypedLocale,sourceLocale:TypedLocale}
+export const autoTranslate = async ({docId,collection,targetLocale,sourceLocale}:AutoTranslateProps):Promise<{
     ok:boolean
 }>=>{
       const payload = await getPayload({ config })
@@ -24,20 +24,20 @@ export const autoTranslate = async ({docId,collection,locale}:AutoTranslateProps
         const post = await payload.findByID({
       collection,
       id: docId,
+      locale:sourceLocale
     })
     const fields = payload.collections[collection].config.fields
-    type Data = DataFromCollectionSlug<typeof collection>
     const dataToUpdate :RecursivePartial<typeof post>= {
         
     }
-
+console.log('post',post)
 
     const iterateOverFields = async(fields:Field[],obj:DataFromCollectionSlug<typeof collection>,data:Record<string,unknown>)=>{
         for (const [key, value] of Object.entries(obj)) {
             for (const field of fields) {
             
                 if ((field.type === 'text' || field.type === 'textarea') && field.localized === true && field.name === key && typeof value === 'string') {
-                        data[key  ] = await translateFn(value,locale)
+                        data[key  ] = await translateFn(value,targetLocale)
                 } else if(field.type === 'tabs') {
                     for (const tab of field.tabs) {
                         
@@ -55,13 +55,14 @@ export const autoTranslate = async ({docId,collection,locale}:AutoTranslateProps
             }
         }
     }
-    console.log(fields,post,dataToUpdate)
-
-    iterateOverFields(fields,post ,dataToUpdate)
-    console.log('dataToUpdate',dataToUpdate)
+console.log('data',dataToUpdate)
+    //iterateOverFields(fields,post ,dataToUpdate)
     // Update the document with the translated data
+    if (Object.entries(dataToUpdate).length === 0) {
+        throw new Error('No translatable fields found')
+    }
     await payload.update({
-        locale,
+        locale:targetLocale,
         id: docId,
         collection,
         data:dataToUpdate

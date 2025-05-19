@@ -11,7 +11,7 @@ const AutoTranslateButton:FunctionComponent= () => {
 const targetLocale = useLocale().code
 
   const [isPending, startTransition]  = useTransition()
-
+const [pendingLocale,setPendingLocale] = useState<string|null>(null)
 const [results,setResults] = useState<{
   locale:string
   error:string|null
@@ -24,6 +24,7 @@ const [results,setResults] = useState<{
   const handleSubmit = ()=>{
     startTransition(async ()=>{
       try {
+        setPendingLocale(targetLocale)
         const result = await autoTranslate({
             docId: id.toString(),
             collection: collectionSlug,
@@ -42,13 +43,12 @@ const [results,setResults] = useState<{
     })
   }
     return <div>
-        <Button onClick={handleSubmit} disabled={isPending} type="submit">Auto Translate from {sourceLocale}</Button>
+        <Button onClick={handleSubmit} disabled={isPending} type="submit">{isPending?`Translating to ${pendingLocale}...`:`Auto Translate from ${sourceLocale}`}</Button>
         <div>
-            {results.map((result,index)=><div key={index}>
-                {result.error ? <div style={{color:'red'}}>{result.error}</div>:<div style={{color:'green'}}>Translated to {result.locale}</div>}
+            {results.map((result,index)=><div key={index} className="flex gap-2">
+                <div>{result.locale}: </div>{result.error ? <div style={{color:'red'}}>{result.error}</div>:<div style={{color:'green'}}>translated</div>}
             </div>)}
         </div>
-        {isPending ? <div>Translating...</div>:null}
     </div>
 }
 export default AutoTranslateButton;

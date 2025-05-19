@@ -3,13 +3,42 @@
 import config from '@payload-config'
 import { revalidatePath } from 'next/cache'
 import { headers as getHeaders } from 'next/headers'
+import OpenAI from 'openai'
 import { CollectionSlug, DataFromCollectionSlug, Field, getPayload, TypedLocale } from "payload"
 type RecursivePartial<T> = {
     [P in keyof T]?: RecursivePartial<T[P]>;
 };
 
-const translateFn = async (text: string, locale: TypedLocale): Promise<string> => {
-    return `is was tran ${locale} ${text}`//TODO FINISH THIS
+const translateFn = async (text: string, locale: TypedLocale,context:string): Promise<string> => {
+   const key = process.env['OPENAI_API_KEY']
+   const message = {
+  "content": text,
+  "context": context,
+  "targetLanguage": locale,      
+  "readerProfile": {
+    "expertise":  "intermediate",
+  }
+}
+   const client = key?new OpenAI({
+     apiKey: key, // This is the default and can be omitted
+   }):null
+     if (client === null) {
+       throw new Error('OpenAI client is not initialized')
+     }
+     const response = await client.responses.create({
+       model: 'gpt-4o',
+       instructions: `
+You are a professional human translator.  
+• Translate the supplied **content** into the **targetLanguage** so that it reads as if originally written for that audience.  
+• Use the **context** object for background, tone, proper nouns, product names, formatting, and SEO metadata.  
+• Respect markdown/HTML tags and preserve \`{variables}\` or \`{{ handlebars }}\` unchanged.  
+• Keep list bullet styles, links, emojis, and inline code formatting intact.  
+• If the source is ≤ 280 characters, keep the translation equally concise.  
+Return **only** the translated string—no extra commentary.`,
+       input: JSON.stringify(message),
+     });
+   
+     return response.output_text
 }
 
 interface AutoTranslateProps {docId:string,collection:CollectionSlug,targetLocale:TypedLocale,sourceLocale:TypedLocale}
@@ -30,13 +59,13 @@ export const autoTranslate = async ({docId,collection,targetLocale,sourceLocale}
     const dataToUpdate :RecursivePartial<typeof post>= {
         
     }
-
+const context = JSON.stringify(post)
     const iterateOverFields = async(fields:Field[],obj:DataFromCollectionSlug<typeof collection>,data:Record<string,unknown>)=>{
         for (const [key, value] of Object.entries(obj)) {
 
             for (const field of fields) {
                 if ((field.type === 'text' || field.type === 'textarea') && field.localized === true && field.name === key && typeof value === 'string') {
-                        data[key  ] = await translateFn(value,targetLocale)
+                        data[key  ] = await translateFn(value,targetLocale, context)
                 } else if(field.type === 'tabs') {
                     for (const tab of field.tabs) {
                         if ( ('name' in tab && tab.name === key) ) {

@@ -14,8 +14,8 @@ const translateFn = async (text: string, locale: TypedLocale): Promise<string> =
 
 interface AutoTranslateProps {docId:string,collection:CollectionSlug,targetLocale:TypedLocale,sourceLocale:TypedLocale}
 export const autoTranslate = async ({docId,collection,targetLocale,sourceLocale}:AutoTranslateProps):Promise<{
-    ok:boolean
-}>=>{
+    ok:true
+}|{error:string,ok:false}>=>{
       const payload = await getPayload({ config })
   const headers = await getHeaders()
   const { user } = await payload.auth({ headers })
@@ -59,20 +59,33 @@ console.log('data',dataToUpdate)
     //iterateOverFields(fields,post ,dataToUpdate)
     // Update the document with the translated data
     if (Object.entries(dataToUpdate).length === 0) {
-        throw new Error('No translatable fields found')
+       return {
+        ok:false,
+        error:'No translatable fields found'
+       }
     }
-    await payload.update({
+   try {
+     await payload.update({
         locale:targetLocale,
         id: docId,
         collection,
         data:dataToUpdate
     })
+   } catch (error:unknown) {
+     return {
+        ok:false,
+        error:error instanceof Error ? error.message : 'Unknown error'
+       }
+   }
     revalidatePath(`/admin/collections/${collection}/${docId}`)
     return { 
         ok:true
      }
   }
 
- throw new Error('Unauthorized')
+return {
+    ok:false,
+    error:'User not authenticated'
+}
 
 }

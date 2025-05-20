@@ -3,6 +3,7 @@ import { CollectionConfig } from 'payload';
 import { anyone } from "../../access/anyone";
 import { authenticated } from "../../access/authenticated";
 import { slugField } from "../../fields/slug";
+import { AutoTranslate } from 'src/payload/fields/autoTranslate';
 
 const Authors: CollectionConfig = {
   slug: 'authors',
@@ -20,6 +21,7 @@ const Authors: CollectionConfig = {
     useAsTitle: 'name',
   },
   fields: [
+    AutoTranslate,
     {
       name: 'name',
       type: 'text',

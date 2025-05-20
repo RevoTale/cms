@@ -1,5 +1,6 @@
 // collections/Tags.js
 import { CollectionConfig, TextField } from 'payload';
+import { AutoTranslate } from 'src/payload/fields/autoTranslate';
 import { anyone } from "../../access/anyone";
 import { authenticated } from "../../access/authenticated";
 const nameField:TextField = {
@@ -32,6 +33,7 @@ const Tags: CollectionConfig = {
     useAsTitle:'title'
   },
   fields: [
+    AutoTranslate,
     {
       name: 'title',
       type: 'text',

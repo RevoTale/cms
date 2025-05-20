@@ -1,7 +1,8 @@
-import type {CollectionConfig} from 'payload'
+import type { CollectionConfig } from 'payload'
 
-import {anyone} from '../access/anyone'
-import {authenticated} from '../access/authenticated'
+import { anyone } from '../access/anyone'
+import { authenticated } from '../access/authenticated'
+import { AutoTranslate } from '../fields/autoTranslate'
 export const Media: CollectionConfig = {
   slug: 'media',
   access: {
@@ -11,6 +12,7 @@ export const Media: CollectionConfig = {
     update: authenticated,
   },
   fields: [
+    AutoTranslate,
     {
       name: 'alt',
       type: 'text',

@@ -9,7 +9,7 @@ type RecursivePartial<T> = {
     [P in keyof T]?: RecursivePartial<T[P]>;
 };
 
-const translateFn = async (text: string, locale: TypedLocale,context:string,maxLen?:number,sourceLocale:string): Promise<string> => {
+const translateFn = async (text: string, locale: TypedLocale,context:string,maxLen:number|undefined,sourceLocale:string): Promise<string> => {
    const key = process.env['OPENAI_API_KEY']
    const message = {
   "content": text,

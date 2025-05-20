@@ -7,12 +7,13 @@ import {
 } from '@payloadcms/plugin-seo/fields'
 
 
-import type {CollectionConfig} from 'payload'
+import type { CollectionConfig } from 'payload'
 
-import {authenticated} from '../../access/authenticated'
-import {authenticatedOrPublished} from '../../access/authenticatedOrPublished'
-import {slugField} from '../../fields/slug'
-import {revalidatePost} from './hooks/revalidatePost'
+import { AutoTranslate } from 'src/payload/fields/autoTranslate'
+import { authenticated } from '../../access/authenticated'
+import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
+import { slugField } from '../../fields/slug'
+import { revalidatePost } from './hooks/revalidatePost'
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
@@ -28,6 +29,7 @@ export const Posts: CollectionConfig = {
   },
 
   fields: [
+    AutoTranslate,
     {
       name: 'title',
       type: 'text',

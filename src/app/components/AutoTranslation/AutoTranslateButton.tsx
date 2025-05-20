@@ -1,7 +1,7 @@
 'use client'
 import { Button, useConfig, useDocumentInfo } from "@payloadcms/ui";
 import { TypedLocale } from "payload";
-import { FunctionComponent, useState, useTransition } from "react";
+import { FunctionComponent, useState } from "react";
 import { autoTranslate } from "./autoTranslate";
 
 

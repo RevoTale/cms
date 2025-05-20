@@ -13,10 +13,10 @@ const translateFn = async (text: string, locale: TypedLocale,context:Record<stri
    const key = process.env['OPENAI_API_KEY']
    const message = {
   "content": text,
-  "context": context,
   "targetLocale": locale,
   "sourceLocale": sourceLocale,
   "maxLength": maxLen,
+  "context": context,
 }
    const client = key?new OpenAI({
      apiKey: key, // This is the default and can be omitted
@@ -39,7 +39,7 @@ Instructions:
 
 Context:
 - The \`context\` object provides metadata and additional fields that can help you understand the meaning and tone of the \`content\` string. Use it **only as a reference**, but **do not translate its values**.
-- Always prioritize translating **only** the main \`content\` key from the input.
+- Always translate **ONLY** the main \`content\` key from the input.
 
 Terminology & Style:
 - Use standard, widely accepted equivalents for acronyms and technical terms in the target language. Refer to dictionaries, Wikipedia, or major media. If no equivalent exists, keep the original.

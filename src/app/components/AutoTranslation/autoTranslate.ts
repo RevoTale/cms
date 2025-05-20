@@ -9,15 +9,13 @@ type RecursivePartial<T> = {
     [P in keyof T]?: RecursivePartial<T[P]>;
 };
 
-const translateFn = async (text: string, locale: TypedLocale,context:string,maxLen?:number): Promise<string> => {
+const translateFn = async (text: string, locale: TypedLocale,context:string,maxLen?:number,sourceLocale:string): Promise<string> => {
    const key = process.env['OPENAI_API_KEY']
    const message = {
   "content": text,
   "context": context,
-  "targetLanguage": locale,      
-  "readerProfile": {
-    "expertise":  "intermediate",
-  },
+  "targetLocale": locale,
+  "sourceLocale": sourceLocale,
   "maxLength": maxLen,
 }
    const client = key?new OpenAI({
@@ -31,13 +29,18 @@ const translateFn = async (text: string, locale: TypedLocale,context:string,maxL
        instructions: `
 You are a professional human translator.
 
-• Translate the supplied **content** into the **targetLanguage** exactly once, preserving the original tone, voice, punctuation, and rhythm.  
-• The final output **must not exceed \`maxLength\`** (character count) if provided. If \`maxLength\` is omitted, do not let the translation exceed the source length by more than 10 %.  
-• Use the **context** object for background, proper nouns, product names, formatting, and SEO metadata.  
-• Keep markdown/HTML tags and any variables such as {variable} or {{handlebars}} untouched and in the same order.  
-• Preserve bullet styles, links, emojis, and inline code formatting.  
+• Translate **content** from **sourceLocale** to **targetLocale** once, preserving the original tone, voice, punctuation, and rhythm.  
+• Obey **maxLength** (character count) when supplied; otherwise keep the translation no more than 10 % longer than the source.  
+• Keep all markdown/HTML tags, inline code, and placeholders such as {variable} or {{handlebars}} exactly as they appear.  
+• Maintain list bullets, links, and emojis.
 
-Return **only** the translated string—no extra commentary.`,
+Terminology & idioms  
+• Use the standard, widely accepted equivalent of every acronym or technical term in the target language if one exists (consult reputable target-language usage such as dictionaries, major media, or Wikipedia). If no accepted form exists, preserve the original acronym unchanged.  
+• When the English word **“power”** (or its analogue in the sourceLocale) appears figuratively in the pattern “\<Term\> power:” or similar, render it with the idiomatic target-language concept for “strength / capability / impact of \<Term\>” rather than a literal machine-like translation.  
+• In any other figurative phrase whose word-for-word rendering would sound unnatural, prefer the most common target-language collocation used by native speakers.  
+• Never leave untranslated fragments except for proper nouns explicitly intended to remain as such.
+
+Return **only the translated string**—no extra commentary.`,
        input: JSON.stringify(message),
      });
    
@@ -68,7 +71,7 @@ const context = JSON.stringify(post)
 
             for (const field of fields) {
                 if ((field.type === 'text' || field.type === 'textarea') && field.localized === true && field.name === key && typeof value === 'string') {
-                        data[key  ] = await translateFn(value,targetLocale, context,field.maxLength)
+                        data[key  ] = await translateFn(value,targetLocale, context,field.maxLength,sourceLocale)
                 } else if(field.type === 'tabs') {
                     for (const tab of field.tabs) {
                         if ( ('name' in tab && tab.name === key) ) {

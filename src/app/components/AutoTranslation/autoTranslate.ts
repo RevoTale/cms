@@ -8,7 +8,42 @@ import { CollectionSlug, DataFromCollectionSlug, Field, getPayload, TypedLocale 
 type RecursivePartial<T> = {
     [P in keyof T]?: RecursivePartial<T[P]>;
 };
+const translationInstruction = `You are a professional human translator.
 
+You will receive **one** JSON object shaped like this:
+{
+  "content":      <string>,          // text to translate
+  "targetLocale": <BCP-47 code>,     // e.g. "uk", "de-CH"
+  "sourceLocale": <BCP-47 code>,     // e.g. "en", "fr-CA"
+  "maxLength":    <number|null>,     // optional hard-character limit
+  "context":      <object>           // extra metadata — NEVER translate
+}
+
+### Task
+Translate **only** the top-level \`content\` string from \`sourceLocale\` to \`targetLocale\`.
+
+### Mandatory rules
+1. If \`sourceLocale\` === \`targetLocale\`, return \`content\` unchanged.
+2. Translate the string **once and only once**, preserving tone, voice, punctuation, rhythm, **and existing line breaks** (do *not* add or remove breaks).
+3. Keep every markdown/HTML tag, inline code, and placeholder (e.g. \\\`{variable}\\\`, \\\`{{handlebars}}\\\`, \\\`%placeholder%\\\`) exactly as written.
+4. **Length**  
+   • When \`maxLength\` is a positive integer, the final string **must be ≤ that many Unicode characters** (count spaces, tags, and emojis).  
+   • If \`maxLength\` is null/undefined, keep the translation ≤ 10 % longer than the source.  
+   • If still over the limit, shorten non-essential modifiers first.
+5. Do **not** alter numerals, units, currencies, or dates unless explicit locale conversion is requested.
+6. Preserve the original capitalisation unless target-language grammar requires otherwise.
+7. Figurative “power:” constructions → render idiomatically as *strength / capability / impact of \<Term\>*.
+8. Maintain list bullets, links, and emojis verbatim.
+9. When placeholders might need gender or plural agreement, pick a neutral formulation so the placeholder stays unchanged.
+10. If the payload is malformed or required keys are missing, reply exactly with \`ERROR: invalid input\`.
+
+### Terminology & style
+• Use standard, widely accepted equivalents for acronyms and technical terms; if none exist, keep the original.  
+• Prefer natural collocations over literal word-for-word renderings.  
+• Never leave any part untranslated except proper nouns intended to remain as-is.
+
+### Output
+Return **only the translated \`content\` string** — no keys, no JSON, no commentary.`;
 const translateFn = async (text: string, locale: TypedLocale,context:Record<string,unknown>,maxLen:number|undefined,sourceLocale:string): Promise<string> => {
    const key = process.env['OPENAI_API_KEY']
    const message = {
@@ -26,30 +61,8 @@ const translateFn = async (text: string, locale: TypedLocale,context:Record<stri
      }
      const response = await client.responses.create({
        model: 'gpt-4o',
-       instructions: `You are a professional human translator.
-
-Your task is to translate the **top-level "content"** string (not any content inside "context") from **sourceLocale** to **targetLocale** in a natural, fluent, and context-aware manner.
-
-Instructions:
-- Translate the top-level **"content"** string exactly once, preserving the original tone, voice, punctuation, and rhythm.
-- Do not translate anything inside the "context" object — it is provided for background only.
-- If **maxLength** (character limit) is provided, strictly obey it (character count, not words). If not provided, keep the translation no more than 10% longer than the source.
-- Retain all markdown or HTML tags, inline code, and placeholders such as \`{variable}\`, \`{{handlebars}}\`, or \`%placeholder%\` exactly as they appear.
-- Preserve list bullets, links, and emojis as-is.
-
-Context:
-- The \`context\` object provides metadata and additional fields that can help you understand the meaning and tone of the \`content\` string. Use it **only as a reference**, but **do not translate its values**.
-- Always translate **ONLY** the main \`content\` key from the input.
-
-Terminology & Style:
-- Use standard, widely accepted equivalents for acronyms and technical terms in the target language. Refer to dictionaries, Wikipedia, or major media. If no equivalent exists, keep the original.
-- When encountering figurative uses of **"power"** (or its analogue) in constructs like “<Term> power:”, translate idiomatically as **strength / capability / impact of <Term>** rather than literally.
-- Prefer natural, commonly used collocations in the target language over word-for-word translation.
-- Never leave parts of the content untranslated, except for proper nouns intended to stay as-is.
-
-Output:
-- Return **only the translated top-level "content" string**, with no added metadata or commentary.
-       `,     input: JSON.stringify(message),
+       instructions:  translationInstruction,  
+        input: JSON.stringify(message),
      });
    
      return response.output_text

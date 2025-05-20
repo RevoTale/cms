@@ -9,7 +9,7 @@ type RecursivePartial<T> = {
     [P in keyof T]?: RecursivePartial<T[P]>;
 };
 
-const translateFn = async (text: string, locale: TypedLocale,context:string,maxLen:number|undefined,sourceLocale:string): Promise<string> => {
+const translateFn = async (text: string, locale: TypedLocale,context:Record<string,unknown>,maxLen:number|undefined,sourceLocale:string): Promise<string> => {
    const key = process.env['OPENAI_API_KEY']
    const message = {
   "content": text,
@@ -29,18 +29,25 @@ const translateFn = async (text: string, locale: TypedLocale,context:string,maxL
        instructions: `
 You are a professional human translator.
 
-• Translate **content** from **sourceLocale** to **targetLocale** once, preserving the original tone, voice, punctuation, and rhythm.  
-• Obey **maxLength** (character count) when supplied; otherwise keep the translation no more than 10 % longer than the source.  
-• Keep all markdown/HTML tags, inline code, and placeholders such as {variable} or {{handlebars}} exactly as they appear.  
-• Maintain list bullets, links, and emojis.
+Your task is to translate the given **content** string from **sourceLocale** to **targetLocale** in a natural, fluent, and context-aware manner.
 
-Terminology & idioms  
-• Use the standard, widely accepted equivalent of every acronym or technical term in the target language if one exists (consult reputable target-language usage such as dictionaries, major media, or Wikipedia). If no accepted form exists, preserve the original acronym unchanged.  
-• When the English word **“power”** (or its analogue in the sourceLocale) appears figuratively in the pattern “\<Term\> power:” or similar, render it with the idiomatic target-language concept for “strength / capability / impact of \<Term\>” rather than a literal machine-like translation.  
-• In any other figurative phrase whose word-for-word rendering would sound unnatural, prefer the most common target-language collocation used by native speakers.  
-• Never leave untranslated fragments except for proper nouns explicitly intended to remain as such.
+Instructions:
+- Translate the **content** string only once, preserving the original tone, voice, punctuation, and rhythm.  
+- If **maxLength** (character limit) is provided, strictly obey it (character count, not words). If not provided, keep the translation no more than 10% longer than the original.  
+- Retain all **markdown or HTML tags**, **inline code**, and **placeholders** such as \`{variable}\`, \`{{handlebars}}\`, or \`%placeholder%\` exactly as they appear.  
+- Preserve list bullets, links, and emojis as-is.
 
-Return **only the translated string**—no extra commentary.`,
+Context:
+- The \`context\` object provides relevant metadata about the text (e.g., title, type, tags, or the full raw object). Use this to understand the meaning more deeply, especially when terms are ambiguous.
+
+Terminology & Style:
+- Use standard, widely accepted equivalents for acronyms and technical terms. Refer to dictionaries, Wikipedia, or major media in the target language. If no equivalent exists, keep the original term.  
+- When encountering figurative uses of **“power”** (or its translated analogue) in constructs like “<Term> power:”, render the phrase with the idiomatic target-language concept of **strength / capability / impact of <Term>**, not a literal translation.  
+- Prefer natural, commonly used native-language collocations over word-for-word translations in all figurative or idiomatic cases.  
+- Do not leave any part of the content untranslated, except for proper nouns clearly intended to remain unchanged.
+
+Output:
+- Return **only the translated string**, with no additional commentary, metadata, or formatting.`,
        input: JSON.stringify(message),
      });
    
@@ -65,13 +72,14 @@ export const autoTranslate = async ({docId,collection,targetLocale,sourceLocale}
     const dataToUpdate :RecursivePartial<typeof post>= {
         
     }
-const context = JSON.stringify(post)
     const iterateOverFields = async(fields:Field[],obj:DataFromCollectionSlug<typeof collection>,data:Record<string,unknown>)=>{
         for (const [key, value] of Object.entries(obj)) {
 
             for (const field of fields) {
                 if ((field.type === 'text' || field.type === 'textarea') && field.localized === true && field.name === key && typeof value === 'string') {
-                        data[key  ] = await translateFn(value,targetLocale, context,field.maxLength,sourceLocale)
+                        data[key  ] = await translateFn(value,targetLocale, {
+                          [collection]:post
+                        },field.maxLength,sourceLocale)
                 } else if(field.type === 'tabs') {
                     for (const tab of field.tabs) {
                         if ( ('name' in tab && tab.name === key) ) {

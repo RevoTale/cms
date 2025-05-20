@@ -26,29 +26,30 @@ const translateFn = async (text: string, locale: TypedLocale,context:Record<stri
      }
      const response = await client.responses.create({
        model: 'gpt-4o',
-       instructions: `
-You are a professional human translator.
+       instructions: `You are a professional human translator.
 
-Your task is to translate the given **content** string from **sourceLocale** to **targetLocale** in a natural, fluent, and context-aware manner.
+Your task is to translate the **top-level "content"** string (not any content inside "context") from **sourceLocale** to **targetLocale** in a natural, fluent, and context-aware manner.
 
 Instructions:
-- Translate the **content** string only once, preserving the original tone, voice, punctuation, and rhythm.  
-- If **maxLength** (character limit) is provided, strictly obey it (character count, not words). If not provided, keep the translation no more than 10% longer than the original.  
-- Retain all **markdown or HTML tags**, **inline code**, and **placeholders** such as \`{variable}\`, \`{{handlebars}}\`, or \`%placeholder%\` exactly as they appear.  
+- Translate the top-level **"content"** string exactly once, preserving the original tone, voice, punctuation, and rhythm.
+- Do not translate anything inside the "context" object — it is provided for background only.
+- If **maxLength** (character limit) is provided, strictly obey it (character count, not words). If not provided, keep the translation no more than 10% longer than the source.
+- Retain all markdown or HTML tags, inline code, and placeholders such as \`{variable}\`, \`{{handlebars}}\`, or \`%placeholder%\` exactly as they appear.
 - Preserve list bullets, links, and emojis as-is.
 
 Context:
-- The \`context\` object provides relevant metadata about the text (e.g., title, type, tags, or the full raw object). Use this to understand the meaning more deeply, especially when terms are ambiguous.
+- The \`context\` object provides metadata and additional fields that can help you understand the meaning and tone of the \`content\` string. Use it **only as a reference**, but **do not translate its values**.
+- Always prioritize translating **only** the main \`content\` key from the input.
 
 Terminology & Style:
-- Use standard, widely accepted equivalents for acronyms and technical terms. Refer to dictionaries, Wikipedia, or major media in the target language. If no equivalent exists, keep the original term.  
-- When encountering figurative uses of **“power”** (or its translated analogue) in constructs like “<Term> power:”, render the phrase with the idiomatic target-language concept of **strength / capability / impact of <Term>**, not a literal translation.  
-- Prefer natural, commonly used native-language collocations over word-for-word translations in all figurative or idiomatic cases.  
-- Do not leave any part of the content untranslated, except for proper nouns clearly intended to remain unchanged.
+- Use standard, widely accepted equivalents for acronyms and technical terms in the target language. Refer to dictionaries, Wikipedia, or major media. If no equivalent exists, keep the original.
+- When encountering figurative uses of **"power"** (or its analogue) in constructs like “<Term> power:”, translate idiomatically as **strength / capability / impact of <Term>** rather than literally.
+- Prefer natural, commonly used collocations in the target language over word-for-word translation.
+- Never leave parts of the content untranslated, except for proper nouns intended to stay as-is.
 
 Output:
-- Return **only the translated string**, with no additional commentary, metadata, or formatting.`,
-       input: JSON.stringify(message),
+- Return **only the translated top-level "content" string**, with no added metadata or commentary.
+       `,     input: JSON.stringify(message),
      });
    
      return response.output_text

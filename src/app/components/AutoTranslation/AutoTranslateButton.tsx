@@ -9,7 +9,6 @@ const AutoTranslateButton:FunctionComponent= () => {
   const { id,collectionSlug, } = useDocumentInfo()
  const {config:{localization}}= useConfig()
 
-  const [isPending, startTransition]  = useTransition()
 const [pendingLocale,setPendingLocale] = useState<string|null>(null)
 const [results,setResults] = useState<{
   locale:string
@@ -21,8 +20,7 @@ const [results,setResults] = useState<{
   }
   const sourceLocale = localization.defaultLocale
   const locales = localization.locales.map(locale => locale.code).filter(locale => locale !== sourceLocale)
-  const handleSubmit = ()=>{
-    startTransition(async ()=>{
+  const handleSubmit = async ()=>{
       for (const targetLocale of locales) {
         try {
         setPendingLocale(targetLocale)
@@ -32,6 +30,7 @@ const [results,setResults] = useState<{
             targetLocale: targetLocale as TypedLocale,
             sourceLocale: sourceLocale as TypedLocale
         })
+        setPendingLocale(null)
         if (result.ok === false) {
           setResults(prev=>[...prev,{locale:targetLocale,error:result.error}])
 
@@ -39,13 +38,13 @@ const [results,setResults] = useState<{
         setResults(prev=>[...prev,{locale:targetLocale,error:null}])
         }
       } catch (error:unknown) {
+        setPendingLocale(null)
          setResults(prev=>[...prev,{locale:targetLocale,error:error instanceof Error ? error.message : 'Unknown error'}])
       }
       }
-    })
   }
     return <div>
-        <Button onClick={handleSubmit} disabled={isPending} type="submit">{isPending?`Translating to ${pendingLocale}...`:`Auto Translate All from ${sourceLocale}`}</Button>
+        <Button onClick={handleSubmit} disabled={pendingLocale !== null} type="submit">{pendingLocale !== null?`Translating to ${pendingLocale}...`:`Auto Translate All from ${sourceLocale}`}</Button>
         <div>
             {results.map((result,index)=><div key={index} className="flex gap-2">
                 <div>{result.locale}: </div>{result.error ? <div style={{color:'red'}}>{result.error}</div>:<div style={{color:'green'}}>translated</div>}

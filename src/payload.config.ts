@@ -133,7 +133,7 @@ const generateURL: GenerateURL<Post> = ({ doc }) => {
     : (process.env.PAYLOAD_PUBLIC_SERVER_URL ?? '')
 }
 const sss: GenerateFileURL = ({ filename, prefix = '' }) => {
-  return `https://media.revotale.com/${prefix}/${filename}`
+  return `https://cms.s3.revotale.com/${prefix}/${filename}`
 }
 
 const serverURl:string|null = process.env.PAYLOAD_PUBLIC_SERVER_URL??null

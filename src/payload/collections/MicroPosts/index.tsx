@@ -50,7 +50,7 @@ export const MicroPosts: CollectionConfig = {
       label: false,
       required: true,
       localized: true,
-      maxLength: 3000,
+      maxLength: 4000,
       minLength: 3
     },
     {

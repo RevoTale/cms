@@ -8,10 +8,9 @@ import {
 
 import type { CollectionConfig } from 'payload'
 
+import { AutoTranslate } from 'src/payload/fields/autoTranslate'
 import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
-import { AutoTranslate } from 'src/payload/fields/autoTranslate'
-
 export const MicroPosts: CollectionConfig = {
   labels: {
     plural: 'Micro Posts',
@@ -82,8 +81,8 @@ export const MicroPosts: CollectionConfig = {
               hasGenerateFn: true,
             }),
             MetaImageField({
-              relationTo: 'media'
-            }),
+                relationTo: 'media'
+              }),
             MetaDescriptionField({
               hasGenerateFn: true,
             }),
@@ -182,6 +181,24 @@ export const MicroPosts: CollectionConfig = {
             data.authorSlug = author.slug;
           }
         }
+
+        // Set fallback meta image if not provided
+        if (!data.meta?.image && data.attachment) {
+          // Fetch the attachment to validate it's an image
+          const attachment = await req.payload.findByID({
+            collection: 'media',
+            id: typeof data.attachment === 'string' ? data.attachment : data.attachment.id,
+          });
+          
+          // Check if the attachment is an image
+          if (attachment && attachment.mimeType && attachment.mimeType.startsWith('image/')) {
+            if (!data.meta) {
+              data.meta = {};
+            }
+            data.meta.image = data.attachment;
+          }
+        }
+
         return data;
       },
     ],

@@ -35,7 +35,7 @@ export const MicroPosts: CollectionConfig = {
       type: 'text',
       required: true,
       localized: true,
-      maxLength: 90
+      maxLength: 100
     },
     {
       name: 'attachment',
@@ -51,7 +51,7 @@ export const MicroPosts: CollectionConfig = {
       required: true,
       localized: true,
       maxLength: 4000,
-      minLength: 3
+      minLength: 2
     },
     {
       name: 'tags',

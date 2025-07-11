@@ -6,15 +6,7 @@ import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import { GenerateDescription, GenerateURL } from '@payloadcms/plugin-seo/types'
-import {
-  BoldFeature,
-  FixedToolbarFeature,
-  HeadingFeature,
-  ItalicFeature,
-  lexicalEditor,
-  LinkFeature,
-  UnderlineFeature,
-} from '@payloadcms/richtext-lexical'
+
 import { s3Storage } from '@payloadcms/storage-s3'
 import OpenAI from 'openai'
 import path from 'path'
@@ -217,38 +209,6 @@ export default buildConfig({
     },
   },
 
-  // This config helps us configure global or default features that the other editors can inherit
-  editor: lexicalEditor({
-    features: () => {
-      return [
-        UnderlineFeature(),
-        BoldFeature(),
-        ItalicFeature(),
-        LinkFeature({
-          enabledCollections: ['posts'],
-          fields: ({ defaultFields }) => {
-            const defaultFieldsWithoutUrl = defaultFields.filter((field) => {
-              return !('name' in field && field.name === 'url');
-
-            })
-
-            return [
-              ...defaultFieldsWithoutUrl,
-              {
-                name: 'url',
-                type: 'text',
-                admin: {
-                  condition: ({ linkType }) => linkType !== 'internal',
-                },
-                label: ({ t }) => t('fields:enterURL'),
-                required: true,
-              },
-            ]
-          },
-        }),
-      ]
-    },
-  }),
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
@@ -320,32 +280,7 @@ export default buildConfig({
       generateDescription:generateDescription,
       generateURL,
     }),
-    formBuilderPlugin({
-      fields: {
-        payment: false,
-      },
-      formOverrides: {
-        fields: ({ defaultFields }) => {
-          return defaultFields.map((field) => {
-            if ('name' in field && field.name === 'confirmationMessage') {
-              return {
-                ...field,
-                editor: lexicalEditor({
-                  features: ({ rootFeatures }) => {
-                    return [
-                      ...rootFeatures,
-                      FixedToolbarFeature(),
-                      HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-                    ]
-                  },
-                }),
-              }
-            }
-            return field
-          })
-        },
-      },
-    }),
+
   ],
   secret: (process.env.PAYLOAD_SECRET ?? ''),
   sharp,

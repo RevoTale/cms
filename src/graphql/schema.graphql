@@ -33,14 +33,6 @@ type Query {
   Redirects(draft: Boolean, where: Redirect_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): Redirects
   countRedirects(draft: Boolean, where: Redirect_where, locale: LocaleInputType): countRedirects
   docAccessRedirect(id: String!): redirectsDocAccess
-  Form(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Form
-  Forms(draft: Boolean, where: Form_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): Forms
-  countForms(draft: Boolean, where: Form_where, locale: LocaleInputType): countForms
-  docAccessForm(id: String!): formsDocAccess
-  FormSubmission(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): FormSubmission
-  FormSubmissions(draft: Boolean, where: FormSubmission_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): FormSubmissions
-  countFormSubmissions(draft: Boolean, where: FormSubmission_where, locale: LocaleInputType): countFormSubmissions
-  docAccessFormSubmission(id: String!): form_submissionsDocAccess
   PayloadLockedDocument(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): PayloadLockedDocument
   PayloadLockedDocuments(draft: Boolean, where: PayloadLockedDocument_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): PayloadLockedDocuments
   countPayloadLockedDocuments(draft: Boolean, where: PayloadLockedDocument_where, locale: LocaleInputType): countPayloadLockedDocuments
@@ -165,12 +157,19 @@ type User {
   hash: String
   loginAttempts: Float
   lockUntil: DateTime
+  sessions: [User_Sessions!]
 }
 
 """
 A field whose value conforms to the standard internet email address format as specified in HTML Spec: https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address.
 """
 scalar EmailAddress @specifiedBy(url: "https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address")
+
+type User_Sessions {
+  id: String
+  createdAt: DateTime
+  expiresAt: DateTime
+}
 
 enum Post__status {
   draft
@@ -1968,6 +1967,9 @@ input User_where {
   updatedAt: User_updatedAt_operator
   createdAt: User_createdAt_operator
   email: User_email_operator
+  sessions__id: User_sessions__id_operator
+  sessions__createdAt: User_sessions__createdAt_operator
+  sessions__expiresAt: User_sessions__expiresAt_operator
   id: User_id_operator
   AND: [User_where_and]
   OR: [User_where_or]
@@ -2016,6 +2018,37 @@ input User_email_operator {
   all: [EmailAddress]
 }
 
+input User_sessions__id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input User_sessions__createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input User_sessions__expiresAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+}
+
 input User_id_operator {
   equals: String
   not_equals: String
@@ -2032,6 +2065,9 @@ input User_where_and {
   updatedAt: User_updatedAt_operator
   createdAt: User_createdAt_operator
   email: User_email_operator
+  sessions__id: User_sessions__id_operator
+  sessions__createdAt: User_sessions__createdAt_operator
+  sessions__expiresAt: User_sessions__expiresAt_operator
   id: User_id_operator
   AND: [User_where_and]
   OR: [User_where_or]
@@ -2042,6 +2078,9 @@ input User_where_or {
   updatedAt: User_updatedAt_operator
   createdAt: User_createdAt_operator
   email: User_email_operator
+  sessions__id: User_sessions__id_operator
+  sessions__createdAt: User_sessions__createdAt_operator
+  sessions__expiresAt: User_sessions__expiresAt_operator
   id: User_id_operator
   AND: [User_where_and]
   OR: [User_where_or]
@@ -2065,6 +2104,7 @@ type UsersDocAccessFields {
   updatedAt: UsersDocAccessFields_updatedAt
   createdAt: UsersDocAccessFields_createdAt
   email: UsersDocAccessFields_email
+  sessions: UsersDocAccessFields_sessions
 }
 
 type UsersDocAccessFields_name {
@@ -2156,6 +2196,105 @@ type UsersDocAccessFields_email_Update {
 }
 
 type UsersDocAccessFields_email_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_sessions {
+  create: UsersDocAccessFields_sessions_Create
+  read: UsersDocAccessFields_sessions_Read
+  update: UsersDocAccessFields_sessions_Update
+  delete: UsersDocAccessFields_sessions_Delete
+  fields: UsersDocAccessFields_sessions_Fields
+}
+
+type UsersDocAccessFields_sessions_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_sessions_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_sessions_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_sessions_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_sessions_Fields {
+  id: UsersDocAccessFields_sessions_id
+  createdAt: UsersDocAccessFields_sessions_createdAt
+  expiresAt: UsersDocAccessFields_sessions_expiresAt
+}
+
+type UsersDocAccessFields_sessions_id {
+  create: UsersDocAccessFields_sessions_id_Create
+  read: UsersDocAccessFields_sessions_id_Read
+  update: UsersDocAccessFields_sessions_id_Update
+  delete: UsersDocAccessFields_sessions_id_Delete
+}
+
+type UsersDocAccessFields_sessions_id_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_sessions_id_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_sessions_id_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_sessions_id_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_sessions_createdAt {
+  create: UsersDocAccessFields_sessions_createdAt_Create
+  read: UsersDocAccessFields_sessions_createdAt_Read
+  update: UsersDocAccessFields_sessions_createdAt_Update
+  delete: UsersDocAccessFields_sessions_createdAt_Delete
+}
+
+type UsersDocAccessFields_sessions_createdAt_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_sessions_createdAt_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_sessions_createdAt_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_sessions_createdAt_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_sessions_expiresAt {
+  create: UsersDocAccessFields_sessions_expiresAt_Create
+  read: UsersDocAccessFields_sessions_expiresAt_Read
+  update: UsersDocAccessFields_sessions_expiresAt_Update
+  delete: UsersDocAccessFields_sessions_expiresAt_Delete
+}
+
+type UsersDocAccessFields_sessions_expiresAt_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_sessions_expiresAt_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_sessions_expiresAt_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_sessions_expiresAt_Delete {
   permission: Boolean!
 }
 
@@ -4312,1204 +4451,6 @@ type RedirectsDeleteDocAccess {
   where: JSONObject
 }
 
-type Form {
-  id: String!
-  title: String!
-  fields: [Form_Fields!]
-  submitButtonLabel: String
-  confirmationType: Form_confirmationType
-  confirmationMessage(depth: Int): JSON
-  redirect: Form_Redirect
-  emails: [Form_Emails!]
-  updatedAt: DateTime
-  createdAt: DateTime
-}
-
-union Form_Fields = Checkbox | Country | Email | Message | Number | Select | State | Text | Textarea
-
-type Checkbox {
-  name: String!
-  label: String
-  width: Float
-  required: Boolean
-  defaultValue: Boolean
-  id: String
-  blockName: String
-  blockType: String
-}
-
-type Country {
-  name: String!
-  label: String
-  width: Float
-  required: Boolean
-  id: String
-  blockName: String
-  blockType: String
-}
-
-type Email {
-  name: String!
-  label: String
-  width: Float
-  required: Boolean
-  id: String
-  blockName: String
-  blockType: String
-}
-
-type Message {
-  message(depth: Int): JSON
-  id: String
-  blockName: String
-  blockType: String
-}
-
-type Number {
-  name: String!
-  label: String
-  width: Float
-  defaultValue: Float
-  required: Boolean
-  id: String
-  blockName: String
-  blockType: String
-}
-
-type Select {
-  name: String!
-  label: String
-  width: Float
-  defaultValue: String
-  placeholder: String
-  options: [Select_Options!]
-  required: Boolean
-  id: String
-  blockName: String
-  blockType: String
-}
-
-type Select_Options {
-  label: String
-  value: String
-  id: String
-}
-
-type State {
-  name: String!
-  label: String
-  width: Float
-  required: Boolean
-  id: String
-  blockName: String
-  blockType: String
-}
-
-type Text {
-  name: String!
-  label: String
-  width: Float
-  defaultValue: String
-  required: Boolean
-  id: String
-  blockName: String
-  blockType: String
-}
-
-type Textarea {
-  name: String!
-  label: String
-  width: Float
-  defaultValue: String
-  required: Boolean
-  id: String
-  blockName: String
-  blockType: String
-}
-
-enum Form_confirmationType {
-  message
-  redirect
-}
-
-type Form_Redirect {
-  url: String
-}
-
-type Form_Emails {
-  emailTo: String
-  cc: String
-  bcc: String
-  replyTo: String
-  emailFrom: String
-  subject: String
-  message(depth: Int): JSON
-  id: String
-}
-
-type Forms {
-  docs: [Form!]!
-  hasNextPage: Boolean!
-  hasPrevPage: Boolean!
-  limit: Int!
-  nextPage: Int
-  offset: Int
-  page: Int!
-  pagingCounter: Int!
-  prevPage: Int
-  totalDocs: Int!
-  totalPages: Int!
-}
-
-input Form_where {
-  title: Form_title_operator
-  submitButtonLabel: Form_submitButtonLabel_operator
-  confirmationType: Form_confirmationType_operator
-  confirmationMessage: Form_confirmationMessage_operator
-  redirect__url: Form_redirect__url_operator
-  emails__emailTo: Form_emails__emailTo_operator
-  emails__cc: Form_emails__cc_operator
-  emails__bcc: Form_emails__bcc_operator
-  emails__replyTo: Form_emails__replyTo_operator
-  emails__emailFrom: Form_emails__emailFrom_operator
-  emails__subject: Form_emails__subject_operator
-  emails__message: Form_emails__message_operator
-  emails__id: Form_emails__id_operator
-  updatedAt: Form_updatedAt_operator
-  createdAt: Form_createdAt_operator
-  id: Form_id_operator
-  AND: [Form_where_and]
-  OR: [Form_where_or]
-}
-
-input Form_title_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-}
-
-input Form_submitButtonLabel_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Form_confirmationType_operator {
-  equals: Form_confirmationType_Input
-  not_equals: Form_confirmationType_Input
-  like: Form_confirmationType_Input
-  contains: Form_confirmationType_Input
-  exists: Boolean
-}
-
-enum Form_confirmationType_Input {
-  message
-  redirect
-}
-
-input Form_confirmationMessage_operator {
-  equals: JSON
-  not_equals: JSON
-  like: JSON
-  contains: JSON
-}
-
-input Form_redirect__url_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-}
-
-input Form_emails__emailTo_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Form_emails__cc_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Form_emails__bcc_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Form_emails__replyTo_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Form_emails__emailFrom_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Form_emails__subject_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-}
-
-input Form_emails__message_operator {
-  equals: JSON
-  not_equals: JSON
-  like: JSON
-  contains: JSON
-  exists: Boolean
-}
-
-input Form_emails__id_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Form_updatedAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Form_createdAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Form_id_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Form_where_and {
-  title: Form_title_operator
-  submitButtonLabel: Form_submitButtonLabel_operator
-  confirmationType: Form_confirmationType_operator
-  confirmationMessage: Form_confirmationMessage_operator
-  redirect__url: Form_redirect__url_operator
-  emails__emailTo: Form_emails__emailTo_operator
-  emails__cc: Form_emails__cc_operator
-  emails__bcc: Form_emails__bcc_operator
-  emails__replyTo: Form_emails__replyTo_operator
-  emails__emailFrom: Form_emails__emailFrom_operator
-  emails__subject: Form_emails__subject_operator
-  emails__message: Form_emails__message_operator
-  emails__id: Form_emails__id_operator
-  updatedAt: Form_updatedAt_operator
-  createdAt: Form_createdAt_operator
-  id: Form_id_operator
-  AND: [Form_where_and]
-  OR: [Form_where_or]
-}
-
-input Form_where_or {
-  title: Form_title_operator
-  submitButtonLabel: Form_submitButtonLabel_operator
-  confirmationType: Form_confirmationType_operator
-  confirmationMessage: Form_confirmationMessage_operator
-  redirect__url: Form_redirect__url_operator
-  emails__emailTo: Form_emails__emailTo_operator
-  emails__cc: Form_emails__cc_operator
-  emails__bcc: Form_emails__bcc_operator
-  emails__replyTo: Form_emails__replyTo_operator
-  emails__emailFrom: Form_emails__emailFrom_operator
-  emails__subject: Form_emails__subject_operator
-  emails__message: Form_emails__message_operator
-  emails__id: Form_emails__id_operator
-  updatedAt: Form_updatedAt_operator
-  createdAt: Form_createdAt_operator
-  id: Form_id_operator
-  AND: [Form_where_and]
-  OR: [Form_where_or]
-}
-
-type countForms {
-  totalDocs: Int
-}
-
-type formsDocAccess {
-  fields: FormsDocAccessFields
-  create: FormsCreateDocAccess
-  read: FormsReadDocAccess
-  update: FormsUpdateDocAccess
-  delete: FormsDeleteDocAccess
-}
-
-type FormsDocAccessFields {
-  title: FormsDocAccessFields_title
-  fields: FormsDocAccessFields_fields
-  submitButtonLabel: FormsDocAccessFields_submitButtonLabel
-  confirmationType: FormsDocAccessFields_confirmationType
-  confirmationMessage: FormsDocAccessFields_confirmationMessage
-  redirect: FormsDocAccessFields_redirect
-  emails: FormsDocAccessFields_emails
-  updatedAt: FormsDocAccessFields_updatedAt
-  createdAt: FormsDocAccessFields_createdAt
-}
-
-type FormsDocAccessFields_title {
-  create: FormsDocAccessFields_title_Create
-  read: FormsDocAccessFields_title_Read
-  update: FormsDocAccessFields_title_Update
-  delete: FormsDocAccessFields_title_Delete
-}
-
-type FormsDocAccessFields_title_Create {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_title_Read {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_title_Update {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_title_Delete {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_fields {
-  create: FormsDocAccessFields_fields_Create
-  read: FormsDocAccessFields_fields_Read
-  update: FormsDocAccessFields_fields_Update
-  delete: FormsDocAccessFields_fields_Delete
-}
-
-type FormsDocAccessFields_fields_Create {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_fields_Read {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_fields_Update {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_fields_Delete {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_submitButtonLabel {
-  create: FormsDocAccessFields_submitButtonLabel_Create
-  read: FormsDocAccessFields_submitButtonLabel_Read
-  update: FormsDocAccessFields_submitButtonLabel_Update
-  delete: FormsDocAccessFields_submitButtonLabel_Delete
-}
-
-type FormsDocAccessFields_submitButtonLabel_Create {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_submitButtonLabel_Read {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_submitButtonLabel_Update {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_submitButtonLabel_Delete {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_confirmationType {
-  create: FormsDocAccessFields_confirmationType_Create
-  read: FormsDocAccessFields_confirmationType_Read
-  update: FormsDocAccessFields_confirmationType_Update
-  delete: FormsDocAccessFields_confirmationType_Delete
-}
-
-type FormsDocAccessFields_confirmationType_Create {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_confirmationType_Read {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_confirmationType_Update {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_confirmationType_Delete {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_confirmationMessage {
-  create: FormsDocAccessFields_confirmationMessage_Create
-  read: FormsDocAccessFields_confirmationMessage_Read
-  update: FormsDocAccessFields_confirmationMessage_Update
-  delete: FormsDocAccessFields_confirmationMessage_Delete
-}
-
-type FormsDocAccessFields_confirmationMessage_Create {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_confirmationMessage_Read {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_confirmationMessage_Update {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_confirmationMessage_Delete {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_redirect {
-  create: FormsDocAccessFields_redirect_Create
-  read: FormsDocAccessFields_redirect_Read
-  update: FormsDocAccessFields_redirect_Update
-  delete: FormsDocAccessFields_redirect_Delete
-  fields: FormsDocAccessFields_redirect_Fields
-}
-
-type FormsDocAccessFields_redirect_Create {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_redirect_Read {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_redirect_Update {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_redirect_Delete {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_redirect_Fields {
-  url: FormsDocAccessFields_redirect_url
-}
-
-type FormsDocAccessFields_redirect_url {
-  create: FormsDocAccessFields_redirect_url_Create
-  read: FormsDocAccessFields_redirect_url_Read
-  update: FormsDocAccessFields_redirect_url_Update
-  delete: FormsDocAccessFields_redirect_url_Delete
-}
-
-type FormsDocAccessFields_redirect_url_Create {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_redirect_url_Read {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_redirect_url_Update {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_redirect_url_Delete {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_emails {
-  create: FormsDocAccessFields_emails_Create
-  read: FormsDocAccessFields_emails_Read
-  update: FormsDocAccessFields_emails_Update
-  delete: FormsDocAccessFields_emails_Delete
-  fields: FormsDocAccessFields_emails_Fields
-}
-
-type FormsDocAccessFields_emails_Create {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_emails_Read {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_emails_Update {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_emails_Delete {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_emails_Fields {
-  emailTo: FormsDocAccessFields_emails_emailTo
-  cc: FormsDocAccessFields_emails_cc
-  bcc: FormsDocAccessFields_emails_bcc
-  replyTo: FormsDocAccessFields_emails_replyTo
-  emailFrom: FormsDocAccessFields_emails_emailFrom
-  subject: FormsDocAccessFields_emails_subject
-  message: FormsDocAccessFields_emails_message
-  id: FormsDocAccessFields_emails_id
-}
-
-type FormsDocAccessFields_emails_emailTo {
-  create: FormsDocAccessFields_emails_emailTo_Create
-  read: FormsDocAccessFields_emails_emailTo_Read
-  update: FormsDocAccessFields_emails_emailTo_Update
-  delete: FormsDocAccessFields_emails_emailTo_Delete
-}
-
-type FormsDocAccessFields_emails_emailTo_Create {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_emails_emailTo_Read {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_emails_emailTo_Update {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_emails_emailTo_Delete {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_emails_cc {
-  create: FormsDocAccessFields_emails_cc_Create
-  read: FormsDocAccessFields_emails_cc_Read
-  update: FormsDocAccessFields_emails_cc_Update
-  delete: FormsDocAccessFields_emails_cc_Delete
-}
-
-type FormsDocAccessFields_emails_cc_Create {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_emails_cc_Read {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_emails_cc_Update {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_emails_cc_Delete {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_emails_bcc {
-  create: FormsDocAccessFields_emails_bcc_Create
-  read: FormsDocAccessFields_emails_bcc_Read
-  update: FormsDocAccessFields_emails_bcc_Update
-  delete: FormsDocAccessFields_emails_bcc_Delete
-}
-
-type FormsDocAccessFields_emails_bcc_Create {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_emails_bcc_Read {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_emails_bcc_Update {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_emails_bcc_Delete {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_emails_replyTo {
-  create: FormsDocAccessFields_emails_replyTo_Create
-  read: FormsDocAccessFields_emails_replyTo_Read
-  update: FormsDocAccessFields_emails_replyTo_Update
-  delete: FormsDocAccessFields_emails_replyTo_Delete
-}
-
-type FormsDocAccessFields_emails_replyTo_Create {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_emails_replyTo_Read {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_emails_replyTo_Update {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_emails_replyTo_Delete {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_emails_emailFrom {
-  create: FormsDocAccessFields_emails_emailFrom_Create
-  read: FormsDocAccessFields_emails_emailFrom_Read
-  update: FormsDocAccessFields_emails_emailFrom_Update
-  delete: FormsDocAccessFields_emails_emailFrom_Delete
-}
-
-type FormsDocAccessFields_emails_emailFrom_Create {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_emails_emailFrom_Read {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_emails_emailFrom_Update {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_emails_emailFrom_Delete {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_emails_subject {
-  create: FormsDocAccessFields_emails_subject_Create
-  read: FormsDocAccessFields_emails_subject_Read
-  update: FormsDocAccessFields_emails_subject_Update
-  delete: FormsDocAccessFields_emails_subject_Delete
-}
-
-type FormsDocAccessFields_emails_subject_Create {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_emails_subject_Read {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_emails_subject_Update {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_emails_subject_Delete {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_emails_message {
-  create: FormsDocAccessFields_emails_message_Create
-  read: FormsDocAccessFields_emails_message_Read
-  update: FormsDocAccessFields_emails_message_Update
-  delete: FormsDocAccessFields_emails_message_Delete
-}
-
-type FormsDocAccessFields_emails_message_Create {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_emails_message_Read {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_emails_message_Update {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_emails_message_Delete {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_emails_id {
-  create: FormsDocAccessFields_emails_id_Create
-  read: FormsDocAccessFields_emails_id_Read
-  update: FormsDocAccessFields_emails_id_Update
-  delete: FormsDocAccessFields_emails_id_Delete
-}
-
-type FormsDocAccessFields_emails_id_Create {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_emails_id_Read {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_emails_id_Update {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_emails_id_Delete {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_updatedAt {
-  create: FormsDocAccessFields_updatedAt_Create
-  read: FormsDocAccessFields_updatedAt_Read
-  update: FormsDocAccessFields_updatedAt_Update
-  delete: FormsDocAccessFields_updatedAt_Delete
-}
-
-type FormsDocAccessFields_updatedAt_Create {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_updatedAt_Read {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_updatedAt_Update {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_updatedAt_Delete {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_createdAt {
-  create: FormsDocAccessFields_createdAt_Create
-  read: FormsDocAccessFields_createdAt_Read
-  update: FormsDocAccessFields_createdAt_Update
-  delete: FormsDocAccessFields_createdAt_Delete
-}
-
-type FormsDocAccessFields_createdAt_Create {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_createdAt_Read {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_createdAt_Update {
-  permission: Boolean!
-}
-
-type FormsDocAccessFields_createdAt_Delete {
-  permission: Boolean!
-}
-
-type FormsCreateDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type FormsReadDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type FormsUpdateDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type FormsDeleteDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type FormSubmission {
-  id: String!
-  form(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Form!
-  submissionData: [FormSubmission_SubmissionData!]
-  updatedAt: DateTime
-  createdAt: DateTime
-}
-
-type FormSubmission_SubmissionData {
-  field: String
-  value: String
-  id: String
-}
-
-type FormSubmissions {
-  docs: [FormSubmission!]!
-  hasNextPage: Boolean!
-  hasPrevPage: Boolean!
-  limit: Int!
-  nextPage: Int
-  offset: Int
-  page: Int!
-  pagingCounter: Int!
-  prevPage: Int
-  totalDocs: Int!
-  totalPages: Int!
-}
-
-input FormSubmission_where {
-  form: FormSubmission_form_operator
-  submissionData__field: FormSubmission_submissionData__field_operator
-  submissionData__value: FormSubmission_submissionData__value_operator
-  submissionData__id: FormSubmission_submissionData__id_operator
-  updatedAt: FormSubmission_updatedAt_operator
-  createdAt: FormSubmission_createdAt_operator
-  id: FormSubmission_id_operator
-  AND: [FormSubmission_where_and]
-  OR: [FormSubmission_where_or]
-}
-
-input FormSubmission_form_operator {
-  equals: JSON
-  not_equals: JSON
-  in: [JSON]
-  not_in: [JSON]
-  all: [JSON]
-}
-
-input FormSubmission_submissionData__field_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-}
-
-input FormSubmission_submissionData__value_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-}
-
-input FormSubmission_submissionData__id_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input FormSubmission_updatedAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input FormSubmission_createdAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input FormSubmission_id_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input FormSubmission_where_and {
-  form: FormSubmission_form_operator
-  submissionData__field: FormSubmission_submissionData__field_operator
-  submissionData__value: FormSubmission_submissionData__value_operator
-  submissionData__id: FormSubmission_submissionData__id_operator
-  updatedAt: FormSubmission_updatedAt_operator
-  createdAt: FormSubmission_createdAt_operator
-  id: FormSubmission_id_operator
-  AND: [FormSubmission_where_and]
-  OR: [FormSubmission_where_or]
-}
-
-input FormSubmission_where_or {
-  form: FormSubmission_form_operator
-  submissionData__field: FormSubmission_submissionData__field_operator
-  submissionData__value: FormSubmission_submissionData__value_operator
-  submissionData__id: FormSubmission_submissionData__id_operator
-  updatedAt: FormSubmission_updatedAt_operator
-  createdAt: FormSubmission_createdAt_operator
-  id: FormSubmission_id_operator
-  AND: [FormSubmission_where_and]
-  OR: [FormSubmission_where_or]
-}
-
-type countFormSubmissions {
-  totalDocs: Int
-}
-
-type form_submissionsDocAccess {
-  fields: FormSubmissionsDocAccessFields
-  create: FormSubmissionsCreateDocAccess
-  read: FormSubmissionsReadDocAccess
-  update: FormSubmissionsUpdateDocAccess
-  delete: FormSubmissionsDeleteDocAccess
-}
-
-type FormSubmissionsDocAccessFields {
-  form: FormSubmissionsDocAccessFields_form
-  submissionData: FormSubmissionsDocAccessFields_submissionData
-  updatedAt: FormSubmissionsDocAccessFields_updatedAt
-  createdAt: FormSubmissionsDocAccessFields_createdAt
-}
-
-type FormSubmissionsDocAccessFields_form {
-  create: FormSubmissionsDocAccessFields_form_Create
-  read: FormSubmissionsDocAccessFields_form_Read
-  update: FormSubmissionsDocAccessFields_form_Update
-  delete: FormSubmissionsDocAccessFields_form_Delete
-}
-
-type FormSubmissionsDocAccessFields_form_Create {
-  permission: Boolean!
-}
-
-type FormSubmissionsDocAccessFields_form_Read {
-  permission: Boolean!
-}
-
-type FormSubmissionsDocAccessFields_form_Update {
-  permission: Boolean!
-}
-
-type FormSubmissionsDocAccessFields_form_Delete {
-  permission: Boolean!
-}
-
-type FormSubmissionsDocAccessFields_submissionData {
-  create: FormSubmissionsDocAccessFields_submissionData_Create
-  read: FormSubmissionsDocAccessFields_submissionData_Read
-  update: FormSubmissionsDocAccessFields_submissionData_Update
-  delete: FormSubmissionsDocAccessFields_submissionData_Delete
-  fields: FormSubmissionsDocAccessFields_submissionData_Fields
-}
-
-type FormSubmissionsDocAccessFields_submissionData_Create {
-  permission: Boolean!
-}
-
-type FormSubmissionsDocAccessFields_submissionData_Read {
-  permission: Boolean!
-}
-
-type FormSubmissionsDocAccessFields_submissionData_Update {
-  permission: Boolean!
-}
-
-type FormSubmissionsDocAccessFields_submissionData_Delete {
-  permission: Boolean!
-}
-
-type FormSubmissionsDocAccessFields_submissionData_Fields {
-  field: FormSubmissionsDocAccessFields_submissionData_field
-  value: FormSubmissionsDocAccessFields_submissionData_value
-  id: FormSubmissionsDocAccessFields_submissionData_id
-}
-
-type FormSubmissionsDocAccessFields_submissionData_field {
-  create: FormSubmissionsDocAccessFields_submissionData_field_Create
-  read: FormSubmissionsDocAccessFields_submissionData_field_Read
-  update: FormSubmissionsDocAccessFields_submissionData_field_Update
-  delete: FormSubmissionsDocAccessFields_submissionData_field_Delete
-}
-
-type FormSubmissionsDocAccessFields_submissionData_field_Create {
-  permission: Boolean!
-}
-
-type FormSubmissionsDocAccessFields_submissionData_field_Read {
-  permission: Boolean!
-}
-
-type FormSubmissionsDocAccessFields_submissionData_field_Update {
-  permission: Boolean!
-}
-
-type FormSubmissionsDocAccessFields_submissionData_field_Delete {
-  permission: Boolean!
-}
-
-type FormSubmissionsDocAccessFields_submissionData_value {
-  create: FormSubmissionsDocAccessFields_submissionData_value_Create
-  read: FormSubmissionsDocAccessFields_submissionData_value_Read
-  update: FormSubmissionsDocAccessFields_submissionData_value_Update
-  delete: FormSubmissionsDocAccessFields_submissionData_value_Delete
-}
-
-type FormSubmissionsDocAccessFields_submissionData_value_Create {
-  permission: Boolean!
-}
-
-type FormSubmissionsDocAccessFields_submissionData_value_Read {
-  permission: Boolean!
-}
-
-type FormSubmissionsDocAccessFields_submissionData_value_Update {
-  permission: Boolean!
-}
-
-type FormSubmissionsDocAccessFields_submissionData_value_Delete {
-  permission: Boolean!
-}
-
-type FormSubmissionsDocAccessFields_submissionData_id {
-  create: FormSubmissionsDocAccessFields_submissionData_id_Create
-  read: FormSubmissionsDocAccessFields_submissionData_id_Read
-  update: FormSubmissionsDocAccessFields_submissionData_id_Update
-  delete: FormSubmissionsDocAccessFields_submissionData_id_Delete
-}
-
-type FormSubmissionsDocAccessFields_submissionData_id_Create {
-  permission: Boolean!
-}
-
-type FormSubmissionsDocAccessFields_submissionData_id_Read {
-  permission: Boolean!
-}
-
-type FormSubmissionsDocAccessFields_submissionData_id_Update {
-  permission: Boolean!
-}
-
-type FormSubmissionsDocAccessFields_submissionData_id_Delete {
-  permission: Boolean!
-}
-
-type FormSubmissionsDocAccessFields_updatedAt {
-  create: FormSubmissionsDocAccessFields_updatedAt_Create
-  read: FormSubmissionsDocAccessFields_updatedAt_Read
-  update: FormSubmissionsDocAccessFields_updatedAt_Update
-  delete: FormSubmissionsDocAccessFields_updatedAt_Delete
-}
-
-type FormSubmissionsDocAccessFields_updatedAt_Create {
-  permission: Boolean!
-}
-
-type FormSubmissionsDocAccessFields_updatedAt_Read {
-  permission: Boolean!
-}
-
-type FormSubmissionsDocAccessFields_updatedAt_Update {
-  permission: Boolean!
-}
-
-type FormSubmissionsDocAccessFields_updatedAt_Delete {
-  permission: Boolean!
-}
-
-type FormSubmissionsDocAccessFields_createdAt {
-  create: FormSubmissionsDocAccessFields_createdAt_Create
-  read: FormSubmissionsDocAccessFields_createdAt_Read
-  update: FormSubmissionsDocAccessFields_createdAt_Update
-  delete: FormSubmissionsDocAccessFields_createdAt_Delete
-}
-
-type FormSubmissionsDocAccessFields_createdAt_Create {
-  permission: Boolean!
-}
-
-type FormSubmissionsDocAccessFields_createdAt_Read {
-  permission: Boolean!
-}
-
-type FormSubmissionsDocAccessFields_createdAt_Update {
-  permission: Boolean!
-}
-
-type FormSubmissionsDocAccessFields_createdAt_Delete {
-  permission: Boolean!
-}
-
-type FormSubmissionsCreateDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type FormSubmissionsReadDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type FormSubmissionsUpdateDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type FormSubmissionsDeleteDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
 type PayloadLockedDocument {
   id: String!
   document(draft: Boolean, locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): PayloadLockedDocument_Document_Relationship
@@ -5532,11 +4473,9 @@ enum PayloadLockedDocument_Document_RelationTo {
   authors
   micro_posts
   redirects
-  forms
-  form_submissions
 }
 
-union PayloadLockedDocument_Document = Post | Media | User | Tag | Author | Micro_post | Redirect | Form | FormSubmission
+union PayloadLockedDocument_Document = Post | Media | User | Tag | Author | Micro_post | Redirect
 
 type PayloadLockedDocument_User_Relationship {
   relationTo: PayloadLockedDocument_User_RelationTo
@@ -5587,8 +4526,6 @@ enum PayloadLockedDocument_document_Relation_RelationTo {
   authors
   micro_posts
   redirects
-  forms
-  form_submissions
 }
 
 input PayloadLockedDocument_globalSlug_operator {
@@ -6647,8 +5584,6 @@ type Access {
   authors: authorsAccess
   micro_posts: micro_postsAccess
   redirects: redirectsAccess
-  forms: formsAccess
-  form_submissions: form_submissionsAccess
   payload_locked_documents: payload_locked_documentsAccess
   payload_preferences: payload_preferencesAccess
   header: headerAccess
@@ -7505,6 +6440,7 @@ type UsersFields {
   updatedAt: UsersFields_updatedAt
   createdAt: UsersFields_createdAt
   email: UsersFields_email
+  sessions: UsersFields_sessions
 }
 
 type UsersFields_name {
@@ -7596,6 +6532,105 @@ type UsersFields_email_Update {
 }
 
 type UsersFields_email_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_sessions {
+  create: UsersFields_sessions_Create
+  read: UsersFields_sessions_Read
+  update: UsersFields_sessions_Update
+  delete: UsersFields_sessions_Delete
+  fields: UsersFields_sessions_Fields
+}
+
+type UsersFields_sessions_Create {
+  permission: Boolean!
+}
+
+type UsersFields_sessions_Read {
+  permission: Boolean!
+}
+
+type UsersFields_sessions_Update {
+  permission: Boolean!
+}
+
+type UsersFields_sessions_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_sessions_Fields {
+  id: UsersFields_sessions_id
+  createdAt: UsersFields_sessions_createdAt
+  expiresAt: UsersFields_sessions_expiresAt
+}
+
+type UsersFields_sessions_id {
+  create: UsersFields_sessions_id_Create
+  read: UsersFields_sessions_id_Read
+  update: UsersFields_sessions_id_Update
+  delete: UsersFields_sessions_id_Delete
+}
+
+type UsersFields_sessions_id_Create {
+  permission: Boolean!
+}
+
+type UsersFields_sessions_id_Read {
+  permission: Boolean!
+}
+
+type UsersFields_sessions_id_Update {
+  permission: Boolean!
+}
+
+type UsersFields_sessions_id_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_sessions_createdAt {
+  create: UsersFields_sessions_createdAt_Create
+  read: UsersFields_sessions_createdAt_Read
+  update: UsersFields_sessions_createdAt_Update
+  delete: UsersFields_sessions_createdAt_Delete
+}
+
+type UsersFields_sessions_createdAt_Create {
+  permission: Boolean!
+}
+
+type UsersFields_sessions_createdAt_Read {
+  permission: Boolean!
+}
+
+type UsersFields_sessions_createdAt_Update {
+  permission: Boolean!
+}
+
+type UsersFields_sessions_createdAt_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_sessions_expiresAt {
+  create: UsersFields_sessions_expiresAt_Create
+  read: UsersFields_sessions_expiresAt_Read
+  update: UsersFields_sessions_expiresAt_Update
+  delete: UsersFields_sessions_expiresAt_Delete
+}
+
+type UsersFields_sessions_expiresAt_Create {
+  permission: Boolean!
+}
+
+type UsersFields_sessions_expiresAt_Read {
+  permission: Boolean!
+}
+
+type UsersFields_sessions_expiresAt_Update {
+  permission: Boolean!
+}
+
+type UsersFields_sessions_expiresAt_Delete {
   permission: Boolean!
 }
 
@@ -8658,680 +7693,6 @@ type RedirectsDeleteAccess {
   where: JSONObject
 }
 
-type formsAccess {
-  fields: FormsFields
-  create: FormsCreateAccess
-  read: FormsReadAccess
-  update: FormsUpdateAccess
-  delete: FormsDeleteAccess
-}
-
-type FormsFields {
-  title: FormsFields_title
-  fields: FormsFields_fields
-  submitButtonLabel: FormsFields_submitButtonLabel
-  confirmationType: FormsFields_confirmationType
-  confirmationMessage: FormsFields_confirmationMessage
-  redirect: FormsFields_redirect
-  emails: FormsFields_emails
-  updatedAt: FormsFields_updatedAt
-  createdAt: FormsFields_createdAt
-}
-
-type FormsFields_title {
-  create: FormsFields_title_Create
-  read: FormsFields_title_Read
-  update: FormsFields_title_Update
-  delete: FormsFields_title_Delete
-}
-
-type FormsFields_title_Create {
-  permission: Boolean!
-}
-
-type FormsFields_title_Read {
-  permission: Boolean!
-}
-
-type FormsFields_title_Update {
-  permission: Boolean!
-}
-
-type FormsFields_title_Delete {
-  permission: Boolean!
-}
-
-type FormsFields_fields {
-  create: FormsFields_fields_Create
-  read: FormsFields_fields_Read
-  update: FormsFields_fields_Update
-  delete: FormsFields_fields_Delete
-}
-
-type FormsFields_fields_Create {
-  permission: Boolean!
-}
-
-type FormsFields_fields_Read {
-  permission: Boolean!
-}
-
-type FormsFields_fields_Update {
-  permission: Boolean!
-}
-
-type FormsFields_fields_Delete {
-  permission: Boolean!
-}
-
-type FormsFields_submitButtonLabel {
-  create: FormsFields_submitButtonLabel_Create
-  read: FormsFields_submitButtonLabel_Read
-  update: FormsFields_submitButtonLabel_Update
-  delete: FormsFields_submitButtonLabel_Delete
-}
-
-type FormsFields_submitButtonLabel_Create {
-  permission: Boolean!
-}
-
-type FormsFields_submitButtonLabel_Read {
-  permission: Boolean!
-}
-
-type FormsFields_submitButtonLabel_Update {
-  permission: Boolean!
-}
-
-type FormsFields_submitButtonLabel_Delete {
-  permission: Boolean!
-}
-
-type FormsFields_confirmationType {
-  create: FormsFields_confirmationType_Create
-  read: FormsFields_confirmationType_Read
-  update: FormsFields_confirmationType_Update
-  delete: FormsFields_confirmationType_Delete
-}
-
-type FormsFields_confirmationType_Create {
-  permission: Boolean!
-}
-
-type FormsFields_confirmationType_Read {
-  permission: Boolean!
-}
-
-type FormsFields_confirmationType_Update {
-  permission: Boolean!
-}
-
-type FormsFields_confirmationType_Delete {
-  permission: Boolean!
-}
-
-type FormsFields_confirmationMessage {
-  create: FormsFields_confirmationMessage_Create
-  read: FormsFields_confirmationMessage_Read
-  update: FormsFields_confirmationMessage_Update
-  delete: FormsFields_confirmationMessage_Delete
-}
-
-type FormsFields_confirmationMessage_Create {
-  permission: Boolean!
-}
-
-type FormsFields_confirmationMessage_Read {
-  permission: Boolean!
-}
-
-type FormsFields_confirmationMessage_Update {
-  permission: Boolean!
-}
-
-type FormsFields_confirmationMessage_Delete {
-  permission: Boolean!
-}
-
-type FormsFields_redirect {
-  create: FormsFields_redirect_Create
-  read: FormsFields_redirect_Read
-  update: FormsFields_redirect_Update
-  delete: FormsFields_redirect_Delete
-  fields: FormsFields_redirect_Fields
-}
-
-type FormsFields_redirect_Create {
-  permission: Boolean!
-}
-
-type FormsFields_redirect_Read {
-  permission: Boolean!
-}
-
-type FormsFields_redirect_Update {
-  permission: Boolean!
-}
-
-type FormsFields_redirect_Delete {
-  permission: Boolean!
-}
-
-type FormsFields_redirect_Fields {
-  url: FormsFields_redirect_url
-}
-
-type FormsFields_redirect_url {
-  create: FormsFields_redirect_url_Create
-  read: FormsFields_redirect_url_Read
-  update: FormsFields_redirect_url_Update
-  delete: FormsFields_redirect_url_Delete
-}
-
-type FormsFields_redirect_url_Create {
-  permission: Boolean!
-}
-
-type FormsFields_redirect_url_Read {
-  permission: Boolean!
-}
-
-type FormsFields_redirect_url_Update {
-  permission: Boolean!
-}
-
-type FormsFields_redirect_url_Delete {
-  permission: Boolean!
-}
-
-type FormsFields_emails {
-  create: FormsFields_emails_Create
-  read: FormsFields_emails_Read
-  update: FormsFields_emails_Update
-  delete: FormsFields_emails_Delete
-  fields: FormsFields_emails_Fields
-}
-
-type FormsFields_emails_Create {
-  permission: Boolean!
-}
-
-type FormsFields_emails_Read {
-  permission: Boolean!
-}
-
-type FormsFields_emails_Update {
-  permission: Boolean!
-}
-
-type FormsFields_emails_Delete {
-  permission: Boolean!
-}
-
-type FormsFields_emails_Fields {
-  emailTo: FormsFields_emails_emailTo
-  cc: FormsFields_emails_cc
-  bcc: FormsFields_emails_bcc
-  replyTo: FormsFields_emails_replyTo
-  emailFrom: FormsFields_emails_emailFrom
-  subject: FormsFields_emails_subject
-  message: FormsFields_emails_message
-  id: FormsFields_emails_id
-}
-
-type FormsFields_emails_emailTo {
-  create: FormsFields_emails_emailTo_Create
-  read: FormsFields_emails_emailTo_Read
-  update: FormsFields_emails_emailTo_Update
-  delete: FormsFields_emails_emailTo_Delete
-}
-
-type FormsFields_emails_emailTo_Create {
-  permission: Boolean!
-}
-
-type FormsFields_emails_emailTo_Read {
-  permission: Boolean!
-}
-
-type FormsFields_emails_emailTo_Update {
-  permission: Boolean!
-}
-
-type FormsFields_emails_emailTo_Delete {
-  permission: Boolean!
-}
-
-type FormsFields_emails_cc {
-  create: FormsFields_emails_cc_Create
-  read: FormsFields_emails_cc_Read
-  update: FormsFields_emails_cc_Update
-  delete: FormsFields_emails_cc_Delete
-}
-
-type FormsFields_emails_cc_Create {
-  permission: Boolean!
-}
-
-type FormsFields_emails_cc_Read {
-  permission: Boolean!
-}
-
-type FormsFields_emails_cc_Update {
-  permission: Boolean!
-}
-
-type FormsFields_emails_cc_Delete {
-  permission: Boolean!
-}
-
-type FormsFields_emails_bcc {
-  create: FormsFields_emails_bcc_Create
-  read: FormsFields_emails_bcc_Read
-  update: FormsFields_emails_bcc_Update
-  delete: FormsFields_emails_bcc_Delete
-}
-
-type FormsFields_emails_bcc_Create {
-  permission: Boolean!
-}
-
-type FormsFields_emails_bcc_Read {
-  permission: Boolean!
-}
-
-type FormsFields_emails_bcc_Update {
-  permission: Boolean!
-}
-
-type FormsFields_emails_bcc_Delete {
-  permission: Boolean!
-}
-
-type FormsFields_emails_replyTo {
-  create: FormsFields_emails_replyTo_Create
-  read: FormsFields_emails_replyTo_Read
-  update: FormsFields_emails_replyTo_Update
-  delete: FormsFields_emails_replyTo_Delete
-}
-
-type FormsFields_emails_replyTo_Create {
-  permission: Boolean!
-}
-
-type FormsFields_emails_replyTo_Read {
-  permission: Boolean!
-}
-
-type FormsFields_emails_replyTo_Update {
-  permission: Boolean!
-}
-
-type FormsFields_emails_replyTo_Delete {
-  permission: Boolean!
-}
-
-type FormsFields_emails_emailFrom {
-  create: FormsFields_emails_emailFrom_Create
-  read: FormsFields_emails_emailFrom_Read
-  update: FormsFields_emails_emailFrom_Update
-  delete: FormsFields_emails_emailFrom_Delete
-}
-
-type FormsFields_emails_emailFrom_Create {
-  permission: Boolean!
-}
-
-type FormsFields_emails_emailFrom_Read {
-  permission: Boolean!
-}
-
-type FormsFields_emails_emailFrom_Update {
-  permission: Boolean!
-}
-
-type FormsFields_emails_emailFrom_Delete {
-  permission: Boolean!
-}
-
-type FormsFields_emails_subject {
-  create: FormsFields_emails_subject_Create
-  read: FormsFields_emails_subject_Read
-  update: FormsFields_emails_subject_Update
-  delete: FormsFields_emails_subject_Delete
-}
-
-type FormsFields_emails_subject_Create {
-  permission: Boolean!
-}
-
-type FormsFields_emails_subject_Read {
-  permission: Boolean!
-}
-
-type FormsFields_emails_subject_Update {
-  permission: Boolean!
-}
-
-type FormsFields_emails_subject_Delete {
-  permission: Boolean!
-}
-
-type FormsFields_emails_message {
-  create: FormsFields_emails_message_Create
-  read: FormsFields_emails_message_Read
-  update: FormsFields_emails_message_Update
-  delete: FormsFields_emails_message_Delete
-}
-
-type FormsFields_emails_message_Create {
-  permission: Boolean!
-}
-
-type FormsFields_emails_message_Read {
-  permission: Boolean!
-}
-
-type FormsFields_emails_message_Update {
-  permission: Boolean!
-}
-
-type FormsFields_emails_message_Delete {
-  permission: Boolean!
-}
-
-type FormsFields_emails_id {
-  create: FormsFields_emails_id_Create
-  read: FormsFields_emails_id_Read
-  update: FormsFields_emails_id_Update
-  delete: FormsFields_emails_id_Delete
-}
-
-type FormsFields_emails_id_Create {
-  permission: Boolean!
-}
-
-type FormsFields_emails_id_Read {
-  permission: Boolean!
-}
-
-type FormsFields_emails_id_Update {
-  permission: Boolean!
-}
-
-type FormsFields_emails_id_Delete {
-  permission: Boolean!
-}
-
-type FormsFields_updatedAt {
-  create: FormsFields_updatedAt_Create
-  read: FormsFields_updatedAt_Read
-  update: FormsFields_updatedAt_Update
-  delete: FormsFields_updatedAt_Delete
-}
-
-type FormsFields_updatedAt_Create {
-  permission: Boolean!
-}
-
-type FormsFields_updatedAt_Read {
-  permission: Boolean!
-}
-
-type FormsFields_updatedAt_Update {
-  permission: Boolean!
-}
-
-type FormsFields_updatedAt_Delete {
-  permission: Boolean!
-}
-
-type FormsFields_createdAt {
-  create: FormsFields_createdAt_Create
-  read: FormsFields_createdAt_Read
-  update: FormsFields_createdAt_Update
-  delete: FormsFields_createdAt_Delete
-}
-
-type FormsFields_createdAt_Create {
-  permission: Boolean!
-}
-
-type FormsFields_createdAt_Read {
-  permission: Boolean!
-}
-
-type FormsFields_createdAt_Update {
-  permission: Boolean!
-}
-
-type FormsFields_createdAt_Delete {
-  permission: Boolean!
-}
-
-type FormsCreateAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type FormsReadAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type FormsUpdateAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type FormsDeleteAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type form_submissionsAccess {
-  fields: FormSubmissionsFields
-  create: FormSubmissionsCreateAccess
-  read: FormSubmissionsReadAccess
-  update: FormSubmissionsUpdateAccess
-  delete: FormSubmissionsDeleteAccess
-}
-
-type FormSubmissionsFields {
-  form: FormSubmissionsFields_form
-  submissionData: FormSubmissionsFields_submissionData
-  updatedAt: FormSubmissionsFields_updatedAt
-  createdAt: FormSubmissionsFields_createdAt
-}
-
-type FormSubmissionsFields_form {
-  create: FormSubmissionsFields_form_Create
-  read: FormSubmissionsFields_form_Read
-  update: FormSubmissionsFields_form_Update
-  delete: FormSubmissionsFields_form_Delete
-}
-
-type FormSubmissionsFields_form_Create {
-  permission: Boolean!
-}
-
-type FormSubmissionsFields_form_Read {
-  permission: Boolean!
-}
-
-type FormSubmissionsFields_form_Update {
-  permission: Boolean!
-}
-
-type FormSubmissionsFields_form_Delete {
-  permission: Boolean!
-}
-
-type FormSubmissionsFields_submissionData {
-  create: FormSubmissionsFields_submissionData_Create
-  read: FormSubmissionsFields_submissionData_Read
-  update: FormSubmissionsFields_submissionData_Update
-  delete: FormSubmissionsFields_submissionData_Delete
-  fields: FormSubmissionsFields_submissionData_Fields
-}
-
-type FormSubmissionsFields_submissionData_Create {
-  permission: Boolean!
-}
-
-type FormSubmissionsFields_submissionData_Read {
-  permission: Boolean!
-}
-
-type FormSubmissionsFields_submissionData_Update {
-  permission: Boolean!
-}
-
-type FormSubmissionsFields_submissionData_Delete {
-  permission: Boolean!
-}
-
-type FormSubmissionsFields_submissionData_Fields {
-  field: FormSubmissionsFields_submissionData_field
-  value: FormSubmissionsFields_submissionData_value
-  id: FormSubmissionsFields_submissionData_id
-}
-
-type FormSubmissionsFields_submissionData_field {
-  create: FormSubmissionsFields_submissionData_field_Create
-  read: FormSubmissionsFields_submissionData_field_Read
-  update: FormSubmissionsFields_submissionData_field_Update
-  delete: FormSubmissionsFields_submissionData_field_Delete
-}
-
-type FormSubmissionsFields_submissionData_field_Create {
-  permission: Boolean!
-}
-
-type FormSubmissionsFields_submissionData_field_Read {
-  permission: Boolean!
-}
-
-type FormSubmissionsFields_submissionData_field_Update {
-  permission: Boolean!
-}
-
-type FormSubmissionsFields_submissionData_field_Delete {
-  permission: Boolean!
-}
-
-type FormSubmissionsFields_submissionData_value {
-  create: FormSubmissionsFields_submissionData_value_Create
-  read: FormSubmissionsFields_submissionData_value_Read
-  update: FormSubmissionsFields_submissionData_value_Update
-  delete: FormSubmissionsFields_submissionData_value_Delete
-}
-
-type FormSubmissionsFields_submissionData_value_Create {
-  permission: Boolean!
-}
-
-type FormSubmissionsFields_submissionData_value_Read {
-  permission: Boolean!
-}
-
-type FormSubmissionsFields_submissionData_value_Update {
-  permission: Boolean!
-}
-
-type FormSubmissionsFields_submissionData_value_Delete {
-  permission: Boolean!
-}
-
-type FormSubmissionsFields_submissionData_id {
-  create: FormSubmissionsFields_submissionData_id_Create
-  read: FormSubmissionsFields_submissionData_id_Read
-  update: FormSubmissionsFields_submissionData_id_Update
-  delete: FormSubmissionsFields_submissionData_id_Delete
-}
-
-type FormSubmissionsFields_submissionData_id_Create {
-  permission: Boolean!
-}
-
-type FormSubmissionsFields_submissionData_id_Read {
-  permission: Boolean!
-}
-
-type FormSubmissionsFields_submissionData_id_Update {
-  permission: Boolean!
-}
-
-type FormSubmissionsFields_submissionData_id_Delete {
-  permission: Boolean!
-}
-
-type FormSubmissionsFields_updatedAt {
-  create: FormSubmissionsFields_updatedAt_Create
-  read: FormSubmissionsFields_updatedAt_Read
-  update: FormSubmissionsFields_updatedAt_Update
-  delete: FormSubmissionsFields_updatedAt_Delete
-}
-
-type FormSubmissionsFields_updatedAt_Create {
-  permission: Boolean!
-}
-
-type FormSubmissionsFields_updatedAt_Read {
-  permission: Boolean!
-}
-
-type FormSubmissionsFields_updatedAt_Update {
-  permission: Boolean!
-}
-
-type FormSubmissionsFields_updatedAt_Delete {
-  permission: Boolean!
-}
-
-type FormSubmissionsFields_createdAt {
-  create: FormSubmissionsFields_createdAt_Create
-  read: FormSubmissionsFields_createdAt_Read
-  update: FormSubmissionsFields_createdAt_Update
-  delete: FormSubmissionsFields_createdAt_Delete
-}
-
-type FormSubmissionsFields_createdAt_Create {
-  permission: Boolean!
-}
-
-type FormSubmissionsFields_createdAt_Read {
-  permission: Boolean!
-}
-
-type FormSubmissionsFields_createdAt_Update {
-  permission: Boolean!
-}
-
-type FormSubmissionsFields_createdAt_Delete {
-  permission: Boolean!
-}
-
-type FormSubmissionsCreateAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type FormSubmissionsReadAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type FormSubmissionsUpdateAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type FormSubmissionsDeleteAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
 type payload_locked_documentsAccess {
   fields: PayloadLockedDocumentsFields
   create: PayloadLockedDocumentsCreateAccess
@@ -10134,7 +8495,7 @@ type Mutation {
   updateUser(id: String!, autosave: Boolean, data: mutationUserUpdateInput!, draft: Boolean, locale: LocaleInputType): User
   deleteUser(id: String!): User
   refreshTokenUser: usersRefreshedUser
-  logoutUser: String
+  logoutUser(allSessions: Boolean): String
   unlockUser(email: String!): Boolean!
   loginUser(email: String!, password: String): usersLoginResult
   forgotPasswordUser(disableEmail: Boolean, expiration: Int, email: String!): Boolean!
@@ -10157,14 +8518,6 @@ type Mutation {
   updateRedirect(id: String!, autosave: Boolean, data: mutationRedirectUpdateInput!, draft: Boolean, locale: LocaleInputType): Redirect
   deleteRedirect(id: String!): Redirect
   duplicateRedirect(id: String!, data: mutationRedirectInput!): Redirect
-  createForm(data: mutationFormInput!, draft: Boolean, locale: LocaleInputType): Form
-  updateForm(id: String!, autosave: Boolean, data: mutationFormUpdateInput!, draft: Boolean, locale: LocaleInputType): Form
-  deleteForm(id: String!): Form
-  duplicateForm(id: String!, data: mutationFormInput!): Form
-  createFormSubmission(data: mutationFormSubmissionInput!, draft: Boolean, locale: LocaleInputType): FormSubmission
-  updateFormSubmission(id: String!, autosave: Boolean, data: mutationFormSubmissionUpdateInput!, draft: Boolean, locale: LocaleInputType): FormSubmission
-  deleteFormSubmission(id: String!): FormSubmission
-  duplicateFormSubmission(id: String!, data: mutationFormSubmissionInput!): FormSubmission
   createPayloadLockedDocument(data: mutationPayloadLockedDocumentInput!, draft: Boolean, locale: LocaleInputType): PayloadLockedDocument
   updatePayloadLockedDocument(id: String!, autosave: Boolean, data: mutationPayloadLockedDocumentUpdateInput!, draft: Boolean, locale: LocaleInputType): PayloadLockedDocument
   deletePayloadLockedDocument(id: String!): PayloadLockedDocument
@@ -10284,7 +8637,14 @@ input mutationUserInput {
   hash: String
   loginAttempts: Float
   lockUntil: String
+  sessions: [mutationUser_SessionsInput]
   password: String!
+}
+
+input mutationUser_SessionsInput {
+  id: String!
+  createdAt: String
+  expiresAt: String!
 }
 
 input mutationUserUpdateInput {
@@ -10298,7 +8658,14 @@ input mutationUserUpdateInput {
   hash: String
   loginAttempts: Float
   lockUntil: String
+  sessions: [mutationUserUpdate_SessionsInput]
   password: String
+}
+
+input mutationUserUpdate_SessionsInput {
+  id: String!
+  createdAt: String
+  expiresAt: String!
 }
 
 type usersRefreshedUser {
@@ -10484,86 +8851,6 @@ enum RedirectUpdate_To_ReferenceRelationshipInputRelationTo {
   posts
 }
 
-input mutationFormInput {
-  title: String!
-  fields: JSON
-  submitButtonLabel: String
-  confirmationType: String
-  confirmationMessage: JSON
-  redirect: mutationForm_RedirectInput!
-  emails: [mutationForm_EmailsInput]
-  updatedAt: String
-  createdAt: String
-}
-
-input mutationForm_RedirectInput {
-  url: String!
-}
-
-input mutationForm_EmailsInput {
-  emailTo: String
-  cc: String
-  bcc: String
-  replyTo: String
-  emailFrom: String
-  subject: String
-  message: JSON
-  id: String
-}
-
-input mutationFormUpdateInput {
-  title: String
-  fields: JSON
-  submitButtonLabel: String
-  confirmationType: String
-  confirmationMessage: JSON
-  redirect: mutationFormUpdate_RedirectInput!
-  emails: [mutationFormUpdate_EmailsInput]
-  updatedAt: String
-  createdAt: String
-}
-
-input mutationFormUpdate_RedirectInput {
-  url: String!
-}
-
-input mutationFormUpdate_EmailsInput {
-  emailTo: String
-  cc: String
-  bcc: String
-  replyTo: String
-  emailFrom: String
-  subject: String
-  message: JSON
-  id: String
-}
-
-input mutationFormSubmissionInput {
-  form: String
-  submissionData: [mutationFormSubmission_SubmissionDataInput]
-  updatedAt: String
-  createdAt: String
-}
-
-input mutationFormSubmission_SubmissionDataInput {
-  field: String!
-  value: String!
-  id: String
-}
-
-input mutationFormSubmissionUpdateInput {
-  form: String
-  submissionData: [mutationFormSubmissionUpdate_SubmissionDataInput]
-  updatedAt: String
-  createdAt: String
-}
-
-input mutationFormSubmissionUpdate_SubmissionDataInput {
-  field: String!
-  value: String!
-  id: String
-}
-
 input mutationPayloadLockedDocumentInput {
   document: PayloadLockedDocument_DocumentRelationshipInput
   globalSlug: String
@@ -10585,8 +8872,6 @@ enum PayloadLockedDocument_DocumentRelationshipInputRelationTo {
   authors
   micro_posts
   redirects
-  forms
-  form_submissions
 }
 
 input PayloadLockedDocument_UserRelationshipInput {
@@ -10619,8 +8904,6 @@ enum PayloadLockedDocumentUpdate_DocumentRelationshipInputRelationTo {
   authors
   micro_posts
   redirects
-  forms
-  form_submissions
 }
 
 input PayloadLockedDocumentUpdate_UserRelationshipInput {

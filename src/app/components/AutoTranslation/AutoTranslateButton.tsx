@@ -1,9 +1,9 @@
 'use client'
-import { Button, useConfig, useDocumentInfo } from "@payloadcms/ui";
+import { Button } from "@/components/ui/button";
+import { useConfig, useDocumentInfo } from "@payloadcms/ui";
 import { TypedLocale } from "payload";
 import { FunctionComponent, useState } from "react";
 import { autoTranslate } from "./autoTranslate";
-
 
 const AutoTranslateButton:FunctionComponent= () => {
   const { id,collectionSlug, } = useDocumentInfo()
@@ -20,7 +20,7 @@ const [results,setResults] = useState<{
   }
   const sourceLocale = localization.defaultLocale
   const locales = localization.locales.map(locale => locale.code).filter(locale => locale !== sourceLocale)
-  const handleSubmit = async ()=>{
+  const handleSubmit = async (locales:string[])=>{
       for (const targetLocale of locales) {
         try {
         setPendingLocale(targetLocale)
@@ -43,8 +43,17 @@ const [results,setResults] = useState<{
       }
       }
   }
-    return <div>
-        <Button onClick={handleSubmit} disabled={pendingLocale !== null} type="submit">{pendingLocale !== null?`Translating to ${pendingLocale}...`:`Auto Translate All from ${sourceLocale}`}</Button>
+    return <div className="flex flex-col gap-2 max-w-full">
+        <Button variant="default" onClick={()=>{
+          handleSubmit(locales)
+        }} disabled={pendingLocale !== null} type="submit">{pendingLocale !== null?`Translating to ${pendingLocale}...`:`Auto Translate All from ${sourceLocale}`}</Button>
+       <div className="flex  gap-2 max-w-full flex-wrap justify-between">
+         {locales.map(locale=>{
+          return <Button className="flex-1" key={locale} disabled={pendingLocale === locale} variant="outline" onClick={()=>{
+            handleSubmit([locale])
+          }}>Translate to {locale}</Button>
+        })}
+       </div>
         <div>
             {results.map((result,index)=><div key={index} className="flex gap-2">
                 <div>{result.locale}: </div>{result.error ? <div style={{color:'red'}}>{result.error}</div>:<div style={{color:'green'}}>translated</div>}

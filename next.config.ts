@@ -10,7 +10,6 @@ const nextConfig: NextConfig = {
     remotePatterns: PAYLOAD_PUBLIC_SERVER_URL ? [new URL(PAYLOAD_PUBLIC_SERVER_URL)] : [],
   },
   reactStrictMode: true,
-  basePath: '',
   redirects,
   output: 'standalone',
 }

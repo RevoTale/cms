@@ -1,10 +1,9 @@
-import type { CollectionSlug, GlobalSlug, Payload, PayloadRequest } from 'payload'
+import type { CollectionSlug, Payload, PayloadRequest } from 'payload'
 
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
-import { contactForm as contactFormData } from './contact-form'
 import { image1 } from './image-1'
 import { image2 } from './image-2'
 import { post1 } from './post-1'
@@ -18,10 +17,7 @@ const collections: CollectionSlug[] = [
   'tags',
   'media',
   'posts',
-  'forms',
-  'form-submissions',
 ]
-const globals: GlobalSlug[] = ['header', 'footer']
 
 // Next.js revalidation errors are normal when seeding the database without a server running
 // i.e. running `yarn seed` locally instead of using the admin UI within an active app
@@ -53,16 +49,7 @@ export const seed = async ({
 
   payload.logger.info(`— Clearing collections and globals...`)
 
-  // clear the database
-  for (const global of globals) {
-    await payload.updateGlobal({
-      slug: global,
-      data: {
-        navItems: [],
-      },
-      req,
-    })
-  }
+
 
   for (const collection of collections) {
     console.log('delete', collection)
@@ -259,11 +246,7 @@ export const seed = async ({
 
   payload.logger.info(`— Seeding contact form...`)
 
-  await payload.create({
-    collection: 'forms',
-    data: JSON.parse(JSON.stringify(contactFormData)),
-    req,
-  })
+
 
 
   payload.logger.info(`— Seeding contact page...`)
@@ -272,55 +255,11 @@ export const seed = async ({
 
   payload.logger.info(`— Seeding header...`)
 
-  await payload.updateGlobal({
-    slug: 'header',
-    data: {
-      navItems: [
-        {
-          link: {
-            type: 'custom',
-            label: 'Posts',
-            url: '/posts',
-          },
-        },
-      ],
-    },
-    req,
-  })
+
 
   payload.logger.info(`— Seeding footer...`)
 
-  await payload.updateGlobal({
-    slug: 'footer',
-    data: {
-      navItems: [
-        {
-          link: {
-            type: 'custom',
-            label: 'Admin',
-            url: '/admin',
-          },
-        },
-        {
-          link: {
-            type: 'custom',
-            label: 'Source Code',
-            newTab: true,
-            url: 'https://github.com/payloadcms/payload/tree/beta/templates/website',
-          },
-        },
-        {
-          link: {
-            type: 'custom',
-            label: 'Payload',
-            newTab: true,
-            url: 'https://payloadcms.com/',
-          },
-        },
-      ],
-    },
-    req,
-  })
+
 
   payload.logger.info('Seeded database successfully!')
 }

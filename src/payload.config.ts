@@ -1,9 +1,8 @@
 // storage-adapter-import-placeholder
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
-import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 
 
-import { redirectsPlugin } from '@payloadcms/plugin-redirects'
+
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import { GenerateDescription, GenerateURL } from '@payloadcms/plugin-seo/types'
 
@@ -23,9 +22,6 @@ import { Posts } from './payload/collections/Posts'
 import Tags from "./payload/collections/Tags"
 import Users from './payload/collections/Users'
 import { seed } from './payload/endpoints/seed'
-import { Footer } from './payload/globals/Footer/Footer'
-import { Header } from './payload/globals/Header/Header'
-import { revalidateRedirects } from './payload/hooks/revalidateRedirects'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -225,7 +221,7 @@ export default buildConfig({
       path: '/seed',
     },
   ],
-  globals: [Header, Footer],
+  globals: [],
   plugins: [
     /*cloudStorage({
       collections: {
@@ -254,27 +250,6 @@ export default buildConfig({
      
     }),*/
     s3PluginConfig,
-    redirectsPlugin({
-      collections: ['posts'],
-      overrides: {
-        fields: ({ defaultFields }) => {
-          return defaultFields.map((field) => {
-            if ('name' in field && field.name === 'from') {
-              return {
-                ...field,
-                admin: {
-                  //description: 'You will need to rebuild the website when changing this field.',
-                },
-              }
-            }
-            return field
-          })
-        },
-        hooks: {
-          afterChange: [revalidateRedirects],
-        },
-      },
-    }),
     seoPlugin({
       generateTitle,
       generateDescription:generateDescription,

@@ -1,4 +1,4 @@
-import { Button, buttonVariants } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/shadcn/ui/button'
 import { cn } from '@/utilities/cn'
 import Link from 'next/link'
 import React from 'react'

@@ -1,9 +1,9 @@
 'use client'
-import { Button } from "@/components/ui/button";
 import { useConfig, useDocumentInfo } from "@payloadcms/ui";
 import { TypedLocale } from "payload";
 import { FunctionComponent, useState } from "react";
 import { autoTranslate } from "./autoTranslate";
+import { Button } from "@shadcn/ui/button";
 
 const AutoTranslateButton:FunctionComponent= () => {
   const { id,collectionSlug, } = useDocumentInfo()

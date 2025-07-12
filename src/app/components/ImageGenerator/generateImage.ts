@@ -17,7 +17,14 @@ const generateImagePrompt = async({ content }:{content:string}) :Promise<string>
   const client = new OpenAI({ apiKey })
   const response = await client.responses.create({
     model: 'gpt-4o',
-    instructions: `summarize the following content into a concise image description suitable for generating an image. The description should capture the essence of the content in a way that can be visually represented.`,
+    instructions: `
+    - Summarize the following content into a concise image description suitable for generating an image.
+    - The description should capture the essence of the content in a way that can be visually represented.
+    - It will be used for the SEO and Social preview. Consider best practices in this regarding this.
+    - Focus on the main themes, objects, and actions described in the content.
+    - Avoid unnecessary details or overly complex descriptions.
+    - The description should be suitable for generating an image using DALL-E 3.
+    `,
     input: content,
   });
 
@@ -42,7 +49,7 @@ export async function generateImage({ id, collection, content }: GenerateParams)
   // Generate image
   let result
   try {
-    result = await client.images.generate({ prompt, n: 1, size: '1024x1024' })
+    result = await client.images.generate({ prompt, n: 1, size: '1792x1024',model:'dall-e-3' })
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err)
     throw new Error(`Image generation failed: ${msg}`)
@@ -55,7 +62,7 @@ export async function generateImage({ id, collection, content }: GenerateParams)
       data: {
         filename: `generated-${Date.now()}.png`,
         alt: `Generated image for ${doc.title}`,
-
+        
         url: imageUrl,
       },
     })

@@ -16,7 +16,7 @@ You will receive **one** JSON object shaped like this:
   "targetLocale": <BCP-47 code>,     // e.g. "uk", "de-CH"
   "sourceLocale": <BCP-47 code>,     // e.g. "en", "fr-CA"
   "maxLength":    <number|null>,     // optional hard-character limit
-  "context":      <object>           // extra metadata — NEVER translate
+  "context":      <object>           // extra metadata — NEVER translate. Provided in encoded JSON format.
 }
 
 ### Task
@@ -35,7 +35,6 @@ Translate **only** the top-level \`content\` string from \`sourceLocale\` to \`t
 7. Figurative “power:” constructions → render idiomatically as *strength / capability / impact of \<Term\>*.
 8. Maintain list bullets, links, and emojis verbatim.
 9. When placeholders might need gender or plural agreement, pick a neutral formulation so the placeholder stays unchanged.
-10. If the payload is malformed or required keys are missing, reply exactly with \`ERROR: invalid input\`.
 
 ### Terminology & style
 • Use standard, widely accepted equivalents for acronyms and technical terms; if none exist, keep the original.  
@@ -43,7 +42,10 @@ Translate **only** the top-level \`content\` string from \`sourceLocale\` to \`t
 • Never leave any part untranslated except proper nouns intended to remain as-is.
 
 ### Output
-Return **only the translated \`content\` string** — no keys, no JSON, no commentary.`;
+- DO NOT wrap the result in JSON. No keys, no quotes, no commentary.
+- IMPORTANT: Only use the top-level "content" field in the input object.
+- ⚠️ Never extract or translate any "content" field from inside the "context" object or other nested structures. Use it only for better understanding of the meaning.
+`;
 const translateFn = async (text: string, locale: TypedLocale,context:Record<string,unknown>,maxLen:number|undefined,sourceLocale:string): Promise<string> => {
    const key = process.env['OPENAI_API_KEY']
    const message = {
@@ -51,7 +53,7 @@ const translateFn = async (text: string, locale: TypedLocale,context:Record<stri
   "targetLocale": locale,
   "sourceLocale": sourceLocale,
   "maxLength": maxLen,
-  "context": context,
+  "context": JSON.stringify(context),
 }
    const client = key?new OpenAI({
      apiKey: key, // This is the default and can be omitted
@@ -99,6 +101,7 @@ export const autoTranslate = async ({docId,collection,targetLocale,sourceLocale}
                         data[key  ] = await translateFn(value,targetLocale, {
                           [collection]:post
                         },field.maxLength,sourceLocale)
+                        console.log( key,data[key  ],)
                 } else if(field.type === 'tabs') {
                     for (const tab of field.tabs) {
                         if ( ('name' in tab && tab.name === key) ) {

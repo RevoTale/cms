@@ -26,6 +26,13 @@ export const MicroPosts: CollectionConfig = {
   admin: {
     defaultColumns: ['updatedAt'],
     useAsTitle: 'title',
+    components:{
+     edit:{
+       beforeDocumentControls:[
+      '@/components/ImageGenerator/GenerateImageButton'
+      ]
+     }
+    }
   },
 
   fields: [

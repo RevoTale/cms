@@ -1,9 +1,8 @@
 'use client'
-import { useConfig, useDocumentInfo } from "@payloadcms/ui";
+import { Button, useConfig, useDocumentInfo } from "@payloadcms/ui";
 import { TypedLocale } from "payload";
 import { FunctionComponent, useState } from "react";
 import { autoTranslate } from "./autoTranslate";
-import { Button } from "@shadcn/ui/button";
 
 const AutoTranslateButton:FunctionComponent= () => {
   const { id,collectionSlug, } = useDocumentInfo()
@@ -44,14 +43,14 @@ const [results,setResults] = useState<{
       }
   }
     return <div className="flex flex-col gap-2 max-w-full">
-        <Button variant="default" onClick={()=>{
+        <Button className="my-1" onClick={()=>{
           handleSubmit(locales)
         }} disabled={pendingLocale !== null} type="submit">{pendingLocale !== null?`Translating to ${pendingLocale}...`:`Auto Translate All from ${sourceLocale}`}</Button>
-       <div className="flex  gap-2 max-w-full flex-wrap justify-between">
+       <div className="flex  gap-2 max-w-full flex-wrap ">
          {locales.map(locale=>{
-          return <Button className="flex-1" key={locale} disabled={pendingLocale === locale} variant="outline" onClick={()=>{
+          return <Button className="my-1 flex" key={locale} disabled={pendingLocale === locale}  onClick={()=>{
             handleSubmit([locale])
-          }}>Translate to {locale}</Button>
+          }}>To {locale}</Button>
         })}
        </div>
         <div>

@@ -128,11 +128,9 @@ const serverURl:string|null = process.env.PAYLOAD_PUBLIC_SERVER_URL??null
 if (!serverURl ) {
   throw new Error('Server url is not defined')
 }
-console.log('Server URL:', serverURl)
 const serverDomain = new URL(serverURl).hostname
 const hostnameWithProtocol = `https://${serverDomain}`;
 
-console.log('Server Domain:', serverDomain)
 const s3PluginConfig = s3Storage({
   collections: {
     [Media.slug]: {
@@ -249,7 +247,7 @@ export default buildConfig({
 
      
     }),*/
-    s3PluginConfig,
+   ...( process.env.NODE_ENV !== 'development'?[s3PluginConfig]:[]),
     seoPlugin({
       generateTitle,
       generateDescription:generateDescription,

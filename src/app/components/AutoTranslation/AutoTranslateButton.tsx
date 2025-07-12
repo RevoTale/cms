@@ -2,7 +2,7 @@
 import { Button, useConfig, useDocumentInfo } from "@payloadcms/ui";
 import { TypedLocale } from "payload";
 import { FunctionComponent, useState } from "react";
-import { autoTranslate } from "./autoTranslate";
+import { autoTranslate, Context } from "./autoTranslate";
 
 const AutoTranslateButton:FunctionComponent= () => {
   const { id,collectionSlug, } = useDocumentInfo()
@@ -12,6 +12,7 @@ const [pendingLocale,setPendingLocale] = useState<string|null>(null)
 const [results,setResults] = useState<{
   locale:string
   error:string|null
+  context?:Context
 }[]>([])
   // id will be undefined on the create form
   if (!id || !collectionSlug || !localization) {
@@ -31,7 +32,7 @@ const [results,setResults] = useState<{
         })
         setPendingLocale(null)
         if (result.ok === false) {
-          setResults(prev=>[...prev,{locale:targetLocale,error:result.error}])
+          setResults(prev=>[...prev,{locale:targetLocale,error:result.error,context:result.context}])
 
         } else {
         setResults(prev=>[...prev,{locale:targetLocale,error:null}])
@@ -55,7 +56,7 @@ const [results,setResults] = useState<{
        </div>
         <div>
             {results.map((result,index)=><div key={index} className="flex gap-2">
-                <div>{result.locale}: </div>{result.error ? <div style={{color:'red'}}>{result.error}</div>:<div style={{color:'green'}}>translated</div>}
+                <div>{result.locale}: </div>{result.error ? <div style={{color:'red'}}>{result.error} {JSON.stringify(result.context?.data)}</div>:<div style={{color:'green'}}>translated</div>}
             </div>)}
         </div>
     </div>

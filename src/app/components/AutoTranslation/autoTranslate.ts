@@ -67,11 +67,16 @@ const translateFn = async (text: string, locale: TypedLocale,context:Record<stri
    
      return response.output_text
 }
-
+export interface Context {
+    id:string,
+    collection:CollectionSlug,
+    data:Record<string,unknown>,
+    targetLocale:TypedLocale
+}
 interface AutoTranslateProps {docId:string,collection:CollectionSlug,targetLocale:TypedLocale,sourceLocale:TypedLocale}
 export const autoTranslate = async ({docId,collection,targetLocale,sourceLocale}:AutoTranslateProps):Promise<{
     ok:true
-}|{error:string,ok:false}>=>{
+}|{error:string,ok:false,context?:Context}>=>{
       const payload = await getPayload({ config })
   const headers = await getHeaders()
   const { user } = await payload.auth({ headers })
@@ -131,7 +136,13 @@ export const autoTranslate = async ({docId,collection,targetLocale,sourceLocale}
    } catch (error:unknown) {
      return {
         ok:false,
-        error:error instanceof Error ? error.message : 'Unknown error'
+        error:error instanceof Error ? error.message : 'Unknown error',
+        context: {
+          data: dataToUpdate,
+          id: docId,
+          collection,
+          targetLocale
+        } 
        }
    }
     revalidatePath(`/admin/collections/${collection}/${docId}`)

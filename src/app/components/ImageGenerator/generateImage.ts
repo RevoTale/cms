@@ -51,7 +51,8 @@ export async function generateImage({ id, collection, content }: GenerateParams)
     result = await client.images.generate({ prompt, n: 1, size: '1792x1024',model:'dall-e-3' })
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err)
-    throw new Error(`Image generation failed: ${msg}`)
+    throw new Error(`Image generation failed: ${msg} ${prompt}`)
+
   }
   const imageUrl = result.data?.[0]?.url
   if (!imageUrl) throw new Error('No image URL returned')

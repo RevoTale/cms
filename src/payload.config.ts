@@ -129,7 +129,9 @@ if (!serverURl ) {
 }
 const serverDomain = new URL(serverURl).hostname
 const hostnameWithProtocol = `https://${serverDomain}`;
-
+const bucket = process.env.S3_BUCKET ?? ''
+const enableS3 = process.env.NODE_ENV === 'production' && bucket!== ''
+console.log('S3 enabled', enableS3)
 const s3PluginConfig = s3Storage({
   collections: {
     [Media.slug]: {
@@ -141,9 +143,9 @@ const s3PluginConfig = s3Storage({
       }
     },
   },
-  enabled: process.env.NODE_ENV === 'production',
+  enabled: enableS3,
   disableLocalStorage: true,
-  bucket: process.env.S3_BUCKET ?? '',
+  bucket: bucket,
   config: {
     endpoint: process.env.S3_ENDPOINT,
     credentials: {

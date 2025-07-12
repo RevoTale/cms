@@ -31,7 +31,6 @@ export const Media: CollectionConfig = {
     },
   ],
   upload: {
-    disableLocalStorage: process.env.NODE_ENV === 'development' ? false : true,
     mimeTypes: ["image/*"],
   },
 }

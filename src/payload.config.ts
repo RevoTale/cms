@@ -22,7 +22,6 @@ import { Posts } from './payload/collections/Posts'
 import Tags from "./payload/collections/Tags"
 import Users from './payload/collections/Users'
 import { seed } from './payload/endpoints/seed'
-
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
@@ -136,9 +135,13 @@ const s3PluginConfig = s3Storage({
     [Media.slug]: {
       prefix: 'main_',
       disableLocalStorage: true,
-      generateFileURL: sss
+      generateFileURL: sss,
+      upload:{
+        disableLocalStorage: true,
+      }
     },
   },
+  enabled: process.env.NODE_ENV === 'production',
   disableLocalStorage: true,
   bucket: process.env.S3_BUCKET ?? '',
   config: {
@@ -247,7 +250,7 @@ export default buildConfig({
 
      
     }),*/
-   ...( process.env.NODE_ENV !== 'development'?[s3PluginConfig]:[]),
+   s3PluginConfig,
     seoPlugin({
       generateTitle,
       generateDescription:generateDescription,

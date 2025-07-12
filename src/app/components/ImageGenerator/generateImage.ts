@@ -17,12 +17,21 @@ const generateImagePrompt = async({ content }:{content:string}) :Promise<string>
   const response = await client.responses.create({
     model: 'gpt-4o',
     instructions: `
-    - Summarize the following content into a concise image description suitable for generating an image.
+    - Summarize the input content into a concise image description suitable for generating an image.
     - The description should capture the essence of the content in a way that can be visually represented.
     - It will be used for the SEO and Social preview. Consider best practices in this regarding this.
     - Focus on the main themes, objects, and actions described in the content.
     - Avoid unnecessary details or overly complex descriptions.
     - The description should be suitable for generating an image using DALL-E 3.
+    -	Avoid nudity, gore, explicit violence, or sexually suggestive material.
+    - Rephrase sensitive topics using metaphor, symbolism, or abstraction.
+    -	For scientific or psychological topics, emphasize educational, biological, or metaphorical framing rather than graphic depictions.
+    -	If referencing real people/events, avoid showing real faces or include them as symbolic representations only.
+    - For sensitive topics, focus on the broader context or implications rather than graphic details.
+    - Ensure the description is clear, concise, and suitable for image generation.
+    - Avoid any explicit content or visuals that could trigger moderation filters
+    - Maximum length of prompt is 100 words.
+
     `,
     input: content,
   });

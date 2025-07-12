@@ -14,7 +14,10 @@ const GenerateImageButton: React.FC = () => {
   }
 
 
-    const content = savedDocumentData.content || initialData?.content || ''
+    const content = `
+    Title: ${savedDocumentData.title || initialData?.title || ''}
+    Content:
+    ${savedDocumentData.content || initialData?.content || ''}`
 
     const handleClick = async () => {
     if (content === '') {

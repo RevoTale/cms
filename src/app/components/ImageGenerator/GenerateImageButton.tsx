@@ -6,13 +6,14 @@ import { generateImage } from './generateImage'
 
 const GenerateImageButton: React.FC = () => {
   const { id, collectionSlug, savedDocumentData,initialData } = useDocumentInfo()
+  const [loading, setLoading] = useState(false)
+
   // id and collectionSlug are undefined on create form
   if (!id || !collectionSlug || collectionSlug !== 'micro_posts' || !savedDocumentData) {
     return null
   }
 
 
-  const [loading, setLoading] = useState(false)
     const content = savedDocumentData.content || initialData?.content || ''
 
     const handleClick = async () => {

@@ -1,14 +1,7 @@
 'use client'
-import {
-  Pagination as PaginationComponent,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from '@/shadcn/ui/pagination'
+
 import { cn } from '@/utilities/cn'
+import { PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '@shadcn/ui/pagination'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 
@@ -28,7 +21,7 @@ export const Pagination: React.FC<{
 
   return (
     <div className={cn('my-12', className)}>
-      <PaginationComponent>
+      <PaginationContent>
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious
@@ -93,7 +86,7 @@ export const Pagination: React.FC<{
             />
           </PaginationItem>
         </PaginationContent>
-      </PaginationComponent>
+      </PaginationContent>
     </div>
   )
 }

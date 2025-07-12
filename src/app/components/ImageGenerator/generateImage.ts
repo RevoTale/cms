@@ -11,7 +11,6 @@ interface GenerateParams {
   content: string
 }
 const generateImagePrompt = async({ content }:{content:string}) :Promise<string>=> {
-   const payload = await getPayload({ config: configPromise })
   const apiKey = process.env.OPENAI_API_KEY
   if (!apiKey) throw new Error('OpenAI API key is not configured')
   const client = new OpenAI({ apiKey })

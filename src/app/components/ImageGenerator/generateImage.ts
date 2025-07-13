@@ -67,8 +67,9 @@ export async function generateImage({ id, collection, content }: GenerateParams)
   }
   const imageUrl = result.data?.[0]?.url
   if (!imageUrl) throw new Error('No image URL returned')
-
-    const media = await payload.create({
+let media
+    try {
+       media = await payload.create({
       collection: 'media',
       data: {
         filename: `generated-${Date.now()}.png`,
@@ -77,6 +78,10 @@ export async function generateImage({ id, collection, content }: GenerateParams)
         url: imageUrl,
       },
     })
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err)
+      throw new Error(`Failed to create media entry: ${msg}`)
+    }
   // Update document with generated image
   try {
     await payload.update({ collection: collection, id, data: { meta: { image: media } } })

@@ -31,6 +31,8 @@ const generateImagePrompt = async({ content }:{content:string}) :Promise<string>
     - Ensure the description is clear, concise, and suitable for image generation.
     - Avoid any explicit content or visuals that could trigger moderation filters
     - Maximum length of prompt is 100 words.
+    - Focus on visual scenes, objects, settings, and actions that can be clearly illustrated.
+    - Avoid including any text, letters, labels, or written symbols in the image.
 
     `,
     input: content,

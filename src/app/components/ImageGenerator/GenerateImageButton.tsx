@@ -2,7 +2,7 @@
 
 import { Button, toast, useDocumentInfo } from '@payloadcms/ui'
 import React, { useState } from 'react'
-import { generateImage } from './generateImage'
+import { genImageSafe } from './generateImage'
 
 const GenerateImageButton: React.FC = () => {
   const { id, collectionSlug, savedDocumentData,initialData } = useDocumentInfo()
@@ -25,16 +25,13 @@ const GenerateImageButton: React.FC = () => {
     }
     if (loading) return
     setLoading(true)
-    try {
-      await generateImage({ id: id.toString(), collection: collectionSlug, content   })
-      toast.success('Image generated and attached!')
-    } catch (error: unknown) {
-
-      const msg = error instanceof Error ? error.message : String(error)
-      toast.error(`Error: ${msg}`)
-    } finally {
+    const result = await genImageSafe({ id: id.toString(), collectionSlug, content })
+   if (result.success) {
+        toast.success('Image generated and attached!')
+      } else {
+        throw new Error(result.message)
+      }
       setLoading(false)
-    }
   }
 
   return (

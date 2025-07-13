@@ -10,6 +10,21 @@ interface GenerateParams {
   collection: 'micro_posts'
   content: string
 }
+export const genImageSafe = async ({ id, collectionSlug, content }: { id: string, collectionSlug: 'micro_posts', content: string }) => {
+  try {
+    await generateImage({ id, collection: collectionSlug, content })
+  } catch (error) {
+    const msg = error instanceof Error ? error.message : String(error)
+    return {
+      success: false,
+      message: `Error generating image: ${msg}`,
+    }
+  }
+  return {
+    success: true,
+    message: 'Image generated successfully',
+  }
+}
 const generateImagePrompt = async({ content }:{content:string}) :Promise<string>=> {
   const apiKey = process.env.OPENAI_API_KEY
   if (!apiKey) throw new Error('OpenAI API key is not configured')

@@ -84,8 +84,9 @@ let media
        media = await payload.create({
       collection: 'media',
       data: {
-        filename: `generated-${Date.now()}.png`,
-        alt: `Generated image for ${doc.title}`,
+        filename: `note-preview-${Date.now()}.png`,
+        alt: `Image preview for note "${doc.title}"`,
+        description: prompt,
         
         url: imageUrl,
       },

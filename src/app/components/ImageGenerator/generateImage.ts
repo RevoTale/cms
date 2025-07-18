@@ -29,13 +29,25 @@ const generateImagePrompt = async({ content }:{content:string}) :Promise<string>
   const apiKey = process.env.OPENAI_API_KEY
   if (!apiKey) throw new Error('OpenAI API key is not configured')
   const client = new OpenAI({ apiKey })
-  const response = await client.responses.create({
+  const response = await client.chat.completions.create({
     model: 'gpt-4o',
-    instructions: process.env.GENERATE_IMAGE_INSTRUCTIONS || 'Generate a OpenGraph preview image based on the provided content.',
-    input: content,
+     messages: [
+    {
+      role: 'system',
+      content: process.env.GENERATE_IMAGE_INSTRUCTIONS || 'Generate an OpenGraph preview image prompt for DALLE 3 based on the provided content.',
+    },
+    {
+      role: 'user',
+      content,
+    },
+  ],
   });
 
-  return response.output_text
+  const result =  response.choices[0]?.message.content
+  if (!result) {
+    throw new Error('No prompt generated from content')
+  }
+  return result
 }
 export async function generateImage({ id, collection, content }: GenerateParams): Promise<{ url: string }> {
   const payload = await getPayload({ config: configPromise })

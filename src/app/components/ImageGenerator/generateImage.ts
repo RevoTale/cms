@@ -31,22 +31,7 @@ const generateImagePrompt = async({ content }:{content:string}) :Promise<string>
   const client = new OpenAI({ apiKey })
   const response = await client.responses.create({
     model: 'gpt-4o',
-    instructions: `
-**Instruction:**
-Summarize the article into a clear, visually rich prompt (max 100 words) suitable for generating an image with DALL·E 3. 
-Focus on the core theme, emotional tone, and a scene that can be illustrated with clear subjects, actions, and settings.
-Use vivid, sensory language (e.g., warm light, soft shadows, misty forest, quiet street, abstract shapes).
-
-**Requirements:**
-	•	No text, labels, or written symbols in the image.
-	•	No real faces or identifiable people — use symbolic or anonymous figures only.
-	•	No nudity, violence, gore, or explicit content.
-	•	Reframe sensitive topics using metaphor, symbolism, or abstraction.
-	•	For technical or abstract topics, use metaphor or focus on real-world context or impact.
-	•	Ensure the scene is visually aesthetic, emotionally resonant, and moderation-safe.
-	•	Suitable for use in SEO and social media preview cards.
-	•	Avoid clutter — describe one strong, cohesive visual concept.
-    `,
+    instructions: process.env.GENERATE_IMAGE_INSTRUCTIONS || 'Generate a OpenGraph preview image based on the provided content.',
     input: content,
   });
 

@@ -75,6 +75,7 @@ ENV S3_ACCESS_KEY_ID=''
 ENV S3_SECRET_ACCESS_KEY=''
 ENV S3_REGION=''
 ENV NEXT_PRIVATE_REVALIDATION_KEY=''
+ENV GENERATE_IMAGE_INSTRUCTIONS='Generate a OpenGraph preview image based on the provided content.'
 ENV NODE_ENV=production
 # Uncomment the following line in case you want to disable telemetry during runtime.
 ENV NEXT_TELEMETRY_DISABLED=1

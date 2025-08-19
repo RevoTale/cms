@@ -30,7 +30,7 @@ const generateImagePrompt = async({ content }:{content:string}) :Promise<string>
   if (!apiKey) throw new Error('OpenAI API key is not configured')
   const client = new OpenAI({ apiKey })
   const response = await client.chat.completions.create({
-    model: 'gpt-4o',
+    model: 'gpt-5',
      messages: [
     {
       role: 'system',

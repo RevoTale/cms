@@ -17,12 +17,13 @@ import Authors from "./payload/collections/Authors"
 
 import { GenerateFileURL } from '@payloadcms/plugin-cloud-storage/types'
 import { Media } from './payload/collections/Media'
+import MicroPostExternalLink from './payload/collections/MicroPostExternalLink'
+import MicroPostInternalLink from './payload/collections/MicroPostInternalLink'
 import { MicroPosts } from './payload/collections/MicroPosts'
 import { Posts } from './payload/collections/Posts'
 import Tags from "./payload/collections/Tags"
 import Users from './payload/collections/Users'
 import { seed } from './payload/endpoints/seed'
-import MicroPostInternalLink from './payload/collections/MicroPostInternalLink'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
@@ -213,7 +214,7 @@ export default buildConfig({
     url: process.env.DATABASE_URI || '',
   }),
   serverURL: hostnameWithProtocol,
-  collections: [Posts, Media, Users, Tags, Authors, MicroPosts,MicroPostInternalLink],
+  collections: [Posts, Media, Users, Tags, Authors, MicroPosts,MicroPostInternalLink,MicroPostExternalLink],
   cors: [hostnameWithProtocol].filter(Boolean),
   csrf: [hostnameWithProtocol].filter(Boolean),
   endpoints: [

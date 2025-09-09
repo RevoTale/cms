@@ -118,6 +118,16 @@ export const MicroPosts: CollectionConfig = {
       on: 'target_note',
       label: 'Targeted From Note Links',
     },
+
+                {
+      name: 'external_links',
+      type: 'join',
+
+      collection: 'micro_post_external_links',
+      on: 'note',
+      label: 'External Links',
+    },
+
     {
       name: 'social',
       type: 'group',

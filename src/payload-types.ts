@@ -74,6 +74,7 @@ export interface Config {
     authors: Author;
     micro_posts: MicroPost;
     micro_post_internal_links: MicroPostInternalLink;
+    micro_post_external_links: MicroPostExternalLink;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -82,6 +83,7 @@ export interface Config {
     micro_posts: {
       links: 'micro_post_internal_links';
       targeted_from_note_links: 'micro_post_internal_links';
+      external_links: 'micro_post_external_links';
     };
   };
   collectionsSelect: {
@@ -92,6 +94,7 @@ export interface Config {
     authors: AuthorsSelect<false> | AuthorsSelect<true>;
     micro_posts: MicroPostsSelect<false> | MicroPostsSelect<true>;
     micro_post_internal_links: MicroPostInternalLinksSelect<false> | MicroPostInternalLinksSelect<true>;
+    micro_post_external_links: MicroPostExternalLinksSelect<false> | MicroPostExternalLinksSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -260,6 +263,11 @@ export interface MicroPost {
     hasNextPage?: boolean;
     totalDocs?: number;
   };
+  external_links?: {
+    docs?: (string | MicroPostExternalLink)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
   social?: {
     x?: {
       autoPost?: boolean | null;
@@ -283,6 +291,18 @@ export interface MicroPostInternalLink {
   title?: string | null;
   source_note: string | MicroPost;
   target_note: string | MicroPost;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "micro_post_external_links".
+ */
+export interface MicroPostExternalLink {
+  id: string;
+  title?: string | null;
+  note: string | MicroPost;
+  target_url: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -320,6 +340,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'micro_post_internal_links';
         value: string | MicroPostInternalLink;
+      } | null)
+    | ({
+        relationTo: 'micro_post_external_links';
+        value: string | MicroPostExternalLink;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -480,6 +504,7 @@ export interface MicroPostsSelect<T extends boolean = true> {
       };
   links?: T;
   targeted_from_note_links?: T;
+  external_links?: T;
   social?:
     | T
     | {
@@ -506,6 +531,17 @@ export interface MicroPostInternalLinksSelect<T extends boolean = true> {
   title?: T;
   source_note?: T;
   target_note?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "micro_post_external_links_select".
+ */
+export interface MicroPostExternalLinksSelect<T extends boolean = true> {
+  title?: T;
+  note?: T;
+  target_url?: T;
   updatedAt?: T;
   createdAt?: T;
 }

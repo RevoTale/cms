@@ -33,6 +33,10 @@ type Query {
   Micro_post_internal_links(draft: Boolean, where: Micro_post_internal_link_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): Micro_post_internal_links
   countMicro_post_internal_links(draft: Boolean, trash: Boolean, where: Micro_post_internal_link_where, locale: LocaleInputType): countMicro_post_internal_links
   docAccessMicro_post_internal_link(id: String!): micro_post_internal_linksDocAccess
+  Micro_post_external_link(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): Micro_post_external_link
+  Micro_post_external_links(draft: Boolean, where: Micro_post_external_link_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): Micro_post_external_links
+  countMicro_post_external_links(draft: Boolean, trash: Boolean, where: Micro_post_external_link_where, locale: LocaleInputType): countMicro_post_external_links
+  docAccessMicro_post_external_link(id: String!): micro_post_external_linksDocAccess
   PayloadLockedDocument(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): PayloadLockedDocument
   PayloadLockedDocuments(draft: Boolean, where: PayloadLockedDocument_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): PayloadLockedDocuments
   countPayloadLockedDocuments(draft: Boolean, trash: Boolean, where: PayloadLockedDocument_where, locale: LocaleInputType): countPayloadLockedDocuments
@@ -2928,6 +2932,7 @@ type Micro_post {
   meta: Micro_post_Meta
   links(count: Boolean, limit: Int, page: Int, sort: String, where: Micro_post_internal_link_where): Micro_post_Links
   targeted_from_note_links(count: Boolean, limit: Int, page: Int, sort: String, where: Micro_post_internal_link_where): Micro_post_Targeted_from_note_links
+  external_links(count: Boolean, limit: Int, page: Int, sort: String, where: Micro_post_external_link_where): Micro_post_External_links
   social: Micro_post_Social
   publishedAt: DateTime
   authors(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Author!]
@@ -3055,6 +3060,116 @@ type Micro_post_Targeted_from_note_links {
   docs: [Micro_post_internal_link!]!
   hasNextPage: Boolean!
   totalDocs: Int
+}
+
+type Micro_post_External_links {
+  docs: [Micro_post_external_link!]!
+  hasNextPage: Boolean!
+  totalDocs: Int
+}
+
+type Micro_post_external_link {
+  id: String!
+  title: String
+  note(draft: Boolean, locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Micro_post!
+  target_url: String!
+  updatedAt: DateTime
+  createdAt: DateTime
+}
+
+input Micro_post_external_link_where {
+  title: Micro_post_external_link_title_operator
+  note: Micro_post_external_link_note_operator
+  target_url: Micro_post_external_link_target_url_operator
+  updatedAt: Micro_post_external_link_updatedAt_operator
+  createdAt: Micro_post_external_link_createdAt_operator
+  id: Micro_post_external_link_id_operator
+  AND: [Micro_post_external_link_where_and]
+  OR: [Micro_post_external_link_where_or]
+}
+
+input Micro_post_external_link_title_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Micro_post_external_link_note_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+}
+
+input Micro_post_external_link_target_url_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Micro_post_external_link_updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Micro_post_external_link_createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Micro_post_external_link_id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Micro_post_external_link_where_and {
+  title: Micro_post_external_link_title_operator
+  note: Micro_post_external_link_note_operator
+  target_url: Micro_post_external_link_target_url_operator
+  updatedAt: Micro_post_external_link_updatedAt_operator
+  createdAt: Micro_post_external_link_createdAt_operator
+  id: Micro_post_external_link_id_operator
+  AND: [Micro_post_external_link_where_and]
+  OR: [Micro_post_external_link_where_or]
+}
+
+input Micro_post_external_link_where_or {
+  title: Micro_post_external_link_title_operator
+  note: Micro_post_external_link_note_operator
+  target_url: Micro_post_external_link_target_url_operator
+  updatedAt: Micro_post_external_link_updatedAt_operator
+  createdAt: Micro_post_external_link_createdAt_operator
+  id: Micro_post_external_link_id_operator
+  AND: [Micro_post_external_link_where_and]
+  OR: [Micro_post_external_link_where_or]
 }
 
 type Micro_post_Social {
@@ -3336,6 +3451,7 @@ type Micro_postsDocAccessFields {
   description: Micro_postsDocAccessFields_description
   links: Micro_postsDocAccessFields_links
   targeted_from_note_links: Micro_postsDocAccessFields_targeted_from_note_links
+  external_links: Micro_postsDocAccessFields_external_links
   social: Micro_postsDocAccessFields_social
   publishedAt: Micro_postsDocAccessFields_publishedAt
   authors: Micro_postsDocAccessFields_authors
@@ -3526,6 +3642,29 @@ type Micro_postsDocAccessFields_targeted_from_note_links_Update {
 }
 
 type Micro_postsDocAccessFields_targeted_from_note_links_Delete {
+  permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_external_links {
+  create: Micro_postsDocAccessFields_external_links_Create
+  read: Micro_postsDocAccessFields_external_links_Read
+  update: Micro_postsDocAccessFields_external_links_Update
+  delete: Micro_postsDocAccessFields_external_links_Delete
+}
+
+type Micro_postsDocAccessFields_external_links_Create {
+  permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_external_links_Read {
+  permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_external_links_Update {
+  permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_external_links_Delete {
   permission: Boolean!
 }
 
@@ -3839,6 +3978,7 @@ type Micro_postVersion_Version {
   meta: Micro_postVersion_Version_Meta
   links(count: Boolean, limit: Int, page: Int, sort: String, where: Micro_post_internal_link_where): Micro_postVersion_Version_Links
   targeted_from_note_links(count: Boolean, limit: Int, page: Int, sort: String, where: Micro_post_internal_link_where): Micro_postVersion_Version_Targeted_from_note_links
+  external_links(count: Boolean, limit: Int, page: Int, sort: String, where: Micro_post_external_link_where): Micro_postVersion_Version_External_links
   social: Micro_postVersion_Version_Social
   publishedAt: DateTime
   authors(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Author!]
@@ -3862,6 +4002,12 @@ type Micro_postVersion_Version_Links {
 
 type Micro_postVersion_Version_Targeted_from_note_links {
   docs: [Micro_post_internal_link!]!
+  hasNextPage: Boolean!
+  totalDocs: Int
+}
+
+type Micro_postVersion_Version_External_links {
+  docs: [Micro_post_external_link!]!
   hasNextPage: Boolean!
   totalDocs: Int
 }
@@ -4393,6 +4539,175 @@ type Micro_post_internal_linksDeleteDocAccess {
   where: JSONObject
 }
 
+type Micro_post_external_links {
+  docs: [Micro_post_external_link!]!
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  nextPage: Int
+  offset: Int
+  page: Int!
+  pagingCounter: Int!
+  prevPage: Int
+  totalDocs: Int!
+  totalPages: Int!
+}
+
+type countMicro_post_external_links {
+  totalDocs: Int
+}
+
+type micro_post_external_linksDocAccess {
+  fields: Micro_post_external_linksDocAccessFields
+  create: Micro_post_external_linksCreateDocAccess
+  read: Micro_post_external_linksReadDocAccess
+  update: Micro_post_external_linksUpdateDocAccess
+  delete: Micro_post_external_linksDeleteDocAccess
+}
+
+type Micro_post_external_linksDocAccessFields {
+  title: Micro_post_external_linksDocAccessFields_title
+  note: Micro_post_external_linksDocAccessFields_note
+  target_url: Micro_post_external_linksDocAccessFields_target_url
+  updatedAt: Micro_post_external_linksDocAccessFields_updatedAt
+  createdAt: Micro_post_external_linksDocAccessFields_createdAt
+}
+
+type Micro_post_external_linksDocAccessFields_title {
+  create: Micro_post_external_linksDocAccessFields_title_Create
+  read: Micro_post_external_linksDocAccessFields_title_Read
+  update: Micro_post_external_linksDocAccessFields_title_Update
+  delete: Micro_post_external_linksDocAccessFields_title_Delete
+}
+
+type Micro_post_external_linksDocAccessFields_title_Create {
+  permission: Boolean!
+}
+
+type Micro_post_external_linksDocAccessFields_title_Read {
+  permission: Boolean!
+}
+
+type Micro_post_external_linksDocAccessFields_title_Update {
+  permission: Boolean!
+}
+
+type Micro_post_external_linksDocAccessFields_title_Delete {
+  permission: Boolean!
+}
+
+type Micro_post_external_linksDocAccessFields_note {
+  create: Micro_post_external_linksDocAccessFields_note_Create
+  read: Micro_post_external_linksDocAccessFields_note_Read
+  update: Micro_post_external_linksDocAccessFields_note_Update
+  delete: Micro_post_external_linksDocAccessFields_note_Delete
+}
+
+type Micro_post_external_linksDocAccessFields_note_Create {
+  permission: Boolean!
+}
+
+type Micro_post_external_linksDocAccessFields_note_Read {
+  permission: Boolean!
+}
+
+type Micro_post_external_linksDocAccessFields_note_Update {
+  permission: Boolean!
+}
+
+type Micro_post_external_linksDocAccessFields_note_Delete {
+  permission: Boolean!
+}
+
+type Micro_post_external_linksDocAccessFields_target_url {
+  create: Micro_post_external_linksDocAccessFields_target_url_Create
+  read: Micro_post_external_linksDocAccessFields_target_url_Read
+  update: Micro_post_external_linksDocAccessFields_target_url_Update
+  delete: Micro_post_external_linksDocAccessFields_target_url_Delete
+}
+
+type Micro_post_external_linksDocAccessFields_target_url_Create {
+  permission: Boolean!
+}
+
+type Micro_post_external_linksDocAccessFields_target_url_Read {
+  permission: Boolean!
+}
+
+type Micro_post_external_linksDocAccessFields_target_url_Update {
+  permission: Boolean!
+}
+
+type Micro_post_external_linksDocAccessFields_target_url_Delete {
+  permission: Boolean!
+}
+
+type Micro_post_external_linksDocAccessFields_updatedAt {
+  create: Micro_post_external_linksDocAccessFields_updatedAt_Create
+  read: Micro_post_external_linksDocAccessFields_updatedAt_Read
+  update: Micro_post_external_linksDocAccessFields_updatedAt_Update
+  delete: Micro_post_external_linksDocAccessFields_updatedAt_Delete
+}
+
+type Micro_post_external_linksDocAccessFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type Micro_post_external_linksDocAccessFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type Micro_post_external_linksDocAccessFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type Micro_post_external_linksDocAccessFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type Micro_post_external_linksDocAccessFields_createdAt {
+  create: Micro_post_external_linksDocAccessFields_createdAt_Create
+  read: Micro_post_external_linksDocAccessFields_createdAt_Read
+  update: Micro_post_external_linksDocAccessFields_createdAt_Update
+  delete: Micro_post_external_linksDocAccessFields_createdAt_Delete
+}
+
+type Micro_post_external_linksDocAccessFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type Micro_post_external_linksDocAccessFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type Micro_post_external_linksDocAccessFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type Micro_post_external_linksDocAccessFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type Micro_post_external_linksCreateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type Micro_post_external_linksReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type Micro_post_external_linksUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type Micro_post_external_linksDeleteDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
 type PayloadLockedDocument {
   id: String!
   document(draft: Boolean, locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): PayloadLockedDocument_Document_Relationship
@@ -4415,9 +4730,10 @@ enum PayloadLockedDocument_Document_RelationTo {
   authors
   micro_posts
   micro_post_internal_links
+  micro_post_external_links
 }
 
-union PayloadLockedDocument_Document = Post | Media | User | Tag | Author | Micro_post | Micro_post_internal_link
+union PayloadLockedDocument_Document = Post | Media | User | Tag | Author | Micro_post | Micro_post_internal_link | Micro_post_external_link
 
 type PayloadLockedDocument_User_Relationship {
   relationTo: PayloadLockedDocument_User_RelationTo
@@ -4468,6 +4784,7 @@ enum PayloadLockedDocument_document_Relation_RelationTo {
   authors
   micro_posts
   micro_post_internal_links
+  micro_post_external_links
 }
 
 input PayloadLockedDocument_globalSlug_operator {
@@ -4994,6 +5311,7 @@ type Access {
   authors: authorsAccess
   micro_posts: micro_postsAccess
   micro_post_internal_links: micro_post_internal_linksAccess
+  micro_post_external_links: micro_post_external_linksAccess
   payload_locked_documents: payload_locked_documentsAccess
   payload_preferences: payload_preferencesAccess
 }
@@ -6439,6 +6757,7 @@ type Micro_postsFields {
   description: Micro_postsFields_description
   links: Micro_postsFields_links
   targeted_from_note_links: Micro_postsFields_targeted_from_note_links
+  external_links: Micro_postsFields_external_links
   social: Micro_postsFields_social
   publishedAt: Micro_postsFields_publishedAt
   authors: Micro_postsFields_authors
@@ -6629,6 +6948,29 @@ type Micro_postsFields_targeted_from_note_links_Update {
 }
 
 type Micro_postsFields_targeted_from_note_links_Delete {
+  permission: Boolean!
+}
+
+type Micro_postsFields_external_links {
+  create: Micro_postsFields_external_links_Create
+  read: Micro_postsFields_external_links_Read
+  update: Micro_postsFields_external_links_Update
+  delete: Micro_postsFields_external_links_Delete
+}
+
+type Micro_postsFields_external_links_Create {
+  permission: Boolean!
+}
+
+type Micro_postsFields_external_links_Read {
+  permission: Boolean!
+}
+
+type Micro_postsFields_external_links_Update {
+  permission: Boolean!
+}
+
+type Micro_postsFields_external_links_Delete {
   permission: Boolean!
 }
 
@@ -7073,6 +7415,157 @@ type Micro_post_internal_linksDeleteAccess {
   where: JSONObject
 }
 
+type micro_post_external_linksAccess {
+  fields: Micro_post_external_linksFields
+  create: Micro_post_external_linksCreateAccess
+  read: Micro_post_external_linksReadAccess
+  update: Micro_post_external_linksUpdateAccess
+  delete: Micro_post_external_linksDeleteAccess
+}
+
+type Micro_post_external_linksFields {
+  title: Micro_post_external_linksFields_title
+  note: Micro_post_external_linksFields_note
+  target_url: Micro_post_external_linksFields_target_url
+  updatedAt: Micro_post_external_linksFields_updatedAt
+  createdAt: Micro_post_external_linksFields_createdAt
+}
+
+type Micro_post_external_linksFields_title {
+  create: Micro_post_external_linksFields_title_Create
+  read: Micro_post_external_linksFields_title_Read
+  update: Micro_post_external_linksFields_title_Update
+  delete: Micro_post_external_linksFields_title_Delete
+}
+
+type Micro_post_external_linksFields_title_Create {
+  permission: Boolean!
+}
+
+type Micro_post_external_linksFields_title_Read {
+  permission: Boolean!
+}
+
+type Micro_post_external_linksFields_title_Update {
+  permission: Boolean!
+}
+
+type Micro_post_external_linksFields_title_Delete {
+  permission: Boolean!
+}
+
+type Micro_post_external_linksFields_note {
+  create: Micro_post_external_linksFields_note_Create
+  read: Micro_post_external_linksFields_note_Read
+  update: Micro_post_external_linksFields_note_Update
+  delete: Micro_post_external_linksFields_note_Delete
+}
+
+type Micro_post_external_linksFields_note_Create {
+  permission: Boolean!
+}
+
+type Micro_post_external_linksFields_note_Read {
+  permission: Boolean!
+}
+
+type Micro_post_external_linksFields_note_Update {
+  permission: Boolean!
+}
+
+type Micro_post_external_linksFields_note_Delete {
+  permission: Boolean!
+}
+
+type Micro_post_external_linksFields_target_url {
+  create: Micro_post_external_linksFields_target_url_Create
+  read: Micro_post_external_linksFields_target_url_Read
+  update: Micro_post_external_linksFields_target_url_Update
+  delete: Micro_post_external_linksFields_target_url_Delete
+}
+
+type Micro_post_external_linksFields_target_url_Create {
+  permission: Boolean!
+}
+
+type Micro_post_external_linksFields_target_url_Read {
+  permission: Boolean!
+}
+
+type Micro_post_external_linksFields_target_url_Update {
+  permission: Boolean!
+}
+
+type Micro_post_external_linksFields_target_url_Delete {
+  permission: Boolean!
+}
+
+type Micro_post_external_linksFields_updatedAt {
+  create: Micro_post_external_linksFields_updatedAt_Create
+  read: Micro_post_external_linksFields_updatedAt_Read
+  update: Micro_post_external_linksFields_updatedAt_Update
+  delete: Micro_post_external_linksFields_updatedAt_Delete
+}
+
+type Micro_post_external_linksFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type Micro_post_external_linksFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type Micro_post_external_linksFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type Micro_post_external_linksFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type Micro_post_external_linksFields_createdAt {
+  create: Micro_post_external_linksFields_createdAt_Create
+  read: Micro_post_external_linksFields_createdAt_Read
+  update: Micro_post_external_linksFields_createdAt_Update
+  delete: Micro_post_external_linksFields_createdAt_Delete
+}
+
+type Micro_post_external_linksFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type Micro_post_external_linksFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type Micro_post_external_linksFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type Micro_post_external_linksFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type Micro_post_external_linksCreateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type Micro_post_external_linksReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type Micro_post_external_linksUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type Micro_post_external_linksDeleteAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
 type payload_locked_documentsAccess {
   fields: PayloadLockedDocumentsFields
   create: PayloadLockedDocumentsCreateAccess
@@ -7412,6 +7905,10 @@ type Mutation {
   updateMicro_post_internal_link(id: String!, autosave: Boolean, data: mutationMicro_post_internal_linkUpdateInput!, draft: Boolean, locale: LocaleInputType, trash: Boolean): Micro_post_internal_link
   deleteMicro_post_internal_link(id: String!, trash: Boolean): Micro_post_internal_link
   duplicateMicro_post_internal_link(id: String!, data: mutationMicro_post_internal_linkInput!): Micro_post_internal_link
+  createMicro_post_external_link(data: mutationMicro_post_external_linkInput!, draft: Boolean, locale: LocaleInputType): Micro_post_external_link
+  updateMicro_post_external_link(id: String!, autosave: Boolean, data: mutationMicro_post_external_linkUpdateInput!, draft: Boolean, locale: LocaleInputType, trash: Boolean): Micro_post_external_link
+  deleteMicro_post_external_link(id: String!, trash: Boolean): Micro_post_external_link
+  duplicateMicro_post_external_link(id: String!, data: mutationMicro_post_external_linkInput!): Micro_post_external_link
   createPayloadLockedDocument(data: mutationPayloadLockedDocumentInput!, draft: Boolean, locale: LocaleInputType): PayloadLockedDocument
   updatePayloadLockedDocument(id: String!, autosave: Boolean, data: mutationPayloadLockedDocumentUpdateInput!, draft: Boolean, locale: LocaleInputType, trash: Boolean): PayloadLockedDocument
   deletePayloadLockedDocument(id: String!, trash: Boolean): PayloadLockedDocument
@@ -7713,6 +8210,22 @@ input mutationMicro_post_internal_linkUpdateInput {
   createdAt: String
 }
 
+input mutationMicro_post_external_linkInput {
+  title: String
+  note: String
+  target_url: String!
+  updatedAt: String
+  createdAt: String
+}
+
+input mutationMicro_post_external_linkUpdateInput {
+  title: String
+  note: String
+  target_url: String
+  updatedAt: String
+  createdAt: String
+}
+
 input mutationPayloadLockedDocumentInput {
   document: PayloadLockedDocument_DocumentRelationshipInput
   globalSlug: String
@@ -7734,6 +8247,7 @@ enum PayloadLockedDocument_DocumentRelationshipInputRelationTo {
   authors
   micro_posts
   micro_post_internal_links
+  micro_post_external_links
 }
 
 input PayloadLockedDocument_UserRelationshipInput {
@@ -7766,6 +8280,7 @@ enum PayloadLockedDocumentUpdate_DocumentRelationshipInputRelationTo {
   authors
   micro_posts
   micro_post_internal_links
+  micro_post_external_links
 }
 
 input PayloadLockedDocumentUpdate_UserRelationshipInput {

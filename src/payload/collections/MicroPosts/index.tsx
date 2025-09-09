@@ -60,6 +60,7 @@ export const MicroPosts: CollectionConfig = {
       maxLength: 4000,
       minLength: 2
     },
+
     {
       name: 'tags',
       type: 'relationship',
@@ -71,6 +72,7 @@ export const MicroPosts: CollectionConfig = {
       label: "Tags",
       required: true
     },
+
     {
       type: 'tabs',
       label: "Other",
@@ -97,13 +99,24 @@ export const MicroPosts: CollectionConfig = {
         },
       ],
     },
-    {
-      name: 'authorSlug',
-      type: 'text', // This makes it queryable in "where" conditions
-      admin: {
-        readOnly: true,  // Optional: make it read-only
+   
+            {
+      name: 'internal_links',
+      type: 'join',
+       admin: {
       },
-      localized: false
+      collection: 'micro_post_internal_link',
+      on: 'source_note',
+      label: 'Internal Links',
+    },
+       {
+         admin: {
+      },
+      name: 'targeted_from_internal_links',
+      type: 'join',
+      collection: 'micro_post_internal_link',
+      on: 'target_note',
+      label: 'Targeted From Internal Links',
     },
     {
       name: 'social',
@@ -171,6 +184,14 @@ export const MicroPosts: CollectionConfig = {
       admin: { position: 'sidebar', },
       hasMany: true,
       required: true,
+      localized: false
+    },
+     {
+      name: 'authorSlug',
+      type: 'text', // This makes it queryable in "where" conditions
+      admin: {
+        readOnly: true,  // Optional: make it read-only
+      },
       localized: false
     },
   ],

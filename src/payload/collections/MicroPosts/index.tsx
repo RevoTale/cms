@@ -101,22 +101,22 @@ export const MicroPosts: CollectionConfig = {
     },
    
             {
-      name: 'internal_links',
+      name: 'links',
       type: 'join',
        admin: {
       },
-      collection: 'micro_post_internal_link',
+      collection: 'micro_post_internal_links',
       on: 'source_note',
-      label: 'Internal Links',
+      label: 'Links',
     },
        {
          admin: {
       },
-      name: 'targeted_from_internal_links',
+      name: 'targeted_from_note_links',
       type: 'join',
-      collection: 'micro_post_internal_link',
+      collection: 'micro_post_internal_links',
       on: 'target_note',
-      label: 'Targeted From Internal Links',
+      label: 'Targeted From Note Links',
     },
     {
       name: 'social',

@@ -3,7 +3,7 @@ import type { CollectionConfig } from 'payload'
 import { anyone } from 'src/payload/access/anyone'
 import { authenticated } from 'src/payload/access/authenticated'
 export const MicroPostInternalLink: CollectionConfig = {
-  slug: 'micro_post_internal_link',
+  slug: 'micro_post_internal_links',
   access: {
     create: authenticated,
     delete: authenticated,
@@ -11,8 +11,8 @@ export const MicroPostInternalLink: CollectionConfig = {
     update: authenticated,
   },
     labels: {
-    plural: 'Micro Post Internal Links',
-    singular: 'Micro Post Internal Link'
+    plural: 'MicroPost Links',
+    singular: 'MicroPost Link'
   },
   fields: [
     

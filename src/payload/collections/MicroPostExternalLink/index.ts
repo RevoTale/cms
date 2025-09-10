@@ -6,7 +6,7 @@ function isHttpsOnly(url:string):boolean {
       try {
         const urlObject = new URL(url);
         return urlObject.protocol === 'https:';
-      } catch (error) {
+      } catch  {
         // Handle invalid URL strings that throw a TypeError
         return false;
       }

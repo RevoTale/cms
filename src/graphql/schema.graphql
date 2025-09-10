@@ -2932,7 +2932,7 @@ type Micro_post {
   meta: Micro_post_Meta
   links(count: Boolean, limit: Int, page: Int, sort: String, where: Micro_post_internal_link_where): Micro_post_Links
   targeted_from_note_links(count: Boolean, limit: Int, page: Int, sort: String, where: Micro_post_internal_link_where): Micro_post_Targeted_from_note_links
-  externalLinks(count: Boolean, limit: Int, page: Int, sort: String, where: Micro_post_external_link_where): Micro_post_ExternalLinks
+  externalLinks(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Micro_post_external_link!]
   social: Micro_post_Social
   publishedAt: DateTime
   authors(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Author!]
@@ -3062,114 +3062,12 @@ type Micro_post_Targeted_from_note_links {
   totalDocs: Int
 }
 
-type Micro_post_ExternalLinks {
-  docs: [Micro_post_external_link!]!
-  hasNextPage: Boolean!
-  totalDocs: Int
-}
-
 type Micro_post_external_link {
   id: String!
   title: String
-  note(draft: Boolean, locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Micro_post!
   target_url: String!
   updatedAt: DateTime
   createdAt: DateTime
-}
-
-input Micro_post_external_link_where {
-  title: Micro_post_external_link_title_operator
-  note: Micro_post_external_link_note_operator
-  target_url: Micro_post_external_link_target_url_operator
-  updatedAt: Micro_post_external_link_updatedAt_operator
-  createdAt: Micro_post_external_link_createdAt_operator
-  id: Micro_post_external_link_id_operator
-  AND: [Micro_post_external_link_where_and]
-  OR: [Micro_post_external_link_where_or]
-}
-
-input Micro_post_external_link_title_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Micro_post_external_link_note_operator {
-  equals: JSON
-  not_equals: JSON
-  in: [JSON]
-  not_in: [JSON]
-  all: [JSON]
-}
-
-input Micro_post_external_link_target_url_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-}
-
-input Micro_post_external_link_updatedAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Micro_post_external_link_createdAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Micro_post_external_link_id_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Micro_post_external_link_where_and {
-  title: Micro_post_external_link_title_operator
-  note: Micro_post_external_link_note_operator
-  target_url: Micro_post_external_link_target_url_operator
-  updatedAt: Micro_post_external_link_updatedAt_operator
-  createdAt: Micro_post_external_link_createdAt_operator
-  id: Micro_post_external_link_id_operator
-  AND: [Micro_post_external_link_where_and]
-  OR: [Micro_post_external_link_where_or]
-}
-
-input Micro_post_external_link_where_or {
-  title: Micro_post_external_link_title_operator
-  note: Micro_post_external_link_note_operator
-  target_url: Micro_post_external_link_target_url_operator
-  updatedAt: Micro_post_external_link_updatedAt_operator
-  createdAt: Micro_post_external_link_createdAt_operator
-  id: Micro_post_external_link_id_operator
-  AND: [Micro_post_external_link_where_and]
-  OR: [Micro_post_external_link_where_or]
 }
 
 type Micro_post_Social {
@@ -3209,6 +3107,7 @@ input Micro_post_where {
   meta__title: Micro_post_meta__title_operator
   meta__image: Micro_post_meta__image_operator
   meta__description: Micro_post_meta__description_operator
+  externalLinks: Micro_post_externalLinks_operator
   social__x__autoPost: Micro_post_social__x__autoPost_operator
   social__x__autoPosted: Micro_post_social__x__autoPosted_operator
   social__x__autoPostedAt: Micro_post_social__x__autoPostedAt_operator
@@ -3282,6 +3181,15 @@ input Micro_post_meta__description_operator {
   not_equals: String
   like: String
   contains: String
+  exists: Boolean
+}
+
+input Micro_post_externalLinks_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
   exists: Boolean
 }
 
@@ -3393,6 +3301,7 @@ input Micro_post_where_and {
   meta__title: Micro_post_meta__title_operator
   meta__image: Micro_post_meta__image_operator
   meta__description: Micro_post_meta__description_operator
+  externalLinks: Micro_post_externalLinks_operator
   social__x__autoPost: Micro_post_social__x__autoPost_operator
   social__x__autoPosted: Micro_post_social__x__autoPosted_operator
   social__x__autoPostedAt: Micro_post_social__x__autoPostedAt_operator
@@ -3415,6 +3324,7 @@ input Micro_post_where_or {
   meta__title: Micro_post_meta__title_operator
   meta__image: Micro_post_meta__image_operator
   meta__description: Micro_post_meta__description_operator
+  externalLinks: Micro_post_externalLinks_operator
   social__x__autoPost: Micro_post_social__x__autoPost_operator
   social__x__autoPosted: Micro_post_social__x__autoPosted_operator
   social__x__autoPostedAt: Micro_post_social__x__autoPostedAt_operator
@@ -3978,7 +3888,7 @@ type Micro_postVersion_Version {
   meta: Micro_postVersion_Version_Meta
   links(count: Boolean, limit: Int, page: Int, sort: String, where: Micro_post_internal_link_where): Micro_postVersion_Version_Links
   targeted_from_note_links(count: Boolean, limit: Int, page: Int, sort: String, where: Micro_post_internal_link_where): Micro_postVersion_Version_Targeted_from_note_links
-  externalLinks(count: Boolean, limit: Int, page: Int, sort: String, where: Micro_post_external_link_where): Micro_postVersion_Version_ExternalLinks
+  externalLinks(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Micro_post_external_link!]
   social: Micro_postVersion_Version_Social
   publishedAt: DateTime
   authors(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Author!]
@@ -4002,12 +3912,6 @@ type Micro_postVersion_Version_Links {
 
 type Micro_postVersion_Version_Targeted_from_note_links {
   docs: [Micro_post_internal_link!]!
-  hasNextPage: Boolean!
-  totalDocs: Int
-}
-
-type Micro_postVersion_Version_ExternalLinks {
-  docs: [Micro_post_external_link!]!
   hasNextPage: Boolean!
   totalDocs: Int
 }
@@ -4061,6 +3965,7 @@ input versionsMicro_post_where {
   meta__title: versionsMicro_post_meta__title_operator
   meta__image: versionsMicro_post_meta__image_operator
   meta__description: versionsMicro_post_meta__description_operator
+  version__externalLinks: versionsMicro_post_version__externalLinks_operator
   version__social__x__autoPost: versionsMicro_post_version__social__x__autoPost_operator
   version__social__x__autoPosted: versionsMicro_post_version__social__x__autoPosted_operator
   version__social__x__autoPostedAt: versionsMicro_post_version__social__x__autoPostedAt_operator
@@ -4149,6 +4054,15 @@ input versionsMicro_post_meta__description_operator {
   not_equals: String
   like: String
   contains: String
+  exists: Boolean
+}
+
+input versionsMicro_post_version__externalLinks_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
   exists: Boolean
 }
 
@@ -4321,6 +4235,7 @@ input versionsMicro_post_where_and {
   meta__title: versionsMicro_post_meta__title_operator
   meta__image: versionsMicro_post_meta__image_operator
   meta__description: versionsMicro_post_meta__description_operator
+  version__externalLinks: versionsMicro_post_version__externalLinks_operator
   version__social__x__autoPost: versionsMicro_post_version__social__x__autoPost_operator
   version__social__x__autoPosted: versionsMicro_post_version__social__x__autoPosted_operator
   version__social__x__autoPostedAt: versionsMicro_post_version__social__x__autoPostedAt_operator
@@ -4350,6 +4265,7 @@ input versionsMicro_post_where_or {
   meta__title: versionsMicro_post_meta__title_operator
   meta__image: versionsMicro_post_meta__image_operator
   meta__description: versionsMicro_post_meta__description_operator
+  version__externalLinks: versionsMicro_post_version__externalLinks_operator
   version__social__x__autoPost: versionsMicro_post_version__social__x__autoPost_operator
   version__social__x__autoPosted: versionsMicro_post_version__social__x__autoPosted_operator
   version__social__x__autoPostedAt: versionsMicro_post_version__social__x__autoPostedAt_operator
@@ -4553,6 +4469,89 @@ type Micro_post_external_links {
   totalPages: Int!
 }
 
+input Micro_post_external_link_where {
+  title: Micro_post_external_link_title_operator
+  target_url: Micro_post_external_link_target_url_operator
+  updatedAt: Micro_post_external_link_updatedAt_operator
+  createdAt: Micro_post_external_link_createdAt_operator
+  id: Micro_post_external_link_id_operator
+  AND: [Micro_post_external_link_where_and]
+  OR: [Micro_post_external_link_where_or]
+}
+
+input Micro_post_external_link_title_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Micro_post_external_link_target_url_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Micro_post_external_link_updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Micro_post_external_link_createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Micro_post_external_link_id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Micro_post_external_link_where_and {
+  title: Micro_post_external_link_title_operator
+  target_url: Micro_post_external_link_target_url_operator
+  updatedAt: Micro_post_external_link_updatedAt_operator
+  createdAt: Micro_post_external_link_createdAt_operator
+  id: Micro_post_external_link_id_operator
+  AND: [Micro_post_external_link_where_and]
+  OR: [Micro_post_external_link_where_or]
+}
+
+input Micro_post_external_link_where_or {
+  title: Micro_post_external_link_title_operator
+  target_url: Micro_post_external_link_target_url_operator
+  updatedAt: Micro_post_external_link_updatedAt_operator
+  createdAt: Micro_post_external_link_createdAt_operator
+  id: Micro_post_external_link_id_operator
+  AND: [Micro_post_external_link_where_and]
+  OR: [Micro_post_external_link_where_or]
+}
+
 type countMicro_post_external_links {
   totalDocs: Int
 }
@@ -4567,7 +4566,6 @@ type micro_post_external_linksDocAccess {
 
 type Micro_post_external_linksDocAccessFields {
   title: Micro_post_external_linksDocAccessFields_title
-  note: Micro_post_external_linksDocAccessFields_note
   target_url: Micro_post_external_linksDocAccessFields_target_url
   updatedAt: Micro_post_external_linksDocAccessFields_updatedAt
   createdAt: Micro_post_external_linksDocAccessFields_createdAt
@@ -4593,29 +4591,6 @@ type Micro_post_external_linksDocAccessFields_title_Update {
 }
 
 type Micro_post_external_linksDocAccessFields_title_Delete {
-  permission: Boolean!
-}
-
-type Micro_post_external_linksDocAccessFields_note {
-  create: Micro_post_external_linksDocAccessFields_note_Create
-  read: Micro_post_external_linksDocAccessFields_note_Read
-  update: Micro_post_external_linksDocAccessFields_note_Update
-  delete: Micro_post_external_linksDocAccessFields_note_Delete
-}
-
-type Micro_post_external_linksDocAccessFields_note_Create {
-  permission: Boolean!
-}
-
-type Micro_post_external_linksDocAccessFields_note_Read {
-  permission: Boolean!
-}
-
-type Micro_post_external_linksDocAccessFields_note_Update {
-  permission: Boolean!
-}
-
-type Micro_post_external_linksDocAccessFields_note_Delete {
   permission: Boolean!
 }
 
@@ -7425,7 +7400,6 @@ type micro_post_external_linksAccess {
 
 type Micro_post_external_linksFields {
   title: Micro_post_external_linksFields_title
-  note: Micro_post_external_linksFields_note
   target_url: Micro_post_external_linksFields_target_url
   updatedAt: Micro_post_external_linksFields_updatedAt
   createdAt: Micro_post_external_linksFields_createdAt
@@ -7451,29 +7425,6 @@ type Micro_post_external_linksFields_title_Update {
 }
 
 type Micro_post_external_linksFields_title_Delete {
-  permission: Boolean!
-}
-
-type Micro_post_external_linksFields_note {
-  create: Micro_post_external_linksFields_note_Create
-  read: Micro_post_external_linksFields_note_Read
-  update: Micro_post_external_linksFields_note_Update
-  delete: Micro_post_external_linksFields_note_Delete
-}
-
-type Micro_post_external_linksFields_note_Create {
-  permission: Boolean!
-}
-
-type Micro_post_external_linksFields_note_Read {
-  permission: Boolean!
-}
-
-type Micro_post_external_linksFields_note_Update {
-  permission: Boolean!
-}
-
-type Micro_post_external_linksFields_note_Delete {
   permission: Boolean!
 }
 
@@ -8128,6 +8079,7 @@ input mutationMicro_postInput {
   content: String
   tags: [String]
   meta: mutationMicro_post_MetaInput
+  externalLinks: [String]
   social: mutationMicro_post_SocialInput
   publishedAt: String
   authors: [String]
@@ -8164,6 +8116,7 @@ input mutationMicro_postUpdateInput {
   content: String
   tags: [String]
   meta: mutationMicro_postUpdate_MetaInput
+  externalLinks: [String]
   social: mutationMicro_postUpdate_SocialInput
   publishedAt: String
   authors: [String]
@@ -8212,7 +8165,6 @@ input mutationMicro_post_internal_linkUpdateInput {
 
 input mutationMicro_post_external_linkInput {
   title: String
-  note: String
   target_url: String!
   updatedAt: String
   createdAt: String
@@ -8220,7 +8172,6 @@ input mutationMicro_post_external_linkInput {
 
 input mutationMicro_post_external_linkUpdateInput {
   title: String
-  note: String
   target_url: String
   updatedAt: String
   createdAt: String

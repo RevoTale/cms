@@ -116,11 +116,17 @@ export const MicroPosts: CollectionConfig = {
 
     {
       name: 'externalLinks',
-      type: 'join',
-
-      collection: 'micro_post_external_links',
-      on: 'note',
+      type: 'relationship',
+admin:{
+  position:'sidebar',
+  
+},
+      relationTo: 'micro_post_external_links',
       label: 'External Links',
+      hasMany: true,
+      required: false,
+      localized: false,
+
     },
 
     {

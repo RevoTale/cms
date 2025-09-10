@@ -120,7 +120,7 @@ export const MicroPosts: CollectionConfig = {
     },
 
                 {
-      name: 'external_links',
+      name: 'externalLinks',
       type: 'join',
 
       collection: 'micro_post_external_links',

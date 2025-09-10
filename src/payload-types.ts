@@ -83,7 +83,7 @@ export interface Config {
     micro_posts: {
       links: 'micro_post_internal_links';
       targeted_from_note_links: 'micro_post_internal_links';
-      external_links: 'micro_post_external_links';
+      externalLinks: 'micro_post_external_links';
     };
   };
   collectionsSelect: {
@@ -263,7 +263,7 @@ export interface MicroPost {
     hasNextPage?: boolean;
     totalDocs?: number;
   };
-  external_links?: {
+  externalLinks?: {
     docs?: (string | MicroPostExternalLink)[];
     hasNextPage?: boolean;
     totalDocs?: number;
@@ -504,7 +504,7 @@ export interface MicroPostsSelect<T extends boolean = true> {
       };
   links?: T;
   targeted_from_note_links?: T;
-  external_links?: T;
+  externalLinks?: T;
   social?:
     | T
     | {

@@ -2932,7 +2932,7 @@ type Micro_post {
   meta: Micro_post_Meta
   links(count: Boolean, limit: Int, page: Int, sort: String, where: Micro_post_internal_link_where): Micro_post_Links
   targeted_from_note_links(count: Boolean, limit: Int, page: Int, sort: String, where: Micro_post_internal_link_where): Micro_post_Targeted_from_note_links
-  external_links(count: Boolean, limit: Int, page: Int, sort: String, where: Micro_post_external_link_where): Micro_post_External_links
+  externalLinks(count: Boolean, limit: Int, page: Int, sort: String, where: Micro_post_external_link_where): Micro_post_ExternalLinks
   social: Micro_post_Social
   publishedAt: DateTime
   authors(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Author!]
@@ -3062,7 +3062,7 @@ type Micro_post_Targeted_from_note_links {
   totalDocs: Int
 }
 
-type Micro_post_External_links {
+type Micro_post_ExternalLinks {
   docs: [Micro_post_external_link!]!
   hasNextPage: Boolean!
   totalDocs: Int
@@ -3451,7 +3451,7 @@ type Micro_postsDocAccessFields {
   description: Micro_postsDocAccessFields_description
   links: Micro_postsDocAccessFields_links
   targeted_from_note_links: Micro_postsDocAccessFields_targeted_from_note_links
-  external_links: Micro_postsDocAccessFields_external_links
+  externalLinks: Micro_postsDocAccessFields_externalLinks
   social: Micro_postsDocAccessFields_social
   publishedAt: Micro_postsDocAccessFields_publishedAt
   authors: Micro_postsDocAccessFields_authors
@@ -3645,26 +3645,26 @@ type Micro_postsDocAccessFields_targeted_from_note_links_Delete {
   permission: Boolean!
 }
 
-type Micro_postsDocAccessFields_external_links {
-  create: Micro_postsDocAccessFields_external_links_Create
-  read: Micro_postsDocAccessFields_external_links_Read
-  update: Micro_postsDocAccessFields_external_links_Update
-  delete: Micro_postsDocAccessFields_external_links_Delete
+type Micro_postsDocAccessFields_externalLinks {
+  create: Micro_postsDocAccessFields_externalLinks_Create
+  read: Micro_postsDocAccessFields_externalLinks_Read
+  update: Micro_postsDocAccessFields_externalLinks_Update
+  delete: Micro_postsDocAccessFields_externalLinks_Delete
 }
 
-type Micro_postsDocAccessFields_external_links_Create {
+type Micro_postsDocAccessFields_externalLinks_Create {
   permission: Boolean!
 }
 
-type Micro_postsDocAccessFields_external_links_Read {
+type Micro_postsDocAccessFields_externalLinks_Read {
   permission: Boolean!
 }
 
-type Micro_postsDocAccessFields_external_links_Update {
+type Micro_postsDocAccessFields_externalLinks_Update {
   permission: Boolean!
 }
 
-type Micro_postsDocAccessFields_external_links_Delete {
+type Micro_postsDocAccessFields_externalLinks_Delete {
   permission: Boolean!
 }
 
@@ -3978,7 +3978,7 @@ type Micro_postVersion_Version {
   meta: Micro_postVersion_Version_Meta
   links(count: Boolean, limit: Int, page: Int, sort: String, where: Micro_post_internal_link_where): Micro_postVersion_Version_Links
   targeted_from_note_links(count: Boolean, limit: Int, page: Int, sort: String, where: Micro_post_internal_link_where): Micro_postVersion_Version_Targeted_from_note_links
-  external_links(count: Boolean, limit: Int, page: Int, sort: String, where: Micro_post_external_link_where): Micro_postVersion_Version_External_links
+  externalLinks(count: Boolean, limit: Int, page: Int, sort: String, where: Micro_post_external_link_where): Micro_postVersion_Version_ExternalLinks
   social: Micro_postVersion_Version_Social
   publishedAt: DateTime
   authors(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Author!]
@@ -4006,7 +4006,7 @@ type Micro_postVersion_Version_Targeted_from_note_links {
   totalDocs: Int
 }
 
-type Micro_postVersion_Version_External_links {
+type Micro_postVersion_Version_ExternalLinks {
   docs: [Micro_post_external_link!]!
   hasNextPage: Boolean!
   totalDocs: Int
@@ -6757,7 +6757,7 @@ type Micro_postsFields {
   description: Micro_postsFields_description
   links: Micro_postsFields_links
   targeted_from_note_links: Micro_postsFields_targeted_from_note_links
-  external_links: Micro_postsFields_external_links
+  externalLinks: Micro_postsFields_externalLinks
   social: Micro_postsFields_social
   publishedAt: Micro_postsFields_publishedAt
   authors: Micro_postsFields_authors
@@ -6951,26 +6951,26 @@ type Micro_postsFields_targeted_from_note_links_Delete {
   permission: Boolean!
 }
 
-type Micro_postsFields_external_links {
-  create: Micro_postsFields_external_links_Create
-  read: Micro_postsFields_external_links_Read
-  update: Micro_postsFields_external_links_Update
-  delete: Micro_postsFields_external_links_Delete
+type Micro_postsFields_externalLinks {
+  create: Micro_postsFields_externalLinks_Create
+  read: Micro_postsFields_externalLinks_Read
+  update: Micro_postsFields_externalLinks_Update
+  delete: Micro_postsFields_externalLinks_Delete
 }
 
-type Micro_postsFields_external_links_Create {
+type Micro_postsFields_externalLinks_Create {
   permission: Boolean!
 }
 
-type Micro_postsFields_external_links_Read {
+type Micro_postsFields_externalLinks_Read {
   permission: Boolean!
 }
 
-type Micro_postsFields_external_links_Update {
+type Micro_postsFields_externalLinks_Update {
   permission: Boolean!
 }
 
-type Micro_postsFields_external_links_Delete {
+type Micro_postsFields_externalLinks_Delete {
   permission: Boolean!
 }
 

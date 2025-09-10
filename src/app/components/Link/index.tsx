@@ -1,12 +1,12 @@
-import { Button, buttonVariants } from '@/shadcn/ui/button'
+import { Button, type buttonVariants } from '@/shadcn/ui/button'
 import { cn } from '@/utilities/cn'
 import Link from 'next/link'
 import React from 'react'
 
-import { VariantProps } from 'class-variance-authority'
+import type { VariantProps } from 'class-variance-authority'
 import type { Post } from '../../../payload-types'
 
-type CMSLinkType = {
+interface CMSLinkType {
   appearance?: 'inline' | VariantProps<typeof buttonVariants>['variant']
   children?: React.ReactNode
   className?: string
@@ -14,7 +14,7 @@ type CMSLinkType = {
   newTab?: boolean | null
   reference?: {
     relationTo: 'pages' | 'posts'
-    value:   Post | string | number
+    value: Post | string | number
   } | null
   size?: VariantProps<typeof buttonVariants>['size']
   type?: 'custom' | 'reference' | null
@@ -36,22 +36,24 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
 
   const href =
     type === 'reference' && typeof reference?.value === 'object' && reference.value.slug
-      ? `${reference?.relationTo !== 'pages' ? `/${reference?.relationTo}` : ''}/${
-        reference.value.slug
-      }`
+      ? `${reference.relationTo !== 'pages' ? `/${reference.relationTo}` : ''}/${
+          reference.value.slug
+        }`
       : url
 
   if (!href) return null
 
   const size = appearance === 'link' ? 'default' : sizeFromProps
-  const newTabProps = newTab ? {rel: 'noopener noreferrer', target: '_blank'} : {}
+  const newTabProps = newTab ? { rel: 'noopener noreferrer', target: '_blank' } : {}
 
   const finalLink = href || url
   if (!finalLink) {
-    return <Button variant="link" className={cn(className)}>
-      {label && label}
-      {children && children}
-    </Button>
+    return (
+      <Button variant="link" className={cn(className)}>
+        {label && label}
+        {children && children}
+      </Button>
+    )
   }
   /* Ensure we don't break any styles set by richText */
   if (appearance === 'inline') {

@@ -1,7 +1,14 @@
 'use client'
 
 import { cn } from '@/utilities/cn'
-import { PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '@shadcn/ui/pagination'
+import {
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from '@shadcn/ui/pagination'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 

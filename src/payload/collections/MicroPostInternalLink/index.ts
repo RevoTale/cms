@@ -10,19 +10,18 @@ export const MicroPostInternalLink: CollectionConfig = {
     read: anyone,
     update: authenticated,
   },
-    labels: {
+  labels: {
     plural: 'MicroPost Links',
-    singular: 'MicroPost Link'
+    singular: 'MicroPost Link',
   },
   fields: [
-    
     {
       name: 'title',
       type: 'text',
       required: false,
-      localized:true
+      localized: true,
     },
- 
+
     {
       name: 'source_note',
       type: 'relationship',
@@ -39,9 +38,7 @@ export const MicroPostInternalLink: CollectionConfig = {
       relationTo: 'micro_posts',
       required: true,
     },
-    
   ],
-
 }
 
 export default MicroPostInternalLink

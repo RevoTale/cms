@@ -13,11 +13,7 @@ import { post3 } from './post-3'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
-const collections: CollectionSlug[] = [
-  'tags',
-  'media',
-  'posts',
-]
+const collections: CollectionSlug[] = ['tags', 'media', 'posts']
 
 // Next.js revalidation errors are normal when seeding the database without a server running
 // i.e. running `yarn seed` locally instead of using the admin UI within an active app
@@ -34,7 +30,7 @@ export const seed = async ({
     return
   }
   payload.logger.info('Seeding database...')
-  
+
   // we need to clear the media directory before seeding
   // as well as the collections and globals
   // this is because while `yarn seed` drops the database
@@ -49,12 +45,10 @@ export const seed = async ({
 
   payload.logger.info(`— Clearing collections and globals...`)
 
-
-
   for (const collection of collections) {
     console.log('delete', collection)
     await payload.delete({
-      collection: collection,
+      collection,
       where: {
         id: {
           exists: true,
@@ -63,9 +57,6 @@ export const seed = async ({
       req,
     })
   }
-
-
-
 
   payload.logger.info(`— Seeding demo author and user...`)
 
@@ -111,13 +102,12 @@ export const seed = async ({
     req,
   })
 
-
   payload.logger.info(`— Seeding tags...`)
   const technologyCategory = await payload.create({
     collection: 'tags',
     data: {
       title: 'Technology',
-      name:'ss'
+      name: 'ss',
     },
     req,
   })
@@ -126,7 +116,7 @@ export const seed = async ({
     collection: 'tags',
     data: {
       title: 'News',
-        name:'ssss'
+      name: 'ssss',
     },
     req,
   })
@@ -135,7 +125,7 @@ export const seed = async ({
     collection: 'tags',
     data: {
       title: 'Finance',
-        name:'vvv'
+      name: 'vvv',
     },
     req,
   })
@@ -144,7 +134,7 @@ export const seed = async ({
     collection: 'tags',
     data: {
       title: 'Design',
-        name:'sdfdfsdgfs'
+      name: 'sdfdfsdgfs',
     },
     req,
   })
@@ -153,7 +143,7 @@ export const seed = async ({
     collection: 'tags',
     data: {
       title: 'Software',
-        name:'xcbvvbbcv'
+      name: 'xcbvvbbcv',
     },
     req,
   })
@@ -162,7 +152,7 @@ export const seed = async ({
     collection: 'tags',
     data: {
       title: 'Engineering',
-        name:'sadfasddfgsdfg'
+      name: 'sadfasddfgsdfg',
     },
     req,
   })
@@ -243,23 +233,13 @@ export const seed = async ({
 
   payload.logger.info(`— Seeding home page...`)
 
-
   payload.logger.info(`— Seeding contact form...`)
-
-
-
 
   payload.logger.info(`— Seeding contact page...`)
 
- 
-
   payload.logger.info(`— Seeding header...`)
 
-
-
   payload.logger.info(`— Seeding footer...`)
-
-
 
   payload.logger.info('Seeded database successfully!')
 }

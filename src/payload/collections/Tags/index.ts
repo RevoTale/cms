@@ -1,21 +1,21 @@
 // collections/Tags.js
-import { CollectionConfig, TextField } from 'payload';
-import { AutoTranslate } from 'src/payload/fields/autoTranslate';
-import { anyone } from "../../access/anyone";
-import { authenticated } from "../../access/authenticated";
-const nameField:TextField = {
+import type { CollectionConfig, TextField } from 'payload'
+import { AutoTranslate } from 'src/payload/fields/autoTranslate'
+import { anyone } from '../../access/anyone'
+import { authenticated } from '../../access/authenticated'
+const nameField: TextField = {
   name: 'name',
   type: 'text',
   required: true,
   label: 'Tag Name',
-  localized:false,
+  localized: false,
   validate: (value) => {
-    const re = /^\w+$/;
-    if (!re.test(value??''))  {
+    const re = /^\w+$/
+    if (!re.test(value ?? '')) {
       return 'This field is required'
     }
-    return true;
-  }, 
+    return true
+  },
 }
 const Tags: CollectionConfig = {
   slug: 'tags',
@@ -29,8 +29,8 @@ const Tags: CollectionConfig = {
     read: anyone,
     update: authenticated,
   },
-  admin:{
-    useAsTitle:'title'
+  admin: {
+    useAsTitle: 'title',
   },
   fields: [
     AutoTranslate,
@@ -38,11 +38,11 @@ const Tags: CollectionConfig = {
       name: 'title',
       type: 'text',
       label: 'Title',
-      localized:true,
+      localized: true,
       required: true,
     },
-    nameField
+    nameField,
   ],
-};
+}
 
-export default Tags;
+export default Tags

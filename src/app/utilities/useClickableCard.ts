@@ -4,12 +4,12 @@ import type { RefObject } from 'react'
 import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useRef } from 'react'
 
-type UseClickableCardType<T extends HTMLElement> = {
+interface UseClickableCardType<T extends HTMLElement> {
   card: {
-    ref: RefObject<T|null>
+    ref: RefObject<T | null>
   }
   link: {
-    ref: RefObject<HTMLAnchorElement|null>
+    ref: RefObject<HTMLAnchorElement | null>
   }
 }
 
@@ -37,7 +37,7 @@ function useClickableCard<T extends HTMLElement>({
         const target = e.target as Element
 
         const timeNow = +new Date()
-        const parent = target?.closest('a')
+        const parent = target.closest('a')
 
         pressedButton.current = e.button
 
@@ -59,7 +59,7 @@ function useClickableCard<T extends HTMLElement>({
         const timeNow = +new Date()
         const difference = timeNow - timeDown.current
 
-        if (link.current?.href && difference <= 250) {
+        if (link.current.href && difference <= 250) {
           if (!hasActiveParent.current && pressedButton.current === 0 && !e.ctrlKey) {
             if (external) {
               const target = newTab ? '_blank' : '_self'
@@ -86,8 +86,8 @@ function useClickableCard<T extends HTMLElement>({
     return () => {
       if (cardNode) {
         if (cardNode) {
-          cardNode?.removeEventListener('mousedown', handleMouseDown)
-          cardNode?.removeEventListener('mouseup', handleMouseUp)
+          cardNode.removeEventListener('mousedown', handleMouseDown)
+          cardNode.removeEventListener('mouseup', handleMouseUp)
         }
       }
     }

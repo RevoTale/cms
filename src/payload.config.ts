@@ -1,38 +1,37 @@
 // storage-adapter-import-placeholder
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 
-
-
 import { seoPlugin } from '@payloadcms/plugin-seo'
-import { GenerateDescription, GenerateURL } from '@payloadcms/plugin-seo/types'
+import type { GenerateDescription, GenerateURL } from '@payloadcms/plugin-seo/types'
 
 import { s3Storage } from '@payloadcms/storage-s3'
 import OpenAI from 'openai'
 import path from 'path'
 import { buildConfig } from 'payload'
-import sharp from 'sharp'; // editor-import
-import { MicroPost, Post } from 'src/payload-types'
+import sharp from 'sharp' // editor-import
+import type { MicroPost, Post } from 'src/payload-types'
 import { fileURLToPath } from 'url'
-import Authors from "./payload/collections/Authors"
+import Authors from './payload/collections/Authors'
 
-import { GenerateFileURL } from '@payloadcms/plugin-cloud-storage/types'
+import type { GenerateFileURL } from '@payloadcms/plugin-cloud-storage/types'
 import { Media } from './payload/collections/Media'
 import MicroPostExternalLink from './payload/collections/MicroPostExternalLink'
 import MicroPostInternalLink from './payload/collections/MicroPostInternalLink'
 import { MicroPosts } from './payload/collections/MicroPosts'
 import { Posts } from './payload/collections/Posts'
-import Tags from "./payload/collections/Tags"
+import Tags from './payload/collections/Tags'
 import Users from './payload/collections/Users'
 import { seed } from './payload/endpoints/seed'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
-
-const key = process.env['OPENAI_API_KEY']
-const client = key?new OpenAI({
-  apiKey: key, // This is the default and can be omitted
-}):null
-const generateTitle: GenerateDescription<Post | MicroPost> = async({ doc }) => {
+const key = process.env.OPENAI_API_KEY
+const client = key
+  ? new OpenAI({
+      apiKey: key, // This is the default and can be omitted
+    })
+  : null
+const generateTitle: GenerateDescription<Post | MicroPost> = async ({ doc }) => {
   if (client === null) {
     throw new Error('OpenAI client is not initialized')
   }
@@ -67,13 +66,13 @@ HARD RULES
 
     Markdown Content: ${doc.content},
 
-    Authors: ${doc.authors.map(a=>typeof a === 'string' ? a : a.name).join(', ')},
+    Authors: ${doc.authors.map((a) => (typeof a === 'string' ? a : a.name)).join(', ')},
 `,
-  });
+  })
 
   return response.output_text
 }
-const generateDescription: GenerateDescription<Post | MicroPost> = async({ doc }) => {
+const generateDescription: GenerateDescription<Post | MicroPost> = async ({ doc }) => {
   if (client === null) {
     throw new Error('OpenAI client is not initialized')
   }
@@ -110,29 +109,29 @@ HARD RULES
 
     Markdown Content: ${doc.content},
 
-    Authors: ${doc.authors.map(a=>typeof a === 'string' ? a : a.name).join(', ')},
+    Authors: ${doc.authors.map((a) => (typeof a === 'string' ? a : a.name)).join(', ')},
 `,
-  });
+  })
 
   return response.output_text
 }
 const generateURL: GenerateURL<Post> = ({ doc }) => {
-  return doc?.slug
-    ? `${(process.env.PAYLOAD_PUBLIC_SERVER_URL ?? '')}/blog/${doc.slug}`
+  return doc.slug
+    ? `${process.env.PAYLOAD_PUBLIC_SERVER_URL ?? ''}/blog/${doc.slug}`
     : (process.env.PAYLOAD_PUBLIC_SERVER_URL ?? '')
 }
 const sss: GenerateFileURL = ({ filename, prefix = '' }) => {
   return `https://cms.s3.revotale.com/${prefix}/${filename}`
 }
 
-const serverURl:string|null = process.env.PAYLOAD_PUBLIC_SERVER_URL??null
-if (!serverURl ) {
+const serverURl: string | null = process.env.PAYLOAD_PUBLIC_SERVER_URL ?? null
+if (!serverURl) {
   throw new Error('Server url is not defined')
 }
 const serverDomain = new URL(serverURl).hostname
-const hostnameWithProtocol = `https://${serverDomain}`;
+const hostnameWithProtocol = `https://${serverDomain}`
 const bucket = process.env.S3_BUCKET ?? ''
-const enableS3 = process.env.NODE_ENV === 'production' && bucket!== ''
+const enableS3 = process.env.NODE_ENV === 'production' && bucket !== ''
 console.log('S3 enabled', enableS3)
 const s3PluginConfig = s3Storage({
   collections: {
@@ -140,18 +139,17 @@ const s3PluginConfig = s3Storage({
       prefix: 'main_',
       disableLocalStorage: true,
       generateFileURL: sss,
-      upload:{
+      upload: {
         disableLocalStorage: true,
-      }
+      },
     },
   },
   enabled: enableS3,
   disableLocalStorage: true,
-  bucket: bucket,
+  bucket,
   config: {
     endpoint: process.env.S3_ENDPOINT,
     credentials: {
-
       accessKeyId: process.env.S3_ACCESS_KEY_ID ?? '',
       secretAccessKey: process.env.S3_SECRET_ACCESS_KEY ?? '',
     },
@@ -214,7 +212,16 @@ export default buildConfig({
     url: process.env.DATABASE_URI || '',
   }),
   serverURL: hostnameWithProtocol,
-  collections: [Posts, Media, Users, Tags, Authors, MicroPosts,MicroPostInternalLink,MicroPostExternalLink],
+  collections: [
+    Posts,
+    Media,
+    Users,
+    Tags,
+    Authors,
+    MicroPosts,
+    MicroPostInternalLink,
+    MicroPostExternalLink,
+  ],
   cors: [hostnameWithProtocol].filter(Boolean),
   csrf: [hostnameWithProtocol].filter(Boolean),
   endpoints: [
@@ -254,15 +261,14 @@ export default buildConfig({
 
      
     }),*/
-   s3PluginConfig,
+    s3PluginConfig,
     seoPlugin({
       generateTitle,
-      generateDescription:generateDescription,
+      generateDescription,
       generateURL,
     }),
-
   ],
-  secret: (process.env.PAYLOAD_SECRET ?? ''),
+  secret: process.env.PAYLOAD_SECRET ?? '',
   sharp,
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),

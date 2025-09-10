@@ -1,9 +1,9 @@
 // collections/Tags.js
-import { CollectionConfig } from 'payload';
-import { anyone } from "../../access/anyone";
-import { authenticated } from "../../access/authenticated";
-import { slugField } from "../../fields/slug";
-import { AutoTranslate } from 'src/payload/fields/autoTranslate';
+import type { CollectionConfig } from 'payload'
+import { anyone } from '../../access/anyone'
+import { authenticated } from '../../access/authenticated'
+import { slugField } from '../../fields/slug'
+import { AutoTranslate } from 'src/payload/fields/autoTranslate'
 
 const Authors: CollectionConfig = {
   slug: 'authors',
@@ -17,7 +17,7 @@ const Authors: CollectionConfig = {
     read: anyone,
     update: authenticated,
   },
-  admin:{
+  admin: {
     useAsTitle: 'name',
   },
   fields: [
@@ -27,46 +27,45 @@ const Authors: CollectionConfig = {
       type: 'text',
       required: true,
       label: 'Author Name',
-      maxLength:32,
-      localized:true
+      maxLength: 32,
+      localized: true,
     },
-    slugField('name',{
-      unique:true,
-      required:true,
-      localized:false
+    slugField('name', {
+      unique: true,
+      required: true,
+      localized: false,
     }),
     {
-              name: 'twitter',
-              label: 'Twitter',
-              type:'group',
-              fields: [
-                {
-                  name: 'apiKey',
-                  type: 'text',
-                }
-                  
-              ],
-            },
-    {
-      name:'bio',
-      type:'text',
-      localized:true
+      name: 'twitter',
+      label: 'Twitter',
+      type: 'group',
+      fields: [
+        {
+          name: 'apiKey',
+          type: 'text',
+        },
+      ],
     },
     {
-      name:'avatar',
-      required:false,
-      type:'upload',
-      relationTo:'media',
-      localized:false
+      name: 'bio',
+      type: 'text',
+      localized: true,
     },
     {
-      name:'user',
-      type:'relationship',
-      relationTo:'users',
-      required:true,
-      localized:false
-    }
+      name: 'avatar',
+      required: false,
+      type: 'upload',
+      relationTo: 'media',
+      localized: false,
+    },
+    {
+      name: 'user',
+      type: 'relationship',
+      relationTo: 'users',
+      required: true,
+      localized: false,
+    },
   ],
-};
+}
 
-export default Authors;
+export default Authors

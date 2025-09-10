@@ -13,7 +13,7 @@ export async function GET(
     }
   },
 ): Promise<Response> {
-  const token = req.cookies.get(payloadToken)?.value
+  const token = req.cookies.get(payloadToken).value
   const { searchParams } = new URL(req.url)
   const path = searchParams.get('path')
 
@@ -24,14 +24,13 @@ export async function GET(
   if (!token) {
     new Response('You are not allowed to preview this page', { status: 403 })
   }
-  const user = jwt.decode(token )
+  const user = jwt.decode(token)
 
   if (!user) {
-   ( await draftMode()).disable()
+    ;(await draftMode()).disable()
     return new Response('You are not allowed to preview this page', { status: 403 })
   }
-  jwt.verify(token,process.env.PAYLOAD_SECRET??'');
-
-  (await draftMode()).enable()
+  jwt.verify(token, process.env.PAYLOAD_SECRET ?? '')
+  ;(await draftMode()).enable()
   redirect(path)
 }

@@ -44,7 +44,7 @@ export const Card: React.FC<{
           <div className="uppercase text-sm mb-4">
             {showCategories && hasCategories && (
               <div>
-                {tags?.map((category, index) => {
+                {tags.map((category, index) => {
                   if (typeof category === 'object') {
                     const { title: titleFromCategory } = category
 

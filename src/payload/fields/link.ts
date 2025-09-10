@@ -68,12 +68,11 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
   }
 
   const linkTypes: Field[] = [
-
     {
       name: 'url',
       type: 'text',
       admin: {
-        condition: (_, siblingData) => siblingData?.type === 'custom',
+        condition: (_, siblingData) => siblingData.type === 'custom',
       },
       label: 'Custom URL',
       required: true,

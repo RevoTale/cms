@@ -6,7 +6,6 @@ import {
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
 
-
 import type { CollectionConfig } from 'payload'
 
 import { AutoTranslate } from 'src/payload/fields/autoTranslate'
@@ -34,23 +33,22 @@ export const Posts: CollectionConfig = {
       name: 'title',
       type: 'text',
       required: true,
-      localized:true
+      localized: true,
     },
     {
       name: 'subtitle',
       type: 'text',
       required: true,
-      localized:true
-
+      localized: true,
     },
-   
+
     {
-      name:'featuredImage',
-      type:'upload',
-      relationTo:'media',
-      required:true,
-      label:'Featured image',
-      localized:false
+      name: 'featuredImage',
+      type: 'upload',
+      relationTo: 'media',
+      required: true,
+      label: 'Featured image',
+      localized: false,
     },
 
     {
@@ -63,7 +61,7 @@ export const Posts: CollectionConfig = {
               type: 'textarea',
               label: false,
               required: true,
-              localized:true
+              localized: true,
             },
           ],
           label: 'Content',
@@ -73,11 +71,11 @@ export const Posts: CollectionConfig = {
             {
               name: 'relatedPosts',
               type: 'relationship',
-              localized:false,
+              localized: false,
               admin: {
                 position: 'sidebar',
               },
-              filterOptions: ({id}) => {
+              filterOptions: ({ id }) => {
                 return {
                   id: {
                     not_in: [id],
@@ -95,7 +93,7 @@ export const Posts: CollectionConfig = {
               },
               hasMany: true,
               relationTo: 'tags',
-              label:"Tags"
+              label: 'Tags',
             },
           ],
           label: 'Meta',
@@ -113,21 +111,21 @@ export const Posts: CollectionConfig = {
               hasGenerateFn: true,
             }),
             MetaImageField({
-              relationTo: 'media'
+              relationTo: 'media',
             }),
             {
               name: 'nofollow',
               defaultValue: false,
               type: 'checkbox',
               required: true,
-              localized:false
+              localized: false,
             },
             {
               name: 'noindex',
               defaultValue: false,
               type: 'checkbox',
               required: true,
-              localized:false
+              localized: false,
             },
 
             MetaDescriptionField({}),
@@ -147,14 +145,14 @@ export const Posts: CollectionConfig = {
       name: 'authorSlug',
       type: 'text', // This makes it queryable in "where" conditions
       admin: {
-        readOnly: true,  // Optional: make it read-only
+        readOnly: true, // Optional: make it read-only
       },
-      localized:false
+      localized: false,
     },
     {
       name: 'publishedAt',
       type: 'date',
-      localized:false,
+      localized: false,
       admin: {
         date: {
           pickerAppearance: 'dayAndTime',
@@ -163,7 +161,7 @@ export const Posts: CollectionConfig = {
       },
       hooks: {
         beforeChange: [
-          ({siblingData, value}) => {
+          ({ siblingData, value }) => {
             if (siblingData._status === 'published' && !value) {
               return new Date()
             }
@@ -179,15 +177,15 @@ export const Posts: CollectionConfig = {
       name: 'authors',
       type: 'relationship',
       relationTo: 'authors',
-      admin:{position: 'sidebar',},
+      admin: { position: 'sidebar' },
       hasMany: true,
       required: true,
-      localized:false
+      localized: false,
     },
-    slugField('title',{
-      unique:true,
-      required:true,
-      localized:false
+    slugField('title', {
+      unique: true,
+      required: true,
+      localized: false,
     }),
   ],
   hooks: {
@@ -195,16 +193,16 @@ export const Posts: CollectionConfig = {
 
     beforeChange: [
       async ({ data, req }) => {
-        if (data.authors && data.authors.length>0) {
+        if (data.authors && data.authors.length > 0) {
           const author = await req.payload.findByID({
             collection: 'authors',
             id: data.authors[0],
-          });
+          })
           if (author && author.slug) {
-            data.authorSlug = author.slug;
+            data.authorSlug = author.slug
           }
         }
-        return data;
+        return data
       },
     ],
   },

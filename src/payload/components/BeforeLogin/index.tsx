@@ -5,7 +5,6 @@ const BeforeLogin: React.FC = () => {
     <div>
       <p>
         <b>Welcome my lord!</b>
-      
       </p>
     </div>
   )

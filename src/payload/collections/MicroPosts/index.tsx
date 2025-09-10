@@ -2,9 +2,8 @@ import {
   MetaDescriptionField,
   MetaImageField,
   MetaTitleField,
-  OverviewField
+  OverviewField,
 } from '@payloadcms/plugin-seo/fields'
-
 
 import type { CollectionConfig } from 'payload'
 
@@ -14,7 +13,7 @@ import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 export const MicroPosts: CollectionConfig = {
   labels: {
     plural: 'Micro Posts',
-    singular: 'Micro Post'
+    singular: 'Micro Post',
   },
   slug: 'micro_posts',
   access: {
@@ -26,13 +25,11 @@ export const MicroPosts: CollectionConfig = {
   admin: {
     defaultColumns: ['updatedAt'],
     useAsTitle: 'title',
-    components:{
-     edit:{
-       beforeDocumentControls:[
-      '@/components/ImageGenerator/GenerateImageButton'
-      ]
-     }
-    }
+    components: {
+      edit: {
+        beforeDocumentControls: ['@/components/ImageGenerator/GenerateImageButton'],
+      },
+    },
   },
 
   fields: [
@@ -42,7 +39,7 @@ export const MicroPosts: CollectionConfig = {
       type: 'text',
       required: true,
       localized: true,
-      maxLength: 100
+      maxLength: 100,
     },
     {
       name: 'attachment',
@@ -58,7 +55,7 @@ export const MicroPosts: CollectionConfig = {
       required: true,
       localized: true,
       maxLength: 4000,
-      minLength: 2
+      minLength: 2,
     },
 
     {
@@ -69,13 +66,13 @@ export const MicroPosts: CollectionConfig = {
       },
       hasMany: true,
       relationTo: 'tags',
-      label: "Tags",
-      required: true
+      label: 'Tags',
+      required: true,
     },
 
     {
       type: 'tabs',
-      label: "Other",
+      label: 'Other',
       tabs: [
         {
           name: 'meta',
@@ -90,8 +87,8 @@ export const MicroPosts: CollectionConfig = {
               hasGenerateFn: true,
             }),
             MetaImageField({
-                relationTo: 'media'
-              }),
+              relationTo: 'media',
+            }),
             MetaDescriptionField({
               hasGenerateFn: true,
             }),
@@ -99,19 +96,17 @@ export const MicroPosts: CollectionConfig = {
         },
       ],
     },
-   
-            {
+
+    {
       name: 'links',
       type: 'join',
-       admin: {
-      },
+      admin: {},
       collection: 'micro_post_internal_links',
       on: 'source_note',
       label: 'Links',
     },
-       {
-         admin: {
-      },
+    {
+      admin: {},
       name: 'targeted_from_note_links',
       type: 'join',
       collection: 'micro_post_internal_links',
@@ -119,7 +114,7 @@ export const MicroPosts: CollectionConfig = {
       label: 'Targeted From Note Links',
     },
 
-                {
+    {
       name: 'externalLinks',
       type: 'join',
 
@@ -135,20 +130,20 @@ export const MicroPosts: CollectionConfig = {
       fields: [
         {
           name: 'x',
-          type:'group',
+          type: 'group',
           label: 'X',
           fields: [
             {
               type: 'checkbox',
               name: 'autoPost',
               label: 'Post to X',
-              defaultValue: false
+              defaultValue: false,
             },
             {
               type: 'checkbox',
               name: 'autoPosted',
               label: 'Posted to X',
-              defaultValue: false
+              defaultValue: false,
             },
             {
               type: 'date',
@@ -156,12 +151,12 @@ export const MicroPosts: CollectionConfig = {
               label: 'Date posted to X',
               defaultValue: undefined,
               admin: {
-                readOnly: true
-              }
-            }
-          ]
-        }
-      ]   
+                readOnly: true,
+              },
+            },
+          ],
+        },
+      ],
     },
     {
       name: 'publishedAt',
@@ -191,18 +186,18 @@ export const MicroPosts: CollectionConfig = {
       name: 'authors',
       type: 'relationship',
       relationTo: 'authors',
-      admin: { position: 'sidebar', },
+      admin: { position: 'sidebar' },
       hasMany: true,
       required: true,
-      localized: false
+      localized: false,
     },
-     {
+    {
       name: 'authorSlug',
       type: 'text', // This makes it queryable in "where" conditions
       admin: {
-        readOnly: true,  // Optional: make it read-only
+        readOnly: true, // Optional: make it read-only
       },
-      localized: false
+      localized: false,
     },
   ],
   hooks: {
@@ -214,9 +209,9 @@ export const MicroPosts: CollectionConfig = {
           const author = await req.payload.findByID({
             collection: 'authors',
             id: data.authors[0],
-          });
+          })
           if (author && author.slug) {
-            data.authorSlug = author.slug;
+            data.authorSlug = author.slug
           }
         }
 
@@ -226,18 +221,16 @@ export const MicroPosts: CollectionConfig = {
           const attachment = await req.payload.findByID({
             collection: 'media',
             id: typeof data.attachment === 'string' ? data.attachment : data.attachment.id,
-          });
-          
+          })
+
           // Check if the attachment is an image
-          if (attachment && attachment.mimeType && attachment.mimeType.startsWith('image/')) {
-            if (!data.meta) {
-              data.meta = {};
-            }
-            data.meta.image = data.attachment;
+          if (attachment.mimeType?.startsWith('image/')) {
+            data.meta ||= {}
+            data.meta.image = data.attachment
           }
         }
 
-        return data;
+        return data
       },
     ],
   },

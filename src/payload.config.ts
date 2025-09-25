@@ -21,7 +21,6 @@ import { MicroPosts } from './payload/collections/MicroPosts'
 import { Posts } from './payload/collections/Posts'
 import Tags from './payload/collections/Tags'
 import Users from './payload/collections/Users'
-import { seed } from './payload/endpoints/seed'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 

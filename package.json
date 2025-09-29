@@ -20,7 +20,8 @@
     "generate:types": "payload generate:types",
     "generate:db-schema": "payload generate:db-schema",
     "generate:importmap": "payload generate:importmap",
-    "generate:graphQLSchema": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload-graphql generate:schema"
+    "generate:graphQLSchema": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload-graphql generate:schema",
+    "migrate:create": "PAYLOAD_SECRET=dsfsfdfsd PAYLOAD_PUBLIC_SERVER_URL=https://localhost pnpm payload migrate:create"
   },
   "dependencies": {
     "@payloadcms/db-mongodb": "3.56.0",

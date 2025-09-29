@@ -1,14 +1,14 @@
 // storage-adapter-import-placeholder
-import { mongooseAdapter } from '@payloadcms/db-mongodb'
 
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import type { GenerateDescription, GenerateURL } from '@payloadcms/plugin-seo/types'
 
+import { postgresAdapter } from '@payloadcms/db-postgres'
 import { s3Storage } from '@payloadcms/storage-s3'
 import OpenAI from 'openai'
 import path from 'path'
 import { buildConfig } from 'payload'
-import sharp from 'sharp' // editor-import
+import sharp from 'sharp'; // editor-import
 import type { MicroPost, Post } from 'src/payload-types'
 import { fileURLToPath } from 'url'
 import Authors from './payload/collections/Authors'
@@ -207,8 +207,12 @@ export default buildConfig({
     },
   },
 
-  db: mongooseAdapter({
-    url: process.env.DATABASE_URI || '',
+  db:  postgresAdapter({
+    // Postgres-specific arguments go here.
+    // `pool` is required.
+    pool: {
+      connectionString: process.env.DATABASE_URI,
+    },
   }),
   serverURL: hostnameWithProtocol,
   collections: [

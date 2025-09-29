@@ -99,7 +99,7 @@ export interface Config {
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
   db: {
-    defaultIDType: string;
+    defaultIDType: number;
   };
   globals: {};
   globalsSelect: {};
@@ -135,26 +135,26 @@ export interface UserAuthOperations {
  * via the `definition` "posts".
  */
 export interface Post {
-  id: string;
+  id: number;
   title: string;
   subtitle: string;
-  featuredImage: string | Media;
+  featuredImage: number | Media;
   content: string;
-  relatedPosts?: (string | Post)[] | null;
-  tags?: (string | Tag)[] | null;
+  relatedPosts?: (number | Post)[] | null;
+  tags?: (number | Tag)[] | null;
   meta: {
     title?: string | null;
     /**
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
-    image?: (string | null) | Media;
+    image?: (number | null) | Media;
     nofollow: boolean;
     noindex: boolean;
     description?: string | null;
   };
   authorSlug?: string | null;
   publishedAt?: string | null;
-  authors: (string | Author)[];
+  authors: (number | Author)[];
   slug: string;
   updatedAt: string;
   createdAt: string;
@@ -165,7 +165,7 @@ export interface Post {
  * via the `definition` "media".
  */
 export interface Media {
-  id: string;
+  id: number;
   alt: string;
   description?: string | null;
   caption?: string | null;
@@ -186,7 +186,7 @@ export interface Media {
  * via the `definition` "tags".
  */
 export interface Tag {
-  id: string;
+  id: number;
   title: string;
   name: string;
   updatedAt: string;
@@ -197,15 +197,15 @@ export interface Tag {
  * via the `definition` "authors".
  */
 export interface Author {
-  id: string;
+  id: number;
   name: string;
   slug: string;
   twitter?: {
     apiKey?: string | null;
   };
   bio?: string | null;
-  avatar?: (string | null) | Media;
-  user: string | User;
+  avatar?: (number | null) | Media;
+  user: number | User;
   updatedAt: string;
   createdAt: string;
 }
@@ -214,7 +214,7 @@ export interface Author {
  * via the `definition` "users".
  */
 export interface User {
-  id: string;
+  id: number;
   name?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -239,30 +239,30 @@ export interface User {
  * via the `definition` "micro_posts".
  */
 export interface MicroPost {
-  id: string;
+  id: number;
   title: string;
-  attachment?: (string | null) | Media;
+  attachment?: (number | null) | Media;
   content: string;
-  tags: (string | Tag)[];
+  tags: (number | Tag)[];
   meta?: {
     title?: string | null;
     /**
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
-    image?: (string | null) | Media;
+    image?: (number | null) | Media;
     description?: string | null;
   };
   links?: {
-    docs?: (string | MicroPostInternalLink)[];
+    docs?: (number | MicroPostInternalLink)[];
     hasNextPage?: boolean;
     totalDocs?: number;
   };
   targeted_from_note_links?: {
-    docs?: (string | MicroPostInternalLink)[];
+    docs?: (number | MicroPostInternalLink)[];
     hasNextPage?: boolean;
     totalDocs?: number;
   };
-  externalLinks?: (string | MicroPostExternalLink)[] | null;
+  externalLinks?: (number | MicroPostExternalLink)[] | null;
   social?: {
     x?: {
       autoPost?: boolean | null;
@@ -271,7 +271,7 @@ export interface MicroPost {
     };
   };
   publishedAt?: string | null;
-  authors: (string | Author)[];
+  authors: (number | Author)[];
   authorSlug?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -282,10 +282,10 @@ export interface MicroPost {
  * via the `definition` "micro_post_internal_links".
  */
 export interface MicroPostInternalLink {
-  id: string;
+  id: number;
   title?: string | null;
-  source_note: string | MicroPost;
-  target_note: string | MicroPost;
+  source_note: number | MicroPost;
+  target_note: number | MicroPost;
   updatedAt: string;
   createdAt: string;
 }
@@ -294,7 +294,7 @@ export interface MicroPostInternalLink {
  * via the `definition` "micro_post_external_links".
  */
 export interface MicroPostExternalLink {
-  id: string;
+  id: number;
   title: string;
   target_url: string;
   updatedAt: string;
@@ -305,44 +305,44 @@ export interface MicroPostExternalLink {
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
-  id: string;
+  id: number;
   document?:
     | ({
         relationTo: 'posts';
-        value: string | Post;
+        value: number | Post;
       } | null)
     | ({
         relationTo: 'media';
-        value: string | Media;
+        value: number | Media;
       } | null)
     | ({
         relationTo: 'users';
-        value: string | User;
+        value: number | User;
       } | null)
     | ({
         relationTo: 'tags';
-        value: string | Tag;
+        value: number | Tag;
       } | null)
     | ({
         relationTo: 'authors';
-        value: string | Author;
+        value: number | Author;
       } | null)
     | ({
         relationTo: 'micro_posts';
-        value: string | MicroPost;
+        value: number | MicroPost;
       } | null)
     | ({
         relationTo: 'micro_post_internal_links';
-        value: string | MicroPostInternalLink;
+        value: number | MicroPostInternalLink;
       } | null)
     | ({
         relationTo: 'micro_post_external_links';
-        value: string | MicroPostExternalLink;
+        value: number | MicroPostExternalLink;
       } | null);
   globalSlug?: string | null;
   user: {
     relationTo: 'users';
-    value: string | User;
+    value: number | User;
   };
   updatedAt: string;
   createdAt: string;
@@ -352,10 +352,10 @@ export interface PayloadLockedDocument {
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: string;
+  id: number;
   user: {
     relationTo: 'users';
-    value: string | User;
+    value: number | User;
   };
   key?: string | null;
   value?:
@@ -375,7 +375,7 @@ export interface PayloadPreference {
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: string;
+  id: number;
   name?: string | null;
   batch?: number | null;
   updatedAt: string;

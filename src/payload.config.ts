@@ -14,6 +14,7 @@ import { fileURLToPath } from 'url'
 import Authors from './payload/collections/Authors'
 
 import type { GenerateFileURL } from '@payloadcms/plugin-cloud-storage/types'
+import { migrations } from './migrations'
 import { Media } from './payload/collections/Media'
 import MicroPostExternalLink from './payload/collections/MicroPostExternalLink'
 import MicroPostInternalLink from './payload/collections/MicroPostInternalLink'
@@ -213,6 +214,7 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URI,
     },
+    prodMigrations:migrations
   }),
   serverURL: hostnameWithProtocol,
   collections: [

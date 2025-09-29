@@ -12,11 +12,12 @@ import {
   index,
   uniqueIndex,
   foreignKey,
-  serial,
-  integer,
+  uuid,
   boolean,
   varchar,
   timestamp,
+  serial,
+  integer,
   numeric,
   jsonb,
   pgEnum,
@@ -66,8 +67,8 @@ export const enum__micro_posts_v_published_locale = pgEnum('enum__micro_posts_v_
 export const posts = pgTable(
   'posts',
   {
-    id: serial('id').primaryKey(),
-    featuredImage: integer('featured_image_id').references(() => media.id, {
+    id: uuid('id').defaultRandom().primaryKey(),
+    featuredImage: uuid('featured_image_id').references(() => media.id, {
       onDelete: 'set null',
     }),
     meta_nofollow: boolean('meta_nofollow').default(false),
@@ -99,13 +100,13 @@ export const posts_locales = pgTable(
     subtitle: varchar('subtitle'),
     content: varchar('content'),
     meta_title: varchar('meta_title'),
-    meta_image: integer('meta_image_id').references(() => media.id, {
+    meta_image: uuid('meta_image_id').references(() => media.id, {
       onDelete: 'set null',
     }),
     meta_description: varchar('meta_description'),
     id: serial('id').primaryKey(),
     _locale: enum__locales('_locale').notNull(),
-    _parentID: integer('_parent_id').notNull(),
+    _parentID: uuid('_parent_id').notNull(),
   },
   (columns) => ({
     posts_meta_meta_image_idx: index('posts_meta_meta_image_idx').on(
@@ -129,11 +130,11 @@ export const posts_rels = pgTable(
   {
     id: serial('id').primaryKey(),
     order: integer('order'),
-    parent: integer('parent_id').notNull(),
+    parent: uuid('parent_id').notNull(),
     path: varchar('path').notNull(),
-    postsID: integer('posts_id'),
-    tagsID: integer('tags_id'),
-    authorsID: integer('authors_id'),
+    postsID: uuid('posts_id'),
+    tagsID: uuid('tags_id'),
+    authorsID: uuid('authors_id'),
   },
   (columns) => ({
     order: index('posts_rels_order_idx').on(columns.order),
@@ -168,11 +169,11 @@ export const posts_rels = pgTable(
 export const _posts_v = pgTable(
   '_posts_v',
   {
-    id: serial('id').primaryKey(),
-    parent: integer('parent_id').references(() => posts.id, {
+    id: uuid('id').defaultRandom().primaryKey(),
+    parent: uuid('parent_id').references(() => posts.id, {
       onDelete: 'set null',
     }),
-    version_featuredImage: integer('version_featured_image_id').references(() => media.id, {
+    version_featuredImage: uuid('version_featured_image_id').references(() => media.id, {
       onDelete: 'set null',
     }),
     version_meta_nofollow: boolean('version_meta_nofollow').default(false),
@@ -241,13 +242,13 @@ export const _posts_v_locales = pgTable(
     version_subtitle: varchar('version_subtitle'),
     version_content: varchar('version_content'),
     version_meta_title: varchar('version_meta_title'),
-    version_meta_image: integer('version_meta_image_id').references(() => media.id, {
+    version_meta_image: uuid('version_meta_image_id').references(() => media.id, {
       onDelete: 'set null',
     }),
     version_meta_description: varchar('version_meta_description'),
     id: serial('id').primaryKey(),
     _locale: enum__locales('_locale').notNull(),
-    _parentID: integer('_parent_id').notNull(),
+    _parentID: uuid('_parent_id').notNull(),
   },
   (columns) => ({
     _posts_v_version_meta_version_meta_image_idx: index(
@@ -270,11 +271,11 @@ export const _posts_v_rels = pgTable(
   {
     id: serial('id').primaryKey(),
     order: integer('order'),
-    parent: integer('parent_id').notNull(),
+    parent: uuid('parent_id').notNull(),
     path: varchar('path').notNull(),
-    postsID: integer('posts_id'),
-    tagsID: integer('tags_id'),
-    authorsID: integer('authors_id'),
+    postsID: uuid('posts_id'),
+    tagsID: uuid('tags_id'),
+    authorsID: uuid('authors_id'),
   },
   (columns) => ({
     order: index('_posts_v_rels_order_idx').on(columns.order),
@@ -309,7 +310,7 @@ export const _posts_v_rels = pgTable(
 export const media = pgTable(
   'media',
   {
-    id: serial('id').primaryKey(),
+    id: uuid('id').defaultRandom().primaryKey(),
     updatedAt: timestamp('updated_at', { mode: 'string', withTimezone: true, precision: 3 })
       .defaultNow()
       .notNull(),
@@ -341,7 +342,7 @@ export const media_locales = pgTable(
     caption: varchar('caption'),
     id: serial('id').primaryKey(),
     _locale: enum__locales('_locale').notNull(),
-    _parentID: integer('_parent_id').notNull(),
+    _parentID: uuid('_parent_id').notNull(),
   },
   (columns) => ({
     _localeParent: uniqueIndex('media_locales_locale_parent_id_unique').on(
@@ -360,7 +361,7 @@ export const users_sessions = pgTable(
   'users_sessions',
   {
     _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
+    _parentID: uuid('_parent_id').notNull(),
     id: varchar('id').primaryKey(),
     createdAt: timestamp('created_at', { mode: 'string', withTimezone: true, precision: 3 }),
     expiresAt: timestamp('expires_at', {
@@ -383,7 +384,7 @@ export const users_sessions = pgTable(
 export const users = pgTable(
   'users',
   {
-    id: serial('id').primaryKey(),
+    id: uuid('id').defaultRandom().primaryKey(),
     name: varchar('name'),
     updatedAt: timestamp('updated_at', { mode: 'string', withTimezone: true, precision: 3 })
       .defaultNow()
@@ -413,7 +414,7 @@ export const users = pgTable(
 export const tags = pgTable(
   'tags',
   {
-    id: serial('id').primaryKey(),
+    id: uuid('id').defaultRandom().primaryKey(),
     name: varchar('name').notNull(),
     updatedAt: timestamp('updated_at', { mode: 'string', withTimezone: true, precision: 3 })
       .defaultNow()
@@ -434,7 +435,7 @@ export const tags_locales = pgTable(
     title: varchar('title').notNull(),
     id: serial('id').primaryKey(),
     _locale: enum__locales('_locale').notNull(),
-    _parentID: integer('_parent_id').notNull(),
+    _parentID: uuid('_parent_id').notNull(),
   },
   (columns) => ({
     _localeParent: uniqueIndex('tags_locales_locale_parent_id_unique').on(
@@ -452,13 +453,13 @@ export const tags_locales = pgTable(
 export const authors = pgTable(
   'authors',
   {
-    id: serial('id').primaryKey(),
+    id: uuid('id').defaultRandom().primaryKey(),
     slug: varchar('slug').notNull(),
     twitter_apiKey: varchar('twitter_api_key'),
-    avatar: integer('avatar_id').references(() => media.id, {
+    avatar: uuid('avatar_id').references(() => media.id, {
       onDelete: 'set null',
     }),
-    user: integer('user_id')
+    user: uuid('user_id')
       .notNull()
       .references(() => users.id, {
         onDelete: 'set null',
@@ -486,7 +487,7 @@ export const authors_locales = pgTable(
     bio: varchar('bio'),
     id: serial('id').primaryKey(),
     _locale: enum__locales('_locale').notNull(),
-    _parentID: integer('_parent_id').notNull(),
+    _parentID: uuid('_parent_id').notNull(),
   },
   (columns) => ({
     _localeParent: uniqueIndex('authors_locales_locale_parent_id_unique').on(
@@ -504,8 +505,8 @@ export const authors_locales = pgTable(
 export const micro_posts = pgTable(
   'micro_posts',
   {
-    id: serial('id').primaryKey(),
-    attachment: integer('attachment_id').references(() => media.id, {
+    id: uuid('id').defaultRandom().primaryKey(),
+    attachment: uuid('attachment_id').references(() => media.id, {
       onDelete: 'set null',
     }),
     social_x_autoPost: boolean('social_x_auto_post').default(false),
@@ -539,13 +540,13 @@ export const micro_posts_locales = pgTable(
     title: varchar('title'),
     content: varchar('content'),
     meta_title: varchar('meta_title'),
-    meta_image: integer('meta_image_id').references(() => media.id, {
+    meta_image: uuid('meta_image_id').references(() => media.id, {
       onDelete: 'set null',
     }),
     meta_description: varchar('meta_description'),
     id: serial('id').primaryKey(),
     _locale: enum__locales('_locale').notNull(),
-    _parentID: integer('_parent_id').notNull(),
+    _parentID: uuid('_parent_id').notNull(),
   },
   (columns) => ({
     micro_posts_meta_meta_image_idx: index('micro_posts_meta_meta_image_idx').on(
@@ -569,11 +570,11 @@ export const micro_posts_rels = pgTable(
   {
     id: serial('id').primaryKey(),
     order: integer('order'),
-    parent: integer('parent_id').notNull(),
+    parent: uuid('parent_id').notNull(),
     path: varchar('path').notNull(),
-    tagsID: integer('tags_id'),
-    micro_post_external_linksID: integer('micro_post_external_links_id'),
-    authorsID: integer('authors_id'),
+    tagsID: uuid('tags_id'),
+    micro_post_external_linksID: uuid('micro_post_external_links_id'),
+    authorsID: uuid('authors_id'),
   },
   (columns) => ({
     order: index('micro_posts_rels_order_idx').on(columns.order),
@@ -610,11 +611,11 @@ export const micro_posts_rels = pgTable(
 export const _micro_posts_v = pgTable(
   '_micro_posts_v',
   {
-    id: serial('id').primaryKey(),
-    parent: integer('parent_id').references(() => micro_posts.id, {
+    id: uuid('id').defaultRandom().primaryKey(),
+    parent: uuid('parent_id').references(() => micro_posts.id, {
       onDelete: 'set null',
     }),
-    version_attachment: integer('version_attachment_id').references(() => media.id, {
+    version_attachment: uuid('version_attachment_id').references(() => media.id, {
       onDelete: 'set null',
     }),
     version_social_x_autoPost: boolean('version_social_x_auto_post').default(false),
@@ -683,13 +684,13 @@ export const _micro_posts_v_locales = pgTable(
     version_title: varchar('version_title'),
     version_content: varchar('version_content'),
     version_meta_title: varchar('version_meta_title'),
-    version_meta_image: integer('version_meta_image_id').references(() => media.id, {
+    version_meta_image: uuid('version_meta_image_id').references(() => media.id, {
       onDelete: 'set null',
     }),
     version_meta_description: varchar('version_meta_description'),
     id: serial('id').primaryKey(),
     _locale: enum__locales('_locale').notNull(),
-    _parentID: integer('_parent_id').notNull(),
+    _parentID: uuid('_parent_id').notNull(),
   },
   (columns) => ({
     _micro_posts_v_version_meta_version_meta_image_idx: index(
@@ -712,11 +713,11 @@ export const _micro_posts_v_rels = pgTable(
   {
     id: serial('id').primaryKey(),
     order: integer('order'),
-    parent: integer('parent_id').notNull(),
+    parent: uuid('parent_id').notNull(),
     path: varchar('path').notNull(),
-    tagsID: integer('tags_id'),
-    micro_post_external_linksID: integer('micro_post_external_links_id'),
-    authorsID: integer('authors_id'),
+    tagsID: uuid('tags_id'),
+    micro_post_external_linksID: uuid('micro_post_external_links_id'),
+    authorsID: uuid('authors_id'),
   },
   (columns) => ({
     order: index('_micro_posts_v_rels_order_idx').on(columns.order),
@@ -755,13 +756,13 @@ export const _micro_posts_v_rels = pgTable(
 export const micro_post_internal_links = pgTable(
   'micro_post_internal_links',
   {
-    id: serial('id').primaryKey(),
-    source_note: integer('source_note_id')
+    id: uuid('id').defaultRandom().primaryKey(),
+    source_note: uuid('source_note_id')
       .notNull()
       .references(() => micro_posts.id, {
         onDelete: 'set null',
       }),
-    target_note: integer('target_note_id')
+    target_note: uuid('target_note_id')
       .notNull()
       .references(() => micro_posts.id, {
         onDelete: 'set null',
@@ -795,7 +796,7 @@ export const micro_post_internal_links_locales = pgTable(
     title: varchar('title'),
     id: serial('id').primaryKey(),
     _locale: enum__locales('_locale').notNull(),
-    _parentID: integer('_parent_id').notNull(),
+    _parentID: uuid('_parent_id').notNull(),
   },
   (columns) => ({
     _localeParent: uniqueIndex('micro_post_internal_links_locales_locale_parent_id_unique').on(
@@ -813,7 +814,7 @@ export const micro_post_internal_links_locales = pgTable(
 export const micro_post_external_links = pgTable(
   'micro_post_external_links',
   {
-    id: serial('id').primaryKey(),
+    id: uuid('id').defaultRandom().primaryKey(),
     target_url: varchar('target_url').notNull(),
     updatedAt: timestamp('updated_at', { mode: 'string', withTimezone: true, precision: 3 })
       .defaultNow()
@@ -841,7 +842,7 @@ export const micro_post_external_links_locales = pgTable(
     title: varchar('title').notNull(),
     id: serial('id').primaryKey(),
     _locale: enum__locales('_locale').notNull(),
-    _parentID: integer('_parent_id').notNull(),
+    _parentID: uuid('_parent_id').notNull(),
   },
   (columns) => ({
     _localeParent: uniqueIndex('micro_post_external_links_locales_locale_parent_id_unique').on(
@@ -859,7 +860,7 @@ export const micro_post_external_links_locales = pgTable(
 export const payload_locked_documents = pgTable(
   'payload_locked_documents',
   {
-    id: serial('id').primaryKey(),
+    id: uuid('id').defaultRandom().primaryKey(),
     globalSlug: varchar('global_slug'),
     updatedAt: timestamp('updated_at', { mode: 'string', withTimezone: true, precision: 3 })
       .defaultNow()
@@ -886,16 +887,16 @@ export const payload_locked_documents_rels = pgTable(
   {
     id: serial('id').primaryKey(),
     order: integer('order'),
-    parent: integer('parent_id').notNull(),
+    parent: uuid('parent_id').notNull(),
     path: varchar('path').notNull(),
-    postsID: integer('posts_id'),
-    mediaID: integer('media_id'),
-    usersID: integer('users_id'),
-    tagsID: integer('tags_id'),
-    authorsID: integer('authors_id'),
-    micro_postsID: integer('micro_posts_id'),
-    micro_post_internal_linksID: integer('micro_post_internal_links_id'),
-    micro_post_external_linksID: integer('micro_post_external_links_id'),
+    postsID: uuid('posts_id'),
+    mediaID: uuid('media_id'),
+    usersID: uuid('users_id'),
+    tagsID: uuid('tags_id'),
+    authorsID: uuid('authors_id'),
+    micro_postsID: uuid('micro_posts_id'),
+    micro_post_internal_linksID: uuid('micro_post_internal_links_id'),
+    micro_post_external_linksID: uuid('micro_post_external_links_id'),
   },
   (columns) => ({
     order: index('payload_locked_documents_rels_order_idx').on(columns.order),
@@ -976,7 +977,7 @@ export const payload_locked_documents_rels = pgTable(
 export const payload_preferences = pgTable(
   'payload_preferences',
   {
-    id: serial('id').primaryKey(),
+    id: uuid('id').defaultRandom().primaryKey(),
     key: varchar('key'),
     value: jsonb('value'),
     updatedAt: timestamp('updated_at', { mode: 'string', withTimezone: true, precision: 3 })
@@ -1002,9 +1003,9 @@ export const payload_preferences_rels = pgTable(
   {
     id: serial('id').primaryKey(),
     order: integer('order'),
-    parent: integer('parent_id').notNull(),
+    parent: uuid('parent_id').notNull(),
     path: varchar('path').notNull(),
-    usersID: integer('users_id'),
+    usersID: uuid('users_id'),
   },
   (columns) => ({
     order: index('payload_preferences_rels_order_idx').on(columns.order),
@@ -1029,7 +1030,7 @@ export const payload_preferences_rels = pgTable(
 export const payload_migrations = pgTable(
   'payload_migrations',
   {
-    id: serial('id').primaryKey(),
+    id: uuid('id').defaultRandom().primaryKey(),
     name: varchar('name'),
     batch: numeric('batch'),
     updatedAt: timestamp('updated_at', { mode: 'string', withTimezone: true, precision: 3 })

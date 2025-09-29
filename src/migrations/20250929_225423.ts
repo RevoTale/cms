@@ -10,8 +10,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE TYPE "public"."enum__micro_posts_v_version_status" AS ENUM('draft', 'published');
   CREATE TYPE "public"."enum__micro_posts_v_published_locale" AS ENUM('en-US', 'uk-UA', 'de-DE', 'hi-IN', 'ja-JP', 'ru-RU', 'fr-FR', 'es-ES');
   CREATE TABLE "posts" (
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"featured_image_id" integer,
+  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+  	"featured_image_id" uuid,
   	"meta_nofollow" boolean DEFAULT false,
   	"meta_noindex" boolean DEFAULT false,
   	"author_slug" varchar,
@@ -27,27 +27,27 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"subtitle" varchar,
   	"content" varchar,
   	"meta_title" varchar,
-  	"meta_image_id" integer,
+  	"meta_image_id" uuid,
   	"meta_description" varchar,
   	"id" serial PRIMARY KEY NOT NULL,
   	"_locale" "_locales" NOT NULL,
-  	"_parent_id" integer NOT NULL
+  	"_parent_id" uuid NOT NULL
   );
   
   CREATE TABLE "posts_rels" (
   	"id" serial PRIMARY KEY NOT NULL,
   	"order" integer,
-  	"parent_id" integer NOT NULL,
+  	"parent_id" uuid NOT NULL,
   	"path" varchar NOT NULL,
-  	"posts_id" integer,
-  	"tags_id" integer,
-  	"authors_id" integer
+  	"posts_id" uuid,
+  	"tags_id" uuid,
+  	"authors_id" uuid
   );
   
   CREATE TABLE "_posts_v" (
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"parent_id" integer,
-  	"version_featured_image_id" integer,
+  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+  	"parent_id" uuid,
+  	"version_featured_image_id" uuid,
   	"version_meta_nofollow" boolean DEFAULT false,
   	"version_meta_noindex" boolean DEFAULT false,
   	"version_author_slug" varchar,
@@ -69,25 +69,25 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"version_subtitle" varchar,
   	"version_content" varchar,
   	"version_meta_title" varchar,
-  	"version_meta_image_id" integer,
+  	"version_meta_image_id" uuid,
   	"version_meta_description" varchar,
   	"id" serial PRIMARY KEY NOT NULL,
   	"_locale" "_locales" NOT NULL,
-  	"_parent_id" integer NOT NULL
+  	"_parent_id" uuid NOT NULL
   );
   
   CREATE TABLE "_posts_v_rels" (
   	"id" serial PRIMARY KEY NOT NULL,
   	"order" integer,
-  	"parent_id" integer NOT NULL,
+  	"parent_id" uuid NOT NULL,
   	"path" varchar NOT NULL,
-  	"posts_id" integer,
-  	"tags_id" integer,
-  	"authors_id" integer
+  	"posts_id" uuid,
+  	"tags_id" uuid,
+  	"authors_id" uuid
   );
   
   CREATE TABLE "media" (
-  	"id" serial PRIMARY KEY NOT NULL,
+  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
   	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
   	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
   	"url" varchar,
@@ -107,19 +107,19 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"caption" varchar,
   	"id" serial PRIMARY KEY NOT NULL,
   	"_locale" "_locales" NOT NULL,
-  	"_parent_id" integer NOT NULL
+  	"_parent_id" uuid NOT NULL
   );
   
   CREATE TABLE "users_sessions" (
   	"_order" integer NOT NULL,
-  	"_parent_id" integer NOT NULL,
+  	"_parent_id" uuid NOT NULL,
   	"id" varchar PRIMARY KEY NOT NULL,
   	"created_at" timestamp(3) with time zone,
   	"expires_at" timestamp(3) with time zone NOT NULL
   );
   
   CREATE TABLE "users" (
-  	"id" serial PRIMARY KEY NOT NULL,
+  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
   	"name" varchar,
   	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
   	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
@@ -133,7 +133,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   );
   
   CREATE TABLE "tags" (
-  	"id" serial PRIMARY KEY NOT NULL,
+  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
   	"name" varchar NOT NULL,
   	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
   	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
@@ -143,15 +143,15 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"title" varchar NOT NULL,
   	"id" serial PRIMARY KEY NOT NULL,
   	"_locale" "_locales" NOT NULL,
-  	"_parent_id" integer NOT NULL
+  	"_parent_id" uuid NOT NULL
   );
   
   CREATE TABLE "authors" (
-  	"id" serial PRIMARY KEY NOT NULL,
+  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
   	"slug" varchar NOT NULL,
   	"twitter_api_key" varchar,
-  	"avatar_id" integer,
-  	"user_id" integer NOT NULL,
+  	"avatar_id" uuid,
+  	"user_id" uuid NOT NULL,
   	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
   	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
   );
@@ -161,12 +161,12 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"bio" varchar,
   	"id" serial PRIMARY KEY NOT NULL,
   	"_locale" "_locales" NOT NULL,
-  	"_parent_id" integer NOT NULL
+  	"_parent_id" uuid NOT NULL
   );
   
   CREATE TABLE "micro_posts" (
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"attachment_id" integer,
+  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+  	"attachment_id" uuid,
   	"social_x_auto_post" boolean DEFAULT false,
   	"social_x_auto_posted" boolean DEFAULT false,
   	"social_x_auto_posted_at" timestamp(3) with time zone,
@@ -181,27 +181,27 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"title" varchar,
   	"content" varchar,
   	"meta_title" varchar,
-  	"meta_image_id" integer,
+  	"meta_image_id" uuid,
   	"meta_description" varchar,
   	"id" serial PRIMARY KEY NOT NULL,
   	"_locale" "_locales" NOT NULL,
-  	"_parent_id" integer NOT NULL
+  	"_parent_id" uuid NOT NULL
   );
   
   CREATE TABLE "micro_posts_rels" (
   	"id" serial PRIMARY KEY NOT NULL,
   	"order" integer,
-  	"parent_id" integer NOT NULL,
+  	"parent_id" uuid NOT NULL,
   	"path" varchar NOT NULL,
-  	"tags_id" integer,
-  	"micro_post_external_links_id" integer,
-  	"authors_id" integer
+  	"tags_id" uuid,
+  	"micro_post_external_links_id" uuid,
+  	"authors_id" uuid
   );
   
   CREATE TABLE "_micro_posts_v" (
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"parent_id" integer,
-  	"version_attachment_id" integer,
+  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+  	"parent_id" uuid,
+  	"version_attachment_id" uuid,
   	"version_social_x_auto_post" boolean DEFAULT false,
   	"version_social_x_auto_posted" boolean DEFAULT false,
   	"version_social_x_auto_posted_at" timestamp(3) with time zone,
@@ -222,27 +222,27 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"version_title" varchar,
   	"version_content" varchar,
   	"version_meta_title" varchar,
-  	"version_meta_image_id" integer,
+  	"version_meta_image_id" uuid,
   	"version_meta_description" varchar,
   	"id" serial PRIMARY KEY NOT NULL,
   	"_locale" "_locales" NOT NULL,
-  	"_parent_id" integer NOT NULL
+  	"_parent_id" uuid NOT NULL
   );
   
   CREATE TABLE "_micro_posts_v_rels" (
   	"id" serial PRIMARY KEY NOT NULL,
   	"order" integer,
-  	"parent_id" integer NOT NULL,
+  	"parent_id" uuid NOT NULL,
   	"path" varchar NOT NULL,
-  	"tags_id" integer,
-  	"micro_post_external_links_id" integer,
-  	"authors_id" integer
+  	"tags_id" uuid,
+  	"micro_post_external_links_id" uuid,
+  	"authors_id" uuid
   );
   
   CREATE TABLE "micro_post_internal_links" (
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"source_note_id" integer NOT NULL,
-  	"target_note_id" integer NOT NULL,
+  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+  	"source_note_id" uuid NOT NULL,
+  	"target_note_id" uuid NOT NULL,
   	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
   	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
   );
@@ -251,11 +251,11 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"title" varchar,
   	"id" serial PRIMARY KEY NOT NULL,
   	"_locale" "_locales" NOT NULL,
-  	"_parent_id" integer NOT NULL
+  	"_parent_id" uuid NOT NULL
   );
   
   CREATE TABLE "micro_post_external_links" (
-  	"id" serial PRIMARY KEY NOT NULL,
+  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
   	"target_url" varchar NOT NULL,
   	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
   	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
@@ -265,11 +265,11 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"title" varchar NOT NULL,
   	"id" serial PRIMARY KEY NOT NULL,
   	"_locale" "_locales" NOT NULL,
-  	"_parent_id" integer NOT NULL
+  	"_parent_id" uuid NOT NULL
   );
   
   CREATE TABLE "payload_locked_documents" (
-  	"id" serial PRIMARY KEY NOT NULL,
+  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
   	"global_slug" varchar,
   	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
   	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
@@ -278,20 +278,20 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE TABLE "payload_locked_documents_rels" (
   	"id" serial PRIMARY KEY NOT NULL,
   	"order" integer,
-  	"parent_id" integer NOT NULL,
+  	"parent_id" uuid NOT NULL,
   	"path" varchar NOT NULL,
-  	"posts_id" integer,
-  	"media_id" integer,
-  	"users_id" integer,
-  	"tags_id" integer,
-  	"authors_id" integer,
-  	"micro_posts_id" integer,
-  	"micro_post_internal_links_id" integer,
-  	"micro_post_external_links_id" integer
+  	"posts_id" uuid,
+  	"media_id" uuid,
+  	"users_id" uuid,
+  	"tags_id" uuid,
+  	"authors_id" uuid,
+  	"micro_posts_id" uuid,
+  	"micro_post_internal_links_id" uuid,
+  	"micro_post_external_links_id" uuid
   );
   
   CREATE TABLE "payload_preferences" (
-  	"id" serial PRIMARY KEY NOT NULL,
+  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
   	"key" varchar,
   	"value" jsonb,
   	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
@@ -301,13 +301,13 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE TABLE "payload_preferences_rels" (
   	"id" serial PRIMARY KEY NOT NULL,
   	"order" integer,
-  	"parent_id" integer NOT NULL,
+  	"parent_id" uuid NOT NULL,
   	"path" varchar NOT NULL,
-  	"users_id" integer
+  	"users_id" uuid
   );
   
   CREATE TABLE "payload_migrations" (
-  	"id" serial PRIMARY KEY NOT NULL,
+  	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
   	"name" varchar,
   	"batch" numeric,
   	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,

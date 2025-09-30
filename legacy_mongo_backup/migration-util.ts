@@ -61,7 +61,7 @@ function convertDocument(doc: MongoDoc, tableName: string): { mainQuery: string;
   const localeDataMap = new Map<string, Record<string, any>>();
   
   Object.keys(doc).forEach(key => {
-    if (['_id', 'createdAt', 'updatedAt', '__v'].includes(key)) return;
+    if (['_id', 'createdAt', 'updatedAt', '__v','meta'].includes(key)) return;
     
     const value = doc[key];
     

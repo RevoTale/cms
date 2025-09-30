@@ -1,18 +1,13 @@
 import fs from 'fs';
-import { convertMongoToPostgres } from './migration-util.js';
+import { convertMongoToPostgres } from './migration-util.ts';
 
 // Read JSON file
-const mongoData = fs.readFileSync('categories.json', 'utf-8');
 
 // Convert to PostgreSQL queries
-const sqlQueries = [
-        ...convertMongoToPostgres(mongoData, 'media'),
+const sqlQueries = ['media','tags','users','micro_posts','micro_post_external_links'].map(tableName => {
+    const mongoData = fs.readFileSync(`${tableName}.json`, 'utf-8');
 
-    ...convertMongoToPostgres(mongoData, 'tags'),
-    ...convertMongoToPostgres(mongoData, 'users'),
-    ...convertMongoToPostgres(mongoData, 'micro_posts'),
-    ...convertMongoToPostgres(mongoData, 'micro_post_external_links'),
-];
+    return convertMongoToPostgres((mongoData), tableName).join('\n');
+});
 
-// Output is array of SQL strings
-console.log(sqlQueries.join('\n'));
+fs.writeFileSync('migration.sql', sqlQueries.join('\n\n'), 'utf-8');

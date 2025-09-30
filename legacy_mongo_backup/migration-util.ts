@@ -43,7 +43,7 @@ function convertMongoToPostgres(mongoJsonString: string, tableName: string): str
       ...localeQueries
     );
   }
-  
+
   return result;
 }
 
@@ -137,10 +137,15 @@ function isDateField(value: any): boolean {
 function convertFieldName(fieldName: string): string {
   return fieldName.replace(/([A-Z])/g, '_$1').toLowerCase();
 }
-
+function fillIfNo(str: string, length: number, char: string): string {
+  while (str.length < length) {
+    str = char + str;
+  }
+  return str;
+}
 function convertOidToUuid(oid: string): string {
-  const cleanOid = oid.padEnd(24, '0');
-  return `${cleanOid.substring(0, 8)}-${cleanOid.substring(8, 12)}-${cleanOid.substring(12, 16)}-${cleanOid.substring(16, 20)}-${cleanOid.substring(20, 24)}`;
+  const cleanOid = fillIfNo(oid, 32, '1');
+  return `${cleanOid.substring(0, 8)}-${cleanOid.substring(8, 12)}-${cleanOid.substring(12, 16)}-${cleanOid.substring(16, 20)}-${cleanOid.substring(20, 32)}`;
 }
 
 function escapeString(str: string): string {

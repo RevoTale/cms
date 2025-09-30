@@ -132,7 +132,6 @@ const serverDomain = new URL(serverURl).hostname
 const hostnameWithProtocol = `https://${serverDomain}`
 const bucket = process.env.S3_BUCKET ?? ''
 const enableS3 = process.env.NODE_ENV === 'production' && bucket !== ''
-console.log('S3 enabled', enableS3)
 const s3PluginConfig = s3Storage({
   collections: {
     [Media.slug]: {

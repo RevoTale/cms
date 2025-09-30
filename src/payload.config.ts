@@ -22,6 +22,7 @@ import { MicroPosts } from './payload/collections/MicroPosts'
 import { Posts } from './payload/collections/Posts'
 import Tags from './payload/collections/Tags'
 import Users from './payload/collections/Users'
+import { seed } from './payload/endpoints/seed'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
@@ -166,6 +167,13 @@ export default buildConfig({
     defaultLocale: 'en-US',
     fallback: true,
   },
+  endpoints:[
+       {
+      path: '/seed',
+      method: 'get',
+      handler: seed
+    },
+  ],
   admin: {
     components: {
       // The `BeforeLogin` component renders a message that you see while logging into your admin panel.

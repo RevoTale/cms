@@ -1,0 +1,2 @@
+{"_id":{"$oid":"67dc1727b9635bd6694dac02"},"createdAt":{"$date":"2025-03-20T13:24:55.64Z"},"updatedAt":{"$date":"2025-03-20T13:24:55.64Z"},"globalType":"header","navItems":[],"__v":0}
+{"_id":{"$oid":"67dc1727b9635bd6694dac06"},"createdAt":{"$date":"2025-03-20T13:24:55.675Z"},"updatedAt":{"$date":"2025-03-20T13:24:55.675Z"},"globalType":"footer","navItems":[],"__v":0}

@@ -1,0 +1,5 @@
+{"_id":{"$oid":"68c21e3c471d01dbf0e766e6"},"createdAt":{"$date":"2025-09-11T00:56:28.375Z"},"updatedAt":{"$date":"2025-09-11T00:56:28.375Z"},"title":{"en-US":"Devicon"},"target_url":"https://devicon.dev","__v":0}
+{"_id":{"$oid":"68c21e5b471d01dbf0e768c0"},"createdAt":{"$date":"2025-09-11T00:56:59.9Z"},"updatedAt":{"$date":"2025-09-11T00:56:59.9Z"},"title":{"en-US":"Devicon GitHub"},"target_url":"https://github.com/devicons/devicon/","__v":0}
+{"_id":{"$oid":"68c21e84471d01dbf0e76bc4"},"createdAt":{"$date":"2025-09-11T00:57:40.859Z"},"updatedAt":{"$date":"2025-09-11T00:57:40.859Z"},"title":{"en-US":"Simple Icons GitHub"},"target_url":"https://github.com/simple-icons/simple-icons","__v":0}
+{"_id":{"$oid":"68c21ea0471d01dbf0e76dd1"},"createdAt":{"$date":"2025-09-11T00:58:08.186Z"},"updatedAt":{"$date":"2025-09-11T00:58:08.186Z"},"title":{"en-US":"SVG Repo"},"target_url":"https://www.svgrepo.com","__v":0}
+{"_id":{"$oid":"68c21ef5471d01dbf0e77438"},"createdAt":{"$date":"2025-09-11T00:59:33.584Z"},"updatedAt":{"$date":"2025-09-11T00:59:33.584Z"},"title":{"en-US":"Simple Icons"},"target_url":"https://simpleicons.org","__v":0}

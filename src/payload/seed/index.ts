@@ -1,16 +1,10 @@
-import type { CollectionSlug, Payload, PayloadRequest } from 'payload'
+import type { CollectionSlug, Payload, PayloadRequest, RequiredDataFromCollectionSlug } from 'payload'
 
-import path from 'path'
-import { authors } from 'src/payload-generated-schema'
 import { fileURLToPath } from 'url'
-import { locales, media, microposts, tags } from './data'
+import { authors, locales, media, microposts, tags } from './data'
 
 
 const filename = fileURLToPath(import.meta.url)
-const dirname = path.dirname(filename)
-
-const collections: CollectionSlug[] = ['tags', 'media', 'posts']
-
 // Next.js revalidation errors are normal when seeding the database without a server running
 // i.e. running `yarn seed` locally instead of using the admin UI within an active app
 // The app is not running to revalidate the pages and so the API routes are not available
@@ -28,163 +22,91 @@ const user = req.user
 if (null === user) {
   throw new Error('No user found in request')
 }
-
 const mongoIdToUuidMap: Record<string, string> = {}
- payload.logger.info('Seeding tags...')
-   await Promise.all(tags.map(async (tagData) => {
-    
+
+const seedCollection = async <T extends CollectionSlug,D extends unknown>(data:D[],collection: T,getData:(item:D,locale:typeof locales[number])=>RequiredDataFromCollectionSlug<T>,getLegacyId:(item:D)=>string)=>{
+  payload.logger.info(`Seeding ${collection}...`)
+ await Promise.all(data.map(async (item) => {
      const tag = await payload.create({
-       collection: 'tags',
-       data: {
-        updatedAt: tagData.updatedAt.$date,
-        createdAt: tagData.createdAt.$date,
-        name: tagData.name,
-        title: tagData.title['en-US'],
-       },
+       collection: collection,
+       data: getData(item,'en-US'),
        req,
        locale: 'en-US',
      })
-
+     payload.logger.info(`Localizing ${collection} ${tag.id}`)
 
      await Promise.all(locales.map(async (locale) => {
-       payload.logger.info('Seeding tags...'+tag.id+(tagData.title[locale]??tagData.title['en-US']))
           await payload.update({
             collection: 'tags',
             id: tag.id,
-            data: {
-              title: tagData.title[locale]??tagData.title['en-US'],
-            },
-            req,
-            locale,
-          })
-           payload.logger.info('Seeded tag')
-      }))
-     mongoIdToUuidMap[tagData._id.$oid] = tag.id
-   }))
-    payload.logger.info('Seeded tags.')
-
-
-
- 
- payload.logger.info('Seeding media...')
- 
-  await Promise.all( media.map(async (data) => {
-    
-     const tag = await payload.create({
-       collection: 'media',
-       data: {
-        updatedAt: data.updatedAt.$date,
-        createdAt: data.createdAt.$date,
-        alt: data.alt['en-US'],
-        description: data?.description?.['en-US'],
-        url: data.url,
-        filename: data.filename,
-        mimeType: data.mimeType,
-        filesize: data.filesize,
-        width: data.width,
-        height: data.height,
-        focalX: data.focalX,
-        focalY: data.focalY,  
-       },
-       req,
-       locale: 'en-US',
-     })
-     await Promise.all(locales.map(async (locale) => {
-          await payload.update({
-            collection: 'media',
-            id: tag.id,
-            data: {
-              alt: data.alt[locale],
-              description: data?.description?.[locale],
-            },
+            data: getData(item, locale),
             req,
             locale,
           })
       }))
-     mongoIdToUuidMap[data._id.$oid] = tag.id
+     mongoIdToUuidMap[getLegacyId(item)] = tag.id
    }))
+    payload.logger.info(`Seeded ${collection}.`)
+}
 
+seedCollection(tags,'tags',(item,locale)=>({
+  updatedAt: item.updatedAt.$date,
+  createdAt: item.createdAt.$date,
+  name: item.name,
+  title: item.title[locale]??'',
+}),(item)=>item._id.$oid)
 
-     const requireIdInMap = (id: string): string => {
+   const requireIdInMap = (id: string): string => {
     if (id in mongoIdToUuidMap) return mongoIdToUuidMap[id]
     throw new Error(`ID ${id} not found in map`)
    }
- payload.logger.info('Seeding authors...')
+seedCollection(media,'media',(item,locale)=>({
+  updatedAt: item.updatedAt.$date,
+  createdAt: item.createdAt.$date,
+  alt: item.alt[locale]??'',
+  description: item?.description?.[locale]??'',
+  url: item.url,
+  filename: item.filename,
+  mimeType: item.mimeType,
+  filesize: item.filesize,
+  width: item.width,
+  height: item.height,
+  focalX: item.focalX,
+  focalY: item.focalY,  
+}),(item)=>item._id.$oid)
+ 
 
-      await Promise.all(authors.map(async (tagData) => {
-    
-     const tag = await payload.create({
-       collection: 'authors',
-       data: {
-        updatedAt: tagData.updatedAt.$date,
-        createdAt: tagData.createdAt.$date,
-        name: tagData.name['en-US'],
-        slug: tagData.slug,
-        bio: tagData.bio['en-US'],
-        user: user.id,
-        avatar: tagData.avatar.$oid in mongoIdToUuidMap ? requireIdInMap(tagData.avatar.$oid) : undefined,
-       },
-       req,
-       locale: 'en-US',
-     })
-     await Promise.all(locales.map(async (locale) => {
-          await payload.update({
-            collection: 'authors',
-            id: tag.id,
-            data: {
-             name: tagData.name[locale],
-             bio: tagData.bio[locale],
-            },
-            req,
-            locale,
-          })
-      }))
-     mongoIdToUuidMap[tagData._id.$oid] = tag.id
-   }))
- payload.logger.info('Seeding microposts...')
+seedCollection(authors,'authors',(item,locale)=>({
+  updatedAt: item.updatedAt.$date,
+  createdAt: item.createdAt.$date,
+  name: item.name[locale]??'',
+  slug: item.slug,
+  bio: item.bio[locale]??'',
+  user: user.id,
+  avatar: item.avatar.$oid in mongoIdToUuidMap ? requireIdInMap(item.avatar.$oid) : undefined,
+}),(item)=>item._id.$oid)
+
+  seedCollection(microposts,'micro_posts',(item,locale)=>({ 
+    updatedAt: item.updatedAt.$date,
+    createdAt: item.createdAt.$date,
+    title: item.title[locale]??'',
+    meta: {
+      title: item.meta.title[locale]??'',
+      description: item.meta.description[locale]??'',
+      image: item.meta.image ? (item.meta.image['en-US'].$oid in mongoIdToUuidMap ? requireIdInMap(item.meta.image['en-US'].$oid) : undefined) : undefined,
+     },
+    content: item.content[locale]??'',
+    publishedAt: item.publishedAt.$date,
+    authorSlug: item.authorSlug,
+    authors: item.authors.map((author) => author.$oid in mongoIdToUuidMap ? requireIdInMap(author.$oid) : ''),
+    social: item.social,
+    _status: 'published',
+    tags: item.tags.map((tag) => tag.$oid in mongoIdToUuidMap ? requireIdInMap(tag.$oid) : ''),
+}),(item)=>item._id.$oid )
+
 
   
-      await Promise.all(microposts.map(async (tagData) => {
-    
-     const tag = await payload.create({
-       collection: 'micro_posts',
-       data: {
-        updatedAt: tagData.updatedAt.$date,
-        createdAt: tagData.createdAt.$date,
-        title: tagData.title['en-US'],
-        meta: {
-          title: tagData.meta.title['en-US'],
-          description: tagData.meta.description['en-US'],
-          image: tagData.meta.image ? requireIdInMap(tagData.meta.image['en-US'].$oid) : undefined,
-         },
-        content: tagData.content['en-US'],
-        publishedAt: tagData.publishedAt.$date,
-        authorSlug: tagData.authorSlug,
-        authors: tagData.authors.map((author) => mongoIdToUuidMap[author.$oid]),
-        social: tagData.social,
-        _status: 'published',
-        tags: tagData.tags.map((tag) => requireIdInMap(tag.$oid)),
-       },
-       req,
-       locale: 'en-US',
-     })
-     await Promise.all(locales.map(async (locale) => {
-          await payload.update({
-            collection: 'micro_posts',
-            id: tag.id,
-            data: {
-                    title: tagData.title[locale],
- content: tagData.content[locale],
- meta:{
-  title: tagData.meta.title[locale],
-    description: tagData.meta.description[locale],
- }
-            },
-            req,
-            locale,
-          })
-      }))
-     mongoIdToUuidMap[tagData._id.$oid] = tag.id
-   }))
+
+
 return
 }

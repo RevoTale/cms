@@ -926,11 +926,11 @@ export const payload_locked_documents_rels = pgTable(
     payload_locked_documents_rels_micro_posts_id_idx: index(
       'payload_locked_documents_rels_micro_posts_id_idx',
     ).on(columns.micro_postsID),
-    payload_locked_documents_rels_micro_post_internal_links_id_idx: index(
-      'payload_locked_documents_rels_micro_post_internal_links_id_idx',
+    payload_locked_documents_rels_micro_post_internal_links__idx: index(
+      'payload_locked_documents_rels_micro_post_internal_links__idx',
     ).on(columns.micro_post_internal_linksID),
-    payload_locked_documents_rels_micro_post_external_links_id_idx: index(
-      'payload_locked_documents_rels_micro_post_external_links_id_idx',
+    payload_locked_documents_rels_micro_post_external_links__idx: index(
+      'payload_locked_documents_rels_micro_post_external_links__idx',
     ).on(columns.micro_post_external_linksID),
     parentFk: foreignKey({
       columns: [columns['parent']],

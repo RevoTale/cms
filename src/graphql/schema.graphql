@@ -1,49 +1,49 @@
 type Query {
-  Post(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Post
-  Posts(draft: Boolean, where: Post_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): Posts
-  countPosts(draft: Boolean, where: Post_where, locale: LocaleInputType): countPosts
+  Post(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): Post
+  Posts(draft: Boolean, where: Post_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): Posts
+  countPosts(draft: Boolean, trash: Boolean, where: Post_where, locale: LocaleInputType): countPosts
   docAccessPost(id: String!): postsDocAccess
-  versionPost(id: String, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): PostVersion
-  versionsPosts(where: versionsPost_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): versionsPosts
-  Media(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Media
-  allMedia(draft: Boolean, where: Media_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): allMedia
-  countallMedia(draft: Boolean, where: Media_where, locale: LocaleInputType): countallMedia
+  versionPost(id: String, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): PostVersion
+  versionsPosts(where: versionsPost_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): versionsPosts
+  Media(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): Media
+  allMedia(draft: Boolean, where: Media_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): allMedia
+  countallMedia(draft: Boolean, trash: Boolean, where: Media_where, locale: LocaleInputType): countallMedia
   docAccessMedia(id: String!): mediaDocAccess
-  User(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): User
-  Users(draft: Boolean, where: User_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): Users
-  countUsers(draft: Boolean, where: User_where, locale: LocaleInputType): countUsers
+  User(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): User
+  Users(draft: Boolean, where: User_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): Users
+  countUsers(draft: Boolean, trash: Boolean, where: User_where, locale: LocaleInputType): countUsers
   docAccessUser(id: String!): usersDocAccess
   meUser: usersMe
   initializedUser: Boolean
-  Tag(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Tag
-  Tags(draft: Boolean, where: Tag_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): Tags
-  countTags(draft: Boolean, where: Tag_where, locale: LocaleInputType): countTags
+  Tag(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): Tag
+  Tags(draft: Boolean, where: Tag_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): Tags
+  countTags(draft: Boolean, trash: Boolean, where: Tag_where, locale: LocaleInputType): countTags
   docAccessTag(id: String!): tagsDocAccess
-  Author(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Author
-  Authors(draft: Boolean, where: Author_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): Authors
-  countAuthors(draft: Boolean, where: Author_where, locale: LocaleInputType): countAuthors
+  Author(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): Author
+  Authors(draft: Boolean, where: Author_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): Authors
+  countAuthors(draft: Boolean, trash: Boolean, where: Author_where, locale: LocaleInputType): countAuthors
   docAccessAuthor(id: String!): authorsDocAccess
-  Micro_post(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Micro_post
-  Micro_posts(draft: Boolean, where: Micro_post_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): Micro_posts
-  countMicro_posts(draft: Boolean, where: Micro_post_where, locale: LocaleInputType): countMicro_posts
+  Micro_post(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): Micro_post
+  Micro_posts(draft: Boolean, where: Micro_post_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): Micro_posts
+  countMicro_posts(draft: Boolean, trash: Boolean, where: Micro_post_where, locale: LocaleInputType): countMicro_posts
   docAccessMicro_post(id: String!): micro_postsDocAccess
-  versionMicro_post(id: String, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Micro_postVersion
-  versionsMicro_posts(where: versionsMicro_post_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): versionsMicro_posts
-  Micro_post_internal_link(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Micro_post_internal_link
-  Micro_post_internal_links(draft: Boolean, where: Micro_post_internal_link_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): Micro_post_internal_links
-  countMicro_post_internal_links(draft: Boolean, where: Micro_post_internal_link_where, locale: LocaleInputType): countMicro_post_internal_links
+  versionMicro_post(id: String, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): Micro_postVersion
+  versionsMicro_posts(where: versionsMicro_post_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): versionsMicro_posts
+  Micro_post_internal_link(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): Micro_post_internal_link
+  Micro_post_internal_links(draft: Boolean, where: Micro_post_internal_link_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): Micro_post_internal_links
+  countMicro_post_internal_links(draft: Boolean, trash: Boolean, where: Micro_post_internal_link_where, locale: LocaleInputType): countMicro_post_internal_links
   docAccessMicro_post_internal_link(id: String!): micro_post_internal_linksDocAccess
-  Micro_post_external_link(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Micro_post_external_link
-  Micro_post_external_links(draft: Boolean, where: Micro_post_external_link_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): Micro_post_external_links
-  countMicro_post_external_links(draft: Boolean, where: Micro_post_external_link_where, locale: LocaleInputType): countMicro_post_external_links
+  Micro_post_external_link(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): Micro_post_external_link
+  Micro_post_external_links(draft: Boolean, where: Micro_post_external_link_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): Micro_post_external_links
+  countMicro_post_external_links(draft: Boolean, trash: Boolean, where: Micro_post_external_link_where, locale: LocaleInputType): countMicro_post_external_links
   docAccessMicro_post_external_link(id: String!): micro_post_external_linksDocAccess
-  PayloadLockedDocument(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): PayloadLockedDocument
-  PayloadLockedDocuments(draft: Boolean, where: PayloadLockedDocument_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): PayloadLockedDocuments
-  countPayloadLockedDocuments(draft: Boolean, where: PayloadLockedDocument_where, locale: LocaleInputType): countPayloadLockedDocuments
+  PayloadLockedDocument(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): PayloadLockedDocument
+  PayloadLockedDocuments(draft: Boolean, where: PayloadLockedDocument_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): PayloadLockedDocuments
+  countPayloadLockedDocuments(draft: Boolean, trash: Boolean, where: PayloadLockedDocument_where, locale: LocaleInputType): countPayloadLockedDocuments
   docAccessPayloadLockedDocument(id: String!): payload_locked_documentsDocAccess
-  PayloadPreference(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): PayloadPreference
-  PayloadPreferences(draft: Boolean, where: PayloadPreference_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): PayloadPreferences
-  countPayloadPreferences(draft: Boolean, where: PayloadPreference_where, locale: LocaleInputType): countPayloadPreferences
+  PayloadPreference(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): PayloadPreference
+  PayloadPreferences(draft: Boolean, where: PayloadPreference_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): PayloadPreferences
+  countPayloadPreferences(draft: Boolean, trash: Boolean, where: PayloadPreference_where, locale: LocaleInputType): countPayloadPreferences
   docAccessPayloadPreference(id: String!): payload_preferencesDocAccess
   Access: Access
 }
@@ -464,10 +464,7 @@ type PostsDocAccessFields {
   content: PostsDocAccessFields_content
   relatedPosts: PostsDocAccessFields_relatedPosts
   tags: PostsDocAccessFields_tags
-  image: PostsDocAccessFields_image
-  nofollow: PostsDocAccessFields_nofollow
-  noindex: PostsDocAccessFields_noindex
-  description: PostsDocAccessFields_description
+  meta: PostsDocAccessFields_meta
   authorSlug: PostsDocAccessFields_authorSlug
   publishedAt: PostsDocAccessFields_publishedAt
   authors: PostsDocAccessFields_authors
@@ -615,95 +612,126 @@ type PostsDocAccessFields_tags_Delete {
   permission: Boolean!
 }
 
-type PostsDocAccessFields_image {
-  create: PostsDocAccessFields_image_Create
-  read: PostsDocAccessFields_image_Read
-  update: PostsDocAccessFields_image_Update
-  delete: PostsDocAccessFields_image_Delete
+type PostsDocAccessFields_meta {
+  title: PostsDocAccessFields_meta_title
+  image: PostsDocAccessFields_meta_image
+  nofollow: PostsDocAccessFields_meta_nofollow
+  noindex: PostsDocAccessFields_meta_noindex
+  description: PostsDocAccessFields_meta_description
 }
 
-type PostsDocAccessFields_image_Create {
+type PostsDocAccessFields_meta_title {
+  create: PostsDocAccessFields_meta_title_Create
+  read: PostsDocAccessFields_meta_title_Read
+  update: PostsDocAccessFields_meta_title_Update
+  delete: PostsDocAccessFields_meta_title_Delete
+}
+
+type PostsDocAccessFields_meta_title_Create {
   permission: Boolean!
 }
 
-type PostsDocAccessFields_image_Read {
+type PostsDocAccessFields_meta_title_Read {
   permission: Boolean!
 }
 
-type PostsDocAccessFields_image_Update {
+type PostsDocAccessFields_meta_title_Update {
   permission: Boolean!
 }
 
-type PostsDocAccessFields_image_Delete {
+type PostsDocAccessFields_meta_title_Delete {
   permission: Boolean!
 }
 
-type PostsDocAccessFields_nofollow {
-  create: PostsDocAccessFields_nofollow_Create
-  read: PostsDocAccessFields_nofollow_Read
-  update: PostsDocAccessFields_nofollow_Update
-  delete: PostsDocAccessFields_nofollow_Delete
+type PostsDocAccessFields_meta_image {
+  create: PostsDocAccessFields_meta_image_Create
+  read: PostsDocAccessFields_meta_image_Read
+  update: PostsDocAccessFields_meta_image_Update
+  delete: PostsDocAccessFields_meta_image_Delete
 }
 
-type PostsDocAccessFields_nofollow_Create {
+type PostsDocAccessFields_meta_image_Create {
   permission: Boolean!
 }
 
-type PostsDocAccessFields_nofollow_Read {
+type PostsDocAccessFields_meta_image_Read {
   permission: Boolean!
 }
 
-type PostsDocAccessFields_nofollow_Update {
+type PostsDocAccessFields_meta_image_Update {
   permission: Boolean!
 }
 
-type PostsDocAccessFields_nofollow_Delete {
+type PostsDocAccessFields_meta_image_Delete {
   permission: Boolean!
 }
 
-type PostsDocAccessFields_noindex {
-  create: PostsDocAccessFields_noindex_Create
-  read: PostsDocAccessFields_noindex_Read
-  update: PostsDocAccessFields_noindex_Update
-  delete: PostsDocAccessFields_noindex_Delete
+type PostsDocAccessFields_meta_nofollow {
+  create: PostsDocAccessFields_meta_nofollow_Create
+  read: PostsDocAccessFields_meta_nofollow_Read
+  update: PostsDocAccessFields_meta_nofollow_Update
+  delete: PostsDocAccessFields_meta_nofollow_Delete
 }
 
-type PostsDocAccessFields_noindex_Create {
+type PostsDocAccessFields_meta_nofollow_Create {
   permission: Boolean!
 }
 
-type PostsDocAccessFields_noindex_Read {
+type PostsDocAccessFields_meta_nofollow_Read {
   permission: Boolean!
 }
 
-type PostsDocAccessFields_noindex_Update {
+type PostsDocAccessFields_meta_nofollow_Update {
   permission: Boolean!
 }
 
-type PostsDocAccessFields_noindex_Delete {
+type PostsDocAccessFields_meta_nofollow_Delete {
   permission: Boolean!
 }
 
-type PostsDocAccessFields_description {
-  create: PostsDocAccessFields_description_Create
-  read: PostsDocAccessFields_description_Read
-  update: PostsDocAccessFields_description_Update
-  delete: PostsDocAccessFields_description_Delete
+type PostsDocAccessFields_meta_noindex {
+  create: PostsDocAccessFields_meta_noindex_Create
+  read: PostsDocAccessFields_meta_noindex_Read
+  update: PostsDocAccessFields_meta_noindex_Update
+  delete: PostsDocAccessFields_meta_noindex_Delete
 }
 
-type PostsDocAccessFields_description_Create {
+type PostsDocAccessFields_meta_noindex_Create {
   permission: Boolean!
 }
 
-type PostsDocAccessFields_description_Read {
+type PostsDocAccessFields_meta_noindex_Read {
   permission: Boolean!
 }
 
-type PostsDocAccessFields_description_Update {
+type PostsDocAccessFields_meta_noindex_Update {
   permission: Boolean!
 }
 
-type PostsDocAccessFields_description_Delete {
+type PostsDocAccessFields_meta_noindex_Delete {
+  permission: Boolean!
+}
+
+type PostsDocAccessFields_meta_description {
+  create: PostsDocAccessFields_meta_description_Create
+  read: PostsDocAccessFields_meta_description_Read
+  update: PostsDocAccessFields_meta_description_Update
+  delete: PostsDocAccessFields_meta_description_Delete
+}
+
+type PostsDocAccessFields_meta_description_Create {
+  permission: Boolean!
+}
+
+type PostsDocAccessFields_meta_description_Read {
+  permission: Boolean!
+}
+
+type PostsDocAccessFields_meta_description_Update {
+  permission: Boolean!
+}
+
+type PostsDocAccessFields_meta_description_Delete {
   permission: Boolean!
 }
 
@@ -973,11 +1001,11 @@ input versionsPost_where {
   version__content: versionsPost_version__content_operator
   version__relatedPosts: versionsPost_version__relatedPosts_operator
   version__tags: versionsPost_version__tags_operator
-  meta__title: versionsPost_meta__title_operator
-  meta__image: versionsPost_meta__image_operator
-  meta__nofollow: versionsPost_meta__nofollow_operator
-  meta__noindex: versionsPost_meta__noindex_operator
-  meta__description: versionsPost_meta__description_operator
+  version__meta__title: versionsPost_version__meta__title_operator
+  version__meta__image: versionsPost_version__meta__image_operator
+  version__meta__nofollow: versionsPost_version__meta__nofollow_operator
+  version__meta__noindex: versionsPost_version__meta__noindex_operator
+  version__meta__description: versionsPost_version__meta__description_operator
   version__authorSlug: versionsPost_version__authorSlug_operator
   version__publishedAt: versionsPost_version__publishedAt_operator
   version__authors: versionsPost_version__authors_operator
@@ -1058,7 +1086,7 @@ input versionsPost_version__tags_operator {
   exists: Boolean
 }
 
-input versionsPost_meta__title_operator {
+input versionsPost_version__meta__title_operator {
   equals: String
   not_equals: String
   like: String
@@ -1069,7 +1097,7 @@ input versionsPost_meta__title_operator {
   exists: Boolean
 }
 
-input versionsPost_meta__image_operator {
+input versionsPost_version__meta__image_operator {
   equals: JSON
   not_equals: JSON
   in: [JSON]
@@ -1078,17 +1106,17 @@ input versionsPost_meta__image_operator {
   exists: Boolean
 }
 
-input versionsPost_meta__nofollow_operator {
+input versionsPost_version__meta__nofollow_operator {
   equals: Boolean
   not_equals: Boolean
 }
 
-input versionsPost_meta__noindex_operator {
+input versionsPost_version__meta__noindex_operator {
   equals: Boolean
   not_equals: Boolean
 }
 
-input versionsPost_meta__description_operator {
+input versionsPost_version__meta__description_operator {
   equals: String
   not_equals: String
   like: String
@@ -1251,11 +1279,11 @@ input versionsPost_where_and {
   version__content: versionsPost_version__content_operator
   version__relatedPosts: versionsPost_version__relatedPosts_operator
   version__tags: versionsPost_version__tags_operator
-  meta__title: versionsPost_meta__title_operator
-  meta__image: versionsPost_meta__image_operator
-  meta__nofollow: versionsPost_meta__nofollow_operator
-  meta__noindex: versionsPost_meta__noindex_operator
-  meta__description: versionsPost_meta__description_operator
+  version__meta__title: versionsPost_version__meta__title_operator
+  version__meta__image: versionsPost_version__meta__image_operator
+  version__meta__nofollow: versionsPost_version__meta__nofollow_operator
+  version__meta__noindex: versionsPost_version__meta__noindex_operator
+  version__meta__description: versionsPost_version__meta__description_operator
   version__authorSlug: versionsPost_version__authorSlug_operator
   version__publishedAt: versionsPost_version__publishedAt_operator
   version__authors: versionsPost_version__authors_operator
@@ -1282,11 +1310,11 @@ input versionsPost_where_or {
   version__content: versionsPost_version__content_operator
   version__relatedPosts: versionsPost_version__relatedPosts_operator
   version__tags: versionsPost_version__tags_operator
-  meta__title: versionsPost_meta__title_operator
-  meta__image: versionsPost_meta__image_operator
-  meta__nofollow: versionsPost_meta__nofollow_operator
-  meta__noindex: versionsPost_meta__noindex_operator
-  meta__description: versionsPost_meta__description_operator
+  version__meta__title: versionsPost_version__meta__title_operator
+  version__meta__image: versionsPost_version__meta__image_operator
+  version__meta__nofollow: versionsPost_version__meta__nofollow_operator
+  version__meta__noindex: versionsPost_version__meta__noindex_operator
+  version__meta__description: versionsPost_version__meta__description_operator
   version__authorSlug: versionsPost_version__authorSlug_operator
   version__publishedAt: versionsPost_version__publishedAt_operator
   version__authors: versionsPost_version__authors_operator
@@ -2931,8 +2959,8 @@ type Micro_post {
   slug: String
   tags(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Tag!]
   meta: Micro_post_Meta
-  links(limit: Int, page: Int, sort: String, where: Micro_post_internal_link_where): Micro_post_Links
-  targeted_from_note_links(limit: Int, page: Int, sort: String, where: Micro_post_internal_link_where): Micro_post_Targeted_from_note_links
+  links(count: Boolean, limit: Int, page: Int, sort: String, where: Micro_post_internal_link_where): Micro_post_Links
+  targeted_from_note_links(count: Boolean, limit: Int, page: Int, sort: String, where: Micro_post_internal_link_where): Micro_post_Targeted_from_note_links
   externalLinks(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Micro_post_external_link!]
   social: Micro_post_Social
   publishedAt: DateTime
@@ -2952,6 +2980,7 @@ type Micro_post_Meta {
 type Micro_post_Links {
   docs: [Micro_post_internal_link!]!
   hasNextPage: Boolean!
+  totalDocs: Int
 }
 
 type Micro_post_internal_link {
@@ -3059,6 +3088,7 @@ input Micro_post_internal_link_where_or {
 type Micro_post_Targeted_from_note_links {
   docs: [Micro_post_internal_link!]!
   hasNextPage: Boolean!
+  totalDocs: Int
 }
 
 type Micro_post_external_link {
@@ -3370,8 +3400,7 @@ type Micro_postsDocAccessFields {
   content: Micro_postsDocAccessFields_content
   slug: Micro_postsDocAccessFields_slug
   tags: Micro_postsDocAccessFields_tags
-  image: Micro_postsDocAccessFields_image
-  description: Micro_postsDocAccessFields_description
+  meta: Micro_postsDocAccessFields_meta
   links: Micro_postsDocAccessFields_links
   targeted_from_note_links: Micro_postsDocAccessFields_targeted_from_note_links
   externalLinks: Micro_postsDocAccessFields_externalLinks
@@ -3499,49 +3528,78 @@ type Micro_postsDocAccessFields_tags_Delete {
   permission: Boolean!
 }
 
-type Micro_postsDocAccessFields_image {
-  create: Micro_postsDocAccessFields_image_Create
-  read: Micro_postsDocAccessFields_image_Read
-  update: Micro_postsDocAccessFields_image_Update
-  delete: Micro_postsDocAccessFields_image_Delete
+type Micro_postsDocAccessFields_meta {
+  title: Micro_postsDocAccessFields_meta_title
+  image: Micro_postsDocAccessFields_meta_image
+  description: Micro_postsDocAccessFields_meta_description
 }
 
-type Micro_postsDocAccessFields_image_Create {
+type Micro_postsDocAccessFields_meta_title {
+  create: Micro_postsDocAccessFields_meta_title_Create
+  read: Micro_postsDocAccessFields_meta_title_Read
+  update: Micro_postsDocAccessFields_meta_title_Update
+  delete: Micro_postsDocAccessFields_meta_title_Delete
+}
+
+type Micro_postsDocAccessFields_meta_title_Create {
   permission: Boolean!
 }
 
-type Micro_postsDocAccessFields_image_Read {
+type Micro_postsDocAccessFields_meta_title_Read {
   permission: Boolean!
 }
 
-type Micro_postsDocAccessFields_image_Update {
+type Micro_postsDocAccessFields_meta_title_Update {
   permission: Boolean!
 }
 
-type Micro_postsDocAccessFields_image_Delete {
+type Micro_postsDocAccessFields_meta_title_Delete {
   permission: Boolean!
 }
 
-type Micro_postsDocAccessFields_description {
-  create: Micro_postsDocAccessFields_description_Create
-  read: Micro_postsDocAccessFields_description_Read
-  update: Micro_postsDocAccessFields_description_Update
-  delete: Micro_postsDocAccessFields_description_Delete
+type Micro_postsDocAccessFields_meta_image {
+  create: Micro_postsDocAccessFields_meta_image_Create
+  read: Micro_postsDocAccessFields_meta_image_Read
+  update: Micro_postsDocAccessFields_meta_image_Update
+  delete: Micro_postsDocAccessFields_meta_image_Delete
 }
 
-type Micro_postsDocAccessFields_description_Create {
+type Micro_postsDocAccessFields_meta_image_Create {
   permission: Boolean!
 }
 
-type Micro_postsDocAccessFields_description_Read {
+type Micro_postsDocAccessFields_meta_image_Read {
   permission: Boolean!
 }
 
-type Micro_postsDocAccessFields_description_Update {
+type Micro_postsDocAccessFields_meta_image_Update {
   permission: Boolean!
 }
 
-type Micro_postsDocAccessFields_description_Delete {
+type Micro_postsDocAccessFields_meta_image_Delete {
+  permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_meta_description {
+  create: Micro_postsDocAccessFields_meta_description_Create
+  read: Micro_postsDocAccessFields_meta_description_Read
+  update: Micro_postsDocAccessFields_meta_description_Update
+  delete: Micro_postsDocAccessFields_meta_description_Delete
+}
+
+type Micro_postsDocAccessFields_meta_description_Create {
+  permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_meta_description_Read {
+  permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_meta_description_Update {
+  permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_meta_description_Delete {
   permission: Boolean!
 }
 
@@ -3923,8 +3981,8 @@ type Micro_postVersion_Version {
   slug: String
   tags(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Tag!]
   meta: Micro_postVersion_Version_Meta
-  links(limit: Int, page: Int, sort: String, where: Micro_post_internal_link_where): Micro_postVersion_Version_Links
-  targeted_from_note_links(limit: Int, page: Int, sort: String, where: Micro_post_internal_link_where): Micro_postVersion_Version_Targeted_from_note_links
+  links(count: Boolean, limit: Int, page: Int, sort: String, where: Micro_post_internal_link_where): Micro_postVersion_Version_Links
+  targeted_from_note_links(count: Boolean, limit: Int, page: Int, sort: String, where: Micro_post_internal_link_where): Micro_postVersion_Version_Targeted_from_note_links
   externalLinks(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Micro_post_external_link!]
   social: Micro_postVersion_Version_Social
   publishedAt: DateTime
@@ -3944,11 +4002,13 @@ type Micro_postVersion_Version_Meta {
 type Micro_postVersion_Version_Links {
   docs: [Micro_post_internal_link!]!
   hasNextPage: Boolean!
+  totalDocs: Int
 }
 
 type Micro_postVersion_Version_Targeted_from_note_links {
   docs: [Micro_post_internal_link!]!
   hasNextPage: Boolean!
+  totalDocs: Int
 }
 
 type Micro_postVersion_Version_Social {
@@ -3998,9 +4058,9 @@ input versionsMicro_post_where {
   version__content: versionsMicro_post_version__content_operator
   version__slug: versionsMicro_post_version__slug_operator
   version__tags: versionsMicro_post_version__tags_operator
-  meta__title: versionsMicro_post_meta__title_operator
-  meta__image: versionsMicro_post_meta__image_operator
-  meta__description: versionsMicro_post_meta__description_operator
+  version__meta__title: versionsMicro_post_version__meta__title_operator
+  version__meta__image: versionsMicro_post_version__meta__image_operator
+  version__meta__description: versionsMicro_post_version__meta__description_operator
   version__externalLinks: versionsMicro_post_version__externalLinks_operator
   version__social__x__autoPost: versionsMicro_post_version__social__x__autoPost_operator
   version__social__x__autoPosted: versionsMicro_post_version__social__x__autoPosted_operator
@@ -4075,7 +4135,7 @@ input versionsMicro_post_version__tags_operator {
   all: [JSON]
 }
 
-input versionsMicro_post_meta__title_operator {
+input versionsMicro_post_version__meta__title_operator {
   equals: String
   not_equals: String
   like: String
@@ -4086,7 +4146,7 @@ input versionsMicro_post_meta__title_operator {
   exists: Boolean
 }
 
-input versionsMicro_post_meta__image_operator {
+input versionsMicro_post_version__meta__image_operator {
   equals: JSON
   not_equals: JSON
   in: [JSON]
@@ -4095,7 +4155,7 @@ input versionsMicro_post_meta__image_operator {
   exists: Boolean
 }
 
-input versionsMicro_post_meta__description_operator {
+input versionsMicro_post_version__meta__description_operator {
   equals: String
   not_equals: String
   like: String
@@ -4279,9 +4339,9 @@ input versionsMicro_post_where_and {
   version__content: versionsMicro_post_version__content_operator
   version__slug: versionsMicro_post_version__slug_operator
   version__tags: versionsMicro_post_version__tags_operator
-  meta__title: versionsMicro_post_meta__title_operator
-  meta__image: versionsMicro_post_meta__image_operator
-  meta__description: versionsMicro_post_meta__description_operator
+  version__meta__title: versionsMicro_post_version__meta__title_operator
+  version__meta__image: versionsMicro_post_version__meta__image_operator
+  version__meta__description: versionsMicro_post_version__meta__description_operator
   version__externalLinks: versionsMicro_post_version__externalLinks_operator
   version__social__x__autoPost: versionsMicro_post_version__social__x__autoPost_operator
   version__social__x__autoPosted: versionsMicro_post_version__social__x__autoPosted_operator
@@ -4310,9 +4370,9 @@ input versionsMicro_post_where_or {
   version__content: versionsMicro_post_version__content_operator
   version__slug: versionsMicro_post_version__slug_operator
   version__tags: versionsMicro_post_version__tags_operator
-  meta__title: versionsMicro_post_meta__title_operator
-  meta__image: versionsMicro_post_meta__image_operator
-  meta__description: versionsMicro_post_meta__description_operator
+  version__meta__title: versionsMicro_post_version__meta__title_operator
+  version__meta__image: versionsMicro_post_version__meta__image_operator
+  version__meta__description: versionsMicro_post_version__meta__description_operator
   version__externalLinks: versionsMicro_post_version__externalLinks_operator
   version__social__x__autoPost: versionsMicro_post_version__social__x__autoPost_operator
   version__social__x__autoPosted: versionsMicro_post_version__social__x__autoPosted_operator
@@ -5355,10 +5415,7 @@ type PostsFields {
   content: PostsFields_content
   relatedPosts: PostsFields_relatedPosts
   tags: PostsFields_tags
-  image: PostsFields_image
-  nofollow: PostsFields_nofollow
-  noindex: PostsFields_noindex
-  description: PostsFields_description
+  meta: PostsFields_meta
   authorSlug: PostsFields_authorSlug
   publishedAt: PostsFields_publishedAt
   authors: PostsFields_authors
@@ -5506,95 +5563,126 @@ type PostsFields_tags_Delete {
   permission: Boolean!
 }
 
-type PostsFields_image {
-  create: PostsFields_image_Create
-  read: PostsFields_image_Read
-  update: PostsFields_image_Update
-  delete: PostsFields_image_Delete
+type PostsFields_meta {
+  title: PostsFields_meta_title
+  image: PostsFields_meta_image
+  nofollow: PostsFields_meta_nofollow
+  noindex: PostsFields_meta_noindex
+  description: PostsFields_meta_description
 }
 
-type PostsFields_image_Create {
+type PostsFields_meta_title {
+  create: PostsFields_meta_title_Create
+  read: PostsFields_meta_title_Read
+  update: PostsFields_meta_title_Update
+  delete: PostsFields_meta_title_Delete
+}
+
+type PostsFields_meta_title_Create {
   permission: Boolean!
 }
 
-type PostsFields_image_Read {
+type PostsFields_meta_title_Read {
   permission: Boolean!
 }
 
-type PostsFields_image_Update {
+type PostsFields_meta_title_Update {
   permission: Boolean!
 }
 
-type PostsFields_image_Delete {
+type PostsFields_meta_title_Delete {
   permission: Boolean!
 }
 
-type PostsFields_nofollow {
-  create: PostsFields_nofollow_Create
-  read: PostsFields_nofollow_Read
-  update: PostsFields_nofollow_Update
-  delete: PostsFields_nofollow_Delete
+type PostsFields_meta_image {
+  create: PostsFields_meta_image_Create
+  read: PostsFields_meta_image_Read
+  update: PostsFields_meta_image_Update
+  delete: PostsFields_meta_image_Delete
 }
 
-type PostsFields_nofollow_Create {
+type PostsFields_meta_image_Create {
   permission: Boolean!
 }
 
-type PostsFields_nofollow_Read {
+type PostsFields_meta_image_Read {
   permission: Boolean!
 }
 
-type PostsFields_nofollow_Update {
+type PostsFields_meta_image_Update {
   permission: Boolean!
 }
 
-type PostsFields_nofollow_Delete {
+type PostsFields_meta_image_Delete {
   permission: Boolean!
 }
 
-type PostsFields_noindex {
-  create: PostsFields_noindex_Create
-  read: PostsFields_noindex_Read
-  update: PostsFields_noindex_Update
-  delete: PostsFields_noindex_Delete
+type PostsFields_meta_nofollow {
+  create: PostsFields_meta_nofollow_Create
+  read: PostsFields_meta_nofollow_Read
+  update: PostsFields_meta_nofollow_Update
+  delete: PostsFields_meta_nofollow_Delete
 }
 
-type PostsFields_noindex_Create {
+type PostsFields_meta_nofollow_Create {
   permission: Boolean!
 }
 
-type PostsFields_noindex_Read {
+type PostsFields_meta_nofollow_Read {
   permission: Boolean!
 }
 
-type PostsFields_noindex_Update {
+type PostsFields_meta_nofollow_Update {
   permission: Boolean!
 }
 
-type PostsFields_noindex_Delete {
+type PostsFields_meta_nofollow_Delete {
   permission: Boolean!
 }
 
-type PostsFields_description {
-  create: PostsFields_description_Create
-  read: PostsFields_description_Read
-  update: PostsFields_description_Update
-  delete: PostsFields_description_Delete
+type PostsFields_meta_noindex {
+  create: PostsFields_meta_noindex_Create
+  read: PostsFields_meta_noindex_Read
+  update: PostsFields_meta_noindex_Update
+  delete: PostsFields_meta_noindex_Delete
 }
 
-type PostsFields_description_Create {
+type PostsFields_meta_noindex_Create {
   permission: Boolean!
 }
 
-type PostsFields_description_Read {
+type PostsFields_meta_noindex_Read {
   permission: Boolean!
 }
 
-type PostsFields_description_Update {
+type PostsFields_meta_noindex_Update {
   permission: Boolean!
 }
 
-type PostsFields_description_Delete {
+type PostsFields_meta_noindex_Delete {
+  permission: Boolean!
+}
+
+type PostsFields_meta_description {
+  create: PostsFields_meta_description_Create
+  read: PostsFields_meta_description_Read
+  update: PostsFields_meta_description_Update
+  delete: PostsFields_meta_description_Delete
+}
+
+type PostsFields_meta_description_Create {
+  permission: Boolean!
+}
+
+type PostsFields_meta_description_Read {
+  permission: Boolean!
+}
+
+type PostsFields_meta_description_Update {
+  permission: Boolean!
+}
+
+type PostsFields_meta_description_Delete {
   permission: Boolean!
 }
 
@@ -6777,8 +6865,7 @@ type Micro_postsFields {
   content: Micro_postsFields_content
   slug: Micro_postsFields_slug
   tags: Micro_postsFields_tags
-  image: Micro_postsFields_image
-  description: Micro_postsFields_description
+  meta: Micro_postsFields_meta
   links: Micro_postsFields_links
   targeted_from_note_links: Micro_postsFields_targeted_from_note_links
   externalLinks: Micro_postsFields_externalLinks
@@ -6906,49 +6993,78 @@ type Micro_postsFields_tags_Delete {
   permission: Boolean!
 }
 
-type Micro_postsFields_image {
-  create: Micro_postsFields_image_Create
-  read: Micro_postsFields_image_Read
-  update: Micro_postsFields_image_Update
-  delete: Micro_postsFields_image_Delete
+type Micro_postsFields_meta {
+  title: Micro_postsFields_meta_title
+  image: Micro_postsFields_meta_image
+  description: Micro_postsFields_meta_description
 }
 
-type Micro_postsFields_image_Create {
+type Micro_postsFields_meta_title {
+  create: Micro_postsFields_meta_title_Create
+  read: Micro_postsFields_meta_title_Read
+  update: Micro_postsFields_meta_title_Update
+  delete: Micro_postsFields_meta_title_Delete
+}
+
+type Micro_postsFields_meta_title_Create {
   permission: Boolean!
 }
 
-type Micro_postsFields_image_Read {
+type Micro_postsFields_meta_title_Read {
   permission: Boolean!
 }
 
-type Micro_postsFields_image_Update {
+type Micro_postsFields_meta_title_Update {
   permission: Boolean!
 }
 
-type Micro_postsFields_image_Delete {
+type Micro_postsFields_meta_title_Delete {
   permission: Boolean!
 }
 
-type Micro_postsFields_description {
-  create: Micro_postsFields_description_Create
-  read: Micro_postsFields_description_Read
-  update: Micro_postsFields_description_Update
-  delete: Micro_postsFields_description_Delete
+type Micro_postsFields_meta_image {
+  create: Micro_postsFields_meta_image_Create
+  read: Micro_postsFields_meta_image_Read
+  update: Micro_postsFields_meta_image_Update
+  delete: Micro_postsFields_meta_image_Delete
 }
 
-type Micro_postsFields_description_Create {
+type Micro_postsFields_meta_image_Create {
   permission: Boolean!
 }
 
-type Micro_postsFields_description_Read {
+type Micro_postsFields_meta_image_Read {
   permission: Boolean!
 }
 
-type Micro_postsFields_description_Update {
+type Micro_postsFields_meta_image_Update {
   permission: Boolean!
 }
 
-type Micro_postsFields_description_Delete {
+type Micro_postsFields_meta_image_Delete {
+  permission: Boolean!
+}
+
+type Micro_postsFields_meta_description {
+  create: Micro_postsFields_meta_description_Create
+  read: Micro_postsFields_meta_description_Read
+  update: Micro_postsFields_meta_description_Update
+  delete: Micro_postsFields_meta_description_Delete
+}
+
+type Micro_postsFields_meta_description_Create {
+  permission: Boolean!
+}
+
+type Micro_postsFields_meta_description_Read {
+  permission: Boolean!
+}
+
+type Micro_postsFields_meta_description_Update {
+  permission: Boolean!
+}
+
+type Micro_postsFields_meta_description_Delete {
   permission: Boolean!
 }
 
@@ -7893,17 +8009,17 @@ type PayloadPreferencesDeleteAccess {
 
 type Mutation {
   createPost(data: mutationPostInput!, draft: Boolean, locale: LocaleInputType): Post
-  updatePost(id: String!, autosave: Boolean, data: mutationPostUpdateInput!, draft: Boolean, locale: LocaleInputType): Post
-  deletePost(id: String!): Post
+  updatePost(id: String!, autosave: Boolean, data: mutationPostUpdateInput!, draft: Boolean, locale: LocaleInputType, trash: Boolean): Post
+  deletePost(id: String!, trash: Boolean): Post
   duplicatePost(id: String!, data: mutationPostInput!): Post
   restoreVersionPost(id: String, draft: Boolean): Post
   createMedia(data: mutationMediaInput!, draft: Boolean, locale: LocaleInputType): Media
-  updateMedia(id: String!, autosave: Boolean, data: mutationMediaUpdateInput!, draft: Boolean, locale: LocaleInputType): Media
-  deleteMedia(id: String!): Media
+  updateMedia(id: String!, autosave: Boolean, data: mutationMediaUpdateInput!, draft: Boolean, locale: LocaleInputType, trash: Boolean): Media
+  deleteMedia(id: String!, trash: Boolean): Media
   duplicateMedia(id: String!, data: mutationMediaInput!): Media
   createUser(data: mutationUserInput!, draft: Boolean, locale: LocaleInputType): User
-  updateUser(id: String!, autosave: Boolean, data: mutationUserUpdateInput!, draft: Boolean, locale: LocaleInputType): User
-  deleteUser(id: String!): User
+  updateUser(id: String!, autosave: Boolean, data: mutationUserUpdateInput!, draft: Boolean, locale: LocaleInputType, trash: Boolean): User
+  deleteUser(id: String!, trash: Boolean): User
   refreshTokenUser: usersRefreshedUser
   logoutUser(allSessions: Boolean): String
   unlockUser(email: String!): Boolean!
@@ -7912,33 +8028,33 @@ type Mutation {
   resetPasswordUser(password: String, token: String): usersResetPassword
   verifyEmailUser(token: String): Boolean
   createTag(data: mutationTagInput!, draft: Boolean, locale: LocaleInputType): Tag
-  updateTag(id: String!, autosave: Boolean, data: mutationTagUpdateInput!, draft: Boolean, locale: LocaleInputType): Tag
-  deleteTag(id: String!): Tag
+  updateTag(id: String!, autosave: Boolean, data: mutationTagUpdateInput!, draft: Boolean, locale: LocaleInputType, trash: Boolean): Tag
+  deleteTag(id: String!, trash: Boolean): Tag
   duplicateTag(id: String!, data: mutationTagInput!): Tag
   createAuthor(data: mutationAuthorInput!, draft: Boolean, locale: LocaleInputType): Author
-  updateAuthor(id: String!, autosave: Boolean, data: mutationAuthorUpdateInput!, draft: Boolean, locale: LocaleInputType): Author
-  deleteAuthor(id: String!): Author
+  updateAuthor(id: String!, autosave: Boolean, data: mutationAuthorUpdateInput!, draft: Boolean, locale: LocaleInputType, trash: Boolean): Author
+  deleteAuthor(id: String!, trash: Boolean): Author
   duplicateAuthor(id: String!, data: mutationAuthorInput!): Author
   createMicro_post(data: mutationMicro_postInput!, draft: Boolean, locale: LocaleInputType): Micro_post
-  updateMicro_post(id: String!, autosave: Boolean, data: mutationMicro_postUpdateInput!, draft: Boolean, locale: LocaleInputType): Micro_post
-  deleteMicro_post(id: String!): Micro_post
+  updateMicro_post(id: String!, autosave: Boolean, data: mutationMicro_postUpdateInput!, draft: Boolean, locale: LocaleInputType, trash: Boolean): Micro_post
+  deleteMicro_post(id: String!, trash: Boolean): Micro_post
   duplicateMicro_post(id: String!, data: mutationMicro_postInput!): Micro_post
   restoreVersionMicro_post(id: String, draft: Boolean): Micro_post
   createMicro_post_internal_link(data: mutationMicro_post_internal_linkInput!, draft: Boolean, locale: LocaleInputType): Micro_post_internal_link
-  updateMicro_post_internal_link(id: String!, autosave: Boolean, data: mutationMicro_post_internal_linkUpdateInput!, draft: Boolean, locale: LocaleInputType): Micro_post_internal_link
-  deleteMicro_post_internal_link(id: String!): Micro_post_internal_link
+  updateMicro_post_internal_link(id: String!, autosave: Boolean, data: mutationMicro_post_internal_linkUpdateInput!, draft: Boolean, locale: LocaleInputType, trash: Boolean): Micro_post_internal_link
+  deleteMicro_post_internal_link(id: String!, trash: Boolean): Micro_post_internal_link
   duplicateMicro_post_internal_link(id: String!, data: mutationMicro_post_internal_linkInput!): Micro_post_internal_link
   createMicro_post_external_link(data: mutationMicro_post_external_linkInput!, draft: Boolean, locale: LocaleInputType): Micro_post_external_link
-  updateMicro_post_external_link(id: String!, autosave: Boolean, data: mutationMicro_post_external_linkUpdateInput!, draft: Boolean, locale: LocaleInputType): Micro_post_external_link
-  deleteMicro_post_external_link(id: String!): Micro_post_external_link
+  updateMicro_post_external_link(id: String!, autosave: Boolean, data: mutationMicro_post_external_linkUpdateInput!, draft: Boolean, locale: LocaleInputType, trash: Boolean): Micro_post_external_link
+  deleteMicro_post_external_link(id: String!, trash: Boolean): Micro_post_external_link
   duplicateMicro_post_external_link(id: String!, data: mutationMicro_post_external_linkInput!): Micro_post_external_link
   createPayloadLockedDocument(data: mutationPayloadLockedDocumentInput!, draft: Boolean, locale: LocaleInputType): PayloadLockedDocument
-  updatePayloadLockedDocument(id: String!, autosave: Boolean, data: mutationPayloadLockedDocumentUpdateInput!, draft: Boolean, locale: LocaleInputType): PayloadLockedDocument
-  deletePayloadLockedDocument(id: String!): PayloadLockedDocument
+  updatePayloadLockedDocument(id: String!, autosave: Boolean, data: mutationPayloadLockedDocumentUpdateInput!, draft: Boolean, locale: LocaleInputType, trash: Boolean): PayloadLockedDocument
+  deletePayloadLockedDocument(id: String!, trash: Boolean): PayloadLockedDocument
   duplicatePayloadLockedDocument(id: String!, data: mutationPayloadLockedDocumentInput!): PayloadLockedDocument
   createPayloadPreference(data: mutationPayloadPreferenceInput!, draft: Boolean, locale: LocaleInputType): PayloadPreference
-  updatePayloadPreference(id: String!, autosave: Boolean, data: mutationPayloadPreferenceUpdateInput!, draft: Boolean, locale: LocaleInputType): PayloadPreference
-  deletePayloadPreference(id: String!): PayloadPreference
+  updatePayloadPreference(id: String!, autosave: Boolean, data: mutationPayloadPreferenceUpdateInput!, draft: Boolean, locale: LocaleInputType, trash: Boolean): PayloadPreference
+  deletePayloadPreference(id: String!, trash: Boolean): PayloadPreference
   duplicatePayloadPreference(id: String!, data: mutationPayloadPreferenceInput!): PayloadPreference
 }
 

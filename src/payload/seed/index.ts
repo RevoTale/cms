@@ -24,32 +24,40 @@ if (null === user) {
 }
 const mongoIdToUuidMap: Record<string, string> = {}
 
-const seedCollection = async <T extends CollectionSlug,D extends unknown>(data:D[],collection: T,getData:(item:D,locale:typeof locales[number])=>RequiredDataFromCollectionSlug<T>,getLegacyId:(item:D)=>string)=>{
-  payload.logger.info(`Seeding ${collection}...`)
- await Promise.all(data.map(async (item) => {
-     const tag = await payload.create({
-       collection: collection,
-       data: getData(item,'en-US'),
-       req,
-       locale: 'en-US',
-     })
-     payload.logger.info(`Localizing ${collection} ${tag.id}`)
 
-     await Promise.all(locales.map(async (locale) => {
-          await payload.update({
-            collection: 'tags',
-            id: tag.id,
-            data: getData(item, locale),
-            req,
-            locale,
-          })
-      }))
-     mongoIdToUuidMap[getLegacyId(item)] = tag.id
-   }))
-    payload.logger.info(`Seeded ${collection}.`)
+const seedCollection = async <T extends CollectionSlug, D extends unknown>(
+  data: D[],
+  collection: T,
+  getData: (item: D, locale: typeof locales[number]) => RequiredDataFromCollectionSlug<T>,
+  getLegacyId: (item: D) => string
+) => {
+  payload.logger.info(`Seeding ${collection}...`);
+  for (const item of data) {
+     payload.logger.info(`Processing ${collection} ${getLegacyId(item )}`);
+     console.log( getData(item, 'en-US'))
+    const tag = await payload.create({
+      collection: collection,
+      data: getData(item, 'en-US'),
+      req,
+      locale: 'en-US',
+    });
+    payload.logger.info(`Localizing ${collection} ${tag.id}`);
+
+   /* for (const locale of locales) {
+      await payload.update({
+        collection: 'tags',
+        id: tag.id,
+        data: getData(item, locale),
+        req,
+        locale,
+      });
+    }*/
+    mongoIdToUuidMap[getLegacyId(item)] = tag.id;
+  }
+  payload.logger.info(`Seeded ${collection}.`);
 }
 
-seedCollection(tags,'tags',(item,locale)=>({
+await seedCollection(tags,'tags',(item,locale)=>({
   updatedAt: item.updatedAt.$date,
   createdAt: item.createdAt.$date,
   name: item.name,
@@ -60,23 +68,17 @@ seedCollection(tags,'tags',(item,locale)=>({
     if (id in mongoIdToUuidMap) return mongoIdToUuidMap[id]
     throw new Error(`ID ${id} not found in map`)
    }
-seedCollection(media,'media',(item,locale)=>({
+await seedCollection(media,'media',(item,locale)=>({
   updatedAt: item.updatedAt.$date,
   createdAt: item.createdAt.$date,
   alt: item.alt[locale]??'',
-  description: item?.description?.[locale]??'',
-  url: item.url,
-  filename: item.filename,
-  mimeType: item.mimeType,
-  filesize: item.filesize,
-  width: item.width,
-  height: item.height,
-  focalX: item.focalX,
-  focalY: item.focalY,  
+  description: item?.description?.['en-US']??'',
+  url: locale === 'en-US' ? `https://cms.s3.revotale.com/main_/${item.filename}` : undefined,
+filename: item.filename,
 }),(item)=>item._id.$oid)
  
 
-seedCollection(authors,'authors',(item,locale)=>({
+await seedCollection(authors,'authors',(item,locale)=>({
   updatedAt: item.updatedAt.$date,
   createdAt: item.createdAt.$date,
   name: item.name[locale]??'',
@@ -86,7 +88,7 @@ seedCollection(authors,'authors',(item,locale)=>({
   avatar: item.avatar.$oid in mongoIdToUuidMap ? requireIdInMap(item.avatar.$oid) : undefined,
 }),(item)=>item._id.$oid)
 
-  seedCollection(microposts,'micro_posts',(item,locale)=>({ 
+  await seedCollection(microposts,'micro_posts',(item,locale)=>({ 
     updatedAt: item.updatedAt.$date,
     createdAt: item.createdAt.$date,
     title: item.title[locale]??'',

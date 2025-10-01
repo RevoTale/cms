@@ -8,6 +8,7 @@ import {
 import type { CollectionConfig } from 'payload'
 
 import { AutoTranslate } from 'src/payload/fields/autoTranslate'
+import { slugField } from 'src/payload/fields/slug'
 import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 export const MicroPosts: CollectionConfig = {
@@ -57,6 +58,11 @@ export const MicroPosts: CollectionConfig = {
       maxLength: 4000,
       minLength: 2,
     },
+  slugField('slug', {
+      unique: true,
+      required: true,
+      localized: false,
+    }),
 
     {
       name: 'tags',

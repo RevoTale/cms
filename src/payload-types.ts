@@ -243,6 +243,7 @@ export interface MicroPost {
   title: string;
   attachment?: (string | null) | Media;
   content: string;
+  slug: string;
   tags: (string | Tag)[];
   meta?: {
     title?: string | null;
@@ -488,6 +489,7 @@ export interface MicroPostsSelect<T extends boolean = true> {
   title?: T;
   attachment?: T;
   content?: T;
+  slug?: T;
   tags?: T;
   meta?:
     | T

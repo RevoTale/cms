@@ -1,49 +1,49 @@
 type Query {
-  Post(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): Post
-  Posts(draft: Boolean, where: Post_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): Posts
-  countPosts(draft: Boolean, trash: Boolean, where: Post_where, locale: LocaleInputType): countPosts
+  Post(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Post
+  Posts(draft: Boolean, where: Post_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): Posts
+  countPosts(draft: Boolean, where: Post_where, locale: LocaleInputType): countPosts
   docAccessPost(id: String!): postsDocAccess
-  versionPost(id: String, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): PostVersion
-  versionsPosts(where: versionsPost_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): versionsPosts
-  Media(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): Media
-  allMedia(draft: Boolean, where: Media_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): allMedia
-  countallMedia(draft: Boolean, trash: Boolean, where: Media_where, locale: LocaleInputType): countallMedia
+  versionPost(id: String, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): PostVersion
+  versionsPosts(where: versionsPost_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): versionsPosts
+  Media(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Media
+  allMedia(draft: Boolean, where: Media_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): allMedia
+  countallMedia(draft: Boolean, where: Media_where, locale: LocaleInputType): countallMedia
   docAccessMedia(id: String!): mediaDocAccess
-  User(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): User
-  Users(draft: Boolean, where: User_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): Users
-  countUsers(draft: Boolean, trash: Boolean, where: User_where, locale: LocaleInputType): countUsers
+  User(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): User
+  Users(draft: Boolean, where: User_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): Users
+  countUsers(draft: Boolean, where: User_where, locale: LocaleInputType): countUsers
   docAccessUser(id: String!): usersDocAccess
   meUser: usersMe
   initializedUser: Boolean
-  Tag(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): Tag
-  Tags(draft: Boolean, where: Tag_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): Tags
-  countTags(draft: Boolean, trash: Boolean, where: Tag_where, locale: LocaleInputType): countTags
+  Tag(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Tag
+  Tags(draft: Boolean, where: Tag_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): Tags
+  countTags(draft: Boolean, where: Tag_where, locale: LocaleInputType): countTags
   docAccessTag(id: String!): tagsDocAccess
-  Author(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): Author
-  Authors(draft: Boolean, where: Author_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): Authors
-  countAuthors(draft: Boolean, trash: Boolean, where: Author_where, locale: LocaleInputType): countAuthors
+  Author(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Author
+  Authors(draft: Boolean, where: Author_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): Authors
+  countAuthors(draft: Boolean, where: Author_where, locale: LocaleInputType): countAuthors
   docAccessAuthor(id: String!): authorsDocAccess
-  Micro_post(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): Micro_post
-  Micro_posts(draft: Boolean, where: Micro_post_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): Micro_posts
-  countMicro_posts(draft: Boolean, trash: Boolean, where: Micro_post_where, locale: LocaleInputType): countMicro_posts
+  Micro_post(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Micro_post
+  Micro_posts(draft: Boolean, where: Micro_post_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): Micro_posts
+  countMicro_posts(draft: Boolean, where: Micro_post_where, locale: LocaleInputType): countMicro_posts
   docAccessMicro_post(id: String!): micro_postsDocAccess
-  versionMicro_post(id: String, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): Micro_postVersion
-  versionsMicro_posts(where: versionsMicro_post_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): versionsMicro_posts
-  Micro_post_internal_link(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): Micro_post_internal_link
-  Micro_post_internal_links(draft: Boolean, where: Micro_post_internal_link_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): Micro_post_internal_links
-  countMicro_post_internal_links(draft: Boolean, trash: Boolean, where: Micro_post_internal_link_where, locale: LocaleInputType): countMicro_post_internal_links
+  versionMicro_post(id: String, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Micro_postVersion
+  versionsMicro_posts(where: versionsMicro_post_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): versionsMicro_posts
+  Micro_post_internal_link(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Micro_post_internal_link
+  Micro_post_internal_links(draft: Boolean, where: Micro_post_internal_link_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): Micro_post_internal_links
+  countMicro_post_internal_links(draft: Boolean, where: Micro_post_internal_link_where, locale: LocaleInputType): countMicro_post_internal_links
   docAccessMicro_post_internal_link(id: String!): micro_post_internal_linksDocAccess
-  Micro_post_external_link(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): Micro_post_external_link
-  Micro_post_external_links(draft: Boolean, where: Micro_post_external_link_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): Micro_post_external_links
-  countMicro_post_external_links(draft: Boolean, trash: Boolean, where: Micro_post_external_link_where, locale: LocaleInputType): countMicro_post_external_links
+  Micro_post_external_link(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Micro_post_external_link
+  Micro_post_external_links(draft: Boolean, where: Micro_post_external_link_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): Micro_post_external_links
+  countMicro_post_external_links(draft: Boolean, where: Micro_post_external_link_where, locale: LocaleInputType): countMicro_post_external_links
   docAccessMicro_post_external_link(id: String!): micro_post_external_linksDocAccess
-  PayloadLockedDocument(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): PayloadLockedDocument
-  PayloadLockedDocuments(draft: Boolean, where: PayloadLockedDocument_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): PayloadLockedDocuments
-  countPayloadLockedDocuments(draft: Boolean, trash: Boolean, where: PayloadLockedDocument_where, locale: LocaleInputType): countPayloadLockedDocuments
+  PayloadLockedDocument(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): PayloadLockedDocument
+  PayloadLockedDocuments(draft: Boolean, where: PayloadLockedDocument_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): PayloadLockedDocuments
+  countPayloadLockedDocuments(draft: Boolean, where: PayloadLockedDocument_where, locale: LocaleInputType): countPayloadLockedDocuments
   docAccessPayloadLockedDocument(id: String!): payload_locked_documentsDocAccess
-  PayloadPreference(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): PayloadPreference
-  PayloadPreferences(draft: Boolean, where: PayloadPreference_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): PayloadPreferences
-  countPayloadPreferences(draft: Boolean, trash: Boolean, where: PayloadPreference_where, locale: LocaleInputType): countPayloadPreferences
+  PayloadPreference(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): PayloadPreference
+  PayloadPreferences(draft: Boolean, where: PayloadPreference_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String): PayloadPreferences
+  countPayloadPreferences(draft: Boolean, where: PayloadPreference_where, locale: LocaleInputType): countPayloadPreferences
   docAccessPayloadPreference(id: String!): payload_preferencesDocAccess
   Access: Access
 }
@@ -2928,10 +2928,11 @@ type Micro_post {
   title: String
   attachment(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Media
   content: String
+  slug: String
   tags(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Tag!]
   meta: Micro_post_Meta
-  links(count: Boolean, limit: Int, page: Int, sort: String, where: Micro_post_internal_link_where): Micro_post_Links
-  targeted_from_note_links(count: Boolean, limit: Int, page: Int, sort: String, where: Micro_post_internal_link_where): Micro_post_Targeted_from_note_links
+  links(limit: Int, page: Int, sort: String, where: Micro_post_internal_link_where): Micro_post_Links
+  targeted_from_note_links(limit: Int, page: Int, sort: String, where: Micro_post_internal_link_where): Micro_post_Targeted_from_note_links
   externalLinks(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Micro_post_external_link!]
   social: Micro_post_Social
   publishedAt: DateTime
@@ -2951,7 +2952,6 @@ type Micro_post_Meta {
 type Micro_post_Links {
   docs: [Micro_post_internal_link!]!
   hasNextPage: Boolean!
-  totalDocs: Int
 }
 
 type Micro_post_internal_link {
@@ -3059,7 +3059,6 @@ input Micro_post_internal_link_where_or {
 type Micro_post_Targeted_from_note_links {
   docs: [Micro_post_internal_link!]!
   hasNextPage: Boolean!
-  totalDocs: Int
 }
 
 type Micro_post_external_link {
@@ -3103,6 +3102,7 @@ input Micro_post_where {
   title: Micro_post_title_operator
   attachment: Micro_post_attachment_operator
   content: Micro_post_content_operator
+  slug: Micro_post_slug_operator
   tags: Micro_post_tags_operator
   meta__title: Micro_post_meta__title_operator
   meta__image: Micro_post_meta__image_operator
@@ -3146,6 +3146,16 @@ input Micro_post_content_operator {
   not_equals: String
   like: String
   contains: String
+}
+
+input Micro_post_slug_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
 }
 
 input Micro_post_tags_operator {
@@ -3297,6 +3307,7 @@ input Micro_post_where_and {
   title: Micro_post_title_operator
   attachment: Micro_post_attachment_operator
   content: Micro_post_content_operator
+  slug: Micro_post_slug_operator
   tags: Micro_post_tags_operator
   meta__title: Micro_post_meta__title_operator
   meta__image: Micro_post_meta__image_operator
@@ -3320,6 +3331,7 @@ input Micro_post_where_or {
   title: Micro_post_title_operator
   attachment: Micro_post_attachment_operator
   content: Micro_post_content_operator
+  slug: Micro_post_slug_operator
   tags: Micro_post_tags_operator
   meta__title: Micro_post_meta__title_operator
   meta__image: Micro_post_meta__image_operator
@@ -3356,6 +3368,7 @@ type Micro_postsDocAccessFields {
   title: Micro_postsDocAccessFields_title
   attachment: Micro_postsDocAccessFields_attachment
   content: Micro_postsDocAccessFields_content
+  slug: Micro_postsDocAccessFields_slug
   tags: Micro_postsDocAccessFields_tags
   image: Micro_postsDocAccessFields_image
   description: Micro_postsDocAccessFields_description
@@ -3437,6 +3450,29 @@ type Micro_postsDocAccessFields_content_Update {
 }
 
 type Micro_postsDocAccessFields_content_Delete {
+  permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_slug {
+  create: Micro_postsDocAccessFields_slug_Create
+  read: Micro_postsDocAccessFields_slug_Read
+  update: Micro_postsDocAccessFields_slug_Update
+  delete: Micro_postsDocAccessFields_slug_Delete
+}
+
+type Micro_postsDocAccessFields_slug_Create {
+  permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_slug_Read {
+  permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_slug_Update {
+  permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_slug_Delete {
   permission: Boolean!
 }
 
@@ -3884,10 +3920,11 @@ type Micro_postVersion_Version {
   title: String
   attachment(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Media
   content: String
+  slug: String
   tags(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Tag!]
   meta: Micro_postVersion_Version_Meta
-  links(count: Boolean, limit: Int, page: Int, sort: String, where: Micro_post_internal_link_where): Micro_postVersion_Version_Links
-  targeted_from_note_links(count: Boolean, limit: Int, page: Int, sort: String, where: Micro_post_internal_link_where): Micro_postVersion_Version_Targeted_from_note_links
+  links(limit: Int, page: Int, sort: String, where: Micro_post_internal_link_where): Micro_postVersion_Version_Links
+  targeted_from_note_links(limit: Int, page: Int, sort: String, where: Micro_post_internal_link_where): Micro_postVersion_Version_Targeted_from_note_links
   externalLinks(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Micro_post_external_link!]
   social: Micro_postVersion_Version_Social
   publishedAt: DateTime
@@ -3907,13 +3944,11 @@ type Micro_postVersion_Version_Meta {
 type Micro_postVersion_Version_Links {
   docs: [Micro_post_internal_link!]!
   hasNextPage: Boolean!
-  totalDocs: Int
 }
 
 type Micro_postVersion_Version_Targeted_from_note_links {
   docs: [Micro_post_internal_link!]!
   hasNextPage: Boolean!
-  totalDocs: Int
 }
 
 type Micro_postVersion_Version_Social {
@@ -3961,6 +3996,7 @@ input versionsMicro_post_where {
   version__title: versionsMicro_post_version__title_operator
   version__attachment: versionsMicro_post_version__attachment_operator
   version__content: versionsMicro_post_version__content_operator
+  version__slug: versionsMicro_post_version__slug_operator
   version__tags: versionsMicro_post_version__tags_operator
   meta__title: versionsMicro_post_meta__title_operator
   meta__image: versionsMicro_post_meta__image_operator
@@ -4019,6 +4055,16 @@ input versionsMicro_post_version__content_operator {
   not_equals: String
   like: String
   contains: String
+}
+
+input versionsMicro_post_version__slug_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
 }
 
 input versionsMicro_post_version__tags_operator {
@@ -4231,6 +4277,7 @@ input versionsMicro_post_where_and {
   version__title: versionsMicro_post_version__title_operator
   version__attachment: versionsMicro_post_version__attachment_operator
   version__content: versionsMicro_post_version__content_operator
+  version__slug: versionsMicro_post_version__slug_operator
   version__tags: versionsMicro_post_version__tags_operator
   meta__title: versionsMicro_post_meta__title_operator
   meta__image: versionsMicro_post_meta__image_operator
@@ -4261,6 +4308,7 @@ input versionsMicro_post_where_or {
   version__title: versionsMicro_post_version__title_operator
   version__attachment: versionsMicro_post_version__attachment_operator
   version__content: versionsMicro_post_version__content_operator
+  version__slug: versionsMicro_post_version__slug_operator
   version__tags: versionsMicro_post_version__tags_operator
   meta__title: versionsMicro_post_meta__title_operator
   meta__image: versionsMicro_post_meta__image_operator
@@ -6727,6 +6775,7 @@ type Micro_postsFields {
   title: Micro_postsFields_title
   attachment: Micro_postsFields_attachment
   content: Micro_postsFields_content
+  slug: Micro_postsFields_slug
   tags: Micro_postsFields_tags
   image: Micro_postsFields_image
   description: Micro_postsFields_description
@@ -6808,6 +6857,29 @@ type Micro_postsFields_content_Update {
 }
 
 type Micro_postsFields_content_Delete {
+  permission: Boolean!
+}
+
+type Micro_postsFields_slug {
+  create: Micro_postsFields_slug_Create
+  read: Micro_postsFields_slug_Read
+  update: Micro_postsFields_slug_Update
+  delete: Micro_postsFields_slug_Delete
+}
+
+type Micro_postsFields_slug_Create {
+  permission: Boolean!
+}
+
+type Micro_postsFields_slug_Read {
+  permission: Boolean!
+}
+
+type Micro_postsFields_slug_Update {
+  permission: Boolean!
+}
+
+type Micro_postsFields_slug_Delete {
   permission: Boolean!
 }
 
@@ -7821,17 +7893,17 @@ type PayloadPreferencesDeleteAccess {
 
 type Mutation {
   createPost(data: mutationPostInput!, draft: Boolean, locale: LocaleInputType): Post
-  updatePost(id: String!, autosave: Boolean, data: mutationPostUpdateInput!, draft: Boolean, locale: LocaleInputType, trash: Boolean): Post
-  deletePost(id: String!, trash: Boolean): Post
+  updatePost(id: String!, autosave: Boolean, data: mutationPostUpdateInput!, draft: Boolean, locale: LocaleInputType): Post
+  deletePost(id: String!): Post
   duplicatePost(id: String!, data: mutationPostInput!): Post
   restoreVersionPost(id: String, draft: Boolean): Post
   createMedia(data: mutationMediaInput!, draft: Boolean, locale: LocaleInputType): Media
-  updateMedia(id: String!, autosave: Boolean, data: mutationMediaUpdateInput!, draft: Boolean, locale: LocaleInputType, trash: Boolean): Media
-  deleteMedia(id: String!, trash: Boolean): Media
+  updateMedia(id: String!, autosave: Boolean, data: mutationMediaUpdateInput!, draft: Boolean, locale: LocaleInputType): Media
+  deleteMedia(id: String!): Media
   duplicateMedia(id: String!, data: mutationMediaInput!): Media
   createUser(data: mutationUserInput!, draft: Boolean, locale: LocaleInputType): User
-  updateUser(id: String!, autosave: Boolean, data: mutationUserUpdateInput!, draft: Boolean, locale: LocaleInputType, trash: Boolean): User
-  deleteUser(id: String!, trash: Boolean): User
+  updateUser(id: String!, autosave: Boolean, data: mutationUserUpdateInput!, draft: Boolean, locale: LocaleInputType): User
+  deleteUser(id: String!): User
   refreshTokenUser: usersRefreshedUser
   logoutUser(allSessions: Boolean): String
   unlockUser(email: String!): Boolean!
@@ -7840,33 +7912,33 @@ type Mutation {
   resetPasswordUser(password: String, token: String): usersResetPassword
   verifyEmailUser(token: String): Boolean
   createTag(data: mutationTagInput!, draft: Boolean, locale: LocaleInputType): Tag
-  updateTag(id: String!, autosave: Boolean, data: mutationTagUpdateInput!, draft: Boolean, locale: LocaleInputType, trash: Boolean): Tag
-  deleteTag(id: String!, trash: Boolean): Tag
+  updateTag(id: String!, autosave: Boolean, data: mutationTagUpdateInput!, draft: Boolean, locale: LocaleInputType): Tag
+  deleteTag(id: String!): Tag
   duplicateTag(id: String!, data: mutationTagInput!): Tag
   createAuthor(data: mutationAuthorInput!, draft: Boolean, locale: LocaleInputType): Author
-  updateAuthor(id: String!, autosave: Boolean, data: mutationAuthorUpdateInput!, draft: Boolean, locale: LocaleInputType, trash: Boolean): Author
-  deleteAuthor(id: String!, trash: Boolean): Author
+  updateAuthor(id: String!, autosave: Boolean, data: mutationAuthorUpdateInput!, draft: Boolean, locale: LocaleInputType): Author
+  deleteAuthor(id: String!): Author
   duplicateAuthor(id: String!, data: mutationAuthorInput!): Author
   createMicro_post(data: mutationMicro_postInput!, draft: Boolean, locale: LocaleInputType): Micro_post
-  updateMicro_post(id: String!, autosave: Boolean, data: mutationMicro_postUpdateInput!, draft: Boolean, locale: LocaleInputType, trash: Boolean): Micro_post
-  deleteMicro_post(id: String!, trash: Boolean): Micro_post
+  updateMicro_post(id: String!, autosave: Boolean, data: mutationMicro_postUpdateInput!, draft: Boolean, locale: LocaleInputType): Micro_post
+  deleteMicro_post(id: String!): Micro_post
   duplicateMicro_post(id: String!, data: mutationMicro_postInput!): Micro_post
   restoreVersionMicro_post(id: String, draft: Boolean): Micro_post
   createMicro_post_internal_link(data: mutationMicro_post_internal_linkInput!, draft: Boolean, locale: LocaleInputType): Micro_post_internal_link
-  updateMicro_post_internal_link(id: String!, autosave: Boolean, data: mutationMicro_post_internal_linkUpdateInput!, draft: Boolean, locale: LocaleInputType, trash: Boolean): Micro_post_internal_link
-  deleteMicro_post_internal_link(id: String!, trash: Boolean): Micro_post_internal_link
+  updateMicro_post_internal_link(id: String!, autosave: Boolean, data: mutationMicro_post_internal_linkUpdateInput!, draft: Boolean, locale: LocaleInputType): Micro_post_internal_link
+  deleteMicro_post_internal_link(id: String!): Micro_post_internal_link
   duplicateMicro_post_internal_link(id: String!, data: mutationMicro_post_internal_linkInput!): Micro_post_internal_link
   createMicro_post_external_link(data: mutationMicro_post_external_linkInput!, draft: Boolean, locale: LocaleInputType): Micro_post_external_link
-  updateMicro_post_external_link(id: String!, autosave: Boolean, data: mutationMicro_post_external_linkUpdateInput!, draft: Boolean, locale: LocaleInputType, trash: Boolean): Micro_post_external_link
-  deleteMicro_post_external_link(id: String!, trash: Boolean): Micro_post_external_link
+  updateMicro_post_external_link(id: String!, autosave: Boolean, data: mutationMicro_post_external_linkUpdateInput!, draft: Boolean, locale: LocaleInputType): Micro_post_external_link
+  deleteMicro_post_external_link(id: String!): Micro_post_external_link
   duplicateMicro_post_external_link(id: String!, data: mutationMicro_post_external_linkInput!): Micro_post_external_link
   createPayloadLockedDocument(data: mutationPayloadLockedDocumentInput!, draft: Boolean, locale: LocaleInputType): PayloadLockedDocument
-  updatePayloadLockedDocument(id: String!, autosave: Boolean, data: mutationPayloadLockedDocumentUpdateInput!, draft: Boolean, locale: LocaleInputType, trash: Boolean): PayloadLockedDocument
-  deletePayloadLockedDocument(id: String!, trash: Boolean): PayloadLockedDocument
+  updatePayloadLockedDocument(id: String!, autosave: Boolean, data: mutationPayloadLockedDocumentUpdateInput!, draft: Boolean, locale: LocaleInputType): PayloadLockedDocument
+  deletePayloadLockedDocument(id: String!): PayloadLockedDocument
   duplicatePayloadLockedDocument(id: String!, data: mutationPayloadLockedDocumentInput!): PayloadLockedDocument
   createPayloadPreference(data: mutationPayloadPreferenceInput!, draft: Boolean, locale: LocaleInputType): PayloadPreference
-  updatePayloadPreference(id: String!, autosave: Boolean, data: mutationPayloadPreferenceUpdateInput!, draft: Boolean, locale: LocaleInputType, trash: Boolean): PayloadPreference
-  deletePayloadPreference(id: String!, trash: Boolean): PayloadPreference
+  updatePayloadPreference(id: String!, autosave: Boolean, data: mutationPayloadPreferenceUpdateInput!, draft: Boolean, locale: LocaleInputType): PayloadPreference
+  deletePayloadPreference(id: String!): PayloadPreference
   duplicatePayloadPreference(id: String!, data: mutationPayloadPreferenceInput!): PayloadPreference
 }
 
@@ -8077,6 +8149,7 @@ input mutationMicro_postInput {
   title: String
   attachment: String
   content: String
+  slug: String!
   tags: [String]
   meta: mutationMicro_post_MetaInput
   externalLinks: [String]
@@ -8114,6 +8187,7 @@ input mutationMicro_postUpdateInput {
   title: String
   attachment: String
   content: String
+  slug: String
   tags: [String]
   meta: mutationMicro_postUpdate_MetaInput
   externalLinks: [String]

@@ -509,6 +509,7 @@ export const micro_posts = pgTable(
     attachment: uuid('attachment_id').references(() => media.id, {
       onDelete: 'set null',
     }),
+    slug: varchar('slug'),
     social_x_autoPost: boolean('social_x_auto_post').default(false),
     social_x_autoPosted: boolean('social_x_auto_posted').default(false),
     social_x_autoPostedAt: timestamp('social_x_auto_posted_at', {
@@ -528,6 +529,7 @@ export const micro_posts = pgTable(
   },
   (columns) => ({
     micro_posts_attachment_idx: index('micro_posts_attachment_idx').on(columns.attachment),
+    micro_posts_slug_idx: uniqueIndex('micro_posts_slug_idx').on(columns.slug),
     micro_posts_updated_at_idx: index('micro_posts_updated_at_idx').on(columns.updatedAt),
     micro_posts_created_at_idx: index('micro_posts_created_at_idx').on(columns.createdAt),
     micro_posts__status_idx: index('micro_posts__status_idx').on(columns._status),
@@ -618,6 +620,7 @@ export const _micro_posts_v = pgTable(
     version_attachment: uuid('version_attachment_id').references(() => media.id, {
       onDelete: 'set null',
     }),
+    version_slug: varchar('version_slug'),
     version_social_x_autoPost: boolean('version_social_x_auto_post').default(false),
     version_social_x_autoPosted: boolean('version_social_x_auto_posted').default(false),
     version_social_x_autoPostedAt: timestamp('version_social_x_auto_posted_at', {
@@ -658,6 +661,9 @@ export const _micro_posts_v = pgTable(
     _micro_posts_v_version_version_attachment_idx: index(
       '_micro_posts_v_version_version_attachment_idx',
     ).on(columns.version_attachment),
+    _micro_posts_v_version_version_slug_idx: index('_micro_posts_v_version_version_slug_idx').on(
+      columns.version_slug,
+    ),
     _micro_posts_v_version_version_updated_at_idx: index(
       '_micro_posts_v_version_version_updated_at_idx',
     ).on(columns.version_updatedAt),
@@ -920,11 +926,11 @@ export const payload_locked_documents_rels = pgTable(
     payload_locked_documents_rels_micro_posts_id_idx: index(
       'payload_locked_documents_rels_micro_posts_id_idx',
     ).on(columns.micro_postsID),
-    payload_locked_documents_rels_micro_post_internal_links__idx: index(
-      'payload_locked_documents_rels_micro_post_internal_links__idx',
+    payload_locked_documents_rels_micro_post_internal_links_id_idx: index(
+      'payload_locked_documents_rels_micro_post_internal_links_id_idx',
     ).on(columns.micro_post_internal_linksID),
-    payload_locked_documents_rels_micro_post_external_links__idx: index(
-      'payload_locked_documents_rels_micro_post_external_links__idx',
+    payload_locked_documents_rels_micro_post_external_links_id_idx: index(
+      'payload_locked_documents_rels_micro_post_external_links_id_idx',
     ).on(columns.micro_post_external_linksID),
     parentFk: foreignKey({
       columns: [columns['parent']],

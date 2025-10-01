@@ -109,6 +109,7 @@ await seedCollection(authors,'authors',(item,locale)=>({
     social: item.social,
     _status: item._status as 'draft' | 'published',
     tags: item.tags.map((tag) =>  requireIdInMap(tag.$oid)),
+    slug: item._id.$oid,
 }),(item)=>item._id.$oid )  
 
 

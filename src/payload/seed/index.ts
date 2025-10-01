@@ -22,6 +22,12 @@ const user = req.user
 if (null === user) {
   throw new Error('No user found in request')
 }
+  if ((await payload.find({
+    collection: 'media',
+    limit: 1
+  })).docs.length > 0) {
+    throw new Error('Seeding disable because there is already data')
+  }
 const mongoIdToUuidMap: Record<string, string> = {}
 
 
@@ -31,12 +37,6 @@ const seedCollection = async <T extends CollectionSlug, D extends unknown>(
   getData: (item: D, locale: typeof locales[number]) => RequiredDataFromCollectionSlug<T>,
   getLegacyId: (item: D) => string
 ) => {
-  if ((await payload.find({
-    collection: 'media',
-    limit: 1
-  })).docs.length > 0) {
-    throw new Error('Seeding disable because there is already data')
-  }
   payload.logger.info(`Seeding ${collection}...`);
   for (const item of data) {
      payload.logger.info(`Processing ${collection} ${getLegacyId(item )}`);

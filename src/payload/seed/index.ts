@@ -1,7 +1,7 @@
 import type { CollectionSlug, Payload, PayloadRequest, RequiredDataFromCollectionSlug } from 'payload'
 
 import { fileURLToPath } from 'url'
-import { authors, locales, media, microposts, tags } from './data'
+import { authors, locales, media, micropostExternalLinks, microposts, tags } from './data'
 
 
 const filename = fileURLToPath(import.meta.url)
@@ -95,7 +95,7 @@ await seedCollection(authors,'authors',(item,locale)=>({
     meta: {
       title: item.meta.title[locale]??'',
       description: item.meta.description[locale]??'',
-      // image: item.meta.image ? (requireIdInMap(item.meta.image['en-US'].$oid)) : undefined,
+       image: item.meta.image ? (requireIdInMap(item.meta.image['en-US'].$oid)) : undefined,
      },
     content: item.content[locale]??'',
     publishedAt: item.publishedAt.$date,
@@ -106,7 +106,13 @@ await seedCollection(authors,'authors',(item,locale)=>({
 }),(item)=>item._id.$oid )  
 
 
-  
+  await seedCollection(micropostExternalLinks,'micro_post_external_links',(item)=>({
+  updatedAt: item.updatedAt.$date,
+  createdAt: item.createdAt.$date,
+  target_url: item.target_url,
+  title:item.title['en-US']
+
+}),(item)=>item._id.$oid)
 
 
 return

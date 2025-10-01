@@ -49,6 +49,7 @@ const seedCollection = async <T extends CollectionSlug, D extends unknown>(
     });
     payload.logger.info(`Localizing ${collection} ${tag.id}`);
 
+   /* This shit still does not work
    if (collection  === 'micro_posts' ){
     for (const locale of locales) {
       await payload.update({
@@ -70,7 +71,7 @@ const seedCollection = async <T extends CollectionSlug, D extends unknown>(
         locale,
       });
     }
-   }
+   }*/ 
     mongoIdToUuidMap[getLegacyId(item)] = tag.id;
   }
   payload.logger.info(`Seeded ${collection}.`);

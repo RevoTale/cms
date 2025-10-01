@@ -26,7 +26,7 @@ const mongoIdToUuidMap: Record<string, string> = {}
 
 
 const seedCollection = async <T extends CollectionSlug, D extends unknown>(
-  data: D[],
+  data: readonly D[],
   collection: T,
   getData: (item: D, locale: typeof locales[number]) => RequiredDataFromCollectionSlug<T>,
   getLegacyId: (item: D) => string
@@ -91,20 +91,19 @@ await seedCollection(authors,'authors',(item,locale)=>({
   await seedCollection(microposts,'micro_posts',(item,locale)=>({ 
     updatedAt: item.updatedAt.$date,
     createdAt: item.createdAt.$date,
-    title: item.title[locale]??'',
+    title: item.title[locale]??'no title',
     meta: {
       title: item.meta.title[locale]??'',
       description: item.meta.description[locale]??'',
-      image: item.meta.image ? (item.meta.image['en-US'].$oid in mongoIdToUuidMap ? requireIdInMap(item.meta.image['en-US'].$oid) : undefined) : undefined,
+      // image: item.meta.image ? (requireIdInMap(item.meta.image['en-US'].$oid)) : undefined,
      },
     content: item.content[locale]??'',
     publishedAt: item.publishedAt.$date,
-    authorSlug: item.authorSlug,
-    authors: item.authors.map((author) => author.$oid in mongoIdToUuidMap ? requireIdInMap(author.$oid) : ''),
+    authors: item.authors.map((author) => requireIdInMap(author.$oid)),
     social: item.social,
-    _status: 'published',
-    tags: item.tags.map((tag) => tag.$oid in mongoIdToUuidMap ? requireIdInMap(tag.$oid) : ''),
-}),(item)=>item._id.$oid )
+    _status: item._status as 'draft' | 'published',
+    tags: item.tags.map((tag) =>  requireIdInMap(tag.$oid)),
+}),(item)=>item._id.$oid )  
 
 
   

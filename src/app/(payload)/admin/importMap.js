@@ -12,16 +12,24 @@ import { default as default_85bc59714294c8b0fddcdba92bbdc31b } from '../../../pa
 import { S3ClientUploadHandler as S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24 } from '@payloadcms/storage-s3/client'
 
 export const importMap = {
-  "@/components/AutoTranslation/AutoTranslateButton#default": default_2803ba5d37e0e98c0a514325dba8ed4c,
-  "@payloadcms/plugin-seo/client#OverviewComponent": OverviewComponent_a8a977ebc872c5d5ea7ee689724c0860,
-  "@payloadcms/plugin-seo/client#MetaTitleComponent": MetaTitleComponent_a8a977ebc872c5d5ea7ee689724c0860,
-  "@payloadcms/plugin-seo/client#MetaImageComponent": MetaImageComponent_a8a977ebc872c5d5ea7ee689724c0860,
-  "@payloadcms/plugin-seo/client#MetaDescriptionComponent": MetaDescriptionComponent_a8a977ebc872c5d5ea7ee689724c0860,
-  "@payloadcms/plugin-seo/client#PreviewComponent": PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860,
-  "@/components/ImageGenerator/GenerateImageButton#default": default_20175a0edd5b6b07954023de234325fd,
-  "/graphics/Icon#default": default_ab907b64888346be01c73b4008a82fb1,
-  "/graphics/Logo#default": default_18511c0cf9cf95761601ec48f5703bd5,
-  "/payload/components/BeforeDashboard#default": default_6bf288f4387b1ea5c71ce14579a9098c,
-  "/payload/components/BeforeLogin#default": default_85bc59714294c8b0fddcdba92bbdc31b,
-  "@payloadcms/storage-s3/client#S3ClientUploadHandler": S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24
+  '@/components/AutoTranslation/AutoTranslateButton#default':
+    default_2803ba5d37e0e98c0a514325dba8ed4c,
+  '@payloadcms/plugin-seo/client#OverviewComponent':
+    OverviewComponent_a8a977ebc872c5d5ea7ee689724c0860,
+  '@payloadcms/plugin-seo/client#MetaTitleComponent':
+    MetaTitleComponent_a8a977ebc872c5d5ea7ee689724c0860,
+  '@payloadcms/plugin-seo/client#MetaImageComponent':
+    MetaImageComponent_a8a977ebc872c5d5ea7ee689724c0860,
+  '@payloadcms/plugin-seo/client#MetaDescriptionComponent':
+    MetaDescriptionComponent_a8a977ebc872c5d5ea7ee689724c0860,
+  '@payloadcms/plugin-seo/client#PreviewComponent':
+    PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860,
+  '@/components/ImageGenerator/GenerateImageButton#default':
+    default_20175a0edd5b6b07954023de234325fd,
+  '/graphics/Icon#default': default_ab907b64888346be01c73b4008a82fb1,
+  '/graphics/Logo#default': default_18511c0cf9cf95761601ec48f5703bd5,
+  '/payload/components/BeforeDashboard#default': default_6bf288f4387b1ea5c71ce14579a9098c,
+  '/payload/components/BeforeLogin#default': default_85bc59714294c8b0fddcdba92bbdc31b,
+  '@payloadcms/storage-s3/client#S3ClientUploadHandler':
+    S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24,
 }

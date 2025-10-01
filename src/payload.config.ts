@@ -132,7 +132,7 @@ if (!serverURl) {
 const serverDomain = new URL(serverURl).hostname
 const hostnameWithProtocol = `https://${serverDomain}`
 const bucket = process.env.S3_BUCKET ?? ''
-const enableS3 = process.env.NODE_ENV === 'production' && bucket !== ''
+const enableS3 =true //Added alway true because due to the following issues https://github.com/payloadcms/payload/issues/12475
 const s3PluginConfig = s3Storage({
   collections: {
     [Media.slug]: {

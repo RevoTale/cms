@@ -311,6 +311,7 @@ export const media = pgTable(
   'media',
   {
     id: uuid('id').defaultRandom().primaryKey(),
+    prefix: varchar('prefix').default('main_'),
     updatedAt: timestamp('updated_at', { mode: 'string', withTimezone: true, precision: 3 })
       .defaultNow()
       .notNull(),

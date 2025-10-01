@@ -71,6 +71,7 @@ type Media {
   alt: String
   description: String
   caption: String
+  prefix: String
   updatedAt: DateTime
   createdAt: DateTime
   url: String
@@ -1351,6 +1352,7 @@ input Media_where {
   alt: Media_alt_operator
   description: Media_description_operator
   caption: Media_caption_operator
+  prefix: Media_prefix_operator
   updatedAt: Media_updatedAt_operator
   createdAt: Media_createdAt_operator
   url: Media_url_operator
@@ -1389,6 +1391,17 @@ input Media_description_operator {
 }
 
 input Media_caption_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Media_prefix_operator {
   equals: String
   not_equals: String
   like: String
@@ -1530,6 +1543,7 @@ input Media_where_and {
   alt: Media_alt_operator
   description: Media_description_operator
   caption: Media_caption_operator
+  prefix: Media_prefix_operator
   updatedAt: Media_updatedAt_operator
   createdAt: Media_createdAt_operator
   url: Media_url_operator
@@ -1550,6 +1564,7 @@ input Media_where_or {
   alt: Media_alt_operator
   description: Media_description_operator
   caption: Media_caption_operator
+  prefix: Media_prefix_operator
   updatedAt: Media_updatedAt_operator
   createdAt: Media_createdAt_operator
   url: Media_url_operator
@@ -1582,6 +1597,7 @@ type MediaDocAccessFields {
   alt: MediaDocAccessFields_alt
   description: MediaDocAccessFields_description
   caption: MediaDocAccessFields_caption
+  prefix: MediaDocAccessFields_prefix
   updatedAt: MediaDocAccessFields_updatedAt
   createdAt: MediaDocAccessFields_createdAt
   url: MediaDocAccessFields_url
@@ -1661,6 +1677,29 @@ type MediaDocAccessFields_caption_Update {
 }
 
 type MediaDocAccessFields_caption_Delete {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_prefix {
+  create: MediaDocAccessFields_prefix_Create
+  read: MediaDocAccessFields_prefix_Read
+  update: MediaDocAccessFields_prefix_Update
+  delete: MediaDocAccessFields_prefix_Delete
+}
+
+type MediaDocAccessFields_prefix_Create {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_prefix_Read {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_prefix_Update {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_prefix_Delete {
   permission: Boolean!
 }
 
@@ -5884,6 +5923,7 @@ type MediaFields {
   alt: MediaFields_alt
   description: MediaFields_description
   caption: MediaFields_caption
+  prefix: MediaFields_prefix
   updatedAt: MediaFields_updatedAt
   createdAt: MediaFields_createdAt
   url: MediaFields_url
@@ -5963,6 +6003,29 @@ type MediaFields_caption_Update {
 }
 
 type MediaFields_caption_Delete {
+  permission: Boolean!
+}
+
+type MediaFields_prefix {
+  create: MediaFields_prefix_Create
+  read: MediaFields_prefix_Read
+  update: MediaFields_prefix_Update
+  delete: MediaFields_prefix_Delete
+}
+
+type MediaFields_prefix_Create {
+  permission: Boolean!
+}
+
+type MediaFields_prefix_Read {
+  permission: Boolean!
+}
+
+type MediaFields_prefix_Update {
+  permission: Boolean!
+}
+
+type MediaFields_prefix_Delete {
   permission: Boolean!
 }
 
@@ -8122,6 +8185,7 @@ input mutationMediaInput {
   alt: String
   description: String
   caption: String
+  prefix: String
   updatedAt: String
   createdAt: String
   url: String
@@ -8139,6 +8203,7 @@ input mutationMediaUpdateInput {
   alt: String
   description: String
   caption: String
+  prefix: String
   updatedAt: String
   createdAt: String
   url: String

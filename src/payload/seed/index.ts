@@ -49,7 +49,7 @@ const seedCollection = async <T extends CollectionSlug, D extends unknown>(
     });
     payload.logger.info(`Localizing ${collection} ${tag.id}`);
 
-   /* for (const locale of locales) {
+   for (const locale of locales) {
       await payload.update({
         collection: 'tags',
         id: tag.id,
@@ -57,7 +57,7 @@ const seedCollection = async <T extends CollectionSlug, D extends unknown>(
         req,
         locale,
       });
-    }*/
+    }
     mongoIdToUuidMap[getLegacyId(item)] = tag.id;
   }
   payload.logger.info(`Seeded ${collection}.`);
@@ -103,6 +103,7 @@ await seedCollection(authors,'authors',(item,locale)=>({
       description: item.meta.description[locale]??'',
        image: item.meta.image ? (requireIdInMap(item.meta.image['en-US'].$oid)) : undefined,
      },
+     attachment: item.attachment ? (requireIdInMap(item.attachment.$oid)) : undefined,
     content: item.content[locale]??'',
     publishedAt: item.publishedAt.$date,
     authors: item.authors.map((author) => requireIdInMap(author.$oid)),

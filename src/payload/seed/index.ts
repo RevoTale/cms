@@ -49,7 +49,19 @@ const seedCollection = async <T extends CollectionSlug, D extends unknown>(
     });
     payload.logger.info(`Localizing ${collection} ${tag.id}`);
 
-   for (const locale of locales) {
+   if (collection  === 'micro_posts' ){
+    for (const locale of locales) {
+      await payload.update({
+        collection: 'micro_posts',
+        id: tag.id,
+        data: getData(item, locale),
+        req,
+        locale,
+      });
+    }
+   }
+    if (collection  === 'tags' ){
+    for (const locale of locales) {
       await payload.update({
         collection: 'tags',
         id: tag.id,
@@ -58,6 +70,7 @@ const seedCollection = async <T extends CollectionSlug, D extends unknown>(
         locale,
       });
     }
+   }
     mongoIdToUuidMap[getLegacyId(item)] = tag.id;
   }
   payload.logger.info(`Seeded ${collection}.`);

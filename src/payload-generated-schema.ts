@@ -503,6 +503,33 @@ export const authors_locales = pgTable(
   }),
 )
 
+export const ai_call_logs = pgTable(
+  'ai_call_logs',
+  {
+    id: uuid('id').defaultRandom().primaryKey(),
+    title: varchar('title').notNull(),
+    input: varchar('input').notNull(),
+    output: varchar('output').notNull(),
+    execution_time: numeric('execution_time').notNull(),
+    user: uuid('user_id')
+      .notNull()
+      .references(() => users.id, {
+        onDelete: 'set null',
+      }),
+    updatedAt: timestamp('updated_at', { mode: 'string', withTimezone: true, precision: 3 })
+      .defaultNow()
+      .notNull(),
+    createdAt: timestamp('created_at', { mode: 'string', withTimezone: true, precision: 3 })
+      .defaultNow()
+      .notNull(),
+  },
+  (columns) => ({
+    ai_call_logs_user_idx: index('ai_call_logs_user_idx').on(columns.user),
+    ai_call_logs_updated_at_idx: index('ai_call_logs_updated_at_idx').on(columns.updatedAt),
+    ai_call_logs_created_at_idx: index('ai_call_logs_created_at_idx').on(columns.createdAt),
+  }),
+)
+
 export const micro_posts = pgTable(
   'micro_posts',
   {
@@ -901,6 +928,7 @@ export const payload_locked_documents_rels = pgTable(
     usersID: uuid('users_id'),
     tagsID: uuid('tags_id'),
     authorsID: uuid('authors_id'),
+    ai_call_logsID: uuid('ai_call_logs_id'),
     micro_postsID: uuid('micro_posts_id'),
     micro_post_internal_linksID: uuid('micro_post_internal_links_id'),
     micro_post_external_linksID: uuid('micro_post_external_links_id'),
@@ -924,6 +952,9 @@ export const payload_locked_documents_rels = pgTable(
     payload_locked_documents_rels_authors_id_idx: index(
       'payload_locked_documents_rels_authors_id_idx',
     ).on(columns.authorsID),
+    payload_locked_documents_rels_ai_call_logs_id_idx: index(
+      'payload_locked_documents_rels_ai_call_logs_id_idx',
+    ).on(columns.ai_call_logsID),
     payload_locked_documents_rels_micro_posts_id_idx: index(
       'payload_locked_documents_rels_micro_posts_id_idx',
     ).on(columns.micro_postsID),
@@ -962,6 +993,11 @@ export const payload_locked_documents_rels = pgTable(
       columns: [columns['authorsID']],
       foreignColumns: [authors.id],
       name: 'payload_locked_documents_rels_authors_fk',
+    }).onDelete('cascade'),
+    ai_call_logsIdFk: foreignKey({
+      columns: [columns['ai_call_logsID']],
+      foreignColumns: [ai_call_logs.id],
+      name: 'payload_locked_documents_rels_ai_call_logs_fk',
     }).onDelete('cascade'),
     micro_postsIdFk: foreignKey({
       columns: [columns['micro_postsID']],
@@ -1214,6 +1250,13 @@ export const relations_authors = relations(authors, ({ one, many }) => ({
     relationName: '_locales',
   }),
 }))
+export const relations_ai_call_logs = relations(ai_call_logs, ({ one }) => ({
+  user: one(users, {
+    fields: [ai_call_logs.user],
+    references: [users.id],
+    relationName: 'user',
+  }),
+}))
 export const relations_micro_posts_locales = relations(micro_posts_locales, ({ one }) => ({
   _parentID: one(micro_posts, {
     fields: [micro_posts_locales._parentID],
@@ -1392,6 +1435,11 @@ export const relations_payload_locked_documents_rels = relations(
       references: [authors.id],
       relationName: 'authors',
     }),
+    ai_call_logsID: one(ai_call_logs, {
+      fields: [payload_locked_documents_rels.ai_call_logsID],
+      references: [ai_call_logs.id],
+      relationName: 'ai_call_logs',
+    }),
     micro_postsID: one(micro_posts, {
       fields: [payload_locked_documents_rels.micro_postsID],
       references: [micro_posts.id],
@@ -1461,6 +1509,7 @@ type DatabaseSchema = {
   tags_locales: typeof tags_locales
   authors: typeof authors
   authors_locales: typeof authors_locales
+  ai_call_logs: typeof ai_call_logs
   micro_posts: typeof micro_posts
   micro_posts_locales: typeof micro_posts_locales
   micro_posts_rels: typeof micro_posts_rels
@@ -1490,6 +1539,7 @@ type DatabaseSchema = {
   relations_tags: typeof relations_tags
   relations_authors_locales: typeof relations_authors_locales
   relations_authors: typeof relations_authors
+  relations_ai_call_logs: typeof relations_ai_call_logs
   relations_micro_posts_locales: typeof relations_micro_posts_locales
   relations_micro_posts_rels: typeof relations_micro_posts_rels
   relations_micro_posts: typeof relations_micro_posts

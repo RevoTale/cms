@@ -23,6 +23,10 @@ type Query {
   Authors(draft: Boolean, where: Author_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): Authors
   countAuthors(draft: Boolean, trash: Boolean, where: Author_where, locale: LocaleInputType): countAuthors
   docAccessAuthor(id: String!): authorsDocAccess
+  Ai_call_log(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): Ai_call_log
+  Ai_call_logs(draft: Boolean, where: Ai_call_log_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): Ai_call_logs
+  countAi_call_logs(draft: Boolean, trash: Boolean, where: Ai_call_log_where, locale: LocaleInputType): countAi_call_logs
+  docAccessAi_call_log(id: String!): ai_call_logsDocAccess
   Micro_post(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): Micro_post
   Micro_posts(draft: Boolean, where: Micro_post_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): Micro_posts
   countMicro_posts(draft: Boolean, trash: Boolean, where: Micro_post_where, locale: LocaleInputType): countMicro_posts
@@ -2990,6 +2994,353 @@ type AuthorsDeleteDocAccess {
   where: JSONObject
 }
 
+type Ai_call_log {
+  id: String!
+  title: String!
+  input: String!
+  output: String!
+  execution_time: Float!
+  user(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): User!
+  updatedAt: DateTime
+  createdAt: DateTime
+}
+
+type Ai_call_logs {
+  docs: [Ai_call_log!]!
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  nextPage: Int
+  offset: Int
+  page: Int!
+  pagingCounter: Int!
+  prevPage: Int
+  totalDocs: Int!
+  totalPages: Int!
+}
+
+input Ai_call_log_where {
+  title: Ai_call_log_title_operator
+  input: Ai_call_log_input_operator
+  output: Ai_call_log_output_operator
+  execution_time: Ai_call_log_execution_time_operator
+  user: Ai_call_log_user_operator
+  updatedAt: Ai_call_log_updatedAt_operator
+  createdAt: Ai_call_log_createdAt_operator
+  id: Ai_call_log_id_operator
+  AND: [Ai_call_log_where_and]
+  OR: [Ai_call_log_where_or]
+}
+
+input Ai_call_log_title_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Ai_call_log_input_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Ai_call_log_output_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Ai_call_log_execution_time_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+}
+
+input Ai_call_log_user_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+}
+
+input Ai_call_log_updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Ai_call_log_createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Ai_call_log_id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Ai_call_log_where_and {
+  title: Ai_call_log_title_operator
+  input: Ai_call_log_input_operator
+  output: Ai_call_log_output_operator
+  execution_time: Ai_call_log_execution_time_operator
+  user: Ai_call_log_user_operator
+  updatedAt: Ai_call_log_updatedAt_operator
+  createdAt: Ai_call_log_createdAt_operator
+  id: Ai_call_log_id_operator
+  AND: [Ai_call_log_where_and]
+  OR: [Ai_call_log_where_or]
+}
+
+input Ai_call_log_where_or {
+  title: Ai_call_log_title_operator
+  input: Ai_call_log_input_operator
+  output: Ai_call_log_output_operator
+  execution_time: Ai_call_log_execution_time_operator
+  user: Ai_call_log_user_operator
+  updatedAt: Ai_call_log_updatedAt_operator
+  createdAt: Ai_call_log_createdAt_operator
+  id: Ai_call_log_id_operator
+  AND: [Ai_call_log_where_and]
+  OR: [Ai_call_log_where_or]
+}
+
+type countAi_call_logs {
+  totalDocs: Int
+}
+
+type ai_call_logsDocAccess {
+  fields: Ai_call_logsDocAccessFields
+  create: Ai_call_logsCreateDocAccess
+  read: Ai_call_logsReadDocAccess
+  update: Ai_call_logsUpdateDocAccess
+  delete: Ai_call_logsDeleteDocAccess
+}
+
+type Ai_call_logsDocAccessFields {
+  title: Ai_call_logsDocAccessFields_title
+  input: Ai_call_logsDocAccessFields_input
+  output: Ai_call_logsDocAccessFields_output
+  execution_time: Ai_call_logsDocAccessFields_execution_time
+  user: Ai_call_logsDocAccessFields_user
+  updatedAt: Ai_call_logsDocAccessFields_updatedAt
+  createdAt: Ai_call_logsDocAccessFields_createdAt
+}
+
+type Ai_call_logsDocAccessFields_title {
+  create: Ai_call_logsDocAccessFields_title_Create
+  read: Ai_call_logsDocAccessFields_title_Read
+  update: Ai_call_logsDocAccessFields_title_Update
+  delete: Ai_call_logsDocAccessFields_title_Delete
+}
+
+type Ai_call_logsDocAccessFields_title_Create {
+  permission: Boolean!
+}
+
+type Ai_call_logsDocAccessFields_title_Read {
+  permission: Boolean!
+}
+
+type Ai_call_logsDocAccessFields_title_Update {
+  permission: Boolean!
+}
+
+type Ai_call_logsDocAccessFields_title_Delete {
+  permission: Boolean!
+}
+
+type Ai_call_logsDocAccessFields_input {
+  create: Ai_call_logsDocAccessFields_input_Create
+  read: Ai_call_logsDocAccessFields_input_Read
+  update: Ai_call_logsDocAccessFields_input_Update
+  delete: Ai_call_logsDocAccessFields_input_Delete
+}
+
+type Ai_call_logsDocAccessFields_input_Create {
+  permission: Boolean!
+}
+
+type Ai_call_logsDocAccessFields_input_Read {
+  permission: Boolean!
+}
+
+type Ai_call_logsDocAccessFields_input_Update {
+  permission: Boolean!
+}
+
+type Ai_call_logsDocAccessFields_input_Delete {
+  permission: Boolean!
+}
+
+type Ai_call_logsDocAccessFields_output {
+  create: Ai_call_logsDocAccessFields_output_Create
+  read: Ai_call_logsDocAccessFields_output_Read
+  update: Ai_call_logsDocAccessFields_output_Update
+  delete: Ai_call_logsDocAccessFields_output_Delete
+}
+
+type Ai_call_logsDocAccessFields_output_Create {
+  permission: Boolean!
+}
+
+type Ai_call_logsDocAccessFields_output_Read {
+  permission: Boolean!
+}
+
+type Ai_call_logsDocAccessFields_output_Update {
+  permission: Boolean!
+}
+
+type Ai_call_logsDocAccessFields_output_Delete {
+  permission: Boolean!
+}
+
+type Ai_call_logsDocAccessFields_execution_time {
+  create: Ai_call_logsDocAccessFields_execution_time_Create
+  read: Ai_call_logsDocAccessFields_execution_time_Read
+  update: Ai_call_logsDocAccessFields_execution_time_Update
+  delete: Ai_call_logsDocAccessFields_execution_time_Delete
+}
+
+type Ai_call_logsDocAccessFields_execution_time_Create {
+  permission: Boolean!
+}
+
+type Ai_call_logsDocAccessFields_execution_time_Read {
+  permission: Boolean!
+}
+
+type Ai_call_logsDocAccessFields_execution_time_Update {
+  permission: Boolean!
+}
+
+type Ai_call_logsDocAccessFields_execution_time_Delete {
+  permission: Boolean!
+}
+
+type Ai_call_logsDocAccessFields_user {
+  create: Ai_call_logsDocAccessFields_user_Create
+  read: Ai_call_logsDocAccessFields_user_Read
+  update: Ai_call_logsDocAccessFields_user_Update
+  delete: Ai_call_logsDocAccessFields_user_Delete
+}
+
+type Ai_call_logsDocAccessFields_user_Create {
+  permission: Boolean!
+}
+
+type Ai_call_logsDocAccessFields_user_Read {
+  permission: Boolean!
+}
+
+type Ai_call_logsDocAccessFields_user_Update {
+  permission: Boolean!
+}
+
+type Ai_call_logsDocAccessFields_user_Delete {
+  permission: Boolean!
+}
+
+type Ai_call_logsDocAccessFields_updatedAt {
+  create: Ai_call_logsDocAccessFields_updatedAt_Create
+  read: Ai_call_logsDocAccessFields_updatedAt_Read
+  update: Ai_call_logsDocAccessFields_updatedAt_Update
+  delete: Ai_call_logsDocAccessFields_updatedAt_Delete
+}
+
+type Ai_call_logsDocAccessFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type Ai_call_logsDocAccessFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type Ai_call_logsDocAccessFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type Ai_call_logsDocAccessFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type Ai_call_logsDocAccessFields_createdAt {
+  create: Ai_call_logsDocAccessFields_createdAt_Create
+  read: Ai_call_logsDocAccessFields_createdAt_Read
+  update: Ai_call_logsDocAccessFields_createdAt_Update
+  delete: Ai_call_logsDocAccessFields_createdAt_Delete
+}
+
+type Ai_call_logsDocAccessFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type Ai_call_logsDocAccessFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type Ai_call_logsDocAccessFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type Ai_call_logsDocAccessFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type Ai_call_logsCreateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type Ai_call_logsReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type Ai_call_logsUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type Ai_call_logsDeleteDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
 type Micro_post {
   id: String!
   title: String
@@ -4850,12 +5201,13 @@ enum PayloadLockedDocument_Document_RelationTo {
   users
   tags
   authors
+  ai_call_logs
   micro_posts
   micro_post_internal_links
   micro_post_external_links
 }
 
-union PayloadLockedDocument_Document = Post | Media | User | Tag | Author | Micro_post | Micro_post_internal_link | Micro_post_external_link
+union PayloadLockedDocument_Document = Post | Media | User | Tag | Author | Ai_call_log | Micro_post | Micro_post_internal_link | Micro_post_external_link
 
 type PayloadLockedDocument_User_Relationship {
   relationTo: PayloadLockedDocument_User_RelationTo
@@ -4904,6 +5256,7 @@ enum PayloadLockedDocument_document_Relation_RelationTo {
   users
   tags
   authors
+  ai_call_logs
   micro_posts
   micro_post_internal_links
   micro_post_external_links
@@ -5431,6 +5784,7 @@ type Access {
   users: usersAccess
   tags: tagsAccess
   authors: authorsAccess
+  ai_call_logs: ai_call_logsAccess
   micro_posts: micro_postsAccess
   micro_post_internal_links: micro_post_internal_linksAccess
   micro_post_external_links: micro_post_external_linksAccess
@@ -6913,6 +7267,205 @@ type AuthorsDeleteAccess {
   where: JSONObject
 }
 
+type ai_call_logsAccess {
+  fields: Ai_call_logsFields
+  create: Ai_call_logsCreateAccess
+  read: Ai_call_logsReadAccess
+  update: Ai_call_logsUpdateAccess
+  delete: Ai_call_logsDeleteAccess
+}
+
+type Ai_call_logsFields {
+  title: Ai_call_logsFields_title
+  input: Ai_call_logsFields_input
+  output: Ai_call_logsFields_output
+  execution_time: Ai_call_logsFields_execution_time
+  user: Ai_call_logsFields_user
+  updatedAt: Ai_call_logsFields_updatedAt
+  createdAt: Ai_call_logsFields_createdAt
+}
+
+type Ai_call_logsFields_title {
+  create: Ai_call_logsFields_title_Create
+  read: Ai_call_logsFields_title_Read
+  update: Ai_call_logsFields_title_Update
+  delete: Ai_call_logsFields_title_Delete
+}
+
+type Ai_call_logsFields_title_Create {
+  permission: Boolean!
+}
+
+type Ai_call_logsFields_title_Read {
+  permission: Boolean!
+}
+
+type Ai_call_logsFields_title_Update {
+  permission: Boolean!
+}
+
+type Ai_call_logsFields_title_Delete {
+  permission: Boolean!
+}
+
+type Ai_call_logsFields_input {
+  create: Ai_call_logsFields_input_Create
+  read: Ai_call_logsFields_input_Read
+  update: Ai_call_logsFields_input_Update
+  delete: Ai_call_logsFields_input_Delete
+}
+
+type Ai_call_logsFields_input_Create {
+  permission: Boolean!
+}
+
+type Ai_call_logsFields_input_Read {
+  permission: Boolean!
+}
+
+type Ai_call_logsFields_input_Update {
+  permission: Boolean!
+}
+
+type Ai_call_logsFields_input_Delete {
+  permission: Boolean!
+}
+
+type Ai_call_logsFields_output {
+  create: Ai_call_logsFields_output_Create
+  read: Ai_call_logsFields_output_Read
+  update: Ai_call_logsFields_output_Update
+  delete: Ai_call_logsFields_output_Delete
+}
+
+type Ai_call_logsFields_output_Create {
+  permission: Boolean!
+}
+
+type Ai_call_logsFields_output_Read {
+  permission: Boolean!
+}
+
+type Ai_call_logsFields_output_Update {
+  permission: Boolean!
+}
+
+type Ai_call_logsFields_output_Delete {
+  permission: Boolean!
+}
+
+type Ai_call_logsFields_execution_time {
+  create: Ai_call_logsFields_execution_time_Create
+  read: Ai_call_logsFields_execution_time_Read
+  update: Ai_call_logsFields_execution_time_Update
+  delete: Ai_call_logsFields_execution_time_Delete
+}
+
+type Ai_call_logsFields_execution_time_Create {
+  permission: Boolean!
+}
+
+type Ai_call_logsFields_execution_time_Read {
+  permission: Boolean!
+}
+
+type Ai_call_logsFields_execution_time_Update {
+  permission: Boolean!
+}
+
+type Ai_call_logsFields_execution_time_Delete {
+  permission: Boolean!
+}
+
+type Ai_call_logsFields_user {
+  create: Ai_call_logsFields_user_Create
+  read: Ai_call_logsFields_user_Read
+  update: Ai_call_logsFields_user_Update
+  delete: Ai_call_logsFields_user_Delete
+}
+
+type Ai_call_logsFields_user_Create {
+  permission: Boolean!
+}
+
+type Ai_call_logsFields_user_Read {
+  permission: Boolean!
+}
+
+type Ai_call_logsFields_user_Update {
+  permission: Boolean!
+}
+
+type Ai_call_logsFields_user_Delete {
+  permission: Boolean!
+}
+
+type Ai_call_logsFields_updatedAt {
+  create: Ai_call_logsFields_updatedAt_Create
+  read: Ai_call_logsFields_updatedAt_Read
+  update: Ai_call_logsFields_updatedAt_Update
+  delete: Ai_call_logsFields_updatedAt_Delete
+}
+
+type Ai_call_logsFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type Ai_call_logsFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type Ai_call_logsFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type Ai_call_logsFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type Ai_call_logsFields_createdAt {
+  create: Ai_call_logsFields_createdAt_Create
+  read: Ai_call_logsFields_createdAt_Read
+  update: Ai_call_logsFields_createdAt_Update
+  delete: Ai_call_logsFields_createdAt_Delete
+}
+
+type Ai_call_logsFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type Ai_call_logsFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type Ai_call_logsFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type Ai_call_logsFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type Ai_call_logsCreateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type Ai_call_logsReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type Ai_call_logsUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type Ai_call_logsDeleteAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
 type micro_postsAccess {
   fields: Micro_postsFields
   create: Micro_postsCreateAccess
@@ -8098,6 +8651,10 @@ type Mutation {
   updateAuthor(id: String!, autosave: Boolean, data: mutationAuthorUpdateInput!, draft: Boolean, locale: LocaleInputType, trash: Boolean): Author
   deleteAuthor(id: String!, trash: Boolean): Author
   duplicateAuthor(id: String!, data: mutationAuthorInput!): Author
+  createAi_call_log(data: mutationAi_call_logInput!, draft: Boolean, locale: LocaleInputType): Ai_call_log
+  updateAi_call_log(id: String!, autosave: Boolean, data: mutationAi_call_logUpdateInput!, draft: Boolean, locale: LocaleInputType, trash: Boolean): Ai_call_log
+  deleteAi_call_log(id: String!, trash: Boolean): Ai_call_log
+  duplicateAi_call_log(id: String!, data: mutationAi_call_logInput!): Ai_call_log
   createMicro_post(data: mutationMicro_postInput!, draft: Boolean, locale: LocaleInputType): Micro_post
   updateMicro_post(id: String!, autosave: Boolean, data: mutationMicro_postUpdateInput!, draft: Boolean, locale: LocaleInputType, trash: Boolean): Micro_post
   deleteMicro_post(id: String!, trash: Boolean): Micro_post
@@ -8326,6 +8883,26 @@ input mutationAuthorUpdate_TwitterInput {
   apiKey: String
 }
 
+input mutationAi_call_logInput {
+  title: String!
+  input: String!
+  output: String!
+  execution_time: Float!
+  user: String
+  updatedAt: String
+  createdAt: String
+}
+
+input mutationAi_call_logUpdateInput {
+  title: String
+  input: String
+  output: String
+  execution_time: Float
+  user: String
+  updatedAt: String
+  createdAt: String
+}
+
 input mutationMicro_postInput {
   title: String
   attachment: String
@@ -8451,6 +9028,7 @@ enum PayloadLockedDocument_DocumentRelationshipInputRelationTo {
   users
   tags
   authors
+  ai_call_logs
   micro_posts
   micro_post_internal_links
   micro_post_external_links
@@ -8484,6 +9062,7 @@ enum PayloadLockedDocumentUpdate_DocumentRelationshipInputRelationTo {
   users
   tags
   authors
+  ai_call_logs
   micro_posts
   micro_post_internal_links
   micro_post_external_links

@@ -72,6 +72,7 @@ export interface Config {
     users: User;
     tags: Tag;
     authors: Author;
+    ai_call_logs: AiCallLog;
     micro_posts: MicroPost;
     micro_post_internal_links: MicroPostInternalLink;
     micro_post_external_links: MicroPostExternalLink;
@@ -91,6 +92,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
     authors: AuthorsSelect<false> | AuthorsSelect<true>;
+    ai_call_logs: AiCallLogsSelect<false> | AiCallLogsSelect<true>;
     micro_posts: MicroPostsSelect<false> | MicroPostsSelect<true>;
     micro_post_internal_links: MicroPostInternalLinksSelect<false> | MicroPostInternalLinksSelect<true>;
     micro_post_external_links: MicroPostExternalLinksSelect<false> | MicroPostExternalLinksSelect<true>;
@@ -237,6 +239,20 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ai_call_logs".
+ */
+export interface AiCallLog {
+  id: string;
+  title: string;
+  input: string;
+  output: string;
+  execution_time: number;
+  user: string | User;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "micro_posts".
  */
 export interface MicroPost {
@@ -328,6 +344,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'authors';
         value: string | Author;
+      } | null)
+    | ({
+        relationTo: 'ai_call_logs';
+        value: string | AiCallLog;
       } | null)
     | ({
         relationTo: 'micro_posts';
@@ -479,6 +499,19 @@ export interface AuthorsSelect<T extends boolean = true> {
       };
   bio?: T;
   avatar?: T;
+  user?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ai_call_logs_select".
+ */
+export interface AiCallLogsSelect<T extends boolean = true> {
+  title?: T;
+  input?: T;
+  output?: T;
+  execution_time?: T;
   user?: T;
   updatedAt?: T;
   createdAt?: T;

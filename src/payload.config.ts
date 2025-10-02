@@ -15,6 +15,7 @@ import Authors from './payload/collections/Authors'
 
 import type { GenerateFileURL } from '@payloadcms/plugin-cloud-storage/types'
 import { migrations } from './migrations'
+import AICallLogs from './payload/collections/AICallLog'
 import { Media } from './payload/collections/Media'
 import MicroPostExternalLink from './payload/collections/MicroPostExternalLink'
 import MicroPostInternalLink from './payload/collections/MicroPostInternalLink'
@@ -231,6 +232,7 @@ export default buildConfig({
     Users,
     Tags,
     Authors,
+    AICallLogs,
     MicroPosts,
     MicroPostInternalLink,
     MicroPostExternalLink,

@@ -133,7 +133,8 @@ export const autoTranslate = async ({
             typeof value === 'string'
           ) {
             tasks.push((async () => {
-               payload.logger.info(`Translated field ${key} for ${obj.id}: starting translation`) // Log only the first 60 characters
+               payload.logger.info(`Translate field ${key} for ${post.id}: starting.`) // Log only the first 60 characters
+               const timeStart = Date.now()
               const text = await translateFn(
               value,
               targetLocale,
@@ -143,6 +144,16 @@ export const autoTranslate = async ({
               field.maxLength,
               sourceLocale,
             )
+            payload.create({
+              collection:'ai_call_logs',
+              data: {
+                title:`Translated field ${key} for ${obj.id}`,
+                input: value,
+                output: text,
+                user: user.id,
+                execution_time: (Date.now() - timeStart) / 1000,
+              },
+            })
             data[key] = text
             payload.logger.info(`Translated field ${key} for ${obj.id}: ${text.substring(0, 60)}`) // Log only the first 60 characters
             })  ())

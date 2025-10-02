@@ -123,6 +123,7 @@ export const autoTranslate = async ({
       obj: DataFromCollectionSlug<typeof collection>,
       data: Record<string, unknown>,
     ) => {
+      const tasks:Promise<void>[] = []
       for (const [key, value] of Object.entries(obj)) {
         for (const field of fields) {
           if (
@@ -131,7 +132,9 @@ export const autoTranslate = async ({
             field.name === key &&
             typeof value === 'string'
           ) {
-            data[key] = await translateFn(
+            tasks.push((async () => {
+               payload.logger.info(`Translated field ${key} for ${obj.id}: starting translation`) // Log only the first 60 characters
+              const text = await translateFn(
               value,
               targetLocale,
               {
@@ -140,25 +143,40 @@ export const autoTranslate = async ({
               field.maxLength,
               sourceLocale,
             )
-            console.log(key, data[key])
+            data[key] = text
+            payload.logger.info(`Translated field ${key} for ${obj.id}: ${text.substring(0, 60)}`) // Log only the first 60 characters
+            })  ())
+
           } else if (field.type === 'tabs') {
             for (const tab of field.tabs) {
               if ('name' in tab && tab.name === key) {
                 const subObj = obj[key as keyof DataFromCollectionSlug<typeof collection>]
                 if (typeof subObj === 'object' && !Array.isArray(subObj) && subObj !== null) {
-                  data[key] = data[key] ?? {}
-                  await iterateOverFields(tab.fields, subObj, data[key] as Record<string, unknown>)
-                  if (Object.keys(data[key] as Record<string, unknown>).length === 0) {
-                    delete data[key]
-                  }
+                    data[key] = data[key] ?? {}
+                    tasks.push(iterateOverFields(tab.fields, subObj, data[key] as Record<string, unknown>) )
+        
                 }
               }
             }
           }
         }
       }
+      await Promise.all(tasks)
+      const clearEmpty = (targetData:Record<string,unknown>)=>{
+        for (const fieldName of Object.keys(targetData)) {
+          if (typeof targetData[fieldName] === 'object' && targetData[fieldName] !== null ) {
+            if (Object.keys(targetData[fieldName]).length === 0) {
+              delete targetData[fieldName]
+            } else {
+              clearEmpty(targetData[fieldName] as Record<string, unknown>)
+            }
+          }
+        }
+      }
+      clearEmpty(data)
     }
     await iterateOverFields(fields, post, dataToUpdate)
+    payload.logger.info(`Finished translation for document ${docId} in collection ${collection} to locale ${targetLocale}`)
     // Update the document with the translated data
     if (Object.entries(dataToUpdate).length === 0) {
       return {

@@ -77,6 +77,12 @@ const translateFn = async (
   }
   const response = await client.responses.create({
     model: 'gpt-5',
+    text:{
+      verbosity:'medium'
+    },
+    reasoning:{
+      effort:'low'
+    },
     instructions: translationInstruction,
     input: JSON.stringify(message),
   })

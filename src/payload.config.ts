@@ -7,13 +7,12 @@ import { postgresAdapter } from '@payloadcms/db-postgres'
 import { s3Storage } from '@payloadcms/storage-s3'
 import OpenAI from 'openai'
 import path from 'path'
-import { buildConfig, type TaskConfig, type TypedLocale } from 'payload'
+import { buildConfig, type TaskConfig } from 'payload'
 import sharp from 'sharp'; // editor-import
 import type { MicroPost, Post } from 'src/payload-types'
 import { fileURLToPath } from 'url'
 import Authors from './payload/collections/Authors'
 
-import { autoTranslate } from '@/components/AutoTranslation/autoTranslate'
 import type { GenerateFileURL } from '@payloadcms/plugin-cloud-storage/types'
 import { migrations } from './migrations'
 import AICallLogs from './payload/collections/AICallLog'
@@ -25,6 +24,7 @@ import { Posts } from './payload/collections/Posts'
 import Tags from './payload/collections/Tags'
 import Users from './payload/collections/Users'
 import { seed } from './payload/endpoints/seed'
+import translateHandler from './payload/tasks/translate/translateHandler'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
@@ -260,8 +260,8 @@ export default buildConfig({
     ],
     tasks:[
       {
-        retries: 2,
-        slug:'translatePost',
+        retries: 1,
+        slug:'translateDocument',
         inputSchema:  [
           {
             name: 'postID',
@@ -288,37 +288,8 @@ export default buildConfig({
             type:'text',
             required:true
           }],
-           handler: async ({ input, job, req }) => {
-            const localization = req.payload.config.localization
-              if (!localization) {
-                throw new Error('Localization is not enabled')
-              }
-              const { targetLocale,sourceLocale,collection } = input
-              if (!localization.locales.map((l) => l.code).includes(targetLocale)) {
-                throw new Error(`Target locale ${targetLocale} is not in the list of locales`)
-              }
-                 if (!localization.locales.map((l) => l.code).includes(sourceLocale)) {
-                throw new Error(`Source locale ${sourceLocale} is not in the list of locales`)
-              }
-              const { collections } = req.payload
-              if (!collections[collection as keyof typeof collections]) {
-                throw new Error(`Collection ${collection} does not exist`)
-              }
-
-             await autoTranslate({
-                docId: input.postID,
-                collection: collection as keyof typeof collections,
-                sourceLocale: sourceLocale as TypedLocale,
-                targetLocale: targetLocale as TypedLocale,
-                payload: req.payload,
-                userId:  input.userId,
-              })
-          return {
-            output: {
-            },
-          }
-        },
-      } as TaskConfig<'translatePost'>,
+           handler: translateHandler
+      } as TaskConfig<'translateDocument'>,
     ]
   },
   plugins: [

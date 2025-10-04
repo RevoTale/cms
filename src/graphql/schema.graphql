@@ -5217,7 +5217,7 @@ type PayloadJob_Log {
 
 enum PayloadJob_Log_taskSlug {
   inline
-  translatePost
+  translateDocument
 }
 
 enum PayloadJob_Log_state {
@@ -5232,12 +5232,12 @@ type PayloadJob_Log_Parent {
 
 enum PayloadJob_Log_Parent_taskSlug {
   inline
-  translatePost
+  translateDocument
 }
 
 enum PayloadJob_taskSlug {
   inline
-  translatePost
+  translateDocument
 }
 
 type PayloadJobs {
@@ -5370,7 +5370,7 @@ input PayloadJob_log__taskSlug_operator {
 
 enum PayloadJob_log__taskSlug_Input {
   inline
-  translatePost
+  translateDocument
 }
 
 input PayloadJob_log__taskID_operator {
@@ -5435,7 +5435,7 @@ input PayloadJob_log__parent__taskSlug_operator {
 
 enum PayloadJob_log__parent__taskSlug_Input {
   inline
-  translatePost
+  translateDocument
 }
 
 input PayloadJob_log__parent__taskID_operator {
@@ -5471,7 +5471,7 @@ input PayloadJob_taskSlug_operator {
 
 enum PayloadJob_taskSlug_Input {
   inline
-  translatePost
+  translateDocument
 }
 
 input PayloadJob_queue_operator {
@@ -10741,7 +10741,7 @@ input mutationPayloadJob_LogInput {
 
 enum PayloadJob_Log_taskSlug_MutationInput {
   inline
-  translatePost
+  translateDocument
 }
 
 input mutationPayloadJob_Log_ParentInput {
@@ -10751,12 +10751,12 @@ input mutationPayloadJob_Log_ParentInput {
 
 enum PayloadJob_Log_Parent_taskSlug_MutationInput {
   inline
-  translatePost
+  translateDocument
 }
 
 enum PayloadJob_taskSlug_MutationInput {
   inline
-  translatePost
+  translateDocument
 }
 
 input mutationPayloadJobUpdateInput {
@@ -10790,7 +10790,7 @@ input mutationPayloadJobUpdate_LogInput {
 
 enum PayloadJobUpdate_Log_taskSlug_MutationInput {
   inline
-  translatePost
+  translateDocument
 }
 
 input mutationPayloadJobUpdate_Log_ParentInput {
@@ -10800,12 +10800,12 @@ input mutationPayloadJobUpdate_Log_ParentInput {
 
 enum PayloadJobUpdate_Log_Parent_taskSlug_MutationInput {
   inline
-  translatePost
+  translateDocument
 }
 
 enum PayloadJobUpdate_taskSlug_MutationInput {
   inline
-  translatePost
+  translateDocument
 }
 
 input mutationPayloadLockedDocumentInput {

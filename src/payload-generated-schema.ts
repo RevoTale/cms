@@ -65,7 +65,7 @@ export const enum__micro_posts_v_published_locale = pgEnum('enum__micro_posts_v_
 ])
 export const enum_payload_jobs_log_task_slug = pgEnum('enum_payload_jobs_log_task_slug', [
   'inline',
-  'translatePost',
+  'translateDocument',
 ])
 export const enum_payload_jobs_log_state = pgEnum('enum_payload_jobs_log_state', [
   'failed',
@@ -73,11 +73,11 @@ export const enum_payload_jobs_log_state = pgEnum('enum_payload_jobs_log_state',
 ])
 export const enum_payload_jobs_log_parent_task_slug = pgEnum(
   'enum_payload_jobs_log_parent_task_slug',
-  ['inline', 'translatePost'],
+  ['inline', 'translateDocument'],
 )
 export const enum_payload_jobs_task_slug = pgEnum('enum_payload_jobs_task_slug', [
   'inline',
-  'translatePost',
+  'translateDocument',
 ])
 
 export const posts = pgTable(

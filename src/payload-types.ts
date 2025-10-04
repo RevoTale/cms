@@ -113,7 +113,7 @@ export interface Config {
   };
   jobs: {
     tasks: {
-      translatePost: TaskTranslatePost;
+      translateDocument: TaskTranslateDocument;
       inline: {
         input: unknown;
         output: unknown;
@@ -378,7 +378,7 @@ export interface PayloadJob {
     | {
         executedAt: string;
         completedAt: string;
-        taskSlug: 'inline' | 'translatePost';
+        taskSlug: 'inline' | 'translateDocument';
         taskID: string;
         input?:
           | {
@@ -409,13 +409,13 @@ export interface PayloadJob {
           | boolean
           | null;
         parent?: {
-          taskSlug?: ('inline' | 'translatePost') | null;
+          taskSlug?: ('inline' | 'translateDocument') | null;
           taskID?: string | null;
         };
         id?: string | null;
       }[]
     | null;
-  taskSlug?: ('inline' | 'translatePost') | null;
+  taskSlug?: ('inline' | 'translateDocument') | null;
   queue?: string | null;
   waitUntil?: string | null;
   processing?: boolean | null;
@@ -754,9 +754,9 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TaskTranslatePost".
+ * via the `definition` "TaskTranslateDocument".
  */
-export interface TaskTranslatePost {
+export interface TaskTranslateDocument {
   input: {
     postID: string;
     sourceLocale: string;

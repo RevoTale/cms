@@ -2,7 +2,7 @@
 import { Button, useConfig, useDocumentInfo } from '@payloadcms/ui'
 import type { TypedLocale } from 'payload'
 import { type FunctionComponent, useState } from 'react'
-import { autoTranslateTask, type Context } from './autoTranslate'
+import autoTranslateTask, { type Context } from './autoTranslate'
 
 const AutoTranslateButton: FunctionComponent = () => {
   const { id, collectionSlug } = useDocumentInfo()

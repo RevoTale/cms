@@ -81,7 +81,7 @@ const translateFn = async (
       verbosity:'medium'
     },
     reasoning:{
-      effort:'low'
+      effort:'high'
     },
     instructions: translationInstruction,
     input: JSON.stringify(message),

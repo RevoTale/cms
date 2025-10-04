@@ -63,6 +63,22 @@ export const enum__micro_posts_v_published_locale = pgEnum('enum__micro_posts_v_
   'fr-FR',
   'es-ES',
 ])
+export const enum_payload_jobs_log_task_slug = pgEnum('enum_payload_jobs_log_task_slug', [
+  'inline',
+  'translatePost',
+])
+export const enum_payload_jobs_log_state = pgEnum('enum_payload_jobs_log_state', [
+  'failed',
+  'succeeded',
+])
+export const enum_payload_jobs_log_parent_task_slug = pgEnum(
+  'enum_payload_jobs_log_parent_task_slug',
+  ['inline', 'translatePost'],
+)
+export const enum_payload_jobs_task_slug = pgEnum('enum_payload_jobs_task_slug', [
+  'inline',
+  'translatePost',
+])
 
 export const posts = pgTable(
   'posts',
@@ -891,6 +907,75 @@ export const micro_post_external_links_locales = pgTable(
   }),
 )
 
+export const payload_jobs_log = pgTable(
+  'payload_jobs_log',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: uuid('_parent_id').notNull(),
+    id: varchar('id').primaryKey(),
+    executedAt: timestamp('executed_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    }).notNull(),
+    completedAt: timestamp('completed_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    }).notNull(),
+    taskSlug: enum_payload_jobs_log_task_slug('task_slug').notNull(),
+    taskID: varchar('task_i_d').notNull(),
+    input: jsonb('input'),
+    output: jsonb('output'),
+    state: enum_payload_jobs_log_state('state').notNull(),
+    error: jsonb('error'),
+    parent_taskSlug: enum_payload_jobs_log_parent_task_slug('parent_task_slug'),
+    parent_taskID: varchar('parent_task_i_d'),
+  },
+  (columns) => ({
+    _orderIdx: index('payload_jobs_log_order_idx').on(columns._order),
+    _parentIDIdx: index('payload_jobs_log_parent_id_idx').on(columns._parentID),
+    _parentIDFk: foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [payload_jobs.id],
+      name: 'payload_jobs_log_parent_id_fk',
+    }).onDelete('cascade'),
+  }),
+)
+
+export const payload_jobs = pgTable(
+  'payload_jobs',
+  {
+    id: uuid('id').defaultRandom().primaryKey(),
+    input: jsonb('input'),
+    completedAt: timestamp('completed_at', { mode: 'string', withTimezone: true, precision: 3 }),
+    totalTried: numeric('total_tried').default('0'),
+    hasError: boolean('has_error').default(false),
+    error: jsonb('error'),
+    taskSlug: enum_payload_jobs_task_slug('task_slug'),
+    queue: varchar('queue').default('default'),
+    waitUntil: timestamp('wait_until', { mode: 'string', withTimezone: true, precision: 3 }),
+    processing: boolean('processing').default(false),
+    updatedAt: timestamp('updated_at', { mode: 'string', withTimezone: true, precision: 3 })
+      .defaultNow()
+      .notNull(),
+    createdAt: timestamp('created_at', { mode: 'string', withTimezone: true, precision: 3 })
+      .defaultNow()
+      .notNull(),
+  },
+  (columns) => ({
+    payload_jobs_completed_at_idx: index('payload_jobs_completed_at_idx').on(columns.completedAt),
+    payload_jobs_total_tried_idx: index('payload_jobs_total_tried_idx').on(columns.totalTried),
+    payload_jobs_has_error_idx: index('payload_jobs_has_error_idx').on(columns.hasError),
+    payload_jobs_task_slug_idx: index('payload_jobs_task_slug_idx').on(columns.taskSlug),
+    payload_jobs_queue_idx: index('payload_jobs_queue_idx').on(columns.queue),
+    payload_jobs_wait_until_idx: index('payload_jobs_wait_until_idx').on(columns.waitUntil),
+    payload_jobs_processing_idx: index('payload_jobs_processing_idx').on(columns.processing),
+    payload_jobs_updated_at_idx: index('payload_jobs_updated_at_idx').on(columns.updatedAt),
+    payload_jobs_created_at_idx: index('payload_jobs_created_at_idx').on(columns.createdAt),
+  }),
+)
+
 export const payload_locked_documents = pgTable(
   'payload_locked_documents',
   {
@@ -932,6 +1017,7 @@ export const payload_locked_documents_rels = pgTable(
     micro_postsID: uuid('micro_posts_id'),
     micro_post_internal_linksID: uuid('micro_post_internal_links_id'),
     micro_post_external_linksID: uuid('micro_post_external_links_id'),
+    'payload-jobsID': uuid('payload_jobs_id'),
   },
   (columns) => ({
     order: index('payload_locked_documents_rels_order_idx').on(columns.order),
@@ -964,6 +1050,9 @@ export const payload_locked_documents_rels = pgTable(
     payload_locked_documents_rels_micro_post_external_links__idx: index(
       'payload_locked_documents_rels_micro_post_external_links__idx',
     ).on(columns.micro_post_external_linksID),
+    payload_locked_documents_rels_payload_jobs_id_idx: index(
+      'payload_locked_documents_rels_payload_jobs_id_idx',
+    ).on(columns['payload-jobsID']),
     parentFk: foreignKey({
       columns: [columns['parent']],
       foreignColumns: [payload_locked_documents.id],
@@ -1013,6 +1102,11 @@ export const payload_locked_documents_rels = pgTable(
       columns: [columns['micro_post_external_linksID']],
       foreignColumns: [micro_post_external_links.id],
       name: 'payload_locked_documents_rels_micro_post_external_links_fk',
+    }).onDelete('cascade'),
+    'payload-jobsIdFk': foreignKey({
+      columns: [columns['payload-jobsID']],
+      foreignColumns: [payload_jobs.id],
+      name: 'payload_locked_documents_rels_payload_jobs_fk',
     }).onDelete('cascade'),
   }),
 )
@@ -1402,6 +1496,18 @@ export const relations_micro_post_external_links = relations(
     }),
   }),
 )
+export const relations_payload_jobs_log = relations(payload_jobs_log, ({ one }) => ({
+  _parentID: one(payload_jobs, {
+    fields: [payload_jobs_log._parentID],
+    references: [payload_jobs.id],
+    relationName: 'log',
+  }),
+}))
+export const relations_payload_jobs = relations(payload_jobs, ({ many }) => ({
+  log: many(payload_jobs_log, {
+    relationName: 'log',
+  }),
+}))
 export const relations_payload_locked_documents_rels = relations(
   payload_locked_documents_rels,
   ({ one }) => ({
@@ -1455,6 +1561,11 @@ export const relations_payload_locked_documents_rels = relations(
       references: [micro_post_external_links.id],
       relationName: 'micro_post_external_links',
     }),
+    'payload-jobsID': one(payload_jobs, {
+      fields: [payload_locked_documents_rels['payload-jobsID']],
+      references: [payload_jobs.id],
+      relationName: 'payload-jobs',
+    }),
   }),
 )
 export const relations_payload_locked_documents = relations(
@@ -1495,6 +1606,10 @@ type DatabaseSchema = {
   enum_micro_posts_status: typeof enum_micro_posts_status
   enum__micro_posts_v_version_status: typeof enum__micro_posts_v_version_status
   enum__micro_posts_v_published_locale: typeof enum__micro_posts_v_published_locale
+  enum_payload_jobs_log_task_slug: typeof enum_payload_jobs_log_task_slug
+  enum_payload_jobs_log_state: typeof enum_payload_jobs_log_state
+  enum_payload_jobs_log_parent_task_slug: typeof enum_payload_jobs_log_parent_task_slug
+  enum_payload_jobs_task_slug: typeof enum_payload_jobs_task_slug
   posts: typeof posts
   posts_locales: typeof posts_locales
   posts_rels: typeof posts_rels
@@ -1520,6 +1635,8 @@ type DatabaseSchema = {
   micro_post_internal_links_locales: typeof micro_post_internal_links_locales
   micro_post_external_links: typeof micro_post_external_links
   micro_post_external_links_locales: typeof micro_post_external_links_locales
+  payload_jobs_log: typeof payload_jobs_log
+  payload_jobs: typeof payload_jobs
   payload_locked_documents: typeof payload_locked_documents
   payload_locked_documents_rels: typeof payload_locked_documents_rels
   payload_preferences: typeof payload_preferences
@@ -1550,6 +1667,8 @@ type DatabaseSchema = {
   relations_micro_post_internal_links: typeof relations_micro_post_internal_links
   relations_micro_post_external_links_locales: typeof relations_micro_post_external_links_locales
   relations_micro_post_external_links: typeof relations_micro_post_external_links
+  relations_payload_jobs_log: typeof relations_payload_jobs_log
+  relations_payload_jobs: typeof relations_payload_jobs
   relations_payload_locked_documents_rels: typeof relations_payload_locked_documents_rels
   relations_payload_locked_documents: typeof relations_payload_locked_documents
   relations_payload_preferences_rels: typeof relations_payload_preferences_rels

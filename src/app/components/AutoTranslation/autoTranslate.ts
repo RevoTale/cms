@@ -1,10 +1,10 @@
 'use server'
 
 import config from '@payload-config'
-import { revalidatePath } from 'next/cache'
 import { headers as getHeaders } from 'next/headers'
 import OpenAI from 'openai'
 import {
+  type BasePayload,
   type CollectionSlug,
   type DataFromCollectionSlug,
   type Field,
@@ -100,15 +100,24 @@ interface AutoTranslateProps {
   collection: CollectionSlug
   targetLocale: TypedLocale
   sourceLocale: TypedLocale
+  payload: BasePayload
+  userId:string
 }
-export const autoTranslate = async ({
+export const autoTranslateTask = async ({
   docId,
   collection,
   targetLocale,
   sourceLocale,
-}: AutoTranslateProps): Promise<
+}: {
+    docId: string
+  collection: CollectionSlug
+  targetLocale: TypedLocale
+  sourceLocale: TypedLocale
+}): Promise<
   | {
       ok: true
+      processing?: boolean
+      completedAt?:string 
     }
   | { error: string; ok: false; context?: Context }
 > => {
@@ -117,6 +126,42 @@ export const autoTranslate = async ({
   const { user } = await payload.auth({ headers })
 
   if (user) {
+  const task =  await payload.jobs.queue<'translatePost'>({
+        task: 'translatePost',
+  input: {
+    targetLocale:targetLocale,
+    postID:docId,
+    sourceLocale,
+    collection,
+    userId: user.id
+  },
+    })
+    if (task.hasError) {
+      return {
+        ok: false,
+        error: task.error?.toString() || 'Unknown error',
+      }
+    }
+    return {
+      ok: true,
+    }
+  }
+    return {
+    ok: false,
+    error: 'User not authenticated',
+  }
+}
+export const autoTranslate = async ({
+  docId,
+  collection,
+  targetLocale,
+  sourceLocale,
+  payload,
+  userId,
+}: AutoTranslateProps): Promise<void
+> => {
+  
+
     const post = await payload.findByID({
       collection,
       id: docId,
@@ -156,7 +201,7 @@ export const autoTranslate = async ({
                 title:`Translated field ${key} for ${obj.id}`,
                 input: value,
                 output: text,
-                user: user.id,
+                user: userId,
                 execution_time: (Date.now() - timeStart) / 1000,
               },
             })
@@ -196,38 +241,15 @@ export const autoTranslate = async ({
     payload.logger.info(`Finished translation for document ${docId} in collection ${collection} to locale ${targetLocale}`)
     // Update the document with the translated data
     if (Object.entries(dataToUpdate).length === 0) {
-      return {
-        ok: false,
-        error: 'No translatable fields found',
-      }
+      throw new Error('No translatable fields found or translation resulted in no changes.')
     }
-    try {
       await payload.update({
         locale: targetLocale,
         id: docId,
         collection,
         data: dataToUpdate,
       })
-    } catch (error: unknown) {
-      return {
-        ok: false,
-        error: error instanceof Error ? error.message : 'Unknown error',
-        context: {
-          data: dataToUpdate,
-          id: docId,
-          collection,
-          targetLocale,
-        },
-      }
-    }
-    revalidatePath(`/admin/collections/${collection}/${docId}`)
-    return {
-      ok: true,
-    }
-  }
 
-  return {
-    ok: false,
-    error: 'User not authenticated',
-  }
+
+
 }

@@ -7,12 +7,13 @@ import { postgresAdapter } from '@payloadcms/db-postgres'
 import { s3Storage } from '@payloadcms/storage-s3'
 import OpenAI from 'openai'
 import path from 'path'
-import { buildConfig } from 'payload'
+import { buildConfig, type TaskConfig, type TypedLocale } from 'payload'
 import sharp from 'sharp'; // editor-import
 import type { MicroPost, Post } from 'src/payload-types'
 import { fileURLToPath } from 'url'
 import Authors from './payload/collections/Authors'
 
+import { autoTranslate } from '@/components/AutoTranslation/autoTranslate'
 import type { GenerateFileURL } from '@payloadcms/plugin-cloud-storage/types'
 import { migrations } from './migrations'
 import AICallLogs from './payload/collections/AICallLog'
@@ -176,6 +177,7 @@ export default buildConfig({
     },
   ],
   admin: {
+    
     components: {
       // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
       // Feel free to delete this at any time. Simply remove the line below and the import `BeforeLogin` statement on line 15.
@@ -240,6 +242,85 @@ export default buildConfig({
   cors: [hostnameWithProtocol].filter(Boolean),
   csrf: [hostnameWithProtocol].filter(Boolean),
   globals: [],
+  jobs:{
+    addParentToTaskLog: true,
+    jobsCollectionOverrides: ({ defaultJobsCollection }) => {
+      if (!defaultJobsCollection.admin) {
+        defaultJobsCollection.admin = {}
+      }
+
+      defaultJobsCollection.admin.hidden = false
+      return defaultJobsCollection
+    },
+        autoRun: [
+      {
+        queue: 'default',
+        cron: '* * * * *', // Every minute
+      },
+    ],
+    tasks:[
+      {
+        retries: 2,
+        slug:'translatePost',
+        inputSchema:  [
+          {
+            name: 'postID',
+            type: 'text',
+            required: true,
+          },
+             {
+            name: 'sourceLocale',
+            type: 'text',
+            required: true,
+          },
+             {
+            name: 'collection',
+            type: 'text',
+            required: true,
+          },
+               {
+            name: 'userId',
+            type: 'text',
+            required: true,
+          },
+          {
+            name:'targetLocale',
+            type:'text',
+            required:true
+          }],
+           handler: async ({ input, job, req }) => {
+            const localization = req.payload.config.localization
+              if (!localization) {
+                throw new Error('Localization is not enabled')
+              }
+              const { targetLocale,sourceLocale,collection } = input
+              if (!localization.locales.map((l) => l.code).includes(targetLocale)) {
+                throw new Error(`Target locale ${targetLocale} is not in the list of locales`)
+              }
+                 if (!localization.locales.map((l) => l.code).includes(sourceLocale)) {
+                throw new Error(`Source locale ${sourceLocale} is not in the list of locales`)
+              }
+              const { collections } = req.payload
+              if (!collections[collection as keyof typeof collections]) {
+                throw new Error(`Collection ${collection} does not exist`)
+              }
+
+             await autoTranslate({
+                docId: input.postID,
+                collection: collection as keyof typeof collections,
+                sourceLocale: sourceLocale as TypedLocale,
+                targetLocale: targetLocale as TypedLocale,
+                payload: req.payload,
+                userId:  input.userId,
+              })
+          return {
+            output: {
+            },
+          }
+        },
+      } as TaskConfig<'translatePost'>,
+    ]
+  },
   plugins: [
     /*cloudStorage({
       collections: {

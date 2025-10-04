@@ -2,7 +2,7 @@
 import { Button, useConfig, useDocumentInfo } from '@payloadcms/ui'
 import type { TypedLocale } from 'payload'
 import { type FunctionComponent, useState } from 'react'
-import { autoTranslate, type Context } from './autoTranslate'
+import { autoTranslateTask, type Context } from './autoTranslate'
 
 const AutoTranslateButton: FunctionComponent = () => {
   const { id, collectionSlug } = useDocumentInfo()
@@ -30,7 +30,7 @@ const AutoTranslateButton: FunctionComponent = () => {
     for (const targetLocale of locales) {
       try {
         setPendingLocale(targetLocale)
-        const result = await autoTranslate({
+        const result = await autoTranslateTask({
           docId: id.toString(),
           collection: collectionSlug,
           targetLocale: targetLocale as TypedLocale,

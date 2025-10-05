@@ -132,6 +132,7 @@ const serverURl: string | null = process.env.PAYLOAD_PUBLIC_SERVER_URL ?? null
 if (!serverURl) {
   throw new Error('Server url is not defined')
 }
+const enableCron = process.env.ENABLE_CRON === '1'
 const serverDomain = new URL(serverURl).hostname
 const hostnameWithProtocol = `https://${serverDomain}`
 const bucket = process.env.S3_BUCKET ?? ''
@@ -261,7 +262,7 @@ export default buildConfig({
       // Tell Payload if it should run jobs or not. This function is optional and will return true by default.
       // This function will be invoked each time Payload goes to pick up and run jobs.
       // If this function ever returns false, the cron schedule will be stopped.
-      return process.env.NODE_ENV !== 'development'
+      return enableCron
     },
 
     workflows: [

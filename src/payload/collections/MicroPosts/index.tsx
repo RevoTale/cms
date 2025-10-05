@@ -7,6 +7,7 @@ import {
 
 import type { CollectionConfig } from 'payload'
 
+import { locales } from 'src/i18n-config'
 import { AutoTranslate } from 'src/payload/fields/autoTranslate'
 import { slugField } from 'src/payload/fields/slug'
 import { authenticated } from '../../access/authenticated'
@@ -41,6 +42,16 @@ export const MicroPosts: CollectionConfig = {
       required: true,
       localized: true,
       maxLength: 100,
+    },
+    {
+      name: 'cronTranslationLocalesQueued',
+      type:'select',
+      hasMany:true,
+      admin:{
+        isClearable:true,
+        readOnly:true,
+      },
+      options:locales.map((locale)=>({label:locale,value:locale})),
     },
     {
       name: 'attachment',

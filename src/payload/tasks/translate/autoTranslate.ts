@@ -15,7 +15,7 @@ export interface AutoTranslateProps {
   targetLocale: TypedLocale
   sourceLocale: TypedLocale
   payload: BasePayload
-  userId:string
+  userId?:string
 }
 const translationInstruction = `You are a professional human translator.
 
@@ -142,7 +142,7 @@ const translateFn = async (
                 title:`Translated field ${key} for ${obj.id}`,
                 input: value,
                 output: text,
-                user: userId,
+                user: userId || undefined,
                 execution_time: (Date.now() - timeStart) / 1000,
               },
             })

@@ -105,8 +105,12 @@ export interface Config {
   db: {
     defaultIDType: string;
   };
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    'payload-jobs-stats': PayloadJobsStat;
+  };
+  globalsSelect: {
+    'payload-jobs-stats': PayloadJobsStatsSelect<false> | PayloadJobsStatsSelect<true>;
+  };
   locale: 'en-US' | 'uk-UA' | 'de-DE' | 'hi-IN' | 'ja-JP' | 'ru-RU' | 'fr-FR' | 'es-ES';
   user: User & {
     collection: 'users';
@@ -119,7 +123,9 @@ export interface Config {
         output: unknown;
       };
     };
-    workflows: unknown;
+    workflows: {
+      localizeRemainedDocuments: WorkflowLocalizeRemainedDocuments;
+    };
   };
 }
 export interface UserAuthOperations {
@@ -255,7 +261,7 @@ export interface AiCallLog {
   input: string;
   output: string;
   execution_time: number;
-  user: string | User;
+  user?: (string | null) | User;
   updatedAt: string;
   createdAt: string;
 }
@@ -266,6 +272,9 @@ export interface AiCallLog {
 export interface MicroPost {
   id: string;
   title: string;
+  cronTranslationLocalesQueued?:
+    | ('en-US' | 'uk-UA' | 'de-DE' | 'hi-IN' | 'ja-JP' | 'ru-RU' | 'fr-FR' | 'es-ES')[]
+    | null;
   attachment?: (string | null) | Media;
   content: string;
   slug: string;
@@ -415,10 +424,20 @@ export interface PayloadJob {
         id?: string | null;
       }[]
     | null;
+  workflowSlug?: 'localizeRemainedDocuments' | null;
   taskSlug?: ('inline' | 'translateDocument') | null;
   queue?: string | null;
   waitUntil?: string | null;
   processing?: boolean | null;
+  meta?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -630,6 +649,7 @@ export interface AiCallLogsSelect<T extends boolean = true> {
  */
 export interface MicroPostsSelect<T extends boolean = true> {
   title?: T;
+  cronTranslationLocalesQueued?: T;
   attachment?: T;
   content?: T;
   slug?: T;
@@ -713,10 +733,12 @@ export interface PayloadJobsSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  workflowSlug?: T;
   taskSlug?: T;
   queue?: T;
   waitUntil?: T;
   processing?: T;
+  meta?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -754,6 +776,34 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-jobs-stats".
+ */
+export interface PayloadJobsStat {
+  id: string;
+  stats?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-jobs-stats_select".
+ */
+export interface PayloadJobsStatsSelect<T extends boolean = true> {
+  stats?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "TaskTranslateDocument".
  */
 export interface TaskTranslateDocument {
@@ -761,10 +811,17 @@ export interface TaskTranslateDocument {
     postID: string;
     sourceLocale: string;
     collection: string;
-    userId: string;
+    userId?: string | null;
     targetLocale: string;
   };
   output?: unknown;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WorkflowLocalizeRemainedDocuments".
+ */
+export interface WorkflowLocalizeRemainedDocuments {
+  input?: unknown;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

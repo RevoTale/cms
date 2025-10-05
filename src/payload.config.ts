@@ -7,13 +7,14 @@ import { postgresAdapter } from '@payloadcms/db-postgres'
 import { s3Storage } from '@payloadcms/storage-s3'
 import OpenAI from 'openai'
 import path from 'path'
-import { buildConfig, type TaskConfig } from 'payload'
+import { buildConfig, type TaskConfig, type WorkflowConfig } from 'payload'
 import sharp from 'sharp'; // editor-import
 import type { MicroPost, Post } from 'src/payload-types'
 import { fileURLToPath } from 'url'
 import Authors from './payload/collections/Authors'
 
 import type { GenerateFileURL } from '@payloadcms/plugin-cloud-storage/types'
+import { locales } from './i18n-config'
 import { migrations } from './migrations'
 import AICallLogs from './payload/collections/AICallLog'
 import { Media } from './payload/collections/Media'
@@ -165,7 +166,7 @@ export default buildConfig({
     schemaOutputFile: path.resolve(dirname, './graphql/schema.graphql'),
   },
   localization: {
-    locales: ['en-US', 'uk-UA', 'de-DE', 'hi-IN', 'ja-JP', 'ru-RU', 'fr-FR', 'es-ES'],
+    locales: locales,
     defaultLocale: 'en-US',
     fallback: true,
   },
@@ -258,6 +259,71 @@ export default buildConfig({
         cron: '* * * * *', // Every minute
       },
     ],
+        shouldAutoRun: async (payload) => {
+      // Tell Payload if it should run jobs or not. This function is optional and will return true by default.
+      // This function will be invoked each time Payload goes to pick up and run jobs.
+      // If this function ever returns false, the cron schedule will be stopped.
+      return true
+    },
+  
+    workflows:[
+      {
+        queue: 'default',
+        retries:1,
+        schedule:[
+          {
+            cron: '* * * * *', // Every minute
+            queue:'default'
+          }
+        ],
+        slug:'localizeRemainedDocuments',
+        label:'Localize remained documents',
+        handler: async ({ job, req }) => {
+          const { payload } = req
+     
+         for (const locale of locales) {
+                    	const posts =await payload.find({
+		collection: "micro_posts",
+		locale: 'en-US',
+		where: {
+			[`content.${locale}`]: {
+				exists: false,
+			},
+      content:{
+        not_equals:''
+      },
+      cronTranslationLocalesQueued:{
+        not_equals:locale
+      }
+		},
+    limit: 100
+	})
+  for(const post of posts.docs){
+    await payload.update({
+      collection:'micro_posts',
+      id:post.id,
+      data:{
+        cronTranslationLocalesQueued:[...(post.cronTranslationLocalesQueued||[]),locale]
+      },  
+      locale:'en-US'
+    })
+    await payload.jobs.queue({
+      task: 'translateDocument',
+      input:{
+        postID: post.id,
+      collection:'micro_posts',
+      sourceLocale:'en-US',
+      targetLocale:locale,
+      userId:undefined
+      }
+    })
+  }
+         }
+
+
+        }
+      } as WorkflowConfig<'localizeRemainedDocuments'>
+    ],
     tasks:[
       {
         retries: 1,
@@ -281,7 +347,7 @@ export default buildConfig({
                {
             name: 'userId',
             type: 'text',
-            required: true,
+            required: false,
           },
           {
             name:'targetLocale',
@@ -293,32 +359,6 @@ export default buildConfig({
     ]
   },
   plugins: [
-    /*cloudStorage({
-      collections: {
-        'media': {
-          disableLocalStorage: true,
-          adapter: adapter, // see docs for the adapter you want to use
-        },
-      },
-    }),*/
-    /*payloadAiPlugin({
-      collections: {
-        [Posts.slug]: true,
-        [MicroPosts.slug]: true,
-        [Media.slug]: true,
-        [Tags.slug]: true,
-        [Authors.slug]: true,
-      },
-      debugging: false,
-      disableSponsorMessage: false,
-      
-      generatePromptOnInit: process.env.NODE_ENV !== 'production',
-
-      // Publicly accessible upload collection for gpt-image-1 model, for reference images. Defaults to "media".
-      uploadCollectionSlug: "media"
-
-     
-    }),*/
     s3PluginConfig,
     seoPlugin({
       generateTitle,

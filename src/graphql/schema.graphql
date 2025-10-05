@@ -53,6 +53,8 @@ type Query {
   PayloadPreferences(draft: Boolean, where: PayloadPreference_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): PayloadPreferences
   countPayloadPreferences(draft: Boolean, trash: Boolean, where: PayloadPreference_where, locale: LocaleInputType): countPayloadPreferences
   docAccessPayloadPreference(id: String!): payload_preferencesDocAccess
+  PayloadJobsStat(draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): PayloadJobsStat
+  docAccessPayloadJobsStat: payload_jobs_statsDocAccess
   Access: Access
 }
 
@@ -3004,7 +3006,7 @@ type Ai_call_log {
   input: String!
   output: String!
   execution_time: Float!
-  user(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): User!
+  user(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): User
   updatedAt: DateTime
   createdAt: DateTime
 }
@@ -3081,6 +3083,7 @@ input Ai_call_log_user_operator {
   in: [JSON]
   not_in: [JSON]
   all: [JSON]
+  exists: Boolean
 }
 
 input Ai_call_log_updatedAt_operator {
@@ -3348,6 +3351,7 @@ type Ai_call_logsDeleteDocAccess {
 type Micro_post {
   id: String!
   title: String
+  cronTranslationLocalesQueued: [Micro_post_cronTranslationLocalesQueued!]
   attachment(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Media
   content: String
   slug: String
@@ -3363,6 +3367,17 @@ type Micro_post {
   updatedAt: DateTime
   createdAt: DateTime
   _status: Micro_post__status
+}
+
+enum Micro_post_cronTranslationLocalesQueued {
+  en_US
+  uk_UA
+  de_DE
+  hi_IN
+  ja_JP
+  ru_RU
+  fr_FR
+  es_ES
 }
 
 type Micro_post_Meta {
@@ -3524,6 +3539,7 @@ type Micro_posts {
 
 input Micro_post_where {
   title: Micro_post_title_operator
+  cronTranslationLocalesQueued: Micro_post_cronTranslationLocalesQueued_operator
   attachment: Micro_post_attachment_operator
   content: Micro_post_content_operator
   slug: Micro_post_slug_operator
@@ -3554,6 +3570,26 @@ input Micro_post_title_operator {
   in: [String]
   not_in: [String]
   all: [String]
+}
+
+input Micro_post_cronTranslationLocalesQueued_operator {
+  equals: Micro_post_cronTranslationLocalesQueued_Input
+  not_equals: Micro_post_cronTranslationLocalesQueued_Input
+  in: [Micro_post_cronTranslationLocalesQueued_Input]
+  not_in: [Micro_post_cronTranslationLocalesQueued_Input]
+  all: [Micro_post_cronTranslationLocalesQueued_Input]
+  exists: Boolean
+}
+
+enum Micro_post_cronTranslationLocalesQueued_Input {
+  en_US
+  uk_UA
+  de_DE
+  hi_IN
+  ja_JP
+  ru_RU
+  fr_FR
+  es_ES
 }
 
 input Micro_post_attachment_operator {
@@ -3729,6 +3765,7 @@ input Micro_post_id_operator {
 
 input Micro_post_where_and {
   title: Micro_post_title_operator
+  cronTranslationLocalesQueued: Micro_post_cronTranslationLocalesQueued_operator
   attachment: Micro_post_attachment_operator
   content: Micro_post_content_operator
   slug: Micro_post_slug_operator
@@ -3753,6 +3790,7 @@ input Micro_post_where_and {
 
 input Micro_post_where_or {
   title: Micro_post_title_operator
+  cronTranslationLocalesQueued: Micro_post_cronTranslationLocalesQueued_operator
   attachment: Micro_post_attachment_operator
   content: Micro_post_content_operator
   slug: Micro_post_slug_operator
@@ -3790,6 +3828,7 @@ type micro_postsDocAccess {
 
 type Micro_postsDocAccessFields {
   title: Micro_postsDocAccessFields_title
+  cronTranslationLocalesQueued: Micro_postsDocAccessFields_cronTranslationLocalesQueued
   attachment: Micro_postsDocAccessFields_attachment
   content: Micro_postsDocAccessFields_content
   slug: Micro_postsDocAccessFields_slug
@@ -3827,6 +3866,29 @@ type Micro_postsDocAccessFields_title_Update {
 }
 
 type Micro_postsDocAccessFields_title_Delete {
+  permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_cronTranslationLocalesQueued {
+  create: Micro_postsDocAccessFields_cronTranslationLocalesQueued_Create
+  read: Micro_postsDocAccessFields_cronTranslationLocalesQueued_Read
+  update: Micro_postsDocAccessFields_cronTranslationLocalesQueued_Update
+  delete: Micro_postsDocAccessFields_cronTranslationLocalesQueued_Delete
+}
+
+type Micro_postsDocAccessFields_cronTranslationLocalesQueued_Create {
+  permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_cronTranslationLocalesQueued_Read {
+  permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_cronTranslationLocalesQueued_Update {
+  permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_cronTranslationLocalesQueued_Delete {
   permission: Boolean!
 }
 
@@ -4370,6 +4432,7 @@ type Micro_postVersion {
 
 type Micro_postVersion_Version {
   title: String
+  cronTranslationLocalesQueued: [Micro_postVersion_Version_cronTranslationLocalesQueued!]
   attachment(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Media
   content: String
   slug: String
@@ -4385,6 +4448,17 @@ type Micro_postVersion_Version {
   updatedAt: DateTime
   createdAt: DateTime
   _status: Micro_postVersion_Version__status
+}
+
+enum Micro_postVersion_Version_cronTranslationLocalesQueued {
+  en_US
+  uk_UA
+  de_DE
+  hi_IN
+  ja_JP
+  ru_RU
+  fr_FR
+  es_ES
 }
 
 type Micro_postVersion_Version_Meta {
@@ -4448,6 +4522,7 @@ type versionsMicro_posts {
 input versionsMicro_post_where {
   parent: versionsMicro_post_parent_operator
   version__title: versionsMicro_post_version__title_operator
+  version__cronTranslationLocalesQueued: versionsMicro_post_version__cronTranslationLocalesQueued_operator
   version__attachment: versionsMicro_post_version__attachment_operator
   version__content: versionsMicro_post_version__content_operator
   version__slug: versionsMicro_post_version__slug_operator
@@ -4493,6 +4568,26 @@ input versionsMicro_post_version__title_operator {
   in: [String]
   not_in: [String]
   all: [String]
+}
+
+input versionsMicro_post_version__cronTranslationLocalesQueued_operator {
+  equals: versionsMicro_post_version__cronTranslationLocalesQueued_Input
+  not_equals: versionsMicro_post_version__cronTranslationLocalesQueued_Input
+  in: [versionsMicro_post_version__cronTranslationLocalesQueued_Input]
+  not_in: [versionsMicro_post_version__cronTranslationLocalesQueued_Input]
+  all: [versionsMicro_post_version__cronTranslationLocalesQueued_Input]
+  exists: Boolean
+}
+
+enum versionsMicro_post_version__cronTranslationLocalesQueued_Input {
+  en_US
+  uk_UA
+  de_DE
+  hi_IN
+  ja_JP
+  ru_RU
+  fr_FR
+  es_ES
 }
 
 input versionsMicro_post_version__attachment_operator {
@@ -4729,6 +4824,7 @@ input versionsMicro_post_id_operator {
 input versionsMicro_post_where_and {
   parent: versionsMicro_post_parent_operator
   version__title: versionsMicro_post_version__title_operator
+  version__cronTranslationLocalesQueued: versionsMicro_post_version__cronTranslationLocalesQueued_operator
   version__attachment: versionsMicro_post_version__attachment_operator
   version__content: versionsMicro_post_version__content_operator
   version__slug: versionsMicro_post_version__slug_operator
@@ -4760,6 +4856,7 @@ input versionsMicro_post_where_and {
 input versionsMicro_post_where_or {
   parent: versionsMicro_post_parent_operator
   version__title: versionsMicro_post_version__title_operator
+  version__cronTranslationLocalesQueued: versionsMicro_post_version__cronTranslationLocalesQueued_operator
   version__attachment: versionsMicro_post_version__attachment_operator
   version__content: versionsMicro_post_version__content_operator
   version__slug: versionsMicro_post_version__slug_operator
@@ -5194,10 +5291,12 @@ type PayloadJob {
   hasError: Boolean
   error: JSON
   log: [PayloadJob_Log!]
+  workflowSlug: PayloadJob_workflowSlug
   taskSlug: PayloadJob_taskSlug
   queue: String
   waitUntil: DateTime
   processing: Boolean
+  meta: JSON
   updatedAt: DateTime
   createdAt: DateTime
 }
@@ -5233,6 +5332,10 @@ type PayloadJob_Log_Parent {
 enum PayloadJob_Log_Parent_taskSlug {
   inline
   translateDocument
+}
+
+enum PayloadJob_workflowSlug {
+  localizeRemainedDocuments
 }
 
 enum PayloadJob_taskSlug {
@@ -5272,10 +5375,12 @@ input PayloadJob_where {
   log__parent__taskSlug: PayloadJob_log__parent__taskSlug_operator
   log__parent__taskID: PayloadJob_log__parent__taskID_operator
   log__id: PayloadJob_log__id_operator
+  workflowSlug: PayloadJob_workflowSlug_operator
   taskSlug: PayloadJob_taskSlug_operator
   queue: PayloadJob_queue_operator
   waitUntil: PayloadJob_waitUntil_operator
   processing: PayloadJob_processing_operator
+  meta: PayloadJob_meta_operator
   updatedAt: PayloadJob_updatedAt_operator
   createdAt: PayloadJob_createdAt_operator
   id: PayloadJob_id_operator
@@ -5460,6 +5565,19 @@ input PayloadJob_log__id_operator {
   exists: Boolean
 }
 
+input PayloadJob_workflowSlug_operator {
+  equals: PayloadJob_workflowSlug_Input
+  not_equals: PayloadJob_workflowSlug_Input
+  in: [PayloadJob_workflowSlug_Input]
+  not_in: [PayloadJob_workflowSlug_Input]
+  all: [PayloadJob_workflowSlug_Input]
+  exists: Boolean
+}
+
+enum PayloadJob_workflowSlug_Input {
+  localizeRemainedDocuments
+}
+
 input PayloadJob_taskSlug_operator {
   equals: PayloadJob_taskSlug_Input
   not_equals: PayloadJob_taskSlug_Input
@@ -5499,6 +5617,16 @@ input PayloadJob_waitUntil_operator {
 input PayloadJob_processing_operator {
   equals: Boolean
   not_equals: Boolean
+  exists: Boolean
+}
+
+input PayloadJob_meta_operator {
+  equals: JSON
+  not_equals: JSON
+  like: JSON
+  contains: JSON
+  within: JSON
+  intersects: JSON
   exists: Boolean
 }
 
@@ -5553,10 +5681,12 @@ input PayloadJob_where_and {
   log__parent__taskSlug: PayloadJob_log__parent__taskSlug_operator
   log__parent__taskID: PayloadJob_log__parent__taskID_operator
   log__id: PayloadJob_log__id_operator
+  workflowSlug: PayloadJob_workflowSlug_operator
   taskSlug: PayloadJob_taskSlug_operator
   queue: PayloadJob_queue_operator
   waitUntil: PayloadJob_waitUntil_operator
   processing: PayloadJob_processing_operator
+  meta: PayloadJob_meta_operator
   updatedAt: PayloadJob_updatedAt_operator
   createdAt: PayloadJob_createdAt_operator
   id: PayloadJob_id_operator
@@ -5582,10 +5712,12 @@ input PayloadJob_where_or {
   log__parent__taskSlug: PayloadJob_log__parent__taskSlug_operator
   log__parent__taskID: PayloadJob_log__parent__taskID_operator
   log__id: PayloadJob_log__id_operator
+  workflowSlug: PayloadJob_workflowSlug_operator
   taskSlug: PayloadJob_taskSlug_operator
   queue: PayloadJob_queue_operator
   waitUntil: PayloadJob_waitUntil_operator
   processing: PayloadJob_processing_operator
+  meta: PayloadJob_meta_operator
   updatedAt: PayloadJob_updatedAt_operator
   createdAt: PayloadJob_createdAt_operator
   id: PayloadJob_id_operator
@@ -5613,10 +5745,12 @@ type PayloadJobsDocAccessFields {
   hasError: PayloadJobsDocAccessFields_hasError
   error: PayloadJobsDocAccessFields_error
   log: PayloadJobsDocAccessFields_log
+  workflowSlug: PayloadJobsDocAccessFields_workflowSlug
   taskSlug: PayloadJobsDocAccessFields_taskSlug
   queue: PayloadJobsDocAccessFields_queue
   waitUntil: PayloadJobsDocAccessFields_waitUntil
   processing: PayloadJobsDocAccessFields_processing
+  meta: PayloadJobsDocAccessFields_meta
   updatedAt: PayloadJobsDocAccessFields_updatedAt
   createdAt: PayloadJobsDocAccessFields_createdAt
 }
@@ -6078,6 +6212,29 @@ type PayloadJobsDocAccessFields_log_id_Delete {
   permission: Boolean!
 }
 
+type PayloadJobsDocAccessFields_workflowSlug {
+  create: PayloadJobsDocAccessFields_workflowSlug_Create
+  read: PayloadJobsDocAccessFields_workflowSlug_Read
+  update: PayloadJobsDocAccessFields_workflowSlug_Update
+  delete: PayloadJobsDocAccessFields_workflowSlug_Delete
+}
+
+type PayloadJobsDocAccessFields_workflowSlug_Create {
+  permission: Boolean!
+}
+
+type PayloadJobsDocAccessFields_workflowSlug_Read {
+  permission: Boolean!
+}
+
+type PayloadJobsDocAccessFields_workflowSlug_Update {
+  permission: Boolean!
+}
+
+type PayloadJobsDocAccessFields_workflowSlug_Delete {
+  permission: Boolean!
+}
+
 type PayloadJobsDocAccessFields_taskSlug {
   create: PayloadJobsDocAccessFields_taskSlug_Create
   read: PayloadJobsDocAccessFields_taskSlug_Read
@@ -6167,6 +6324,29 @@ type PayloadJobsDocAccessFields_processing_Update {
 }
 
 type PayloadJobsDocAccessFields_processing_Delete {
+  permission: Boolean!
+}
+
+type PayloadJobsDocAccessFields_meta {
+  create: PayloadJobsDocAccessFields_meta_Create
+  read: PayloadJobsDocAccessFields_meta_Read
+  update: PayloadJobsDocAccessFields_meta_Update
+  delete: PayloadJobsDocAccessFields_meta_Delete
+}
+
+type PayloadJobsDocAccessFields_meta_Create {
+  permission: Boolean!
+}
+
+type PayloadJobsDocAccessFields_meta_Read {
+  permission: Boolean!
+}
+
+type PayloadJobsDocAccessFields_meta_Update {
+  permission: Boolean!
+}
+
+type PayloadJobsDocAccessFields_meta_Delete {
   permission: Boolean!
 }
 
@@ -6834,6 +7014,103 @@ type PayloadPreferencesDeleteDocAccess {
   where: JSONObject
 }
 
+type PayloadJobsStat {
+  stats: JSON
+  updatedAt: DateTime
+  createdAt: DateTime
+}
+
+type payload_jobs_statsDocAccess {
+  fields: PayloadJobsStatsDocAccessFields
+  read: PayloadJobsStatsReadDocAccess
+  update: PayloadJobsStatsUpdateDocAccess
+}
+
+type PayloadJobsStatsDocAccessFields {
+  stats: PayloadJobsStatsDocAccessFields_stats
+  updatedAt: PayloadJobsStatsDocAccessFields_updatedAt
+  createdAt: PayloadJobsStatsDocAccessFields_createdAt
+}
+
+type PayloadJobsStatsDocAccessFields_stats {
+  create: PayloadJobsStatsDocAccessFields_stats_Create
+  read: PayloadJobsStatsDocAccessFields_stats_Read
+  update: PayloadJobsStatsDocAccessFields_stats_Update
+  delete: PayloadJobsStatsDocAccessFields_stats_Delete
+}
+
+type PayloadJobsStatsDocAccessFields_stats_Create {
+  permission: Boolean!
+}
+
+type PayloadJobsStatsDocAccessFields_stats_Read {
+  permission: Boolean!
+}
+
+type PayloadJobsStatsDocAccessFields_stats_Update {
+  permission: Boolean!
+}
+
+type PayloadJobsStatsDocAccessFields_stats_Delete {
+  permission: Boolean!
+}
+
+type PayloadJobsStatsDocAccessFields_updatedAt {
+  create: PayloadJobsStatsDocAccessFields_updatedAt_Create
+  read: PayloadJobsStatsDocAccessFields_updatedAt_Read
+  update: PayloadJobsStatsDocAccessFields_updatedAt_Update
+  delete: PayloadJobsStatsDocAccessFields_updatedAt_Delete
+}
+
+type PayloadJobsStatsDocAccessFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type PayloadJobsStatsDocAccessFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type PayloadJobsStatsDocAccessFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type PayloadJobsStatsDocAccessFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type PayloadJobsStatsDocAccessFields_createdAt {
+  create: PayloadJobsStatsDocAccessFields_createdAt_Create
+  read: PayloadJobsStatsDocAccessFields_createdAt_Read
+  update: PayloadJobsStatsDocAccessFields_createdAt_Update
+  delete: PayloadJobsStatsDocAccessFields_createdAt_Delete
+}
+
+type PayloadJobsStatsDocAccessFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type PayloadJobsStatsDocAccessFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type PayloadJobsStatsDocAccessFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type PayloadJobsStatsDocAccessFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type PayloadJobsStatsReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type PayloadJobsStatsUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
 type Access {
   canAccessAdmin: Boolean!
   posts: postsAccess
@@ -6848,6 +7125,7 @@ type Access {
   payload_jobs: payload_jobsAccess
   payload_locked_documents: payload_locked_documentsAccess
   payload_preferences: payload_preferencesAccess
+  payload_jobs_stats: payload_jobs_statsAccess
 }
 
 type postsAccess {
@@ -8535,6 +8813,7 @@ type micro_postsAccess {
 
 type Micro_postsFields {
   title: Micro_postsFields_title
+  cronTranslationLocalesQueued: Micro_postsFields_cronTranslationLocalesQueued
   attachment: Micro_postsFields_attachment
   content: Micro_postsFields_content
   slug: Micro_postsFields_slug
@@ -8572,6 +8851,29 @@ type Micro_postsFields_title_Update {
 }
 
 type Micro_postsFields_title_Delete {
+  permission: Boolean!
+}
+
+type Micro_postsFields_cronTranslationLocalesQueued {
+  create: Micro_postsFields_cronTranslationLocalesQueued_Create
+  read: Micro_postsFields_cronTranslationLocalesQueued_Read
+  update: Micro_postsFields_cronTranslationLocalesQueued_Update
+  delete: Micro_postsFields_cronTranslationLocalesQueued_Delete
+}
+
+type Micro_postsFields_cronTranslationLocalesQueued_Create {
+  permission: Boolean!
+}
+
+type Micro_postsFields_cronTranslationLocalesQueued_Read {
+  permission: Boolean!
+}
+
+type Micro_postsFields_cronTranslationLocalesQueued_Update {
+  permission: Boolean!
+}
+
+type Micro_postsFields_cronTranslationLocalesQueued_Delete {
   permission: Boolean!
 }
 
@@ -9395,10 +9697,12 @@ type PayloadJobsFields {
   hasError: PayloadJobsFields_hasError
   error: PayloadJobsFields_error
   log: PayloadJobsFields_log
+  workflowSlug: PayloadJobsFields_workflowSlug
   taskSlug: PayloadJobsFields_taskSlug
   queue: PayloadJobsFields_queue
   waitUntil: PayloadJobsFields_waitUntil
   processing: PayloadJobsFields_processing
+  meta: PayloadJobsFields_meta
   updatedAt: PayloadJobsFields_updatedAt
   createdAt: PayloadJobsFields_createdAt
 }
@@ -9860,6 +10164,29 @@ type PayloadJobsFields_log_id_Delete {
   permission: Boolean!
 }
 
+type PayloadJobsFields_workflowSlug {
+  create: PayloadJobsFields_workflowSlug_Create
+  read: PayloadJobsFields_workflowSlug_Read
+  update: PayloadJobsFields_workflowSlug_Update
+  delete: PayloadJobsFields_workflowSlug_Delete
+}
+
+type PayloadJobsFields_workflowSlug_Create {
+  permission: Boolean!
+}
+
+type PayloadJobsFields_workflowSlug_Read {
+  permission: Boolean!
+}
+
+type PayloadJobsFields_workflowSlug_Update {
+  permission: Boolean!
+}
+
+type PayloadJobsFields_workflowSlug_Delete {
+  permission: Boolean!
+}
+
 type PayloadJobsFields_taskSlug {
   create: PayloadJobsFields_taskSlug_Create
   read: PayloadJobsFields_taskSlug_Read
@@ -9949,6 +10276,29 @@ type PayloadJobsFields_processing_Update {
 }
 
 type PayloadJobsFields_processing_Delete {
+  permission: Boolean!
+}
+
+type PayloadJobsFields_meta {
+  create: PayloadJobsFields_meta_Create
+  read: PayloadJobsFields_meta_Read
+  update: PayloadJobsFields_meta_Update
+  delete: PayloadJobsFields_meta_Delete
+}
+
+type PayloadJobsFields_meta_Create {
+  permission: Boolean!
+}
+
+type PayloadJobsFields_meta_Read {
+  permission: Boolean!
+}
+
+type PayloadJobsFields_meta_Update {
+  permission: Boolean!
+}
+
+type PayloadJobsFields_meta_Delete {
   permission: Boolean!
 }
 
@@ -10320,6 +10670,97 @@ type PayloadPreferencesDeleteAccess {
   where: JSONObject
 }
 
+type payload_jobs_statsAccess {
+  fields: PayloadJobsStatsFields
+  read: PayloadJobsStatsReadAccess
+  update: PayloadJobsStatsUpdateAccess
+}
+
+type PayloadJobsStatsFields {
+  stats: PayloadJobsStatsFields_stats
+  updatedAt: PayloadJobsStatsFields_updatedAt
+  createdAt: PayloadJobsStatsFields_createdAt
+}
+
+type PayloadJobsStatsFields_stats {
+  create: PayloadJobsStatsFields_stats_Create
+  read: PayloadJobsStatsFields_stats_Read
+  update: PayloadJobsStatsFields_stats_Update
+  delete: PayloadJobsStatsFields_stats_Delete
+}
+
+type PayloadJobsStatsFields_stats_Create {
+  permission: Boolean!
+}
+
+type PayloadJobsStatsFields_stats_Read {
+  permission: Boolean!
+}
+
+type PayloadJobsStatsFields_stats_Update {
+  permission: Boolean!
+}
+
+type PayloadJobsStatsFields_stats_Delete {
+  permission: Boolean!
+}
+
+type PayloadJobsStatsFields_updatedAt {
+  create: PayloadJobsStatsFields_updatedAt_Create
+  read: PayloadJobsStatsFields_updatedAt_Read
+  update: PayloadJobsStatsFields_updatedAt_Update
+  delete: PayloadJobsStatsFields_updatedAt_Delete
+}
+
+type PayloadJobsStatsFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type PayloadJobsStatsFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type PayloadJobsStatsFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type PayloadJobsStatsFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type PayloadJobsStatsFields_createdAt {
+  create: PayloadJobsStatsFields_createdAt_Create
+  read: PayloadJobsStatsFields_createdAt_Read
+  update: PayloadJobsStatsFields_createdAt_Update
+  delete: PayloadJobsStatsFields_createdAt_Delete
+}
+
+type PayloadJobsStatsFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type PayloadJobsStatsFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type PayloadJobsStatsFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type PayloadJobsStatsFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type PayloadJobsStatsReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type PayloadJobsStatsUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
 type Mutation {
   createPost(data: mutationPostInput!, draft: Boolean, locale: LocaleInputType): Post
   updatePost(id: String!, autosave: Boolean, data: mutationPostUpdateInput!, draft: Boolean, locale: LocaleInputType, trash: Boolean): Post
@@ -10377,6 +10818,7 @@ type Mutation {
   updatePayloadPreference(id: String!, autosave: Boolean, data: mutationPayloadPreferenceUpdateInput!, draft: Boolean, locale: LocaleInputType, trash: Boolean): PayloadPreference
   deletePayloadPreference(id: String!, trash: Boolean): PayloadPreference
   duplicatePayloadPreference(id: String!, data: mutationPayloadPreferenceInput!): PayloadPreference
+  updatePayloadJobsStat(data: mutationPayloadJobsStatInput!, draft: Boolean, locale: LocaleInputType): PayloadJobsStat
 }
 
 input mutationPostInput {
@@ -10606,6 +11048,7 @@ input mutationAi_call_logUpdateInput {
 
 input mutationMicro_postInput {
   title: String
+  cronTranslationLocalesQueued: [Micro_post_cronTranslationLocalesQueued_MutationInput]
   attachment: String
   content: String
   slug: String!
@@ -10619,6 +11062,17 @@ input mutationMicro_postInput {
   updatedAt: String
   createdAt: String
   _status: Micro_post__status_MutationInput
+}
+
+enum Micro_post_cronTranslationLocalesQueued_MutationInput {
+  en_US
+  uk_UA
+  de_DE
+  hi_IN
+  ja_JP
+  ru_RU
+  fr_FR
+  es_ES
 }
 
 input mutationMicro_post_MetaInput {
@@ -10644,6 +11098,7 @@ enum Micro_post__status_MutationInput {
 
 input mutationMicro_postUpdateInput {
   title: String
+  cronTranslationLocalesQueued: [Micro_postUpdate_cronTranslationLocalesQueued_MutationInput]
   attachment: String
   content: String
   slug: String
@@ -10657,6 +11112,17 @@ input mutationMicro_postUpdateInput {
   updatedAt: String
   createdAt: String
   _status: Micro_postUpdate__status_MutationInput
+}
+
+enum Micro_postUpdate_cronTranslationLocalesQueued_MutationInput {
+  en_US
+  uk_UA
+  de_DE
+  hi_IN
+  ja_JP
+  ru_RU
+  fr_FR
+  es_ES
 }
 
 input mutationMicro_postUpdate_MetaInput {
@@ -10718,10 +11184,12 @@ input mutationPayloadJobInput {
   hasError: Boolean
   error: JSON
   log: [mutationPayloadJob_LogInput]
+  workflowSlug: PayloadJob_workflowSlug_MutationInput
   taskSlug: PayloadJob_taskSlug_MutationInput
   queue: String
   waitUntil: String
   processing: Boolean
+  meta: JSON
   updatedAt: String
   createdAt: String
 }
@@ -10754,6 +11222,10 @@ enum PayloadJob_Log_Parent_taskSlug_MutationInput {
   translateDocument
 }
 
+enum PayloadJob_workflowSlug_MutationInput {
+  localizeRemainedDocuments
+}
+
 enum PayloadJob_taskSlug_MutationInput {
   inline
   translateDocument
@@ -10767,10 +11239,12 @@ input mutationPayloadJobUpdateInput {
   hasError: Boolean
   error: JSON
   log: [mutationPayloadJobUpdate_LogInput]
+  workflowSlug: PayloadJobUpdate_workflowSlug_MutationInput
   taskSlug: PayloadJobUpdate_taskSlug_MutationInput
   queue: String
   waitUntil: String
   processing: Boolean
+  meta: JSON
   updatedAt: String
   createdAt: String
 }
@@ -10801,6 +11275,10 @@ input mutationPayloadJobUpdate_Log_ParentInput {
 enum PayloadJobUpdate_Log_Parent_taskSlug_MutationInput {
   inline
   translateDocument
+}
+
+enum PayloadJobUpdate_workflowSlug_MutationInput {
+  localizeRemainedDocuments
 }
 
 enum PayloadJobUpdate_taskSlug_MutationInput {
@@ -10910,4 +11388,10 @@ input PayloadPreferenceUpdate_UserRelationshipInput {
 
 enum PayloadPreferenceUpdate_UserRelationshipInputRelationTo {
   users
+}
+
+input mutationPayloadJobsStatInput {
+  stats: JSON
+  updatedAt: String
+  createdAt: String
 }

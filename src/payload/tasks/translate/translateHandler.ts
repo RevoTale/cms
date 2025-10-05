@@ -26,7 +26,7 @@ const translateHandler:TaskHandler<'translateDocument'> =async ({ input, job, re
                 sourceLocale: sourceLocale as TypedLocale,
                 targetLocale: targetLocale as TypedLocale,
                 payload: req.payload,
-                userId:  input.userId,
+                userId:  input.userId||undefined,
               })
           return {
             output: {

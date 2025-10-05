@@ -48,7 +48,15 @@ export const enum__posts_v_published_locale = pgEnum('enum__posts_v_published_lo
   'fr-FR',
   'es-ES',
 ])
+export const enum_micro_posts_cron_translation_locales_queued = pgEnum(
+  'enum_micro_posts_cron_translation_locales_queued',
+  ['en-US', 'uk-UA', 'de-DE', 'hi-IN', 'ja-JP', 'ru-RU', 'fr-FR', 'es-ES'],
+)
 export const enum_micro_posts_status = pgEnum('enum_micro_posts_status', ['draft', 'published'])
+export const enum__micro_posts_v_version_cron_translation_locales_queued = pgEnum(
+  'enum__micro_posts_v_version_cron_translation_locales_queued',
+  ['en-US', 'uk-UA', 'de-DE', 'hi-IN', 'ja-JP', 'ru-RU', 'fr-FR', 'es-ES'],
+)
 export const enum__micro_posts_v_version_status = pgEnum('enum__micro_posts_v_version_status', [
   'draft',
   'published',
@@ -75,6 +83,9 @@ export const enum_payload_jobs_log_parent_task_slug = pgEnum(
   'enum_payload_jobs_log_parent_task_slug',
   ['inline', 'translateDocument'],
 )
+export const enum_payload_jobs_workflow_slug = pgEnum('enum_payload_jobs_workflow_slug', [
+  'localizeRemainedDocuments',
+])
 export const enum_payload_jobs_task_slug = pgEnum('enum_payload_jobs_task_slug', [
   'inline',
   'translateDocument',
@@ -527,11 +538,9 @@ export const ai_call_logs = pgTable(
     input: varchar('input').notNull(),
     output: varchar('output').notNull(),
     execution_time: numeric('execution_time').notNull(),
-    user: uuid('user_id')
-      .notNull()
-      .references(() => users.id, {
-        onDelete: 'set null',
-      }),
+    user: uuid('user_id').references(() => users.id, {
+      onDelete: 'set null',
+    }),
     updatedAt: timestamp('updated_at', { mode: 'string', withTimezone: true, precision: 3 })
       .defaultNow()
       .notNull(),
@@ -543,6 +552,25 @@ export const ai_call_logs = pgTable(
     ai_call_logs_user_idx: index('ai_call_logs_user_idx').on(columns.user),
     ai_call_logs_updated_at_idx: index('ai_call_logs_updated_at_idx').on(columns.updatedAt),
     ai_call_logs_created_at_idx: index('ai_call_logs_created_at_idx').on(columns.createdAt),
+  }),
+)
+
+export const micro_posts_cron_translation_locales_queued = pgTable(
+  'micro_posts_cron_translation_locales_queued',
+  {
+    order: integer('order').notNull(),
+    parent: uuid('parent_id').notNull(),
+    value: enum_micro_posts_cron_translation_locales_queued('value'),
+    id: uuid('id').defaultRandom().primaryKey(),
+  },
+  (columns) => ({
+    orderIdx: index('micro_posts_cron_translation_locales_queued_order_idx').on(columns.order),
+    parentIdx: index('micro_posts_cron_translation_locales_queued_parent_idx').on(columns.parent),
+    parentFk: foreignKey({
+      columns: [columns['parent']],
+      foreignColumns: [micro_posts.id],
+      name: 'micro_posts_cron_translation_locales_queued_parent_fk',
+    }).onDelete('cascade'),
   }),
 )
 
@@ -650,6 +678,29 @@ export const micro_posts_rels = pgTable(
       columns: [columns['authorsID']],
       foreignColumns: [authors.id],
       name: 'micro_posts_rels_authors_fk',
+    }).onDelete('cascade'),
+  }),
+)
+
+export const _micro_posts_v_version_cron_translation_locales_queued = pgTable(
+  '_micro_posts_v_version_cron_translation_locales_queued',
+  {
+    order: integer('order').notNull(),
+    parent: uuid('parent_id').notNull(),
+    value: enum__micro_posts_v_version_cron_translation_locales_queued('value'),
+    id: uuid('id').defaultRandom().primaryKey(),
+  },
+  (columns) => ({
+    orderIdx: index('_micro_posts_v_version_cron_translation_locales_queued_order_idx').on(
+      columns.order,
+    ),
+    parentIdx: index('_micro_posts_v_version_cron_translation_locales_queued_parent_idx').on(
+      columns.parent,
+    ),
+    parentFk: foreignKey({
+      columns: [columns['parent']],
+      foreignColumns: [_micro_posts_v.id],
+      name: '_micro_posts_v_version_cron_translation_locales_queued_parent_fk',
     }).onDelete('cascade'),
   }),
 )
@@ -952,10 +1003,12 @@ export const payload_jobs = pgTable(
     totalTried: numeric('total_tried').default('0'),
     hasError: boolean('has_error').default(false),
     error: jsonb('error'),
+    workflowSlug: enum_payload_jobs_workflow_slug('workflow_slug'),
     taskSlug: enum_payload_jobs_task_slug('task_slug'),
     queue: varchar('queue').default('default'),
     waitUntil: timestamp('wait_until', { mode: 'string', withTimezone: true, precision: 3 }),
     processing: boolean('processing').default(false),
+    meta: jsonb('meta'),
     updatedAt: timestamp('updated_at', { mode: 'string', withTimezone: true, precision: 3 })
       .defaultNow()
       .notNull(),
@@ -967,6 +1020,9 @@ export const payload_jobs = pgTable(
     payload_jobs_completed_at_idx: index('payload_jobs_completed_at_idx').on(columns.completedAt),
     payload_jobs_total_tried_idx: index('payload_jobs_total_tried_idx').on(columns.totalTried),
     payload_jobs_has_error_idx: index('payload_jobs_has_error_idx').on(columns.hasError),
+    payload_jobs_workflow_slug_idx: index('payload_jobs_workflow_slug_idx').on(
+      columns.workflowSlug,
+    ),
     payload_jobs_task_slug_idx: index('payload_jobs_task_slug_idx').on(columns.taskSlug),
     payload_jobs_queue_idx: index('payload_jobs_queue_idx').on(columns.queue),
     payload_jobs_wait_until_idx: index('payload_jobs_wait_until_idx').on(columns.waitUntil),
@@ -1187,6 +1243,13 @@ export const payload_migrations = pgTable(
   }),
 )
 
+export const payload_jobs_stats = pgTable('payload_jobs_stats', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  stats: jsonb('stats'),
+  updatedAt: timestamp('updated_at', { mode: 'string', withTimezone: true, precision: 3 }),
+  createdAt: timestamp('created_at', { mode: 'string', withTimezone: true, precision: 3 }),
+})
+
 export const relations_posts_locales = relations(posts_locales, ({ one }) => ({
   _parentID: one(posts, {
     fields: [posts_locales._parentID],
@@ -1351,6 +1414,16 @@ export const relations_ai_call_logs = relations(ai_call_logs, ({ one }) => ({
     relationName: 'user',
   }),
 }))
+export const relations_micro_posts_cron_translation_locales_queued = relations(
+  micro_posts_cron_translation_locales_queued,
+  ({ one }) => ({
+    parent: one(micro_posts, {
+      fields: [micro_posts_cron_translation_locales_queued.parent],
+      references: [micro_posts.id],
+      relationName: 'cronTranslationLocalesQueued',
+    }),
+  }),
+)
 export const relations_micro_posts_locales = relations(micro_posts_locales, ({ one }) => ({
   _parentID: one(micro_posts, {
     fields: [micro_posts_locales._parentID],
@@ -1386,6 +1459,9 @@ export const relations_micro_posts_rels = relations(micro_posts_rels, ({ one }) 
   }),
 }))
 export const relations_micro_posts = relations(micro_posts, ({ one, many }) => ({
+  cronTranslationLocalesQueued: many(micro_posts_cron_translation_locales_queued, {
+    relationName: 'cronTranslationLocalesQueued',
+  }),
   attachment: one(media, {
     fields: [micro_posts.attachment],
     references: [media.id],
@@ -1398,6 +1474,16 @@ export const relations_micro_posts = relations(micro_posts, ({ one, many }) => (
     relationName: '_rels',
   }),
 }))
+export const relations__micro_posts_v_version_cron_translation_locales_queued = relations(
+  _micro_posts_v_version_cron_translation_locales_queued,
+  ({ one }) => ({
+    parent: one(_micro_posts_v, {
+      fields: [_micro_posts_v_version_cron_translation_locales_queued.parent],
+      references: [_micro_posts_v.id],
+      relationName: 'version_cronTranslationLocalesQueued',
+    }),
+  }),
+)
 export const relations__micro_posts_v_locales = relations(_micro_posts_v_locales, ({ one }) => ({
   _parentID: one(_micro_posts_v, {
     fields: [_micro_posts_v_locales._parentID],
@@ -1438,6 +1524,12 @@ export const relations__micro_posts_v = relations(_micro_posts_v, ({ one, many }
     references: [micro_posts.id],
     relationName: 'parent',
   }),
+  version_cronTranslationLocalesQueued: many(
+    _micro_posts_v_version_cron_translation_locales_queued,
+    {
+      relationName: 'version_cronTranslationLocalesQueued',
+    },
+  ),
   version_attachment: one(media, {
     fields: [_micro_posts_v.version_attachment],
     references: [media.id],
@@ -1597,18 +1689,22 @@ export const relations_payload_preferences = relations(payload_preferences, ({ m
   }),
 }))
 export const relations_payload_migrations = relations(payload_migrations, () => ({}))
+export const relations_payload_jobs_stats = relations(payload_jobs_stats, () => ({}))
 
 type DatabaseSchema = {
   enum__locales: typeof enum__locales
   enum_posts_status: typeof enum_posts_status
   enum__posts_v_version_status: typeof enum__posts_v_version_status
   enum__posts_v_published_locale: typeof enum__posts_v_published_locale
+  enum_micro_posts_cron_translation_locales_queued: typeof enum_micro_posts_cron_translation_locales_queued
   enum_micro_posts_status: typeof enum_micro_posts_status
+  enum__micro_posts_v_version_cron_translation_locales_queued: typeof enum__micro_posts_v_version_cron_translation_locales_queued
   enum__micro_posts_v_version_status: typeof enum__micro_posts_v_version_status
   enum__micro_posts_v_published_locale: typeof enum__micro_posts_v_published_locale
   enum_payload_jobs_log_task_slug: typeof enum_payload_jobs_log_task_slug
   enum_payload_jobs_log_state: typeof enum_payload_jobs_log_state
   enum_payload_jobs_log_parent_task_slug: typeof enum_payload_jobs_log_parent_task_slug
+  enum_payload_jobs_workflow_slug: typeof enum_payload_jobs_workflow_slug
   enum_payload_jobs_task_slug: typeof enum_payload_jobs_task_slug
   posts: typeof posts
   posts_locales: typeof posts_locales
@@ -1625,9 +1721,11 @@ type DatabaseSchema = {
   authors: typeof authors
   authors_locales: typeof authors_locales
   ai_call_logs: typeof ai_call_logs
+  micro_posts_cron_translation_locales_queued: typeof micro_posts_cron_translation_locales_queued
   micro_posts: typeof micro_posts
   micro_posts_locales: typeof micro_posts_locales
   micro_posts_rels: typeof micro_posts_rels
+  _micro_posts_v_version_cron_translation_locales_queued: typeof _micro_posts_v_version_cron_translation_locales_queued
   _micro_posts_v: typeof _micro_posts_v
   _micro_posts_v_locales: typeof _micro_posts_v_locales
   _micro_posts_v_rels: typeof _micro_posts_v_rels
@@ -1642,6 +1740,7 @@ type DatabaseSchema = {
   payload_preferences: typeof payload_preferences
   payload_preferences_rels: typeof payload_preferences_rels
   payload_migrations: typeof payload_migrations
+  payload_jobs_stats: typeof payload_jobs_stats
   relations_posts_locales: typeof relations_posts_locales
   relations_posts_rels: typeof relations_posts_rels
   relations_posts: typeof relations_posts
@@ -1657,9 +1756,11 @@ type DatabaseSchema = {
   relations_authors_locales: typeof relations_authors_locales
   relations_authors: typeof relations_authors
   relations_ai_call_logs: typeof relations_ai_call_logs
+  relations_micro_posts_cron_translation_locales_queued: typeof relations_micro_posts_cron_translation_locales_queued
   relations_micro_posts_locales: typeof relations_micro_posts_locales
   relations_micro_posts_rels: typeof relations_micro_posts_rels
   relations_micro_posts: typeof relations_micro_posts
+  relations__micro_posts_v_version_cron_translation_locales_queued: typeof relations__micro_posts_v_version_cron_translation_locales_queued
   relations__micro_posts_v_locales: typeof relations__micro_posts_v_locales
   relations__micro_posts_v_rels: typeof relations__micro_posts_v_rels
   relations__micro_posts_v: typeof relations__micro_posts_v
@@ -1674,6 +1775,7 @@ type DatabaseSchema = {
   relations_payload_preferences_rels: typeof relations_payload_preferences_rels
   relations_payload_preferences: typeof relations_payload_preferences
   relations_payload_migrations: typeof relations_payload_migrations
+  relations_payload_jobs_stats: typeof relations_payload_jobs_stats
 }
 
 declare module '@payloadcms/db-postgres' {

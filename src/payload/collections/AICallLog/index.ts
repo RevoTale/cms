@@ -50,7 +50,7 @@ const AICallLogs: CollectionConfig = {
       name: 'user',
       type: 'relationship',
       relationTo: 'users',
-      required: true,
+      required: false,
       hasMany: false,
       localized: false,
     },

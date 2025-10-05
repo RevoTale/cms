@@ -47,7 +47,7 @@ const autoTranslateTask = async ({
     if (task.hasError) {
       return {
         ok: false,
-        error: task.error?.toString() || 'Unknown error',
+        error: 'Unknown error',
       }
     }
     return {

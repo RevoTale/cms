@@ -5,10 +5,8 @@ import type {
   RequiredDataFromCollectionSlug,
 } from 'payload'
 
-import { fileURLToPath } from 'url'
 import { authors, type locales, media, micropostExternalLinks, microposts, tags } from './data'
 
-const filename = fileURLToPath(import.meta.url)
 // Next.js revalidation errors are normal when seeding the database without a server running
 // i.e. running `yarn seed` locally instead of using the admin UI within an active app
 // The app is not running to revalidate the pages and so the API routes are not available
@@ -46,7 +44,6 @@ export const seed = async ({
     payload.logger.info(`Seeding ${collection}...`)
     for (const item of data) {
       payload.logger.info(`Processing ${collection} ${getLegacyId(item)}`)
-      console.log(getData(item, 'en-US'))
       const tag = await payload.create({
         collection,
         data: getData(item, 'en-US'),

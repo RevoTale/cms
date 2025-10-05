@@ -1,22 +1,24 @@
 'use client'
 
 import { Button, toast, useDocumentInfo } from '@payloadcms/ui'
+import type { Data } from 'payload'
 import React, { useState } from 'react'
 import { genImageSafe } from './generateImage'
 
+const getContentFromData = (data: Data) => `
+    Title: ${data.title || data?.title || ''}
+    Content:
+    ${data.content || data?.content || ''}`
 const GenerateImageButton: React.FC = () => {
-  const { id, collectionSlug, savedDocumentData, initialData } = useDocumentInfo()
+  const { id, collectionSlug, data, initialData } = useDocumentInfo()
   const [loading, setLoading] = useState(false)
 
   // id and collectionSlug are undefined on create form
-  if (!id || !collectionSlug || collectionSlug !== 'micro_posts' || !savedDocumentData) {
+  if (!id || !collectionSlug || collectionSlug !== 'micro_posts' || !data) {
     return null
   }
 
-  const content = `
-    Title: ${savedDocumentData.title || initialData?.title || ''}
-    Content:
-    ${savedDocumentData.content || initialData?.content || ''}`
+  const content = getContentFromData(initialData ?? data)
 
   const handleClick = async () => {
     if (content === '') {
@@ -35,8 +37,10 @@ const GenerateImageButton: React.FC = () => {
 
   return (
     <Button
-      disabled={loading || Boolean(savedDocumentData.meta?.image) || content === ''}
-      onClick={handleClick}
+      disabled={loading || Boolean(data.meta?.image) || content === ''}
+      onClick={()=>{
+        void handleClick()
+      }}
     >
       {loading ? 'Generating...' : 'Generate Image'}
     </Button>

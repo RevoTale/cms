@@ -41,7 +41,7 @@ Translate **only** the top-level \`content\` string from \`sourceLocale\` to \`t
    • If still over the limit, shorten non-essential modifiers first.
 5. Do **not** alter numerals, units, currencies, or dates unless explicit locale conversion is requested.
 6. Preserve the original capitalisation unless target-language grammar requires otherwise.
-7. Figurative “power:” constructions → render idiomatically as *strength / capability / impact of \<Term\>*.
+7. Figurative “power:” constructions → render idiomatically as *strength / capability / impact of <Term>*.
 8. Maintain list bullets, links, and emojis verbatim.
 9. When placeholders might need gender or plural agreement, pick a neutral formulation so the placeholder stays unchanged.
 
@@ -55,6 +55,8 @@ Translate **only** the top-level \`content\` string from \`sourceLocale\` to \`t
 - IMPORTANT: Only use the top-level "content" field in the input object.
 - ⚠️ Never extract or translate any "content" field from inside the "context" object or other nested structures. Use it only for better understanding of the meaning.
 `
+const msInS = 1000
+const logLimit = 60
 const translateFn = async (
   text: string,
   locale: TypedLocale,
@@ -141,11 +143,11 @@ const autoTranslate = async ({
                   input: value,
                   output: text,
                   user: userId || undefined,
-                  execution_time: (Date.now() - timeStart) / 1000,
+                  execution_time: (Date.now() - timeStart) / msInS,
                 },
               })
               data[key] = text
-              payload.logger.info(`Translated field ${key} for ${obj.id}: ${text.substring(0, 60)}`) // Log only the first 60 characters
+              payload.logger.info(`Translated field ${key} for ${obj.id}: ${text.substring(0, logLimit)}`) // Log only the first 60 characters
             })(),
           )
         } else if (field.type === 'tabs') {

@@ -11,7 +11,7 @@ const eslintConfig = defineConfig(
 	[
 	globalIgnores(['node_modules/**',
 			'.next/**',
-			'next-env.d.ts','eslint.config.mjs']),
+			'next-env.d.ts','eslint.config.mjs','**/importMap.js','src/payload-generated-schema.ts','src/payload-types.ts']),
 			niceNextjs,
 			{
 				rules: {

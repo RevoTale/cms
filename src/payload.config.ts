@@ -8,7 +8,7 @@ import { s3Storage } from '@payloadcms/storage-s3'
 import OpenAI from 'openai'
 import path from 'path'
 import { buildConfig, type TaskConfig, type WorkflowConfig } from 'payload'
-import sharp from 'sharp' // editor-import
+import sharp from 'sharp'; // editor-import
 import type { MicroPost, Post } from 'src/payload-types'
 import { fileURLToPath } from 'url'
 import Authors from './payload/collections/Authors'
@@ -257,11 +257,11 @@ export default buildConfig({
         cron: '0/10 * * * *', // Every 10 minutes
       },
     ],
-    shouldAutoRun: async (payload) => {
+    shouldAutoRun: async () => {
       // Tell Payload if it should run jobs or not. This function is optional and will return true by default.
       // This function will be invoked each time Payload goes to pick up and run jobs.
       // If this function ever returns false, the cron schedule will be stopped.
-      return true
+      return process.env.NODE_ENV !== 'development'
     },
 
     workflows: [

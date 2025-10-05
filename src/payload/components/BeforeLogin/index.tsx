@@ -4,7 +4,7 @@ const BeforeLogin: React.FC = () => {
   return (
     <div>
       <p>
-        <b>Welcome my lord!</b>
+        <b className="text-muted-foreground">Welcome my lord!</b>
       </p>
     </div>
   )

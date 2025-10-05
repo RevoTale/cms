@@ -1,5 +1,4 @@
-'use server'
-
+import 'server-only'
 import configPromise from '@payload-config'
 import OpenAI from 'openai'
 import { getPayload, type Payload } from 'payload'

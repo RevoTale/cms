@@ -4,23 +4,22 @@ const handleImagePromptRequest = async ({ content }: { content: string }): Promi
   const apiKey = process.env.OPENAI_API_KEY
   if (!apiKey) throw new Error('OpenAI API key is not configured')
   const client = new OpenAI({ apiKey })
-  const response = await client.chat.completions.create({
+
+  const response = await client.responses.create({
     model: 'gpt-5',
-    messages: [
-      {
-        role: 'system',
-        content:
-          process.env.GENERATE_IMAGE_INSTRUCTIONS ||
-          'Generate an OpenGraph preview image prompt for DALLE 3 based on the provided content.',
-      },
-      {
-        role: 'user',
-        content,
-      },
-    ],
+    text: {
+      verbosity: 'medium',
+    },
+    reasoning: {
+      effort: 'high',
+    },
+    instructions:
+      process.env.GENERATE_IMAGE_INSTRUCTIONS ||
+      'Generate an OpenGraph preview image prompt for DALLE 3 based on the provided content.',
+    input: content,
   })
 
-  const result = response.choices[0]?.message.content
+  const result = response.output_text
   if (!result) {
     throw new Error('No prompt generated from content')
   }

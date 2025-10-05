@@ -1,7 +1,7 @@
 'use client'
 
-import React, { Fragment, type MouseEventHandler, useCallback, useState } from 'react'
-import { toast } from '@payloadcms/ui'
+import { Button, toast } from '@payloadcms/ui'
+import React, { Fragment, useCallback, useState } from 'react'
 
 const SuccessMessage: React.FC = () => (
   <div>
@@ -17,27 +17,23 @@ export const SeedButton: React.FC = () => {
   const [seeded, setSeeded] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const handleClick = useCallback<MouseEventHandler<HTMLAnchorElement>>(
-    async (e) => {
-      e.preventDefault()
-      if (loading || seeded) return
+  const handleClick = useCallback(async (): Promise<void> => {
+    if (loading || seeded) return
 
-      setLoading(true)
+    setLoading(true)
 
-      try {
-        await fetch('/api/seed')
-        setSeeded(true)
-        toast.success(<SuccessMessage />, { duration: 5000 })
-      } catch (err: unknown) {
-        setError(
-          typeof err === 'string' || err instanceof Error
-            ? err.toString()
-            : `Unexpected ${typeof err}`,
-        )
-      }
-    },
-    [loading, seeded],
-  )
+    try {
+      await fetch('/api/seed')
+      setSeeded(true)
+      toast.success(<SuccessMessage />, { duration: 5000 })
+    } catch (err: unknown) {
+      setError(
+        typeof err === 'string' || err instanceof Error
+          ? err.toString()
+          : `Unexpected ${typeof err}`,
+      )
+    }
+  }, [loading, seeded])
 
   let message = ''
   if (loading) message = ' (seeding...)'
@@ -46,9 +42,14 @@ export const SeedButton: React.FC = () => {
 
   return (
     <Fragment>
-      <a href="/api/seed" onClick={handleClick} rel="noopener noreferrer" target="_blank">
+      <Button
+        onClick={(e) => {
+          e.preventDefault()
+          void handleClick()
+        }}
+      >
         Seed your database
-      </a>
+      </Button>
       {message}
     </Fragment>
   )

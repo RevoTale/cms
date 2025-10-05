@@ -12,7 +12,9 @@ import { AutoTranslate } from 'src/payload/fields/autoTranslate'
 import { slugField } from 'src/payload/fields/slug'
 import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
-export const MicroPosts: CollectionConfig = {
+import maybeAddAuthorSlugHook from './maybeAddAuthorSlugHook'
+import maybeFallbackSEOImageHook from './maybeFallbackSEOImageHook'
+export const MicroPosts: CollectionConfig<'micro_posts'> = {
   labels: {
     plural: 'Micro Posts',
     singular: 'Micro Post',
@@ -222,38 +224,7 @@ export const MicroPosts: CollectionConfig = {
     },
   ],
   hooks: {
-    afterChange: [],
-
-    beforeChange: [
-      async ({ data, req }) => {
-        if (data.authors && data.authors.length > 0) {
-          const author = await req.payload.findByID({
-            collection: 'authors',
-            id: data.authors[0],
-          })
-          if (author && author.slug) {
-            data.authorSlug = author.slug
-          }
-        }
-
-        // Set fallback meta image if not provided
-        if (!data.meta?.image && data.attachment) {
-          // Fetch the attachment to validate it's an image
-          const attachment = await req.payload.findByID({
-            collection: 'media',
-            id: typeof data.attachment === 'string' ? data.attachment : data.attachment.id,
-          })
-
-          // Check if the attachment is an image
-          if (attachment.mimeType?.startsWith('image/')) {
-            data.meta ||= {}
-            data.meta.image = data.attachment
-          }
-        }
-
-        return data
-      },
-    ],
+    beforeChange: [maybeAddAuthorSlugHook, maybeFallbackSEOImageHook],
   },
   versions: {
     drafts: {

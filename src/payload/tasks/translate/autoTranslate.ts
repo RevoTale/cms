@@ -1,3 +1,4 @@
+/* eslint-disable complexity, @typescript-eslint/no-dynamic-delete, max-depth, @typescript-eslint/max-params */
 import OpenAI from 'openai'
 import type {
   BasePayload,
@@ -72,14 +73,13 @@ const translateFn = async (
     maxLength: maxLen,
     context: JSON.stringify(context),
   }
-  const client = key
-    ? new OpenAI({
-        apiKey: key, // This is the default and can be omitted
-      })
-    : null
-  if (client === null) {
+  if (key === null) {
     throw new Error('OpenAI client is not initialized')
   }
+  const client = new OpenAI({
+    apiKey: key, // This is the default and can be omitted
+  })
+
   const response = await client.responses.create({
     model: 'gpt-5',
     text: {
@@ -136,7 +136,7 @@ const autoTranslate = async ({
                 field.maxLength,
                 sourceLocale,
               )
-              payload.create({
+              await payload.create({
                 collection: 'ai_call_logs',
                 data: {
                   title: `Translated field ${key} for ${obj.id}`,
@@ -147,7 +147,9 @@ const autoTranslate = async ({
                 },
               })
               data[key] = text
-              payload.logger.info(`Translated field ${key} for ${obj.id}: ${text.substring(0, logLimit)}`) // Log only the first 60 characters
+              payload.logger.info(
+                `Translated field ${key} for ${obj.id}: ${text.substring(0, logLimit)}`,
+              ) // Log only the first 60 characters
             })(),
           )
         } else if (field.type === 'tabs') {

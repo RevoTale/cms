@@ -3,7 +3,7 @@
 import { Button, toast, useDocumentInfo } from '@payloadcms/ui'
 import type { Data } from 'payload'
 import React, { useState } from 'react'
-import { genImageSafe } from './generateImage'
+import generateImageWithSafeResp from './generateImageWithSafeResp'
 
 const getContentFromData = (data: Data) => `
     Title: ${data.title || data?.title || ''}
@@ -26,7 +26,7 @@ const GenerateImageButton: React.FC = () => {
     }
     if (loading) return
     setLoading(true)
-    const result = await genImageSafe({ id: id.toString(), collectionSlug, content })
+    const result = await generateImageWithSafeResp({ id: id.toString(), collectionSlug, content })
     if (result.success) {
       toast.success('Image generated and attached!')
     } else {
@@ -38,7 +38,7 @@ const GenerateImageButton: React.FC = () => {
   return (
     <Button
       disabled={loading || Boolean(data.meta?.image) || content === ''}
-      onClick={()=>{
+      onClick={(): void => {
         void handleClick()
       }}
     >

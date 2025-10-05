@@ -8,7 +8,7 @@ import { s3Storage } from '@payloadcms/storage-s3'
 import OpenAI from 'openai'
 import path from 'path'
 import { buildConfig, type TaskConfig, type WorkflowConfig } from 'payload'
-import sharp from 'sharp'; // editor-import
+import sharp from 'sharp' // editor-import
 import type { MicroPost, Post } from 'src/payload-types'
 import { fileURLToPath } from 'url'
 import Authors from './payload/collections/Authors'
@@ -89,7 +89,7 @@ WHEN I SEND THE NEXT MESSAGE
 Reply with **one single line** containing exactly the meta‑description, nothing else.
 
 HARD RULES
-1. Length 100–155 characters (absolute max 160, count every character including spaces).
+1. Length 100–155 characters (absolute max 160, count every character including spaces).
 2. FIRST‑PERSON
    • If the source includes “I”, “my”, or “we”, keep at least one of them.  
      Preferred patterns: “I …”, “My …”, “We …”.  
@@ -276,7 +276,7 @@ export default buildConfig({
         ],
         slug: 'localizeRemainedDocuments',
         label: 'Localize remained documents',
-        handler: async ({  req }) => {
+        handler: async ({ req }) => {
           const { payload } = req
 
           for (const locale of locales) {

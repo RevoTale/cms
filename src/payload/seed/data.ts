@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 const tags = [
   {
     _id: { $oid: '66e9fa72df0252946d2e58c0' },

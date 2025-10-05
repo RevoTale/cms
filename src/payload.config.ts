@@ -256,7 +256,8 @@ export default buildConfig({
         autoRun: [
       {
         queue: 'default',
-        cron: '* * * * *', // Every minute
+        limit: 10,
+        cron: '0/10 * * * *', // Every 10 minutes
       },
     ],
         shouldAutoRun: async (payload) => {
@@ -272,7 +273,7 @@ export default buildConfig({
         retries:1,
         schedule:[
           {
-            cron: '* * * * *', // Every minute
+            cron: '0/10 * * * *', // Every 10 minutes
             queue:'default'
           }
         ],
@@ -307,7 +308,10 @@ export default buildConfig({
       },  
       locale:'en-US'
     })
-    await payload.jobs.queue({
+
+  }
+  for(const post of posts.docs){
+        await payload.jobs.queue({
       task: 'translateDocument',
       input:{
         postID: post.id,

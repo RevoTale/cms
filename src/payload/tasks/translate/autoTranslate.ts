@@ -1,10 +1,10 @@
- import OpenAI from 'openai'
-import {
-    type BasePayload,
-    type CollectionSlug,
-    type DataFromCollectionSlug,
-    type Field,
-    type TypedLocale
+import OpenAI from 'openai'
+import type {
+  BasePayload,
+  CollectionSlug,
+  DataFromCollectionSlug,
+  Field,
+  TypedLocale,
 } from 'payload'
 type RecursivePartial<T> = {
   [P in keyof T]?: RecursivePartial<T[P]>
@@ -15,7 +15,7 @@ export interface AutoTranslateProps {
   targetLocale: TypedLocale
   sourceLocale: TypedLocale
   payload: BasePayload
-  userId?:string
+  userId?: string
 }
 const translationInstruction = `You are a professional human translator.
 
@@ -80,11 +80,11 @@ const translateFn = async (
   }
   const response = await client.responses.create({
     model: 'gpt-5',
-    text:{
-      verbosity:'medium'
+    text: {
+      verbosity: 'medium',
     },
-    reasoning:{
-      effort:'high'
+    reasoning: {
+      effort: 'high',
     },
     instructions: translationInstruction,
     input: JSON.stringify(message),
@@ -92,107 +92,105 @@ const translateFn = async (
 
   return response.output_text
 }
- const autoTranslate = async ({
+const autoTranslate = async ({
   docId,
   collection,
   targetLocale,
   sourceLocale,
   payload,
   userId,
-}: AutoTranslateProps): Promise<void
-> => {
-  
-
-    const post = await payload.findByID({
-      collection,
-      id: docId,
-      locale: sourceLocale,
-    })
-    const { fields } = payload.collections[collection].config
-    const dataToUpdate: RecursivePartial<typeof post> = {}
-    const iterateOverFields = async (
-      fields: Field[],
-      obj: DataFromCollectionSlug<typeof collection>,
-      data: Record<string, unknown>,
-    ) => {
-      const tasks:Promise<void>[] = []
-      for (const [key, value] of Object.entries(obj)) {
-        for (const field of fields) {
-          if (
-            (field.type === 'text' || field.type === 'textarea') &&
-            field.localized === true &&
-            field.name === key &&
-            typeof value === 'string'
-          ) {
-            tasks.push((async () => {
-               payload.logger.info(`Translate field ${key} for ${post.id}: starting.`) // Log only the first 60 characters
-               const timeStart = Date.now()
+}: AutoTranslateProps): Promise<void> => {
+  const post = await payload.findByID({
+    collection,
+    id: docId,
+    locale: sourceLocale,
+  })
+  const { fields } = payload.collections[collection].config
+  const dataToUpdate: RecursivePartial<typeof post> = {}
+  const iterateOverFields = async (
+    fields: Field[],
+    obj: DataFromCollectionSlug<typeof collection>,
+    data: Record<string, unknown>,
+  ) => {
+    const tasks: Array<Promise<void>> = []
+    for (const [key, value] of Object.entries(obj)) {
+      for (const field of fields) {
+        if (
+          (field.type === 'text' || field.type === 'textarea') &&
+          field.localized === true &&
+          field.name === key &&
+          typeof value === 'string'
+        ) {
+          tasks.push(
+            (async () => {
+              payload.logger.info(`Translate field ${key} for ${post.id}: starting.`) // Log only the first 60 characters
+              const timeStart = Date.now()
               const text = await translateFn(
-              value,
-              targetLocale,
-              {
-                [collection]: post,
-              },
-              field.maxLength,
-              sourceLocale,
-            )
-            payload.create({
-              collection:'ai_call_logs',
-              data: {
-                title:`Translated field ${key} for ${obj.id}`,
-                input: value,
-                output: text,
-                user: userId || undefined,
-                execution_time: (Date.now() - timeStart) / 1000,
-              },
-            })
-            data[key] = text
-            payload.logger.info(`Translated field ${key} for ${obj.id}: ${text.substring(0, 60)}`) // Log only the first 60 characters
-            })  ())
-
-          } else if (field.type === 'tabs') {
-            for (const tab of field.tabs) {
-              if ('name' in tab && tab.name === key) {
-                const subObj = obj[key as keyof DataFromCollectionSlug<typeof collection>]
-                if (typeof subObj === 'object' && !Array.isArray(subObj) && subObj !== null) {
-                    data[key] = data[key] ?? {}
-                    tasks.push(iterateOverFields(tab.fields, subObj, data[key] as Record<string, unknown>) )
-        
-                }
+                value,
+                targetLocale,
+                {
+                  [collection]: post,
+                },
+                field.maxLength,
+                sourceLocale,
+              )
+              payload.create({
+                collection: 'ai_call_logs',
+                data: {
+                  title: `Translated field ${key} for ${obj.id}`,
+                  input: value,
+                  output: text,
+                  user: userId || undefined,
+                  execution_time: (Date.now() - timeStart) / 1000,
+                },
+              })
+              data[key] = text
+              payload.logger.info(`Translated field ${key} for ${obj.id}: ${text.substring(0, 60)}`) // Log only the first 60 characters
+            })(),
+          )
+        } else if (field.type === 'tabs') {
+          for (const tab of field.tabs) {
+            if ('name' in tab && tab.name === key) {
+              const subObj = obj[key as keyof DataFromCollectionSlug<typeof collection>]
+              if (typeof subObj === 'object' && !Array.isArray(subObj) && subObj !== null) {
+                data[key] = data[key] ?? {}
+                tasks.push(
+                  iterateOverFields(tab.fields, subObj, data[key] as Record<string, unknown>),
+                )
               }
             }
           }
         }
       }
-      await Promise.all(tasks)
-      const clearEmpty = (targetData:Record<string,unknown>)=>{
-        for (const fieldName of Object.keys(targetData)) {
-          if (typeof targetData[fieldName] === 'object' && targetData[fieldName] !== null ) {
-            if (Object.keys(targetData[fieldName]).length === 0) {
-              delete targetData[fieldName]
-            } else {
-              clearEmpty(targetData[fieldName] as Record<string, unknown>)
-            }
+    }
+    await Promise.all(tasks)
+    const clearEmpty = (targetData: Record<string, unknown>) => {
+      for (const fieldName of Object.keys(targetData)) {
+        if (typeof targetData[fieldName] === 'object' && targetData[fieldName] !== null) {
+          if (Object.keys(targetData[fieldName]).length === 0) {
+            delete targetData[fieldName]
+          } else {
+            clearEmpty(targetData[fieldName] as Record<string, unknown>)
           }
         }
       }
-      clearEmpty(data)
     }
-    await iterateOverFields(fields, post, dataToUpdate)
-    payload.logger.info(`Finished translation for document ${docId} in collection ${collection} to locale ${targetLocale}`)
-    // Update the document with the translated data
-    if (Object.entries(dataToUpdate).length === 0) {
-      throw new Error('No translatable fields found or translation resulted in no changes.')
-    }
-      await payload.update({
-        locale: targetLocale,
-        id: docId,
-        collection,
-        data: dataToUpdate,
-      })
-
-
-
+    clearEmpty(data)
+  }
+  await iterateOverFields(fields, post, dataToUpdate)
+  payload.logger.info(
+    `Finished translation for document ${docId} in collection ${collection} to locale ${targetLocale}`,
+  )
+  // Update the document with the translated data
+  if (Object.entries(dataToUpdate).length === 0) {
+    throw new Error('No translatable fields found or translation resulted in no changes.')
+  }
+  await payload.update({
+    locale: targetLocale,
+    id: docId,
+    collection,
+    data: dataToUpdate,
+  })
 }
 
 export default autoTranslate

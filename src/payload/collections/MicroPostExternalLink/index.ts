@@ -22,14 +22,12 @@ export const MicroPostExternalLink: CollectionConfig = {
   labels: {
     plural: 'MicroPost Outgoing Links',
     singular: 'MicroPost Outgoing Link',
-     
+  },
+  admin: {
+    useAsTitle: 'target_url',
+    listSearchableFields: ['title', 'target_url', 'id'],
+  },
 
-  },
-  admin:{
-     useAsTitle:'target_url',
-      listSearchableFields: ['title', 'target_url', 'id'],
-  },
-  
   fields: [
     {
       name: 'title',
@@ -41,7 +39,7 @@ export const MicroPostExternalLink: CollectionConfig = {
       name: 'target_url',
       type: 'text',
       required: true,
-      unique:true,
+      unique: true,
       localized: false,
       validate: (value: unknown) => {
         // Custom validation logic here

@@ -1,9 +1,11 @@
 import { default as default_2803ba5d37e0e98c0a514325dba8ed4c } from '@/components/AutoTranslation/AutoTranslateButton'
-import { OverviewComponent as OverviewComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
-import { MetaTitleComponent as MetaTitleComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
-import { MetaImageComponent as MetaImageComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
-import { MetaDescriptionComponent as MetaDescriptionComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
-import { PreviewComponent as PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
+import {
+  OverviewComponent as OverviewComponent_a8a977ebc872c5d5ea7ee689724c0860,
+  MetaTitleComponent as MetaTitleComponent_a8a977ebc872c5d5ea7ee689724c0860,
+  MetaImageComponent as MetaImageComponent_a8a977ebc872c5d5ea7ee689724c0860,
+  MetaDescriptionComponent as MetaDescriptionComponent_a8a977ebc872c5d5ea7ee689724c0860,
+  PreviewComponent as PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860,
+} from '@payloadcms/plugin-seo/client'
 import { default as default_20175a0edd5b6b07954023de234325fd } from '@/components/ImageGenerator/GenerateImageButton'
 import { default as default_ab907b64888346be01c73b4008a82fb1 } from '../../../graphics/Icon'
 import { default as default_18511c0cf9cf95761601ec48f5703bd5 } from '../../../graphics/Logo'

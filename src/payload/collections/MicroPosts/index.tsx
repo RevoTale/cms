@@ -45,13 +45,13 @@ export const MicroPosts: CollectionConfig = {
     },
     {
       name: 'cronTranslationLocalesQueued',
-      type:'select',
-      hasMany:true,
-      admin:{
-        isClearable:true,
-        readOnly:true,
+      type: 'select',
+      hasMany: true,
+      admin: {
+        isClearable: true,
+        readOnly: true,
       },
-      options:locales.map((locale)=>({label:locale,value:locale})),
+      options: locales.map((locale) => ({ label: locale, value: locale })),
     },
     {
       name: 'attachment',
@@ -69,7 +69,7 @@ export const MicroPosts: CollectionConfig = {
       maxLength: 4000,
       minLength: 2,
     },
-  slugField('slug', {
+    slugField('slug', {
       unique: true,
       required: true,
       localized: false,
@@ -134,16 +134,14 @@ export const MicroPosts: CollectionConfig = {
     {
       name: 'externalLinks',
       type: 'relationship',
-admin:{
-  position:'sidebar',
-  
-},
+      admin: {
+        position: 'sidebar',
+      },
       relationTo: 'micro_post_external_links',
       label: 'External Links',
       hasMany: true,
       required: false,
       localized: false,
-
     },
 
     {

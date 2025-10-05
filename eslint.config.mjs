@@ -1,16 +1,20 @@
 // @ts-check
 
+import niceNextjs from 'eslint-config-nice-nextjs'
 import prettier from 'eslint-plugin-prettier/recommended'
-import { globalIgnores } from 'eslint/config'
+import { defineConfig, globalIgnores } from 'eslint/config'
 
 
 
 
-const eslintConfig = [
+const eslintConfig = defineConfig(
+	[
 	globalIgnores(['node_modules/**',
 			'.next/**',
 			'next-env.d.ts','eslint.config.mjs']),
+			niceNextjs,
 	prettier,
 ]
+)
 
 export default eslintConfig

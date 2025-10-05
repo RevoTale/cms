@@ -26,8 +26,8 @@ const AICallLogs: CollectionConfig = {
       localized: false,
     },
     {
-        name: 'input',
-          type: 'text',
+      name: 'input',
+      type: 'text',
       required: true,
       label: 'Input',
       localized: false,
@@ -40,11 +40,11 @@ const AICallLogs: CollectionConfig = {
       localized: false,
     },
     {
-        name: 'execution_time',
-        type: 'number',
-        required: true,
-        label: 'Execution Time (s)',
-        localized: false,
+      name: 'execution_time',
+      type: 'number',
+      required: true,
+      label: 'Execution Time (s)',
+      localized: false,
     },
     {
       name: 'user',

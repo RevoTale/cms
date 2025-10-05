@@ -8,7 +8,7 @@ import { s3Storage } from '@payloadcms/storage-s3'
 import OpenAI from 'openai'
 import path from 'path'
 import { buildConfig, type TaskConfig, type WorkflowConfig } from 'payload'
-import sharp from 'sharp'; // editor-import
+import sharp from 'sharp' // editor-import
 import type { MicroPost, Post } from 'src/payload-types'
 import { fileURLToPath } from 'url'
 import Authors from './payload/collections/Authors'
@@ -135,7 +135,7 @@ if (!serverURl) {
 const serverDomain = new URL(serverURl).hostname
 const hostnameWithProtocol = `https://${serverDomain}`
 const bucket = process.env.S3_BUCKET ?? ''
-const enableS3 =true //Added alway true because due to the following issues https://github.com/payloadcms/payload/issues/12475
+const enableS3 = true //Added alway true because due to the following issues https://github.com/payloadcms/payload/issues/12475
 const s3PluginConfig = s3Storage({
   collections: {
     [Media.slug]: {
@@ -166,19 +166,18 @@ export default buildConfig({
     schemaOutputFile: path.resolve(dirname, './graphql/schema.graphql'),
   },
   localization: {
-    locales: locales,
+    locales,
     defaultLocale: 'en-US',
     fallback: true,
   },
-  endpoints:[
-       {
+  endpoints: [
+    {
       path: '/seed',
       method: 'get',
-      handler: seed
+      handler: seed,
     },
   ],
   admin: {
-    
     components: {
       // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
       // Feel free to delete this at any time. Simply remove the line below and the import `BeforeLogin` statement on line 15.
@@ -219,14 +218,14 @@ export default buildConfig({
     },
   },
 
-  db:  postgresAdapter({
+  db: postgresAdapter({
     // Postgres-specific arguments go here.
     // `pool` is required.
     pool: {
       connectionString: process.env.DATABASE_URI,
     },
-    idType:"uuid",
-    prodMigrations:migrations
+    idType: 'uuid',
+    prodMigrations: migrations,
   }),
   serverURL: hostnameWithProtocol,
   collections: [
@@ -243,124 +242,123 @@ export default buildConfig({
   cors: [hostnameWithProtocol].filter(Boolean),
   csrf: [hostnameWithProtocol].filter(Boolean),
   globals: [],
-  jobs:{
+  jobs: {
     addParentToTaskLog: true,
     jobsCollectionOverrides: ({ defaultJobsCollection }) => {
-      if (!defaultJobsCollection.admin) {
-        defaultJobsCollection.admin = {}
-      }
+      defaultJobsCollection.admin ||= {}
 
       defaultJobsCollection.admin.hidden = false
       return defaultJobsCollection
     },
-        autoRun: [
+    autoRun: [
       {
         queue: 'default',
         limit: 10,
         cron: '0/10 * * * *', // Every 10 minutes
       },
     ],
-        shouldAutoRun: async (payload) => {
+    shouldAutoRun: async (payload) => {
       // Tell Payload if it should run jobs or not. This function is optional and will return true by default.
       // This function will be invoked each time Payload goes to pick up and run jobs.
       // If this function ever returns false, the cron schedule will be stopped.
       return true
     },
-  
-    workflows:[
+
+    workflows: [
       {
         queue: 'default',
-        retries:1,
-        schedule:[
+        retries: 1,
+        schedule: [
           {
             cron: '0/10 * * * *', // Every 10 minutes
-            queue:'default'
-          }
+            queue: 'default',
+          },
         ],
-        slug:'localizeRemainedDocuments',
-        label:'Localize remained documents',
+        slug: 'localizeRemainedDocuments',
+        label: 'Localize remained documents',
         handler: async ({ job, req }) => {
           const { payload } = req
-     
-         for (const locale of locales) {
-                    	const posts =await payload.find({
-		collection: "micro_posts",
-		locale: 'en-US',
-		where: {
-			[`content.${locale}`]: {
-				exists: false,
-			},
-      content:{
-        not_equals:''
-      },
-      cronTranslationLocalesQueued:{
-        not_equals:locale
-      }
-		},
-    limit: 100
-	})
-  for(const post of posts.docs){
-    await payload.update({
-      collection:'micro_posts',
-      id:post.id,
-      data:{
-        cronTranslationLocalesQueued:[...(post.cronTranslationLocalesQueued||[]),locale]
-      },  
-      locale:'en-US'
-    })
 
-  }
-  for(const post of posts.docs){
-        await payload.jobs.queue({
-      task: 'translateDocument',
-      input:{
-        postID: post.id,
-      collection:'micro_posts',
-      sourceLocale:'en-US',
-      targetLocale:locale,
-      userId:undefined
-      }
-    })
-  }
-         }
-
-
-        }
-      } as WorkflowConfig<'localizeRemainedDocuments'>
+          for (const locale of locales) {
+            const posts = await payload.find({
+              collection: 'micro_posts',
+              locale: 'en-US',
+              where: {
+                [`content.${locale}`]: {
+                  exists: false,
+                },
+                content: {
+                  not_equals: '',
+                },
+                cronTranslationLocalesQueued: {
+                  not_equals: locale,
+                },
+              },
+              limit: 100,
+            })
+            for (const post of posts.docs) {
+              await payload.update({
+                collection: 'micro_posts',
+                id: post.id,
+                data: {
+                  cronTranslationLocalesQueued: [
+                    ...(post.cronTranslationLocalesQueued || []),
+                    locale,
+                  ],
+                },
+                locale: 'en-US',
+              })
+            }
+            for (const post of posts.docs) {
+              await payload.jobs.queue({
+                task: 'translateDocument',
+                input: {
+                  postID: post.id,
+                  collection: 'micro_posts',
+                  sourceLocale: 'en-US',
+                  targetLocale: locale,
+                  userId: undefined,
+                },
+              })
+            }
+          }
+        },
+      } as WorkflowConfig<'localizeRemainedDocuments'>,
     ],
-    tasks:[
+    tasks: [
       {
         retries: 1,
-        slug:'translateDocument',
-        inputSchema:  [
+        slug: 'translateDocument',
+        inputSchema: [
           {
             name: 'postID',
             type: 'text',
             required: true,
           },
-             {
+          {
             name: 'sourceLocale',
             type: 'text',
             required: true,
           },
-             {
+          {
             name: 'collection',
             type: 'text',
             required: true,
           },
-               {
+          {
             name: 'userId',
             type: 'text',
             required: false,
           },
           {
-            name:'targetLocale',
-            type:'text',
-            required:true
-          }],
-           handler: translateHandler
+            name: 'targetLocale',
+            type: 'text',
+            required: true,
+          },
+        ],
+        handler: translateHandler,
       } as TaskConfig<'translateDocument'>,
-    ]
+    ],
   },
   plugins: [
     s3PluginConfig,

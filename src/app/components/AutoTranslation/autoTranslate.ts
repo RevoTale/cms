@@ -2,11 +2,7 @@
 
 import config from '@payload-config'
 import { headers as getHeaders } from 'next/headers'
-import {
-  type CollectionSlug,
-  getPayload,
-  type TypedLocale
-} from 'payload'
+import { type CollectionSlug, getPayload, type TypedLocale } from 'payload'
 
 export interface Context {
   id: string
@@ -15,13 +11,13 @@ export interface Context {
   targetLocale: TypedLocale
 }
 
- const autoTranslateTask = async ({
+const autoTranslateTask = async ({
   docId,
   collection,
   targetLocale,
   sourceLocale,
 }: {
-    docId: string
+  docId: string
   collection: CollectionSlug
   targetLocale: TypedLocale
   sourceLocale: TypedLocale
@@ -29,7 +25,7 @@ export interface Context {
   | {
       ok: true
       processing?: boolean
-      completedAt?:string 
+      completedAt?: string
     }
   | { error: string; ok: false; context?: Context }
 > => {
@@ -38,15 +34,15 @@ export interface Context {
   const { user } = await payload.auth({ headers })
 
   if (user) {
-  const task =  await payload.jobs.queue<'translateDocument'>({
-        task: 'translateDocument',
-  input: {
-    targetLocale:targetLocale,
-    postID:docId,
-    sourceLocale,
-    collection,
-    userId: user.id
-  },
+    const task = await payload.jobs.queue<'translateDocument'>({
+      task: 'translateDocument',
+      input: {
+        targetLocale,
+        postID: docId,
+        sourceLocale,
+        collection,
+        userId: user.id,
+      },
     })
     if (task.hasError) {
       return {
@@ -58,10 +54,10 @@ export interface Context {
       ok: true,
     }
   }
-    return {
+  return {
     ok: false,
     error: 'User not authenticated',
   }
 }
 
-export default autoTranslateTask  
+export default autoTranslateTask

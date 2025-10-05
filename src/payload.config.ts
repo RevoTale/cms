@@ -8,7 +8,7 @@ import { s3Storage } from '@payloadcms/storage-s3'
 import OpenAI from 'openai'
 import path from 'path'
 import { buildConfig, type TaskConfig, type WorkflowConfig } from 'payload'
-import sharp from 'sharp'; // editor-import
+import sharp from 'sharp' // editor-import
 import type { MicroPost, Post } from 'src/payload-types'
 import { fileURLToPath } from 'url'
 import Authors from './payload/collections/Authors'

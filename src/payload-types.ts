@@ -76,6 +76,7 @@ export interface Config {
     micro_posts: MicroPost;
     micro_post_internal_links: MicroPostInternalLink;
     micro_post_external_links: MicroPostExternalLink;
+    search: Search;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -97,6 +98,7 @@ export interface Config {
     micro_posts: MicroPostsSelect<false> | MicroPostsSelect<true>;
     micro_post_internal_links: MicroPostInternalLinksSelect<false> | MicroPostInternalLinksSelect<true>;
     micro_post_external_links: MicroPostExternalLinksSelect<false> | MicroPostExternalLinksSelect<true>;
+    search: SearchSelect<false> | SearchSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -336,6 +338,32 @@ export interface MicroPostExternalLink {
   createdAt: string;
 }
 /**
+ * This is a collection of automatically created search results. These results are used by the global site search and will be updated automatically as documents in the CMS are created or updated.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "search".
+ */
+export interface Search {
+  id: string;
+  title?: string | null;
+  priority?: number | null;
+  doc:
+    | {
+        relationTo: 'micro_posts';
+        value: string | MicroPost;
+      }
+    | {
+        relationTo: 'tags';
+        value: string | Tag;
+      }
+    | {
+        relationTo: 'authors';
+        value: string | Author;
+      };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-jobs".
  */
@@ -483,6 +511,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'micro_post_external_links';
         value: string | MicroPostExternalLink;
+      } | null)
+    | ({
+        relationTo: 'search';
+        value: string | Search;
       } | null)
     | ({
         relationTo: 'payload-jobs';
@@ -700,6 +732,17 @@ export interface MicroPostInternalLinksSelect<T extends boolean = true> {
 export interface MicroPostExternalLinksSelect<T extends boolean = true> {
   title?: T;
   target_url?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "search_select".
+ */
+export interface SearchSelect<T extends boolean = true> {
+  title?: T;
+  priority?: T;
+  doc?: T;
   updatedAt?: T;
   createdAt?: T;
 }

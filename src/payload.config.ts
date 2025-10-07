@@ -5,13 +5,14 @@ import { seoPlugin } from '@payloadcms/plugin-seo'
 import type { GenerateDescription, GenerateURL } from '@payloadcms/plugin-seo/types'
 
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { searchPlugin } from '@payloadcms/plugin-search'
 import { s3Storage } from '@payloadcms/storage-s3'
-import OpenAI from 'openai'
 import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+import OpenAI from 'openai'
 import { buildConfig, type TaskConfig, type WorkflowConfig } from 'payload'
 import sharp from 'sharp' // editor-import
 import type { MicroPost, Post } from 'src/payload-types'
-import { fileURLToPath } from 'node:url'
 import Authors from './payload/collections/Authors'
 
 import type { GenerateFileURL } from '@payloadcms/plugin-cloud-storage/types'
@@ -244,6 +245,7 @@ export default buildConfig({
   cors: [hostnameWithProtocol].filter(Boolean),
   csrf: [hostnameWithProtocol].filter(Boolean),
   globals: [],
+
   jobs: {
     addParentToTaskLog: true,
     jobsCollectionOverrides: ({ defaultJobsCollection }) => {
@@ -368,6 +370,14 @@ export default buildConfig({
       generateTitle,
       generateDescription,
       generateURL,
+    }),
+    searchPlugin({
+      collections: ['micro_posts', 'tags', 'authors'],
+      defaultPriorities: {
+        micro_posts: 10,
+        tags: 15,
+        authors: 20,
+      },
     }),
   ],
   secret: process.env.PAYLOAD_SECRET ?? '',

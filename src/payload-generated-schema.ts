@@ -895,6 +895,83 @@ export const micro_post_external_links_locales = pgTable(
   ],
 )
 
+export const search = pgTable(
+  'search',
+  {
+    id: uuid('id').defaultRandom().primaryKey(),
+    priority: numeric('priority'),
+    updatedAt: timestamp('updated_at', { mode: 'string', withTimezone: true, precision: 3 })
+      .defaultNow()
+      .notNull(),
+    createdAt: timestamp('created_at', { mode: 'string', withTimezone: true, precision: 3 })
+      .defaultNow()
+      .notNull(),
+  },
+  (columns) => [
+    index('search_updated_at_idx').on(columns.updatedAt),
+    index('search_created_at_idx').on(columns.createdAt),
+  ],
+)
+
+export const search_locales = pgTable(
+  'search_locales',
+  {
+    title: varchar('title'),
+    id: serial('id').primaryKey(),
+    _locale: enum__locales('_locale').notNull(),
+    _parentID: uuid('_parent_id').notNull(),
+  },
+  (columns) => [
+    uniqueIndex('search_locales_locale_parent_id_unique').on(columns._locale, columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [search.id],
+      name: 'search_locales_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const search_rels = pgTable(
+  'search_rels',
+  {
+    id: serial('id').primaryKey(),
+    order: integer('order'),
+    parent: uuid('parent_id').notNull(),
+    path: varchar('path').notNull(),
+    micro_postsID: uuid('micro_posts_id'),
+    tagsID: uuid('tags_id'),
+    authorsID: uuid('authors_id'),
+  },
+  (columns) => [
+    index('search_rels_order_idx').on(columns.order),
+    index('search_rels_parent_idx').on(columns.parent),
+    index('search_rels_path_idx').on(columns.path),
+    index('search_rels_micro_posts_id_idx').on(columns.micro_postsID),
+    index('search_rels_tags_id_idx').on(columns.tagsID),
+    index('search_rels_authors_id_idx').on(columns.authorsID),
+    foreignKey({
+      columns: [columns['parent']],
+      foreignColumns: [search.id],
+      name: 'search_rels_parent_fk',
+    }).onDelete('cascade'),
+    foreignKey({
+      columns: [columns['micro_postsID']],
+      foreignColumns: [micro_posts.id],
+      name: 'search_rels_micro_posts_fk',
+    }).onDelete('cascade'),
+    foreignKey({
+      columns: [columns['tagsID']],
+      foreignColumns: [tags.id],
+      name: 'search_rels_tags_fk',
+    }).onDelete('cascade'),
+    foreignKey({
+      columns: [columns['authorsID']],
+      foreignColumns: [authors.id],
+      name: 'search_rels_authors_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
 export const payload_jobs_log = pgTable(
   'payload_jobs_log',
   {
@@ -1002,6 +1079,7 @@ export const payload_locked_documents_rels = pgTable(
     micro_postsID: uuid('micro_posts_id'),
     micro_post_internal_linksID: uuid('micro_post_internal_links_id'),
     micro_post_external_linksID: uuid('micro_post_external_links_id'),
+    searchID: uuid('search_id'),
     'payload-jobsID': uuid('payload_jobs_id'),
   },
   (columns) => [
@@ -1021,6 +1099,7 @@ export const payload_locked_documents_rels = pgTable(
     index('payload_locked_documents_rels_micro_post_external_links__idx').on(
       columns.micro_post_external_linksID,
     ),
+    index('payload_locked_documents_rels_search_id_idx').on(columns.searchID),
     index('payload_locked_documents_rels_payload_jobs_id_idx').on(columns['payload-jobsID']),
     foreignKey({
       columns: [columns['parent']],
@@ -1071,6 +1150,11 @@ export const payload_locked_documents_rels = pgTable(
       columns: [columns['micro_post_external_linksID']],
       foreignColumns: [micro_post_external_links.id],
       name: 'payload_locked_documents_rels_micro_post_external_links_fk',
+    }).onDelete('cascade'),
+    foreignKey({
+      columns: [columns['searchID']],
+      foreignColumns: [search.id],
+      name: 'payload_locked_documents_rels_search_fk',
     }).onDelete('cascade'),
     foreignKey({
       columns: [columns['payload-jobsID']],
@@ -1491,6 +1575,43 @@ export const relations_micro_post_external_links = relations(
     }),
   }),
 )
+export const relations_search_locales = relations(search_locales, ({ one }) => ({
+  _parentID: one(search, {
+    fields: [search_locales._parentID],
+    references: [search.id],
+    relationName: '_locales',
+  }),
+}))
+export const relations_search_rels = relations(search_rels, ({ one }) => ({
+  parent: one(search, {
+    fields: [search_rels.parent],
+    references: [search.id],
+    relationName: '_rels',
+  }),
+  micro_postsID: one(micro_posts, {
+    fields: [search_rels.micro_postsID],
+    references: [micro_posts.id],
+    relationName: 'micro_posts',
+  }),
+  tagsID: one(tags, {
+    fields: [search_rels.tagsID],
+    references: [tags.id],
+    relationName: 'tags',
+  }),
+  authorsID: one(authors, {
+    fields: [search_rels.authorsID],
+    references: [authors.id],
+    relationName: 'authors',
+  }),
+}))
+export const relations_search = relations(search, ({ many }) => ({
+  _locales: many(search_locales, {
+    relationName: '_locales',
+  }),
+  _rels: many(search_rels, {
+    relationName: '_rels',
+  }),
+}))
 export const relations_payload_jobs_log = relations(payload_jobs_log, ({ one }) => ({
   _parentID: one(payload_jobs, {
     fields: [payload_jobs_log._parentID],
@@ -1555,6 +1676,11 @@ export const relations_payload_locked_documents_rels = relations(
       fields: [payload_locked_documents_rels.micro_post_external_linksID],
       references: [micro_post_external_links.id],
       relationName: 'micro_post_external_links',
+    }),
+    searchID: one(search, {
+      fields: [payload_locked_documents_rels.searchID],
+      references: [search.id],
+      relationName: 'search',
     }),
     'payload-jobsID': one(payload_jobs, {
       fields: [payload_locked_documents_rels['payload-jobsID']],
@@ -1636,6 +1762,9 @@ type DatabaseSchema = {
   micro_post_internal_links_locales: typeof micro_post_internal_links_locales
   micro_post_external_links: typeof micro_post_external_links
   micro_post_external_links_locales: typeof micro_post_external_links_locales
+  search: typeof search
+  search_locales: typeof search_locales
+  search_rels: typeof search_rels
   payload_jobs_log: typeof payload_jobs_log
   payload_jobs: typeof payload_jobs
   payload_locked_documents: typeof payload_locked_documents
@@ -1671,6 +1800,9 @@ type DatabaseSchema = {
   relations_micro_post_internal_links: typeof relations_micro_post_internal_links
   relations_micro_post_external_links_locales: typeof relations_micro_post_external_links_locales
   relations_micro_post_external_links: typeof relations_micro_post_external_links
+  relations_search_locales: typeof relations_search_locales
+  relations_search_rels: typeof relations_search_rels
+  relations_search: typeof relations_search
   relations_payload_jobs_log: typeof relations_payload_jobs_log
   relations_payload_jobs: typeof relations_payload_jobs
   relations_payload_locked_documents_rels: typeof relations_payload_locked_documents_rels

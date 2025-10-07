@@ -41,6 +41,10 @@ type Query {
   Micro_post_external_links(draft: Boolean, where: Micro_post_external_link_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean): Micro_post_external_links
   countMicro_post_external_links(draft: Boolean, trash: Boolean, where: Micro_post_external_link_where, locale: LocaleInputType): countMicro_post_external_links
   docAccessMicro_post_external_link(id: String!): micro_post_external_linksDocAccess
+  Search(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, select: Boolean, trash: Boolean): Search
+  Searches(draft: Boolean, where: Search_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean): Searches
+  countSearches(draft: Boolean, trash: Boolean, where: Search_where, locale: LocaleInputType): countSearches
+  docAccessSearch(id: String!): searchDocAccess
   PayloadJob(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, select: Boolean, trash: Boolean): PayloadJob
   PayloadJobs(draft: Boolean, where: PayloadJob_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean): PayloadJobs
   countPayloadJobs(draft: Boolean, trash: Boolean, where: PayloadJob_where, locale: LocaleInputType): countPayloadJobs
@@ -5282,6 +5286,295 @@ type Micro_post_external_linksDeleteDocAccess {
   where: JSONObject
 }
 
+type Search {
+  id: String!
+  title: String
+  priority: Float
+  doc(draft: Boolean, locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Search_Doc_Relationship!
+  updatedAt: DateTime
+  createdAt: DateTime
+}
+
+type Search_Doc_Relationship {
+  relationTo: Search_Doc_RelationTo
+  value: Search_Doc
+}
+
+enum Search_Doc_RelationTo {
+  micro_posts
+  tags
+  authors
+}
+
+union Search_Doc = Micro_post | Tag | Author
+
+type Searches {
+  docs: [Search!]!
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  nextPage: Int
+  offset: Int
+  page: Int!
+  pagingCounter: Int!
+  prevPage: Int
+  totalDocs: Int!
+  totalPages: Int!
+}
+
+input Search_where {
+  title: Search_title_operator
+  priority: Search_priority_operator
+  doc: Search_doc_Relation
+  updatedAt: Search_updatedAt_operator
+  createdAt: Search_createdAt_operator
+  id: Search_id_operator
+  AND: [Search_where_and]
+  OR: [Search_where_or]
+}
+
+input Search_title_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Search_priority_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Search_doc_Relation {
+  relationTo: Search_doc_Relation_RelationTo
+  value: JSON
+}
+
+enum Search_doc_Relation_RelationTo {
+  micro_posts
+  tags
+  authors
+}
+
+input Search_updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Search_createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Search_id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Search_where_and {
+  title: Search_title_operator
+  priority: Search_priority_operator
+  doc: Search_doc_Relation
+  updatedAt: Search_updatedAt_operator
+  createdAt: Search_createdAt_operator
+  id: Search_id_operator
+  AND: [Search_where_and]
+  OR: [Search_where_or]
+}
+
+input Search_where_or {
+  title: Search_title_operator
+  priority: Search_priority_operator
+  doc: Search_doc_Relation
+  updatedAt: Search_updatedAt_operator
+  createdAt: Search_createdAt_operator
+  id: Search_id_operator
+  AND: [Search_where_and]
+  OR: [Search_where_or]
+}
+
+type countSearches {
+  totalDocs: Int
+}
+
+type searchDocAccess {
+  fields: SearchDocAccessFields
+  create: SearchCreateDocAccess
+  read: SearchReadDocAccess
+  update: SearchUpdateDocAccess
+  delete: SearchDeleteDocAccess
+}
+
+type SearchDocAccessFields {
+  title: SearchDocAccessFields_title
+  priority: SearchDocAccessFields_priority
+  doc: SearchDocAccessFields_doc
+  updatedAt: SearchDocAccessFields_updatedAt
+  createdAt: SearchDocAccessFields_createdAt
+}
+
+type SearchDocAccessFields_title {
+  create: SearchDocAccessFields_title_Create
+  read: SearchDocAccessFields_title_Read
+  update: SearchDocAccessFields_title_Update
+  delete: SearchDocAccessFields_title_Delete
+}
+
+type SearchDocAccessFields_title_Create {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_title_Read {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_title_Update {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_title_Delete {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_priority {
+  create: SearchDocAccessFields_priority_Create
+  read: SearchDocAccessFields_priority_Read
+  update: SearchDocAccessFields_priority_Update
+  delete: SearchDocAccessFields_priority_Delete
+}
+
+type SearchDocAccessFields_priority_Create {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_priority_Read {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_priority_Update {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_priority_Delete {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_doc {
+  create: SearchDocAccessFields_doc_Create
+  read: SearchDocAccessFields_doc_Read
+  update: SearchDocAccessFields_doc_Update
+  delete: SearchDocAccessFields_doc_Delete
+}
+
+type SearchDocAccessFields_doc_Create {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_doc_Read {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_doc_Update {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_doc_Delete {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_updatedAt {
+  create: SearchDocAccessFields_updatedAt_Create
+  read: SearchDocAccessFields_updatedAt_Read
+  update: SearchDocAccessFields_updatedAt_Update
+  delete: SearchDocAccessFields_updatedAt_Delete
+}
+
+type SearchDocAccessFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_createdAt {
+  create: SearchDocAccessFields_createdAt_Create
+  read: SearchDocAccessFields_createdAt_Read
+  update: SearchDocAccessFields_createdAt_Update
+  delete: SearchDocAccessFields_createdAt_Delete
+}
+
+type SearchDocAccessFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type SearchCreateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type SearchReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type SearchUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type SearchDeleteDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
 type PayloadJob {
   id: String!
   input: JSON
@@ -6440,10 +6733,11 @@ enum PayloadLockedDocument_Document_RelationTo {
   micro_posts
   micro_post_internal_links
   micro_post_external_links
+  search
   payload_jobs
 }
 
-union PayloadLockedDocument_Document = Post | Media | User | Tag | Author | Ai_call_log | Micro_post | Micro_post_internal_link | Micro_post_external_link | PayloadJob
+union PayloadLockedDocument_Document = Post | Media | User | Tag | Author | Ai_call_log | Micro_post | Micro_post_internal_link | Micro_post_external_link | Search | PayloadJob
 
 type PayloadLockedDocument_User_Relationship {
   relationTo: PayloadLockedDocument_User_RelationTo
@@ -6496,6 +6790,7 @@ enum PayloadLockedDocument_document_Relation_RelationTo {
   micro_posts
   micro_post_internal_links
   micro_post_external_links
+  search
   payload_jobs
 }
 
@@ -7122,6 +7417,7 @@ type Access {
   micro_posts: micro_postsAccess
   micro_post_internal_links: micro_post_internal_linksAccess
   micro_post_external_links: micro_post_external_linksAccess
+  search: searchAccess
   payload_jobs: payload_jobsAccess
   payload_locked_documents: payload_locked_documentsAccess
   payload_preferences: payload_preferencesAccess
@@ -9681,6 +9977,157 @@ type Micro_post_external_linksDeleteAccess {
   where: JSONObject
 }
 
+type searchAccess {
+  fields: SearchFields
+  create: SearchCreateAccess
+  read: SearchReadAccess
+  update: SearchUpdateAccess
+  delete: SearchDeleteAccess
+}
+
+type SearchFields {
+  title: SearchFields_title
+  priority: SearchFields_priority
+  doc: SearchFields_doc
+  updatedAt: SearchFields_updatedAt
+  createdAt: SearchFields_createdAt
+}
+
+type SearchFields_title {
+  create: SearchFields_title_Create
+  read: SearchFields_title_Read
+  update: SearchFields_title_Update
+  delete: SearchFields_title_Delete
+}
+
+type SearchFields_title_Create {
+  permission: Boolean!
+}
+
+type SearchFields_title_Read {
+  permission: Boolean!
+}
+
+type SearchFields_title_Update {
+  permission: Boolean!
+}
+
+type SearchFields_title_Delete {
+  permission: Boolean!
+}
+
+type SearchFields_priority {
+  create: SearchFields_priority_Create
+  read: SearchFields_priority_Read
+  update: SearchFields_priority_Update
+  delete: SearchFields_priority_Delete
+}
+
+type SearchFields_priority_Create {
+  permission: Boolean!
+}
+
+type SearchFields_priority_Read {
+  permission: Boolean!
+}
+
+type SearchFields_priority_Update {
+  permission: Boolean!
+}
+
+type SearchFields_priority_Delete {
+  permission: Boolean!
+}
+
+type SearchFields_doc {
+  create: SearchFields_doc_Create
+  read: SearchFields_doc_Read
+  update: SearchFields_doc_Update
+  delete: SearchFields_doc_Delete
+}
+
+type SearchFields_doc_Create {
+  permission: Boolean!
+}
+
+type SearchFields_doc_Read {
+  permission: Boolean!
+}
+
+type SearchFields_doc_Update {
+  permission: Boolean!
+}
+
+type SearchFields_doc_Delete {
+  permission: Boolean!
+}
+
+type SearchFields_updatedAt {
+  create: SearchFields_updatedAt_Create
+  read: SearchFields_updatedAt_Read
+  update: SearchFields_updatedAt_Update
+  delete: SearchFields_updatedAt_Delete
+}
+
+type SearchFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type SearchFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type SearchFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type SearchFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type SearchFields_createdAt {
+  create: SearchFields_createdAt_Create
+  read: SearchFields_createdAt_Read
+  update: SearchFields_createdAt_Update
+  delete: SearchFields_createdAt_Delete
+}
+
+type SearchFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type SearchFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type SearchFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type SearchFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type SearchCreateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type SearchReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type SearchUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type SearchDeleteAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
 type payload_jobsAccess {
   fields: PayloadJobsFields
   create: PayloadJobsCreateAccess
@@ -10806,6 +11253,10 @@ type Mutation {
   updateMicro_post_external_link(id: String!, autosave: Boolean, data: mutationMicro_post_external_linkUpdateInput!, draft: Boolean, locale: LocaleInputType, trash: Boolean): Micro_post_external_link
   deleteMicro_post_external_link(id: String!, trash: Boolean): Micro_post_external_link
   duplicateMicro_post_external_link(id: String!, data: mutationMicro_post_external_linkInput!): Micro_post_external_link
+  createSearch(data: mutationSearchInput!, draft: Boolean, locale: LocaleInputType): Search
+  updateSearch(id: String!, autosave: Boolean, data: mutationSearchUpdateInput!, draft: Boolean, locale: LocaleInputType, trash: Boolean): Search
+  deleteSearch(id: String!, trash: Boolean): Search
+  duplicateSearch(id: String!, data: mutationSearchInput!): Search
   createPayloadJob(data: mutationPayloadJobInput!, draft: Boolean, locale: LocaleInputType): PayloadJob
   updatePayloadJob(id: String!, autosave: Boolean, data: mutationPayloadJobUpdateInput!, draft: Boolean, locale: LocaleInputType, trash: Boolean): PayloadJob
   deletePayloadJob(id: String!, trash: Boolean): PayloadJob
@@ -11176,6 +11627,44 @@ input mutationMicro_post_external_linkUpdateInput {
   createdAt: String
 }
 
+input mutationSearchInput {
+  title: String
+  priority: Float
+  doc: Search_DocRelationshipInput
+  updatedAt: String
+  createdAt: String
+}
+
+input Search_DocRelationshipInput {
+  relationTo: Search_DocRelationshipInputRelationTo
+  value: JSON
+}
+
+enum Search_DocRelationshipInputRelationTo {
+  micro_posts
+  tags
+  authors
+}
+
+input mutationSearchUpdateInput {
+  title: String
+  priority: Float
+  doc: SearchUpdate_DocRelationshipInput
+  updatedAt: String
+  createdAt: String
+}
+
+input SearchUpdate_DocRelationshipInput {
+  relationTo: SearchUpdate_DocRelationshipInputRelationTo
+  value: JSON
+}
+
+enum SearchUpdate_DocRelationshipInputRelationTo {
+  micro_posts
+  tags
+  authors
+}
+
 input mutationPayloadJobInput {
   input: JSON
   taskStatus: JSON
@@ -11309,6 +11798,7 @@ enum PayloadLockedDocument_DocumentRelationshipInputRelationTo {
   micro_posts
   micro_post_internal_links
   micro_post_external_links
+  search
   payload_jobs
 }
 
@@ -11344,6 +11834,7 @@ enum PayloadLockedDocumentUpdate_DocumentRelationshipInputRelationTo {
   micro_posts
   micro_post_internal_links
   micro_post_external_links
+  search
   payload_jobs
 }
 

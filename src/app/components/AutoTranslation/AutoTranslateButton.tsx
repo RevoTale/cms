@@ -37,13 +37,13 @@ const AutoTranslateButton: FunctionComponent = () => {
           sourceLocale: sourceLocale as TypedLocale,
         })
         setPendingLocale(null)
-        if (!result.ok) {
+        if (result.ok) {
+          setResults((prev) => [...prev, { locale: targetLocale, error: null }])
+        } else {
           setResults((prev) => [
             ...prev,
             { locale: targetLocale, error: result.error, context: result.context },
           ])
-        } else {
-          setResults((prev) => [...prev, { locale: targetLocale, error: null }])
         }
       } catch (error: unknown) {
         setPendingLocale(null)
@@ -64,9 +64,9 @@ const AutoTranslateButton: FunctionComponent = () => {
         disabled={pendingLocale !== null}
         type="submit"
       >
-        {pendingLocale !== null
-          ? `Translating to ${pendingLocale}...`
-          : `Auto Translate All from ${sourceLocale}`}
+        {pendingLocale === null
+          ? `Auto Translate All from ${sourceLocale}`
+          : `Translating to ${pendingLocale}...`}
       </Button>
       <div className="flex  gap-2 max-w-full flex-wrap ">
         {locales.map((locale) => {

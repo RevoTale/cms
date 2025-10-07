@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import type { CollectionBeforeChangeHook, DataFromCollectionSlug } from 'payload'
 
 const maybeAddAuthorSlugHook: CollectionBeforeChangeHook<

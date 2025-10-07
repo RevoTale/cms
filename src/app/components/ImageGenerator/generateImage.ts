@@ -63,6 +63,6 @@ export async function generateImage({
     return { id: media.id }
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err)
-    throw new Error(`Failed to create media: ${msg}`)
+    throw new Error(`Failed to create media: ${msg}`, { cause: err })
   }
 }

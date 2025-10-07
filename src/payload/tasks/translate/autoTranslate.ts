@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable complexity, @typescript-eslint/no-dynamic-delete, max-depth, @typescript-eslint/max-params */
 import OpenAI from 'openai'
 import type {

@@ -1,59 +1,59 @@
 type Query {
-  Post(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): Post
-  Posts(draft: Boolean, where: Post_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): Posts
+  Post(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, select: Boolean, trash: Boolean): Post
+  Posts(draft: Boolean, where: Post_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean): Posts
   countPosts(draft: Boolean, trash: Boolean, where: Post_where, locale: LocaleInputType): countPosts
   docAccessPost(id: String!): postsDocAccess
   versionPost(id: String, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): PostVersion
-  versionsPosts(where: versionsPost_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): versionsPosts
-  Media(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): Media
-  allMedia(draft: Boolean, where: Media_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): allMedia
+  versionsPosts(where: versionsPost_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean): versionsPosts
+  Media(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, select: Boolean, trash: Boolean): Media
+  allMedia(draft: Boolean, where: Media_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean): allMedia
   countallMedia(draft: Boolean, trash: Boolean, where: Media_where, locale: LocaleInputType): countallMedia
   docAccessMedia(id: String!): mediaDocAccess
-  User(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): User
-  Users(draft: Boolean, where: User_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): Users
+  User(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, select: Boolean, trash: Boolean): User
+  Users(draft: Boolean, where: User_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean): Users
   countUsers(draft: Boolean, trash: Boolean, where: User_where, locale: LocaleInputType): countUsers
   docAccessUser(id: String!): usersDocAccess
   meUser: usersMe
   initializedUser: Boolean
-  Tag(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): Tag
-  Tags(draft: Boolean, where: Tag_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): Tags
+  Tag(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, select: Boolean, trash: Boolean): Tag
+  Tags(draft: Boolean, where: Tag_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean): Tags
   countTags(draft: Boolean, trash: Boolean, where: Tag_where, locale: LocaleInputType): countTags
   docAccessTag(id: String!): tagsDocAccess
-  Author(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): Author
-  Authors(draft: Boolean, where: Author_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): Authors
+  Author(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, select: Boolean, trash: Boolean): Author
+  Authors(draft: Boolean, where: Author_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean): Authors
   countAuthors(draft: Boolean, trash: Boolean, where: Author_where, locale: LocaleInputType): countAuthors
   docAccessAuthor(id: String!): authorsDocAccess
-  Ai_call_log(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): Ai_call_log
-  Ai_call_logs(draft: Boolean, where: Ai_call_log_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): Ai_call_logs
+  Ai_call_log(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, select: Boolean, trash: Boolean): Ai_call_log
+  Ai_call_logs(draft: Boolean, where: Ai_call_log_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean): Ai_call_logs
   countAi_call_logs(draft: Boolean, trash: Boolean, where: Ai_call_log_where, locale: LocaleInputType): countAi_call_logs
   docAccessAi_call_log(id: String!): ai_call_logsDocAccess
-  Micro_post(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): Micro_post
-  Micro_posts(draft: Boolean, where: Micro_post_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): Micro_posts
+  Micro_post(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, select: Boolean, trash: Boolean): Micro_post
+  Micro_posts(draft: Boolean, where: Micro_post_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean): Micro_posts
   countMicro_posts(draft: Boolean, trash: Boolean, where: Micro_post_where, locale: LocaleInputType): countMicro_posts
   docAccessMicro_post(id: String!): micro_postsDocAccess
   versionMicro_post(id: String, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): Micro_postVersion
-  versionsMicro_posts(where: versionsMicro_post_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): versionsMicro_posts
-  Micro_post_internal_link(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): Micro_post_internal_link
-  Micro_post_internal_links(draft: Boolean, where: Micro_post_internal_link_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): Micro_post_internal_links
+  versionsMicro_posts(where: versionsMicro_post_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean): versionsMicro_posts
+  Micro_post_internal_link(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, select: Boolean, trash: Boolean): Micro_post_internal_link
+  Micro_post_internal_links(draft: Boolean, where: Micro_post_internal_link_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean): Micro_post_internal_links
   countMicro_post_internal_links(draft: Boolean, trash: Boolean, where: Micro_post_internal_link_where, locale: LocaleInputType): countMicro_post_internal_links
   docAccessMicro_post_internal_link(id: String!): micro_post_internal_linksDocAccess
-  Micro_post_external_link(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): Micro_post_external_link
-  Micro_post_external_links(draft: Boolean, where: Micro_post_external_link_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): Micro_post_external_links
+  Micro_post_external_link(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, select: Boolean, trash: Boolean): Micro_post_external_link
+  Micro_post_external_links(draft: Boolean, where: Micro_post_external_link_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean): Micro_post_external_links
   countMicro_post_external_links(draft: Boolean, trash: Boolean, where: Micro_post_external_link_where, locale: LocaleInputType): countMicro_post_external_links
   docAccessMicro_post_external_link(id: String!): micro_post_external_linksDocAccess
-  PayloadJob(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): PayloadJob
-  PayloadJobs(draft: Boolean, where: PayloadJob_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): PayloadJobs
+  PayloadJob(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, select: Boolean, trash: Boolean): PayloadJob
+  PayloadJobs(draft: Boolean, where: PayloadJob_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean): PayloadJobs
   countPayloadJobs(draft: Boolean, trash: Boolean, where: PayloadJob_where, locale: LocaleInputType): countPayloadJobs
   docAccessPayloadJob(id: String!): payload_jobsDocAccess
-  PayloadLockedDocument(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): PayloadLockedDocument
-  PayloadLockedDocuments(draft: Boolean, where: PayloadLockedDocument_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): PayloadLockedDocuments
+  PayloadLockedDocument(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, select: Boolean, trash: Boolean): PayloadLockedDocument
+  PayloadLockedDocuments(draft: Boolean, where: PayloadLockedDocument_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean): PayloadLockedDocuments
   countPayloadLockedDocuments(draft: Boolean, trash: Boolean, where: PayloadLockedDocument_where, locale: LocaleInputType): countPayloadLockedDocuments
   docAccessPayloadLockedDocument(id: String!): payload_locked_documentsDocAccess
-  PayloadPreference(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): PayloadPreference
-  PayloadPreferences(draft: Boolean, where: PayloadPreference_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, sort: String, trash: Boolean): PayloadPreferences
+  PayloadPreference(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, select: Boolean, trash: Boolean): PayloadPreference
+  PayloadPreferences(draft: Boolean, where: PayloadPreference_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean): PayloadPreferences
   countPayloadPreferences(draft: Boolean, trash: Boolean, where: PayloadPreference_where, locale: LocaleInputType): countPayloadPreferences
   docAccessPayloadPreference(id: String!): payload_preferencesDocAccess
-  PayloadJobsStat(draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): PayloadJobsStat
+  PayloadJobsStat(draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, select: Boolean): PayloadJobsStat
   docAccessPayloadJobsStat: payload_jobs_statsDocAccess
   Access: Access
 }

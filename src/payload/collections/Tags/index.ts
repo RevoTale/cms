@@ -7,6 +7,7 @@ const nameField: TextField = {
   name: 'name',
   type: 'text',
   required: true,
+  unique: true,
   label: 'Tag Name',
   localized: false,
   validate: (value) => {

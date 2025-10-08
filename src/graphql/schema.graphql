@@ -5291,6 +5291,7 @@ type Search {
   title: String
   priority: Float
   doc(draft: Boolean, locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Search_Doc_Relationship!
+  excerpt: String
   updatedAt: DateTime
   createdAt: DateTime
 }
@@ -5326,6 +5327,7 @@ input Search_where {
   title: Search_title_operator
   priority: Search_priority_operator
   doc: Search_doc_Relation
+  excerpt: Search_excerpt_operator
   updatedAt: Search_updatedAt_operator
   createdAt: Search_createdAt_operator
   id: Search_id_operator
@@ -5365,6 +5367,14 @@ enum Search_doc_Relation_RelationTo {
   authors
 }
 
+input Search_excerpt_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  exists: Boolean
+}
+
 input Search_updatedAt_operator {
   equals: DateTime
   not_equals: DateTime
@@ -5402,6 +5412,7 @@ input Search_where_and {
   title: Search_title_operator
   priority: Search_priority_operator
   doc: Search_doc_Relation
+  excerpt: Search_excerpt_operator
   updatedAt: Search_updatedAt_operator
   createdAt: Search_createdAt_operator
   id: Search_id_operator
@@ -5413,6 +5424,7 @@ input Search_where_or {
   title: Search_title_operator
   priority: Search_priority_operator
   doc: Search_doc_Relation
+  excerpt: Search_excerpt_operator
   updatedAt: Search_updatedAt_operator
   createdAt: Search_createdAt_operator
   id: Search_id_operator
@@ -5436,6 +5448,7 @@ type SearchDocAccessFields {
   title: SearchDocAccessFields_title
   priority: SearchDocAccessFields_priority
   doc: SearchDocAccessFields_doc
+  excerpt: SearchDocAccessFields_excerpt
   updatedAt: SearchDocAccessFields_updatedAt
   createdAt: SearchDocAccessFields_createdAt
 }
@@ -5506,6 +5519,29 @@ type SearchDocAccessFields_doc_Update {
 }
 
 type SearchDocAccessFields_doc_Delete {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_excerpt {
+  create: SearchDocAccessFields_excerpt_Create
+  read: SearchDocAccessFields_excerpt_Read
+  update: SearchDocAccessFields_excerpt_Update
+  delete: SearchDocAccessFields_excerpt_Delete
+}
+
+type SearchDocAccessFields_excerpt_Create {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_excerpt_Read {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_excerpt_Update {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_excerpt_Delete {
   permission: Boolean!
 }
 
@@ -9989,6 +10025,7 @@ type SearchFields {
   title: SearchFields_title
   priority: SearchFields_priority
   doc: SearchFields_doc
+  excerpt: SearchFields_excerpt
   updatedAt: SearchFields_updatedAt
   createdAt: SearchFields_createdAt
 }
@@ -10059,6 +10096,29 @@ type SearchFields_doc_Update {
 }
 
 type SearchFields_doc_Delete {
+  permission: Boolean!
+}
+
+type SearchFields_excerpt {
+  create: SearchFields_excerpt_Create
+  read: SearchFields_excerpt_Read
+  update: SearchFields_excerpt_Update
+  delete: SearchFields_excerpt_Delete
+}
+
+type SearchFields_excerpt_Create {
+  permission: Boolean!
+}
+
+type SearchFields_excerpt_Read {
+  permission: Boolean!
+}
+
+type SearchFields_excerpt_Update {
+  permission: Boolean!
+}
+
+type SearchFields_excerpt_Delete {
   permission: Boolean!
 }
 
@@ -11631,6 +11691,7 @@ input mutationSearchInput {
   title: String
   priority: Float
   doc: Search_DocRelationshipInput
+  excerpt: String
   updatedAt: String
   createdAt: String
 }
@@ -11650,6 +11711,7 @@ input mutationSearchUpdateInput {
   title: String
   priority: Float
   doc: SearchUpdate_DocRelationshipInput
+  excerpt: String
   updatedAt: String
   createdAt: String
 }

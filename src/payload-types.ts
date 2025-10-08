@@ -360,6 +360,7 @@ export interface Search {
         relationTo: 'authors';
         value: string | Author;
       };
+  excerpt?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -743,6 +744,7 @@ export interface SearchSelect<T extends boolean = true> {
   title?: T;
   priority?: T;
   doc?: T;
+  excerpt?: T;
   updatedAt?: T;
   createdAt?: T;
 }

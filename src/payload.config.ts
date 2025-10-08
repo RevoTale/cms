@@ -11,7 +11,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import OpenAI from 'openai'
 import { buildConfig, type TaskConfig, type WorkflowConfig } from 'payload'
-import sharp from 'sharp' // editor-import
+import sharp from 'sharp'; // editor-import
 import type { MicroPost, Post } from 'src/payload-types'
 import Authors from './payload/collections/Authors'
 
@@ -373,6 +373,29 @@ export default buildConfig({
     }),
     searchPlugin({
       collections: ['micro_posts', 'tags', 'authors'],
+      beforeSync: ({ originalDoc, searchDoc }) => ({
+        ...searchDoc,
+        // - Modify your docs in any way here, this can be async
+        // - You also need to add the `excerpt` field in the `searchOverrides` config
+        excerpt:
+          originalDoc?.content ||
+          originalDoc?.excerpt ||
+          originalDoc?.title ||
+          originalDoc?.name ||
+          '',
+      }),
+      searchOverrides: {
+        fields: ({ defaultFields }) => [
+          ...defaultFields,
+          {
+            name: 'excerpt',
+            type: 'textarea',
+            admin: {
+              position: 'sidebar',
+            },
+          },
+        ],
+      },
       defaultPriorities: {
         micro_posts: 10,
         tags: 15,

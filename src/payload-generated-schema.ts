@@ -900,6 +900,7 @@ export const search = pgTable(
   {
     id: uuid('id').defaultRandom().primaryKey(),
     priority: numeric('priority'),
+    excerpt: varchar('excerpt'),
     updatedAt: timestamp('updated_at', { mode: 'string', withTimezone: true, precision: 3 })
       .defaultNow()
       .notNull(),

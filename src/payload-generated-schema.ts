@@ -429,6 +429,7 @@ export const tags = pgTable(
       .notNull(),
   },
   (columns) => [
+    uniqueIndex('tags_name_idx').on(columns.name),
     index('tags_updated_at_idx').on(columns.updatedAt),
     index('tags_created_at_idx').on(columns.createdAt),
   ],

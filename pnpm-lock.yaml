@@ -112,8 +112,8 @@ importers:
         specifier: ^130.0.0
         version: 130.0.0(@typescript-eslint/parser@8.46.0(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3))(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3)
       eslint-config-nice-nextjs:
-        specifier: ^0.2.0
-        version: 0.2.0(@next/eslint-plugin-next@15.5.4)(eslint-config-love@130.0.0(@typescript-eslint/parser@8.46.0(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3))(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3))(eslint-config-next@15.5.4(eslint-plugin-import-x@4.6.1(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3))(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3))(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3)
+        specifier: ^0.3.0
+        version: 0.3.0(@next/eslint-plugin-next@15.5.4)(eslint-config-love@130.0.0(@typescript-eslint/parser@8.46.0(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3))(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3))(eslint-config-next@15.5.4(eslint-plugin-import-x@4.6.1(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3))(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3))(eslint-plugin-react-hooks@6.1.1(eslint@9.37.0(jiti@2.6.1)))(eslint-plugin-react@7.37.5(eslint@9.37.0(jiti@2.6.1)))(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3)
       eslint-plugin-prettier:
         specifier: ^5.5.4
         version: 5.5.4(@types/eslint@9.6.1)(eslint-config-prettier@10.1.1(eslint@9.37.0(jiti@2.6.1)))(eslint@9.37.0(jiti@2.6.1))(prettier@3.6.2)
@@ -2703,13 +2703,15 @@ packages:
       typescript:
         optional: true
 
-  eslint-config-nice-nextjs@0.2.0:
-    resolution: {integrity: sha512-wycaRB/itxPfiSkcCBaqIfjb/BQb6AaJyHa/fgsBAnYwivH+KHUe50jpV+4YvTwHL4HTAxbmHfqkXO1i5lXe5w==}
+  eslint-config-nice-nextjs@0.3.0:
+    resolution: {integrity: sha512-c+nIICf4J0GzFE9c7DNA2Y3MLnpqCUeJ7I7cDq7oBvfrNw8ZC8ckmjpaTxqtfH/T+EAggvFPkghqIMtR3W2IYw==}
     peerDependencies:
       '@next/eslint-plugin-next': ^15.2.4
       eslint: ^9.0
       eslint-config-love: '>=130.0.0'
       eslint-config-next: ^15.5.4
+      eslint-plugin-react: ^7.37.5
+      eslint-plugin-react-hooks: ^7.0
       typescript: '*'
     peerDependenciesMeta:
       typescript:
@@ -3042,6 +3044,10 @@ packages:
 
   globals@15.15.0:
     resolution: {integrity: sha512-7ACyT3wmyp3I61S4fG682L0VA2RGD9otkqGJIwNUMF1SWUombIIk+af1unuDYgMm082aHYwD+mzJvv9Iu8dsgg==}
+    engines: {node: '>=18'}
+
+  globals@16.4.0:
+    resolution: {integrity: sha512-ob/2LcVVaVGCYN+r14cnwnoDPUufjiYgSqRhiFD0Q1iI4Odora5RE8Iv1D24hAz5oMophRGkGz+yuvQmmUMnMw==}
     engines: {node: '>=18'}
 
   globalthis@1.0.4:
@@ -7419,13 +7425,15 @@ snapshots:
       - eslint-plugin-import-x
       - supports-color
 
-  eslint-config-nice-nextjs@0.2.0(@next/eslint-plugin-next@15.5.4)(eslint-config-love@130.0.0(@typescript-eslint/parser@8.46.0(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3))(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3))(eslint-config-next@15.5.4(eslint-plugin-import-x@4.6.1(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3))(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3))(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3):
+  eslint-config-nice-nextjs@0.3.0(@next/eslint-plugin-next@15.5.4)(eslint-config-love@130.0.0(@typescript-eslint/parser@8.46.0(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3))(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3))(eslint-config-next@15.5.4(eslint-plugin-import-x@4.6.1(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3))(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3))(eslint-plugin-react-hooks@6.1.1(eslint@9.37.0(jiti@2.6.1)))(eslint-plugin-react@7.37.5(eslint@9.37.0(jiti@2.6.1)))(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3):
     dependencies:
-      '@eslint/config-helpers': 0.4.0
       '@next/eslint-plugin-next': 15.5.4
       eslint: 9.37.0(jiti@2.6.1)
       eslint-config-love: 130.0.0(@typescript-eslint/parser@8.46.0(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3))(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3)
       eslint-config-next: 15.5.4(eslint-plugin-import-x@4.6.1(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3))(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3)
+      eslint-plugin-react: 7.37.5(eslint@9.37.0(jiti@2.6.1))
+      eslint-plugin-react-hooks: 6.1.1(eslint@9.37.0(jiti@2.6.1))
+      globals: 16.4.0
     optionalDependencies:
       typescript: 5.9.3
 
@@ -7863,6 +7871,8 @@ snapshots:
   globals@14.0.0: {}
 
   globals@15.15.0: {}
+
+  globals@16.4.0: {}
 
   globalthis@1.0.4:
     dependencies:

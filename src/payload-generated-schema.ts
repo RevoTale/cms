@@ -900,6 +900,7 @@ export const search = pgTable(
   'search',
   {
     id: uuid('id').defaultRandom().primaryKey(),
+    title: varchar('title'),
     priority: numeric('priority'),
     excerpt: varchar('excerpt'),
     updatedAt: timestamp('updated_at', { mode: 'string', withTimezone: true, precision: 3 })
@@ -912,24 +913,6 @@ export const search = pgTable(
   (columns) => [
     index('search_updated_at_idx').on(columns.updatedAt),
     index('search_created_at_idx').on(columns.createdAt),
-  ],
-)
-
-export const search_locales = pgTable(
-  'search_locales',
-  {
-    title: varchar('title'),
-    id: serial('id').primaryKey(),
-    _locale: enum__locales('_locale').notNull(),
-    _parentID: uuid('_parent_id').notNull(),
-  },
-  (columns) => [
-    uniqueIndex('search_locales_locale_parent_id_unique').on(columns._locale, columns._parentID),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [search.id],
-      name: 'search_locales_parent_id_fk',
-    }).onDelete('cascade'),
   ],
 )
 
@@ -1577,13 +1560,6 @@ export const relations_micro_post_external_links = relations(
     }),
   }),
 )
-export const relations_search_locales = relations(search_locales, ({ one }) => ({
-  _parentID: one(search, {
-    fields: [search_locales._parentID],
-    references: [search.id],
-    relationName: '_locales',
-  }),
-}))
 export const relations_search_rels = relations(search_rels, ({ one }) => ({
   parent: one(search, {
     fields: [search_rels.parent],
@@ -1607,9 +1583,6 @@ export const relations_search_rels = relations(search_rels, ({ one }) => ({
   }),
 }))
 export const relations_search = relations(search, ({ many }) => ({
-  _locales: many(search_locales, {
-    relationName: '_locales',
-  }),
   _rels: many(search_rels, {
     relationName: '_rels',
   }),
@@ -1765,7 +1738,6 @@ type DatabaseSchema = {
   micro_post_external_links: typeof micro_post_external_links
   micro_post_external_links_locales: typeof micro_post_external_links_locales
   search: typeof search
-  search_locales: typeof search_locales
   search_rels: typeof search_rels
   payload_jobs_log: typeof payload_jobs_log
   payload_jobs: typeof payload_jobs
@@ -1802,7 +1774,6 @@ type DatabaseSchema = {
   relations_micro_post_internal_links: typeof relations_micro_post_internal_links
   relations_micro_post_external_links_locales: typeof relations_micro_post_external_links_locales
   relations_micro_post_external_links: typeof relations_micro_post_external_links
-  relations_search_locales: typeof relations_search_locales
   relations_search_rels: typeof relations_search_rels
   relations_search: typeof relations_search
   relations_payload_jobs_log: typeof relations_payload_jobs_log

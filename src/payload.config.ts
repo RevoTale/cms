@@ -10,8 +10,8 @@ import { s3Storage } from '@payloadcms/storage-s3'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import OpenAI from 'openai'
-import { buildConfig, type TaskConfig, type WorkflowConfig } from 'payload'
-import sharp from 'sharp'; // editor-import
+import { buildConfig, type CollectionSlug, type TaskConfig, type WorkflowConfig } from 'payload'
+import sharp from 'sharp' // editor-import
 import type { MicroPost, Post } from 'src/payload-types'
 import Authors from './payload/collections/Authors'
 
@@ -372,18 +372,49 @@ export default buildConfig({
       generateURL,
     }),
     searchPlugin({
+      localize: false,
       collections: ['micro_posts', 'tags', 'authors'],
-      beforeSync: ({ originalDoc, searchDoc }) => ({
-        ...searchDoc,
-        // - Modify your docs in any way here, this can be async
-        // - You also need to add the `excerpt` field in the `searchOverrides` config
-        excerpt:
-          originalDoc?.content ||
-          originalDoc?.excerpt ||
-          originalDoc?.title ||
-          originalDoc?.name ||
-          '',
-      }),
+
+      // eslint-disable-next-line complexity
+      beforeSync: async ({ originalDoc, searchDoc, payload, req }) => {
+        const collectionSlug = searchDoc.doc.relationTo as CollectionSlug
+        let excerpt = ''
+        if (collectionSlug === 'micro_posts') {
+          for (const locale of locales) {
+            const doc = await payload.findByID({
+              collection: collectionSlug,
+              id: searchDoc.doc.value,
+              locale,
+            })
+            excerpt += `${doc.title} ${doc.meta?.description ?? ''} ${doc.content} ${doc.meta?.title ?? ''} --- `
+          }
+        } else if (collectionSlug === 'authors') {
+          for (const locale of locales) {
+            const doc = await payload.findByID({
+              collection: collectionSlug,
+              id: searchDoc.doc.value,
+              locale,
+            })
+            excerpt += `${doc.name} ${doc.bio} ${doc.slug} --- `
+          }
+        } else if (collectionSlug === 'tags') {
+          for (const locale of locales) {
+            const doc = await payload.findByID({
+              collection: collectionSlug,
+              id: searchDoc.doc.value,
+              locale,
+            })
+            excerpt += `${doc.title} ${doc.name} --- `
+          }
+        }
+        return {
+          ...searchDoc,
+          title: originalDoc?.title || searchDoc.title || originalDoc?.name || '',
+          // - Modify your docs in any way here, this can be async
+          // - You also need to add the `excerpt` field in the `searchOverrides` config
+          excerpt,
+        }
+      },
       searchOverrides: {
         fields: ({ defaultFields }) => [
           ...defaultFields,

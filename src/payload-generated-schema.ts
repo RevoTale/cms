@@ -6,23 +6,23 @@
  * and re-run `payload generate:db-schema` to regenerate this file.
  */
 
-import type {} from '@payloadcms/db-postgres'
+import type { } from '@payloadcms/db-postgres'
+import { relations } from '@payloadcms/db-postgres/drizzle'
 import {
-  pgTable,
-  index,
-  uniqueIndex,
-  foreignKey,
-  uuid,
   boolean,
-  varchar,
-  timestamp,
-  serial,
+  foreignKey,
+  index,
   integer,
-  numeric,
   jsonb,
+  numeric,
   pgEnum,
+  pgTable,
+  serial,
+  timestamp,
+  uniqueIndex,
+  uuid,
+  varchar,
 } from '@payloadcms/db-postgres/drizzle/pg-core'
-import { sql, relations } from '@payloadcms/db-postgres/drizzle'
 export const enum__locales = pgEnum('enum__locales', [
   'en-US',
   'uk-UA',
@@ -329,11 +329,11 @@ export const media = pgTable(
     thumbnailURL: varchar('thumbnail_u_r_l'),
     filename: varchar('filename'),
     mimeType: varchar('mime_type'),
-    filesize: numeric('filesize'),
-    width: numeric('width'),
-    height: numeric('height'),
-    focalX: numeric('focal_x'),
-    focalY: numeric('focal_y'),
+    filesize: numeric('filesize', { mode: 'number' }),
+    width: numeric('width', { mode: 'number' }),
+    height: numeric('height', { mode: 'number' }),
+    focalX: numeric('focal_x', { mode: 'number' }),
+    focalY: numeric('focal_y', { mode: 'number' }),
   },
   (columns) => [
     index('media_updated_at_idx').on(columns.updatedAt),
@@ -406,7 +406,7 @@ export const users = pgTable(
     }),
     salt: varchar('salt'),
     hash: varchar('hash'),
-    loginAttempts: numeric('login_attempts').default('0'),
+    loginAttempts: numeric('login_attempts', { mode: 'number' }).default('0'),
     lockUntil: timestamp('lock_until', { mode: 'string', withTimezone: true, precision: 3 }),
   },
   (columns) => [
@@ -509,7 +509,7 @@ export const ai_call_logs = pgTable(
     title: varchar('title').notNull(),
     input: varchar('input').notNull(),
     output: varchar('output').notNull(),
-    execution_time: numeric('execution_time').notNull(),
+    execution_time: numeric('execution_time', { mode: 'number' }).notNull(),
     user: uuid('user_id').references(() => users.id, {
       onDelete: 'set null',
     }),
@@ -901,7 +901,7 @@ export const search = pgTable(
   {
     id: uuid('id').defaultRandom().primaryKey(),
     title: varchar('title'),
-    priority: numeric('priority'),
+    priority: numeric('priority', { mode: 'number' }),
     excerpt: varchar('excerpt'),
     updatedAt: timestamp('updated_at', { mode: 'string', withTimezone: true, precision: 3 })
       .defaultNow()
@@ -999,7 +999,7 @@ export const payload_jobs = pgTable(
     id: uuid('id').defaultRandom().primaryKey(),
     input: jsonb('input'),
     completedAt: timestamp('completed_at', { mode: 'string', withTimezone: true, precision: 3 }),
-    totalTried: numeric('total_tried').default('0'),
+    totalTried: numeric('total_tried', { mode: 'number' }).default('0'),
     hasError: boolean('has_error').default(false),
     error: jsonb('error'),
     workflowSlug: enum_payload_jobs_workflow_slug('workflow_slug'),
@@ -1201,7 +1201,7 @@ export const payload_migrations = pgTable(
   {
     id: uuid('id').defaultRandom().primaryKey(),
     name: varchar('name'),
-    batch: numeric('batch'),
+    batch: numeric('batch', { mode: 'number' }),
     updatedAt: timestamp('updated_at', { mode: 'string', withTimezone: true, precision: 3 })
       .defaultNow()
       .notNull(),

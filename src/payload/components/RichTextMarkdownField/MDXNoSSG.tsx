@@ -5,6 +5,7 @@ import {
     codeMirrorPlugin,
     diffSourcePlugin,
     headingsPlugin,
+    imagePlugin,
     linkDialogPlugin,
     linkPlugin,
     listsPlugin,
@@ -108,7 +109,12 @@ const RichTextMarkdownField: FunctionComponent<{ value: string;initialValue:stri
           quotePlugin(),
           thematicBreakPlugin(),
           tablePlugin(),
-        
+          imagePlugin({
+      imageUploadHandler: () => {
+        return Promise.resolve('https://picsum.photos/200/300') //TODO - replace with actual upload logic
+      },
+      imageAutocompleteSuggestions: []
+    }),
           sandpackPlugin(),
          
           codeBlockPlugin({ codeBlockEditorDescriptors: [{ priority: -10, match: (_) => true, Editor: CodeMirrorEditor }]}),

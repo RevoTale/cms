@@ -22,19 +22,17 @@ import type { FunctionComponent } from 'react'
 import './style.css'
 import { KitchenSinkToolbar } from './Toolbar'
 
+
+
 const RichTextMarkdownField: FunctionComponent<{ value: string;initialValue:string, setValue: (value: string) => void }> = ({value,setValue,initialValue}) => {
   const currentValue = typeof value === 'string' ? value : ''
 
   return (
-    <div onClick={e=>{
-      console.log(e)
-    }} onSubmit={e=>{
-      console.log(e,'form submit')
+    <div 
+     onSubmit={e=>{
       e.preventDefault()
     }}>
       <MDXEditor 
-      
-      //lexicalTheme={lexicalTheme}
         markdown={currentValue}
         onChange={setValue}
         plugins={[

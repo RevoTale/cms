@@ -25,6 +25,13 @@
     "migrate:create": "PAYLOAD_SECRET=dsfsfdfsd PAYLOAD_PUBLIC_SERVER_URL=https://localhost pnpm payload migrate:create --skip-empty"
   },
   "dependencies": {
+    "@lexical/code": "^0.37.0",
+    "@lexical/link": "^0.37.0",
+    "@lexical/list": "^0.37.0",
+    "@lexical/markdown": "^0.37.0",
+    "@lexical/react": "^0.37.0",
+    "@lexical/rich-text": "^0.37.0",
+    "@lexical/table": "^0.37.0",
     "@payloadcms/db-postgres": "^3.59.1",
     "@payloadcms/graphql": "3.59.1",
     "@payloadcms/next": "3.59.1",
@@ -40,6 +47,7 @@
     "cross-env": "^10.1.0",
     "eslint-plugin-react-hooks": "^6.1.1",
     "graphql": "^16.11.0",
+    "lexical": "^0.37.0",
     "lucide-react": "^0.545.0",
     "next": "15.5.4",
     "openai": "^6.2.0",

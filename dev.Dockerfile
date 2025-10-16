@@ -22,4 +22,4 @@ ENV S3_SECRET_ACCESS_KEY=''
 ENV S3_REGION=''
 
 EXPOSE 3000
-CMD pnpm install && pnpm dev
+CMD pnpm install --force && pnpm dev

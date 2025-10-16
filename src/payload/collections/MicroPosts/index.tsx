@@ -70,6 +70,11 @@ export const MicroPosts: CollectionConfig<'micro_posts'> = {
       localized: true,
       maxLength: 4000,
       minLength: 2,
+      admin: {
+        components: {
+          Field: '/payload/components/RichTextMarkdownField',
+        },
+      },
     },
     slugField('slug', {
       unique: true,

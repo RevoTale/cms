@@ -12,6 +12,7 @@ import { AutoTranslate } from 'src/payload/fields/autoTranslate'
 import { slugField } from 'src/payload/fields/slug'
 import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
+import dedupeCronTranslationLocalesQueuedHook from './dedupeCronTranslationLocalesQueuedHook'
 import maybeAddAuthorSlugHook from './maybeAddAuthorSlugHook'
 import maybeFallbackSEOImageHook from './maybeFallbackSEOImageHook'
 export const MicroPosts: CollectionConfig<'micro_posts'> = {
@@ -51,7 +52,7 @@ export const MicroPosts: CollectionConfig<'micro_posts'> = {
       hasMany: true,
       admin: {
         isClearable: true,
-        readOnly: true,
+        readOnly: false,
       },
       options: locales.map((locale) => ({ label: locale, value: locale })),
     },
@@ -229,7 +230,7 @@ export const MicroPosts: CollectionConfig<'micro_posts'> = {
     },
   ],
   hooks: {
-    beforeChange: [maybeAddAuthorSlugHook, maybeFallbackSEOImageHook],
+    beforeChange: [dedupeCronTranslationLocalesQueuedHook, maybeAddAuthorSlugHook, maybeFallbackSEOImageHook],
   },
   versions: {
     drafts: {

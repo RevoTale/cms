@@ -86,7 +86,7 @@ const lexicalTheme = {
     'odd:bg-slate-50 even:bg-white hover:bg-slate-100/70 dark:odd:bg-slate-800 dark:even:bg-slate-900 dark:hover:bg-slate-800/80',
 }
 
-const RichTextMarkdownField: FunctionComponent<{ value: string; setValue: (value: string) => void }> = ({value,setValue}) => {
+const RichTextMarkdownField: FunctionComponent<{ value: string;initialValue:string, setValue: (value: string) => void }> = ({value,setValue,initialValue}) => {
   const currentValue = typeof value === 'string' ? value : ''
 
   return (
@@ -114,7 +114,7 @@ const RichTextMarkdownField: FunctionComponent<{ value: string; setValue: (value
           codeBlockPlugin({ codeBlockEditorDescriptors: [{ priority: -10, match: (_) => true, Editor: CodeMirrorEditor }]}),
                   codeMirrorPlugin({ codeBlockLanguages: { js: 'JavaScript', css: 'CSS' } }),
 
-           diffSourcePlugin({ diffMarkdown: 'An older version', viewMode: 'rich-text' }),
+           diffSourcePlugin({ diffMarkdown:initialValue, viewMode: 'rich-text' }),
     toolbarPlugin({
       toolbarContents: () => (
         <KitchenSinkToolbar/>

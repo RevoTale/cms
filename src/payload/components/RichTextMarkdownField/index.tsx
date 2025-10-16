@@ -6,12 +6,12 @@ import { Suspense } from 'react'
 const MDXNoSSG = dynamic(() => import('./MDXNoSSG'), { ssr: false })
 
 const RichTextMarkdownField: TextareaFieldClientComponent = ({ path }) => {
-  const { value, setValue } = useField<string>({ path })
+  const { value, setValue,initialValue } = useField<string>({ path })
   const currentValue = typeof value === 'string' ? value : ''
 
   return (
    <Suspense fallback={<div>Loading editor...</div>}>
-     <MDXNoSSG value={currentValue} setValue={setValue} />
+     <MDXNoSSG initialValue={initialValue??value} value={currentValue} setValue={setValue} />
    </Suspense>
   )
 }

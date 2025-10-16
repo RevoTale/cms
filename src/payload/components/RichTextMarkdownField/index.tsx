@@ -17,6 +17,7 @@ import { useField } from '@payloadcms/ui'
 import { ParagraphNode } from 'lexical'
 import type { TextareaFieldClientComponent } from 'payload'
 import { MARKDOWN_TRANSFORMERS } from './markdownTransformers'
+import ToolbarPlugin from './ToolbarPlugin'
 
 const lexicalTheme = {
   paragraph: 'mb-4 text-[1.05rem] leading-relaxed text-slate-800 md:text-lg dark:text-slate-200',
@@ -117,6 +118,7 @@ const RichTextMarkdownField: TextareaFieldClientComponent = ({ path }) => {
           },
         }}
       >
+        <ToolbarPlugin />
         <RichTextPlugin
           contentEditable={<ContentEditable className="min-h-[200px] outline-none" />}
           ErrorBoundary={LexicalErrorBoundary}

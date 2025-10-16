@@ -14,6 +14,7 @@ import { TablePlugin } from '@lexical/react/LexicalTablePlugin'
 import { HeadingNode, QuoteNode } from '@lexical/rich-text'
 import { TableCellNode, TableNode, TableRowNode } from '@lexical/table'
 import { useField } from '@payloadcms/ui'
+import { ParagraphNode } from 'lexical'
 import type { TextareaFieldClientComponent } from 'payload'
 import { MARKDOWN_TRANSFORMERS } from './markdownTransformers'
 
@@ -105,6 +106,7 @@ const RichTextMarkdownField: TextareaFieldClientComponent = ({ path }) => {
             TableNode,
             TableRowNode,
             TableCellNode,
+            ParagraphNode,
           ],
           theme: lexicalTheme,
           editable: true,

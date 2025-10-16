@@ -1,6 +1,6 @@
 import { withPayload } from '@payloadcms/next/withPayload'
 
-import { NextConfig } from 'next'
+import type { NextConfig } from 'next'
 import redirects from './redirects.js'
 
 const PAYLOAD_PUBLIC_SERVER_URL = process.env.PAYLOAD_PUBLIC_SERVER_URL

@@ -1,7 +1,22 @@
-import { BoldItalicUnderlineToggles, ChangeCodeMirrorLanguage, CodeToggle, ConditionalContents, CreateLink, DiffSourceToggleWrapper, HighlightToggle, InsertCodeBlock, InsertImage, InsertTable, InsertThematicBreak, ListsToggle, Separator, ShowSandpackInfo, StrikeThroughSupSubToggles, UndoRedo } from '@mdxeditor/editor'
-import React from 'react'
-
-
+import {
+  BoldItalicUnderlineToggles,
+  ChangeCodeMirrorLanguage,
+  CodeToggle,
+  ConditionalContents,
+  CreateLink,
+  DiffSourceToggleWrapper,
+  HighlightToggle,
+  InsertCodeBlock,
+  InsertImage,
+  InsertTable,
+  InsertThematicBreak,
+  ListsToggle,
+  Separator,
+  ShowSandpackInfo,
+  StrikeThroughSupSubToggles,
+  UndoRedo,
+} from '@mdxeditor/editor'
+import type React from 'react'
 
 /**
  * A toolbar component that includes all toolbar components.
@@ -14,8 +29,14 @@ export const KitchenSinkToolbar: React.FC = () => {
     <DiffSourceToggleWrapper>
       <ConditionalContents
         options={[
-          { when: (editor) => editor?.editorType === 'codeblock', contents: () => <ChangeCodeMirrorLanguage /> },
-          { when: (editor) => editor?.editorType === 'sandpack', contents: () => <ShowSandpackInfo /> },
+          {
+            when: (editor) => editor?.editorType === 'codeblock',
+            contents: () => <ChangeCodeMirrorLanguage />,
+          },
+          {
+            when: (editor) => editor?.editorType === 'sandpack',
+            contents: () => <ShowSandpackInfo />,
+          },
           {
             fallback: () => (
               <>
@@ -30,7 +51,6 @@ export const KitchenSinkToolbar: React.FC = () => {
                 <ListsToggle />
                 <Separator />
 
-          
                 <Separator />
 
                 <CreateLink />
@@ -42,14 +62,12 @@ export const KitchenSinkToolbar: React.FC = () => {
                 <InsertThematicBreak />
 
                 <Separator />
-                <InsertCodeBlock  />
-
-         
+                <InsertCodeBlock />
 
                 <Separator />
               </>
-            )
-          }
+            ),
+          },
         ]}
       />
     </DiffSourceToggleWrapper>

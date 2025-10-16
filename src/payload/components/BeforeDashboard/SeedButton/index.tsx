@@ -1,7 +1,8 @@
 'use client'
 
 import { Button, toast } from '@payloadcms/ui'
-import React, { Fragment, useCallback, useState } from 'react'
+import type React from 'react'
+import { Fragment, useCallback, useState } from 'react'
 
 const SuccessMessage: React.FC = () => (
   <div>

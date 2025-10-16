@@ -1,9 +1,5 @@
 /* eslint-disable no-param-reassign */
-import type {
-    CollectionBeforeChangeHook,
-    DataFromCollectionSlug,
-    TypedLocale,
-} from 'payload'
+import type { CollectionBeforeChangeHook, DataFromCollectionSlug, TypedLocale } from 'payload'
 
 import { locales } from 'src/i18n-config'
 
@@ -45,7 +41,9 @@ const dedupeCronTranslationLocalesQueuedHook: CollectionBeforeChangeHook<MicroPo
   for (const entry of data.cronTranslationLocalesQueued as CronLocale[]) {
     const locale =
       typeof entry === 'string'
-        ? (isTypedLocale(entry) ? entry : null)
+        ? isTypedLocale(entry)
+          ? entry
+          : null
         : isSelectOption(entry)
           ? entry.value
           : null

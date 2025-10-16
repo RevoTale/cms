@@ -230,7 +230,11 @@ export const MicroPosts: CollectionConfig<'micro_posts'> = {
     },
   ],
   hooks: {
-    beforeChange: [dedupeCronTranslationLocalesQueuedHook, maybeAddAuthorSlugHook, maybeFallbackSEOImageHook],
+    beforeChange: [
+      dedupeCronTranslationLocalesQueuedHook,
+      maybeAddAuthorSlugHook,
+      maybeFallbackSEOImageHook,
+    ],
   },
   versions: {
     drafts: {

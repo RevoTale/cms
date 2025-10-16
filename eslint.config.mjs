@@ -4,7 +4,6 @@ import niceNextjs from 'eslint-config-nice-nextjs';
 import prettier from 'eslint-plugin-prettier/recommended';
 import { defineConfig, globalIgnores } from 'eslint/config';
 
-import reactHooks from 'eslint-plugin-react-hooks';
 
 
 
@@ -15,15 +14,11 @@ const eslintConfig = defineConfig(
 			'next-env.d.ts','eslint.config.mjs','**/importMap.js','src/payload-generated-schema.ts',
 			'src/payload-types.ts',
 			'src/migrations/**',
+      'postcss.config.js',
+      "**/@shadcn/ui/**",
 		]),
 			niceNextjs,
-			  {
-    files: ["src/**/*.{js,jsx,ts,tsx}"],
-    plugins: {
-      'react-hooks': reactHooks,
-    },
-    extends: ['react-hooks/recommended'],
-  },
+
 			{
 				rules: {
 "@typescript-eslint/no-unsafe-assignment": 'off',
@@ -34,6 +29,7 @@ const eslintConfig = defineConfig(
 "@typescript-eslint/no-unsafe-type-assertion":"off",
 "@typescript-eslint/prefer-destructuring": "off",
 "@typescript-eslint/prefer-optional-chain": "off",
+"react/prop-types": "off",
 
       // New global relaxations
       '@typescript-eslint/explicit-function-return-type': 'off',

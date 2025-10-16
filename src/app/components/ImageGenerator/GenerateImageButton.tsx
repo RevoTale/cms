@@ -2,7 +2,8 @@
 
 import { Button, toast, useDocumentInfo } from '@payloadcms/ui'
 import type { Data } from 'payload'
-import React, { useState } from 'react'
+import type React from 'react'
+import { useState } from 'react'
 import generateImageWithSafeResp from './generateImageWithSafeResp'
 
 const getContentFromData = (data: Data) => `

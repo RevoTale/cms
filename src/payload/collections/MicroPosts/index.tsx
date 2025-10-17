@@ -15,6 +15,7 @@ import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import dedupeCronTranslationLocalesQueuedHook from './dedupeCronTranslationLocalesQueuedHook'
 import maybeAddAuthorSlugHook from './maybeAddAuthorSlugHook'
 import maybeFallbackSEOImageHook from './maybeFallbackSEOImageHook'
+import maybeReplaceMarkdownLink from './maybeReplaceMarkdownLinks'
 export const MicroPosts: CollectionConfig<'micro_posts'> = {
   labels: {
     plural: 'Micro Posts',
@@ -234,6 +235,7 @@ export const MicroPosts: CollectionConfig<'micro_posts'> = {
       dedupeCronTranslationLocalesQueuedHook,
       maybeAddAuthorSlugHook,
       maybeFallbackSEOImageHook,
+      maybeReplaceMarkdownLink,
     ],
   },
   versions: {

@@ -406,7 +406,7 @@ export const users = pgTable(
     }),
     salt: varchar('salt'),
     hash: varchar('hash'),
-    loginAttempts: numeric('login_attempts', { mode: 'number' }).default('0'),
+    loginAttempts: numeric('login_attempts', { mode: 'number' }).default(0),
     lockUntil: timestamp('lock_until', { mode: 'string', withTimezone: true, precision: 3 }),
   },
   (columns) => [
@@ -999,7 +999,7 @@ export const payload_jobs = pgTable(
     id: uuid('id').defaultRandom().primaryKey(),
     input: jsonb('input'),
     completedAt: timestamp('completed_at', { mode: 'string', withTimezone: true, precision: 3 }),
-    totalTried: numeric('total_tried', { mode: 'number' }).default('0'),
+    totalTried: numeric('total_tried', { mode: 'number' }).default(0),
     hasError: boolean('has_error').default(false),
     error: jsonb('error'),
     workflowSlug: enum_payload_jobs_workflow_slug('workflow_slug'),

@@ -6,23 +6,23 @@
  * and re-run `payload generate:db-schema` to regenerate this file.
  */
 
-import type {} from '@payloadcms/db-postgres'
+import type { } from '@payloadcms/db-postgres'
+import { relations } from '@payloadcms/db-postgres/drizzle'
 import {
-  pgTable,
-  index,
-  uniqueIndex,
-  foreignKey,
-  uuid,
   boolean,
-  varchar,
-  timestamp,
-  serial,
+  foreignKey,
+  index,
   integer,
-  numeric,
   jsonb,
+  numeric,
   pgEnum,
+  pgTable,
+  serial,
+  timestamp,
+  uniqueIndex,
+  uuid,
+  varchar,
 } from '@payloadcms/db-postgres/drizzle/pg-core'
-import { sql, relations } from '@payloadcms/db-postgres/drizzle'
 export const enum__locales = pgEnum('enum__locales', [
   'en-US',
   'uk-UA',
@@ -406,7 +406,7 @@ export const users = pgTable(
     }),
     salt: varchar('salt'),
     hash: varchar('hash'),
-    loginAttempts: numeric('login_attempts', { mode: 'number' }).default('0'),
+    loginAttempts: numeric('login_attempts', { mode: 'number' }).default(0),
     lockUntil: timestamp('lock_until', { mode: 'string', withTimezone: true, precision: 3 }),
   },
   (columns) => [
@@ -963,7 +963,7 @@ export const payload_jobs = pgTable(
     id: uuid('id').defaultRandom().primaryKey(),
     input: jsonb('input'),
     completedAt: timestamp('completed_at', { mode: 'string', withTimezone: true, precision: 3 }),
-    totalTried: numeric('total_tried', { mode: 'number' }).default('0'),
+    totalTried: numeric('total_tried', { mode: 'number' }).default(0),
     hasError: boolean('has_error').default(false),
     error: jsonb('error'),
     workflowSlug: enum_payload_jobs_workflow_slug('workflow_slug'),

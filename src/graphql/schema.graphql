@@ -3361,8 +3361,7 @@ type Micro_post {
   slug: String
   tags(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Tag!]
   meta: Micro_post_Meta
-  links(count: Boolean, limit: Int, page: Int, sort: String, where: Micro_post_internal_link_where): Micro_post_Links
-  targeted_from_note_links(count: Boolean, limit: Int, page: Int, sort: String, where: Micro_post_internal_link_where): Micro_post_Targeted_from_note_links
+  linkedMicroPosts(draft: Boolean, locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Micro_post!]
   externalLinks(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Micro_post_external_link!]
   social: Micro_post_Social
   publishedAt: DateTime
@@ -3388,120 +3387,6 @@ type Micro_post_Meta {
   title: String
   image(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Media
   description: String
-}
-
-type Micro_post_Links {
-  docs: [Micro_post_internal_link!]!
-  hasNextPage: Boolean!
-  totalDocs: Int
-}
-
-type Micro_post_internal_link {
-  id: String!
-  title: String
-  source_note(draft: Boolean, locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Micro_post!
-  target_note(draft: Boolean, locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Micro_post!
-  updatedAt: DateTime
-  createdAt: DateTime
-}
-
-input Micro_post_internal_link_where {
-  title: Micro_post_internal_link_title_operator
-  source_note: Micro_post_internal_link_source_note_operator
-  target_note: Micro_post_internal_link_target_note_operator
-  updatedAt: Micro_post_internal_link_updatedAt_operator
-  createdAt: Micro_post_internal_link_createdAt_operator
-  id: Micro_post_internal_link_id_operator
-  AND: [Micro_post_internal_link_where_and]
-  OR: [Micro_post_internal_link_where_or]
-}
-
-input Micro_post_internal_link_title_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Micro_post_internal_link_source_note_operator {
-  equals: JSON
-  not_equals: JSON
-  in: [JSON]
-  not_in: [JSON]
-  all: [JSON]
-}
-
-input Micro_post_internal_link_target_note_operator {
-  equals: JSON
-  not_equals: JSON
-  in: [JSON]
-  not_in: [JSON]
-  all: [JSON]
-}
-
-input Micro_post_internal_link_updatedAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Micro_post_internal_link_createdAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Micro_post_internal_link_id_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Micro_post_internal_link_where_and {
-  title: Micro_post_internal_link_title_operator
-  source_note: Micro_post_internal_link_source_note_operator
-  target_note: Micro_post_internal_link_target_note_operator
-  updatedAt: Micro_post_internal_link_updatedAt_operator
-  createdAt: Micro_post_internal_link_createdAt_operator
-  id: Micro_post_internal_link_id_operator
-  AND: [Micro_post_internal_link_where_and]
-  OR: [Micro_post_internal_link_where_or]
-}
-
-input Micro_post_internal_link_where_or {
-  title: Micro_post_internal_link_title_operator
-  source_note: Micro_post_internal_link_source_note_operator
-  target_note: Micro_post_internal_link_target_note_operator
-  updatedAt: Micro_post_internal_link_updatedAt_operator
-  createdAt: Micro_post_internal_link_createdAt_operator
-  id: Micro_post_internal_link_id_operator
-  AND: [Micro_post_internal_link_where_and]
-  OR: [Micro_post_internal_link_where_or]
-}
-
-type Micro_post_Targeted_from_note_links {
-  docs: [Micro_post_internal_link!]!
-  hasNextPage: Boolean!
-  totalDocs: Int
 }
 
 type Micro_post_external_link {
@@ -3551,6 +3436,7 @@ input Micro_post_where {
   meta__title: Micro_post_meta__title_operator
   meta__image: Micro_post_meta__image_operator
   meta__description: Micro_post_meta__description_operator
+  linkedMicroPosts: Micro_post_linkedMicroPosts_operator
   externalLinks: Micro_post_externalLinks_operator
   social__x__autoPost: Micro_post_social__x__autoPost_operator
   social__x__autoPosted: Micro_post_social__x__autoPosted_operator
@@ -3655,6 +3541,15 @@ input Micro_post_meta__description_operator {
   not_equals: String
   like: String
   contains: String
+  exists: Boolean
+}
+
+input Micro_post_linkedMicroPosts_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
   exists: Boolean
 }
 
@@ -3777,6 +3672,7 @@ input Micro_post_where_and {
   meta__title: Micro_post_meta__title_operator
   meta__image: Micro_post_meta__image_operator
   meta__description: Micro_post_meta__description_operator
+  linkedMicroPosts: Micro_post_linkedMicroPosts_operator
   externalLinks: Micro_post_externalLinks_operator
   social__x__autoPost: Micro_post_social__x__autoPost_operator
   social__x__autoPosted: Micro_post_social__x__autoPosted_operator
@@ -3802,6 +3698,7 @@ input Micro_post_where_or {
   meta__title: Micro_post_meta__title_operator
   meta__image: Micro_post_meta__image_operator
   meta__description: Micro_post_meta__description_operator
+  linkedMicroPosts: Micro_post_linkedMicroPosts_operator
   externalLinks: Micro_post_externalLinks_operator
   social__x__autoPost: Micro_post_social__x__autoPost_operator
   social__x__autoPosted: Micro_post_social__x__autoPosted_operator
@@ -3838,8 +3735,7 @@ type Micro_postsDocAccessFields {
   slug: Micro_postsDocAccessFields_slug
   tags: Micro_postsDocAccessFields_tags
   meta: Micro_postsDocAccessFields_meta
-  links: Micro_postsDocAccessFields_links
-  targeted_from_note_links: Micro_postsDocAccessFields_targeted_from_note_links
+  linkedMicroPosts: Micro_postsDocAccessFields_linkedMicroPosts
   externalLinks: Micro_postsDocAccessFields_externalLinks
   social: Micro_postsDocAccessFields_social
   publishedAt: Micro_postsDocAccessFields_publishedAt
@@ -4063,49 +3959,26 @@ type Micro_postsDocAccessFields_meta_description_Delete {
   permission: Boolean!
 }
 
-type Micro_postsDocAccessFields_links {
-  create: Micro_postsDocAccessFields_links_Create
-  read: Micro_postsDocAccessFields_links_Read
-  update: Micro_postsDocAccessFields_links_Update
-  delete: Micro_postsDocAccessFields_links_Delete
+type Micro_postsDocAccessFields_linkedMicroPosts {
+  create: Micro_postsDocAccessFields_linkedMicroPosts_Create
+  read: Micro_postsDocAccessFields_linkedMicroPosts_Read
+  update: Micro_postsDocAccessFields_linkedMicroPosts_Update
+  delete: Micro_postsDocAccessFields_linkedMicroPosts_Delete
 }
 
-type Micro_postsDocAccessFields_links_Create {
+type Micro_postsDocAccessFields_linkedMicroPosts_Create {
   permission: Boolean!
 }
 
-type Micro_postsDocAccessFields_links_Read {
+type Micro_postsDocAccessFields_linkedMicroPosts_Read {
   permission: Boolean!
 }
 
-type Micro_postsDocAccessFields_links_Update {
+type Micro_postsDocAccessFields_linkedMicroPosts_Update {
   permission: Boolean!
 }
 
-type Micro_postsDocAccessFields_links_Delete {
-  permission: Boolean!
-}
-
-type Micro_postsDocAccessFields_targeted_from_note_links {
-  create: Micro_postsDocAccessFields_targeted_from_note_links_Create
-  read: Micro_postsDocAccessFields_targeted_from_note_links_Read
-  update: Micro_postsDocAccessFields_targeted_from_note_links_Update
-  delete: Micro_postsDocAccessFields_targeted_from_note_links_Delete
-}
-
-type Micro_postsDocAccessFields_targeted_from_note_links_Create {
-  permission: Boolean!
-}
-
-type Micro_postsDocAccessFields_targeted_from_note_links_Read {
-  permission: Boolean!
-}
-
-type Micro_postsDocAccessFields_targeted_from_note_links_Update {
-  permission: Boolean!
-}
-
-type Micro_postsDocAccessFields_targeted_from_note_links_Delete {
+type Micro_postsDocAccessFields_linkedMicroPosts_Delete {
   permission: Boolean!
 }
 
@@ -4442,8 +4315,7 @@ type Micro_postVersion_Version {
   slug: String
   tags(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Tag!]
   meta: Micro_postVersion_Version_Meta
-  links(count: Boolean, limit: Int, page: Int, sort: String, where: Micro_post_internal_link_where): Micro_postVersion_Version_Links
-  targeted_from_note_links(count: Boolean, limit: Int, page: Int, sort: String, where: Micro_post_internal_link_where): Micro_postVersion_Version_Targeted_from_note_links
+  linkedMicroPosts(draft: Boolean, locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Micro_post!]
   externalLinks(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Micro_post_external_link!]
   social: Micro_postVersion_Version_Social
   publishedAt: DateTime
@@ -4469,18 +4341,6 @@ type Micro_postVersion_Version_Meta {
   title: String
   image(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Media
   description: String
-}
-
-type Micro_postVersion_Version_Links {
-  docs: [Micro_post_internal_link!]!
-  hasNextPage: Boolean!
-  totalDocs: Int
-}
-
-type Micro_postVersion_Version_Targeted_from_note_links {
-  docs: [Micro_post_internal_link!]!
-  hasNextPage: Boolean!
-  totalDocs: Int
 }
 
 type Micro_postVersion_Version_Social {
@@ -4534,6 +4394,7 @@ input versionsMicro_post_where {
   version__meta__title: versionsMicro_post_version__meta__title_operator
   version__meta__image: versionsMicro_post_version__meta__image_operator
   version__meta__description: versionsMicro_post_version__meta__description_operator
+  version__linkedMicroPosts: versionsMicro_post_version__linkedMicroPosts_operator
   version__externalLinks: versionsMicro_post_version__externalLinks_operator
   version__social__x__autoPost: versionsMicro_post_version__social__x__autoPost_operator
   version__social__x__autoPosted: versionsMicro_post_version__social__x__autoPosted_operator
@@ -4653,6 +4514,15 @@ input versionsMicro_post_version__meta__description_operator {
   not_equals: String
   like: String
   contains: String
+  exists: Boolean
+}
+
+input versionsMicro_post_version__linkedMicroPosts_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
   exists: Boolean
 }
 
@@ -4836,6 +4706,7 @@ input versionsMicro_post_where_and {
   version__meta__title: versionsMicro_post_version__meta__title_operator
   version__meta__image: versionsMicro_post_version__meta__image_operator
   version__meta__description: versionsMicro_post_version__meta__description_operator
+  version__linkedMicroPosts: versionsMicro_post_version__linkedMicroPosts_operator
   version__externalLinks: versionsMicro_post_version__externalLinks_operator
   version__social__x__autoPost: versionsMicro_post_version__social__x__autoPost_operator
   version__social__x__autoPosted: versionsMicro_post_version__social__x__autoPosted_operator
@@ -4868,6 +4739,7 @@ input versionsMicro_post_where_or {
   version__meta__title: versionsMicro_post_version__meta__title_operator
   version__meta__image: versionsMicro_post_version__meta__image_operator
   version__meta__description: versionsMicro_post_version__meta__description_operator
+  version__linkedMicroPosts: versionsMicro_post_version__linkedMicroPosts_operator
   version__externalLinks: versionsMicro_post_version__externalLinks_operator
   version__social__x__autoPost: versionsMicro_post_version__social__x__autoPost_operator
   version__social__x__autoPosted: versionsMicro_post_version__social__x__autoPosted_operator
@@ -4889,6 +4761,15 @@ input versionsMicro_post_where_or {
   OR: [versionsMicro_post_where_or]
 }
 
+type Micro_post_internal_link {
+  id: String!
+  title: String
+  source_note(draft: Boolean, locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Micro_post!
+  target_note(draft: Boolean, locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Micro_post!
+  updatedAt: DateTime
+  createdAt: DateTime
+}
+
 type Micro_post_internal_links {
   docs: [Micro_post_internal_link!]!
   hasNextPage: Boolean!
@@ -4901,6 +4782,99 @@ type Micro_post_internal_links {
   prevPage: Int
   totalDocs: Int!
   totalPages: Int!
+}
+
+input Micro_post_internal_link_where {
+  title: Micro_post_internal_link_title_operator
+  source_note: Micro_post_internal_link_source_note_operator
+  target_note: Micro_post_internal_link_target_note_operator
+  updatedAt: Micro_post_internal_link_updatedAt_operator
+  createdAt: Micro_post_internal_link_createdAt_operator
+  id: Micro_post_internal_link_id_operator
+  AND: [Micro_post_internal_link_where_and]
+  OR: [Micro_post_internal_link_where_or]
+}
+
+input Micro_post_internal_link_title_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Micro_post_internal_link_source_note_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+}
+
+input Micro_post_internal_link_target_note_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+}
+
+input Micro_post_internal_link_updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Micro_post_internal_link_createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Micro_post_internal_link_id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Micro_post_internal_link_where_and {
+  title: Micro_post_internal_link_title_operator
+  source_note: Micro_post_internal_link_source_note_operator
+  target_note: Micro_post_internal_link_target_note_operator
+  updatedAt: Micro_post_internal_link_updatedAt_operator
+  createdAt: Micro_post_internal_link_createdAt_operator
+  id: Micro_post_internal_link_id_operator
+  AND: [Micro_post_internal_link_where_and]
+  OR: [Micro_post_internal_link_where_or]
+}
+
+input Micro_post_internal_link_where_or {
+  title: Micro_post_internal_link_title_operator
+  source_note: Micro_post_internal_link_source_note_operator
+  target_note: Micro_post_internal_link_target_note_operator
+  updatedAt: Micro_post_internal_link_updatedAt_operator
+  createdAt: Micro_post_internal_link_createdAt_operator
+  id: Micro_post_internal_link_id_operator
+  AND: [Micro_post_internal_link_where_and]
+  OR: [Micro_post_internal_link_where_or]
 }
 
 type countMicro_post_internal_links {
@@ -9151,8 +9125,7 @@ type Micro_postsFields {
   slug: Micro_postsFields_slug
   tags: Micro_postsFields_tags
   meta: Micro_postsFields_meta
-  links: Micro_postsFields_links
-  targeted_from_note_links: Micro_postsFields_targeted_from_note_links
+  linkedMicroPosts: Micro_postsFields_linkedMicroPosts
   externalLinks: Micro_postsFields_externalLinks
   social: Micro_postsFields_social
   publishedAt: Micro_postsFields_publishedAt
@@ -9376,49 +9349,26 @@ type Micro_postsFields_meta_description_Delete {
   permission: Boolean!
 }
 
-type Micro_postsFields_links {
-  create: Micro_postsFields_links_Create
-  read: Micro_postsFields_links_Read
-  update: Micro_postsFields_links_Update
-  delete: Micro_postsFields_links_Delete
+type Micro_postsFields_linkedMicroPosts {
+  create: Micro_postsFields_linkedMicroPosts_Create
+  read: Micro_postsFields_linkedMicroPosts_Read
+  update: Micro_postsFields_linkedMicroPosts_Update
+  delete: Micro_postsFields_linkedMicroPosts_Delete
 }
 
-type Micro_postsFields_links_Create {
+type Micro_postsFields_linkedMicroPosts_Create {
   permission: Boolean!
 }
 
-type Micro_postsFields_links_Read {
+type Micro_postsFields_linkedMicroPosts_Read {
   permission: Boolean!
 }
 
-type Micro_postsFields_links_Update {
+type Micro_postsFields_linkedMicroPosts_Update {
   permission: Boolean!
 }
 
-type Micro_postsFields_links_Delete {
-  permission: Boolean!
-}
-
-type Micro_postsFields_targeted_from_note_links {
-  create: Micro_postsFields_targeted_from_note_links_Create
-  read: Micro_postsFields_targeted_from_note_links_Read
-  update: Micro_postsFields_targeted_from_note_links_Update
-  delete: Micro_postsFields_targeted_from_note_links_Delete
-}
-
-type Micro_postsFields_targeted_from_note_links_Create {
-  permission: Boolean!
-}
-
-type Micro_postsFields_targeted_from_note_links_Read {
-  permission: Boolean!
-}
-
-type Micro_postsFields_targeted_from_note_links_Update {
-  permission: Boolean!
-}
-
-type Micro_postsFields_targeted_from_note_links_Delete {
+type Micro_postsFields_linkedMicroPosts_Delete {
   permission: Boolean!
 }
 
@@ -11565,6 +11515,7 @@ input mutationMicro_postInput {
   slug: String!
   tags: [String]
   meta: mutationMicro_post_MetaInput
+  linkedMicroPosts: [String]
   externalLinks: [String]
   social: mutationMicro_post_SocialInput
   publishedAt: String
@@ -11615,6 +11566,7 @@ input mutationMicro_postUpdateInput {
   slug: String
   tags: [String]
   meta: mutationMicro_postUpdate_MetaInput
+  linkedMicroPosts: [String]
   externalLinks: [String]
   social: mutationMicro_postUpdate_SocialInput
   publishedAt: String

@@ -6,23 +6,23 @@
  * and re-run `payload generate:db-schema` to regenerate this file.
  */
 
-import type { } from '@payloadcms/db-postgres'
-import { relations } from '@payloadcms/db-postgres/drizzle'
+import type {} from '@payloadcms/db-postgres'
 import {
-  boolean,
-  foreignKey,
-  index,
-  integer,
-  jsonb,
-  numeric,
-  pgEnum,
   pgTable,
-  serial,
-  timestamp,
+  index,
   uniqueIndex,
+  foreignKey,
   uuid,
+  boolean,
   varchar,
+  timestamp,
+  serial,
+  integer,
+  numeric,
+  jsonb,
+  pgEnum,
 } from '@payloadcms/db-postgres/drizzle/pg-core'
+import { sql, relations } from '@payloadcms/db-postgres/drizzle'
 export const enum__locales = pgEnum('enum__locales', [
   'en-US',
   'uk-UA',
@@ -406,7 +406,7 @@ export const users = pgTable(
     }),
     salt: varchar('salt'),
     hash: varchar('hash'),
-    loginAttempts: numeric('login_attempts', { mode: 'number' }).default(0),
+    loginAttempts: numeric('login_attempts', { mode: 'number' }).default('0'),
     lockUntil: timestamp('lock_until', { mode: 'string', withTimezone: true, precision: 3 }),
   },
   (columns) => [
@@ -616,6 +616,7 @@ export const micro_posts_rels = pgTable(
     parent: uuid('parent_id').notNull(),
     path: varchar('path').notNull(),
     tagsID: uuid('tags_id'),
+    micro_postsID: uuid('micro_posts_id'),
     micro_post_external_linksID: uuid('micro_post_external_links_id'),
     authorsID: uuid('authors_id'),
   },
@@ -624,6 +625,7 @@ export const micro_posts_rels = pgTable(
     index('micro_posts_rels_parent_idx').on(columns.parent),
     index('micro_posts_rels_path_idx').on(columns.path),
     index('micro_posts_rels_tags_id_idx').on(columns.tagsID),
+    uniqueIndex('micro_posts_rels_micro_posts_id_idx').on(columns.micro_postsID, columns.path),
     index('micro_posts_rels_micro_post_external_links_id_idx').on(
       columns.micro_post_external_linksID,
     ),
@@ -637,6 +639,11 @@ export const micro_posts_rels = pgTable(
       columns: [columns['tagsID']],
       foreignColumns: [tags.id],
       name: 'micro_posts_rels_tags_fk',
+    }).onDelete('cascade'),
+    foreignKey({
+      columns: [columns['micro_postsID']],
+      foreignColumns: [micro_posts.id],
+      name: 'micro_posts_rels_micro_posts_fk',
     }).onDelete('cascade'),
     foreignKey({
       columns: [columns['micro_post_external_linksID']],
@@ -771,6 +778,7 @@ export const _micro_posts_v_rels = pgTable(
     parent: uuid('parent_id').notNull(),
     path: varchar('path').notNull(),
     tagsID: uuid('tags_id'),
+    micro_postsID: uuid('micro_posts_id'),
     micro_post_external_linksID: uuid('micro_post_external_links_id'),
     authorsID: uuid('authors_id'),
   },
@@ -779,6 +787,7 @@ export const _micro_posts_v_rels = pgTable(
     index('_micro_posts_v_rels_parent_idx').on(columns.parent),
     index('_micro_posts_v_rels_path_idx').on(columns.path),
     index('_micro_posts_v_rels_tags_id_idx').on(columns.tagsID),
+    index('_micro_posts_v_rels_micro_posts_id_idx').on(columns.micro_postsID),
     index('_micro_posts_v_rels_micro_post_external_links_id_idx').on(
       columns.micro_post_external_linksID,
     ),
@@ -792,6 +801,11 @@ export const _micro_posts_v_rels = pgTable(
       columns: [columns['tagsID']],
       foreignColumns: [tags.id],
       name: '_micro_posts_v_rels_tags_fk',
+    }).onDelete('cascade'),
+    foreignKey({
+      columns: [columns['micro_postsID']],
+      foreignColumns: [micro_posts.id],
+      name: '_micro_posts_v_rels_micro_posts_fk',
     }).onDelete('cascade'),
     foreignKey({
       columns: [columns['micro_post_external_linksID']],
@@ -999,7 +1013,7 @@ export const payload_jobs = pgTable(
     id: uuid('id').defaultRandom().primaryKey(),
     input: jsonb('input'),
     completedAt: timestamp('completed_at', { mode: 'string', withTimezone: true, precision: 3 }),
-    totalTried: numeric('total_tried', { mode: 'number' }).default(0),
+    totalTried: numeric('total_tried', { mode: 'number' }).default('0'),
     hasError: boolean('has_error').default(false),
     error: jsonb('error'),
     workflowSlug: enum_payload_jobs_workflow_slug('workflow_slug'),
@@ -1419,6 +1433,11 @@ export const relations_micro_posts_rels = relations(micro_posts_rels, ({ one }) 
     references: [tags.id],
     relationName: 'tags',
   }),
+  micro_postsID: one(micro_posts, {
+    fields: [micro_posts_rels.micro_postsID],
+    references: [micro_posts.id],
+    relationName: 'micro_posts',
+  }),
   micro_post_external_linksID: one(micro_post_external_links, {
     fields: [micro_posts_rels.micro_post_external_linksID],
     references: [micro_post_external_links.id],
@@ -1478,6 +1497,11 @@ export const relations__micro_posts_v_rels = relations(_micro_posts_v_rels, ({ o
     fields: [_micro_posts_v_rels.tagsID],
     references: [tags.id],
     relationName: 'tags',
+  }),
+  micro_postsID: one(micro_posts, {
+    fields: [_micro_posts_v_rels.micro_postsID],
+    references: [micro_posts.id],
+    relationName: 'micro_posts',
   }),
   micro_post_external_linksID: one(micro_post_external_links, {
     fields: [_micro_posts_v_rels.micro_post_external_linksID],

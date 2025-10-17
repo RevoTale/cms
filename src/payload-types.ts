@@ -82,12 +82,7 @@ export interface Config {
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
-  collectionsJoins: {
-    micro_posts: {
-      links: 'micro_post_internal_links';
-      targeted_from_note_links: 'micro_post_internal_links';
-    };
-  };
+  collectionsJoins: {};
   collectionsSelect: {
     posts: PostsSelect<false> | PostsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
@@ -289,16 +284,7 @@ export interface MicroPost {
     image?: (string | null) | Media;
     description?: string | null;
   };
-  links?: {
-    docs?: (string | MicroPostInternalLink)[];
-    hasNextPage?: boolean;
-    totalDocs?: number;
-  };
-  targeted_from_note_links?: {
-    docs?: (string | MicroPostInternalLink)[];
-    hasNextPage?: boolean;
-    totalDocs?: number;
-  };
+  linkedMicroPosts?: (string | MicroPost)[] | null;
   externalLinks?: (string | MicroPostExternalLink)[] | null;
   social?: {
     x?: {
@@ -316,6 +302,17 @@ export interface MicroPost {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "micro_post_external_links".
+ */
+export interface MicroPostExternalLink {
+  id: string;
+  title: string;
+  target_url: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "micro_post_internal_links".
  */
 export interface MicroPostInternalLink {
@@ -323,17 +320,6 @@ export interface MicroPostInternalLink {
   title?: string | null;
   source_note: string | MicroPost;
   target_note: string | MicroPost;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "micro_post_external_links".
- */
-export interface MicroPostExternalLink {
-  id: string;
-  title: string;
-  target_url: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -694,8 +680,7 @@ export interface MicroPostsSelect<T extends boolean = true> {
         image?: T;
         description?: T;
       };
-  links?: T;
-  targeted_from_note_links?: T;
+  linkedMicroPosts?: T;
   externalLinks?: T;
   social?:
     | T

@@ -52,8 +52,7 @@ export const MicroPosts: CollectionConfig<'micro_posts'> = {
       type: 'select',
       hasMany: true,
       admin: {
-        isClearable: true,
-        readOnly: false,
+        readOnly: true,
       },
       options: locales.map((locale) => ({ label: locale, value: locale })),
     },
@@ -124,20 +123,18 @@ export const MicroPosts: CollectionConfig<'micro_posts'> = {
     },
 
     {
-      name: 'links',
-      type: 'join',
-      admin: {},
-      collection: 'micro_post_internal_links',
-      on: 'source_note',
-      label: 'Links',
-    },
-    {
-      admin: {},
-      name: 'targeted_from_note_links',
-      type: 'join',
-      collection: 'micro_post_internal_links',
-      on: 'target_note',
-      label: 'Targeted From Note Links',
+      name: 'linkedMicroPosts',
+      type: 'relationship',
+      admin: {
+        position: 'sidebar',
+        readOnly: true,
+      },
+      relationTo: 'micro_posts',
+      label: 'Linked Micro Posts',
+      hasMany: true,
+      required: false,
+      unique: true,
+      localized: false,
     },
 
     {
@@ -145,6 +142,7 @@ export const MicroPosts: CollectionConfig<'micro_posts'> = {
       type: 'relationship',
       admin: {
         position: 'sidebar',
+        readOnly: true,
       },
       relationTo: 'micro_post_external_links',
       label: 'External Links',

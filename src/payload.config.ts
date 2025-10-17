@@ -21,7 +21,6 @@ import { migrations } from './migrations'
 import AICallLogs from './payload/collections/AICallLog'
 import { Media } from './payload/collections/Media'
 import MicroPostExternalLink from './payload/collections/MicroPostExternalLink'
-import MicroPostInternalLink from './payload/collections/MicroPostInternalLink'
 import { MicroPosts } from './payload/collections/MicroPosts'
 import { Posts } from './payload/collections/Posts'
 import Tags from './payload/collections/Tags'
@@ -231,17 +230,7 @@ export default buildConfig({
     prodMigrations: migrations,
   }),
   serverURL: hostnameWithProtocol,
-  collections: [
-    Posts,
-    Media,
-    Users,
-    Tags,
-    Authors,
-    AICallLogs,
-    MicroPosts,
-    MicroPostInternalLink,
-    MicroPostExternalLink,
-  ],
+  collections: [Posts, Media, Users, Tags, Authors, AICallLogs, MicroPosts, MicroPostExternalLink],
   cors: [hostnameWithProtocol].filter(Boolean),
   csrf: [hostnameWithProtocol].filter(Boolean),
   globals: [],

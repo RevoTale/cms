@@ -6,23 +6,23 @@
  * and re-run `payload generate:db-schema` to regenerate this file.
  */
 
-import type { } from '@payloadcms/db-postgres'
-import { relations } from '@payloadcms/db-postgres/drizzle'
+import type {} from '@payloadcms/db-postgres'
 import {
-  boolean,
-  foreignKey,
-  index,
-  integer,
-  jsonb,
-  numeric,
-  pgEnum,
   pgTable,
-  serial,
-  timestamp,
+  index,
   uniqueIndex,
+  foreignKey,
   uuid,
+  boolean,
   varchar,
+  timestamp,
+  serial,
+  integer,
+  numeric,
+  jsonb,
+  pgEnum,
 } from '@payloadcms/db-postgres/drizzle/pg-core'
+import { sql, relations } from '@payloadcms/db-postgres/drizzle'
 export const enum__locales = pgEnum('enum__locales', [
   'en-US',
   'uk-UA',
@@ -406,7 +406,7 @@ export const users = pgTable(
     }),
     salt: varchar('salt'),
     hash: varchar('hash'),
-    loginAttempts: numeric('login_attempts', { mode: 'number' }).default(0),
+    loginAttempts: numeric('login_attempts', { mode: 'number' }).default('0'),
     lockUntil: timestamp('lock_until', { mode: 'string', withTimezone: true, precision: 3 }),
   },
   (columns) => [
@@ -820,56 +820,6 @@ export const _micro_posts_v_rels = pgTable(
   ],
 )
 
-export const micro_post_internal_links = pgTable(
-  'micro_post_internal_links',
-  {
-    id: uuid('id').defaultRandom().primaryKey(),
-    source_note: uuid('source_note_id')
-      .notNull()
-      .references(() => micro_posts.id, {
-        onDelete: 'set null',
-      }),
-    target_note: uuid('target_note_id')
-      .notNull()
-      .references(() => micro_posts.id, {
-        onDelete: 'set null',
-      }),
-    updatedAt: timestamp('updated_at', { mode: 'string', withTimezone: true, precision: 3 })
-      .defaultNow()
-      .notNull(),
-    createdAt: timestamp('created_at', { mode: 'string', withTimezone: true, precision: 3 })
-      .defaultNow()
-      .notNull(),
-  },
-  (columns) => [
-    index('micro_post_internal_links_source_note_idx').on(columns.source_note),
-    index('micro_post_internal_links_target_note_idx').on(columns.target_note),
-    index('micro_post_internal_links_updated_at_idx').on(columns.updatedAt),
-    index('micro_post_internal_links_created_at_idx').on(columns.createdAt),
-  ],
-)
-
-export const micro_post_internal_links_locales = pgTable(
-  'micro_post_internal_links_locales',
-  {
-    title: varchar('title'),
-    id: serial('id').primaryKey(),
-    _locale: enum__locales('_locale').notNull(),
-    _parentID: uuid('_parent_id').notNull(),
-  },
-  (columns) => [
-    uniqueIndex('micro_post_internal_links_locales_locale_parent_id_unique').on(
-      columns._locale,
-      columns._parentID,
-    ),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [micro_post_internal_links.id],
-      name: 'micro_post_internal_links_locales_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
 export const micro_post_external_links = pgTable(
   'micro_post_external_links',
   {
@@ -1013,7 +963,7 @@ export const payload_jobs = pgTable(
     id: uuid('id').defaultRandom().primaryKey(),
     input: jsonb('input'),
     completedAt: timestamp('completed_at', { mode: 'string', withTimezone: true, precision: 3 }),
-    totalTried: numeric('total_tried', { mode: 'number' }).default(0),
+    totalTried: numeric('total_tried', { mode: 'number' }).default('0'),
     hasError: boolean('has_error').default(false),
     error: jsonb('error'),
     workflowSlug: enum_payload_jobs_workflow_slug('workflow_slug'),
@@ -1076,7 +1026,6 @@ export const payload_locked_documents_rels = pgTable(
     authorsID: uuid('authors_id'),
     ai_call_logsID: uuid('ai_call_logs_id'),
     micro_postsID: uuid('micro_posts_id'),
-    micro_post_internal_linksID: uuid('micro_post_internal_links_id'),
     micro_post_external_linksID: uuid('micro_post_external_links_id'),
     searchID: uuid('search_id'),
     'payload-jobsID': uuid('payload_jobs_id'),
@@ -1092,9 +1041,6 @@ export const payload_locked_documents_rels = pgTable(
     index('payload_locked_documents_rels_authors_id_idx').on(columns.authorsID),
     index('payload_locked_documents_rels_ai_call_logs_id_idx').on(columns.ai_call_logsID),
     index('payload_locked_documents_rels_micro_posts_id_idx').on(columns.micro_postsID),
-    index('payload_locked_documents_rels_micro_post_internal_links__idx').on(
-      columns.micro_post_internal_linksID,
-    ),
     index('payload_locked_documents_rels_micro_post_external_links__idx').on(
       columns.micro_post_external_linksID,
     ),
@@ -1139,11 +1085,6 @@ export const payload_locked_documents_rels = pgTable(
       columns: [columns['micro_postsID']],
       foreignColumns: [micro_posts.id],
       name: 'payload_locked_documents_rels_micro_posts_fk',
-    }).onDelete('cascade'),
-    foreignKey({
-      columns: [columns['micro_post_internal_linksID']],
-      foreignColumns: [micro_post_internal_links.id],
-      name: 'payload_locked_documents_rels_micro_post_internal_links_fk',
     }).onDelete('cascade'),
     foreignKey({
       columns: [columns['micro_post_external_linksID']],
@@ -1538,34 +1479,6 @@ export const relations__micro_posts_v = relations(_micro_posts_v, ({ one, many }
     relationName: '_rels',
   }),
 }))
-export const relations_micro_post_internal_links_locales = relations(
-  micro_post_internal_links_locales,
-  ({ one }) => ({
-    _parentID: one(micro_post_internal_links, {
-      fields: [micro_post_internal_links_locales._parentID],
-      references: [micro_post_internal_links.id],
-      relationName: '_locales',
-    }),
-  }),
-)
-export const relations_micro_post_internal_links = relations(
-  micro_post_internal_links,
-  ({ one, many }) => ({
-    source_note: one(micro_posts, {
-      fields: [micro_post_internal_links.source_note],
-      references: [micro_posts.id],
-      relationName: 'source_note',
-    }),
-    target_note: one(micro_posts, {
-      fields: [micro_post_internal_links.target_note],
-      references: [micro_posts.id],
-      relationName: 'target_note',
-    }),
-    _locales: many(micro_post_internal_links_locales, {
-      relationName: '_locales',
-    }),
-  }),
-)
 export const relations_micro_post_external_links_locales = relations(
   micro_post_external_links_locales,
   ({ one }) => ({
@@ -1666,11 +1579,6 @@ export const relations_payload_locked_documents_rels = relations(
       references: [micro_posts.id],
       relationName: 'micro_posts',
     }),
-    micro_post_internal_linksID: one(micro_post_internal_links, {
-      fields: [payload_locked_documents_rels.micro_post_internal_linksID],
-      references: [micro_post_internal_links.id],
-      relationName: 'micro_post_internal_links',
-    }),
     micro_post_external_linksID: one(micro_post_external_links, {
       fields: [payload_locked_documents_rels.micro_post_external_linksID],
       references: [micro_post_external_links.id],
@@ -1757,8 +1665,6 @@ type DatabaseSchema = {
   _micro_posts_v: typeof _micro_posts_v
   _micro_posts_v_locales: typeof _micro_posts_v_locales
   _micro_posts_v_rels: typeof _micro_posts_v_rels
-  micro_post_internal_links: typeof micro_post_internal_links
-  micro_post_internal_links_locales: typeof micro_post_internal_links_locales
   micro_post_external_links: typeof micro_post_external_links
   micro_post_external_links_locales: typeof micro_post_external_links_locales
   search: typeof search
@@ -1794,8 +1700,6 @@ type DatabaseSchema = {
   relations__micro_posts_v_locales: typeof relations__micro_posts_v_locales
   relations__micro_posts_v_rels: typeof relations__micro_posts_v_rels
   relations__micro_posts_v: typeof relations__micro_posts_v
-  relations_micro_post_internal_links_locales: typeof relations_micro_post_internal_links_locales
-  relations_micro_post_internal_links: typeof relations_micro_post_internal_links
   relations_micro_post_external_links_locales: typeof relations_micro_post_external_links_locales
   relations_micro_post_external_links: typeof relations_micro_post_external_links
   relations_search_rels: typeof relations_search_rels

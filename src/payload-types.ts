@@ -74,7 +74,6 @@ export interface Config {
     authors: Author;
     ai_call_logs: AiCallLog;
     micro_posts: MicroPost;
-    micro_post_internal_links: MicroPostInternalLink;
     micro_post_external_links: MicroPostExternalLink;
     search: Search;
     'payload-jobs': PayloadJob;
@@ -91,7 +90,6 @@ export interface Config {
     authors: AuthorsSelect<false> | AuthorsSelect<true>;
     ai_call_logs: AiCallLogsSelect<false> | AiCallLogsSelect<true>;
     micro_posts: MicroPostsSelect<false> | MicroPostsSelect<true>;
-    micro_post_internal_links: MicroPostInternalLinksSelect<false> | MicroPostInternalLinksSelect<true>;
     micro_post_external_links: MicroPostExternalLinksSelect<false> | MicroPostExternalLinksSelect<true>;
     search: SearchSelect<false> | SearchSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
@@ -312,18 +310,6 @@ export interface MicroPostExternalLink {
   createdAt: string;
 }
 /**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "micro_post_internal_links".
- */
-export interface MicroPostInternalLink {
-  id: string;
-  title?: string | null;
-  source_note: string | MicroPost;
-  target_note: string | MicroPost;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
  * This is a collection of automatically created search results. These results are used by the global site search and will be updated automatically as documents in the CMS are created or updated.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -490,10 +476,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'micro_posts';
         value: string | MicroPost;
-      } | null)
-    | ({
-        relationTo: 'micro_post_internal_links';
-        value: string | MicroPostInternalLink;
       } | null)
     | ({
         relationTo: 'micro_post_external_links';
@@ -699,17 +681,6 @@ export interface MicroPostsSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "micro_post_internal_links_select".
- */
-export interface MicroPostInternalLinksSelect<T extends boolean = true> {
-  title?: T;
-  source_note?: T;
-  target_note?: T;
-  updatedAt?: T;
-  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

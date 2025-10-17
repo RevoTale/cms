@@ -33,10 +33,6 @@ type Query {
   docAccessMicro_post(id: String!): micro_postsDocAccess
   versionMicro_post(id: String, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): Micro_postVersion
   versionsMicro_posts(where: versionsMicro_post_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean): versionsMicro_posts
-  Micro_post_internal_link(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, select: Boolean, trash: Boolean): Micro_post_internal_link
-  Micro_post_internal_links(draft: Boolean, where: Micro_post_internal_link_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean): Micro_post_internal_links
-  countMicro_post_internal_links(draft: Boolean, trash: Boolean, where: Micro_post_internal_link_where, locale: LocaleInputType): countMicro_post_internal_links
-  docAccessMicro_post_internal_link(id: String!): micro_post_internal_linksDocAccess
   Micro_post_external_link(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, select: Boolean, trash: Boolean): Micro_post_external_link
   Micro_post_external_links(draft: Boolean, where: Micro_post_external_link_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean): Micro_post_external_links
   countMicro_post_external_links(draft: Boolean, trash: Boolean, where: Micro_post_external_link_where, locale: LocaleInputType): countMicro_post_external_links
@@ -4761,277 +4757,6 @@ input versionsMicro_post_where_or {
   OR: [versionsMicro_post_where_or]
 }
 
-type Micro_post_internal_link {
-  id: String!
-  title: String
-  source_note(draft: Boolean, locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Micro_post!
-  target_note(draft: Boolean, locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Micro_post!
-  updatedAt: DateTime
-  createdAt: DateTime
-}
-
-type Micro_post_internal_links {
-  docs: [Micro_post_internal_link!]!
-  hasNextPage: Boolean!
-  hasPrevPage: Boolean!
-  limit: Int!
-  nextPage: Int
-  offset: Int
-  page: Int!
-  pagingCounter: Int!
-  prevPage: Int
-  totalDocs: Int!
-  totalPages: Int!
-}
-
-input Micro_post_internal_link_where {
-  title: Micro_post_internal_link_title_operator
-  source_note: Micro_post_internal_link_source_note_operator
-  target_note: Micro_post_internal_link_target_note_operator
-  updatedAt: Micro_post_internal_link_updatedAt_operator
-  createdAt: Micro_post_internal_link_createdAt_operator
-  id: Micro_post_internal_link_id_operator
-  AND: [Micro_post_internal_link_where_and]
-  OR: [Micro_post_internal_link_where_or]
-}
-
-input Micro_post_internal_link_title_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Micro_post_internal_link_source_note_operator {
-  equals: JSON
-  not_equals: JSON
-  in: [JSON]
-  not_in: [JSON]
-  all: [JSON]
-}
-
-input Micro_post_internal_link_target_note_operator {
-  equals: JSON
-  not_equals: JSON
-  in: [JSON]
-  not_in: [JSON]
-  all: [JSON]
-}
-
-input Micro_post_internal_link_updatedAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Micro_post_internal_link_createdAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Micro_post_internal_link_id_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Micro_post_internal_link_where_and {
-  title: Micro_post_internal_link_title_operator
-  source_note: Micro_post_internal_link_source_note_operator
-  target_note: Micro_post_internal_link_target_note_operator
-  updatedAt: Micro_post_internal_link_updatedAt_operator
-  createdAt: Micro_post_internal_link_createdAt_operator
-  id: Micro_post_internal_link_id_operator
-  AND: [Micro_post_internal_link_where_and]
-  OR: [Micro_post_internal_link_where_or]
-}
-
-input Micro_post_internal_link_where_or {
-  title: Micro_post_internal_link_title_operator
-  source_note: Micro_post_internal_link_source_note_operator
-  target_note: Micro_post_internal_link_target_note_operator
-  updatedAt: Micro_post_internal_link_updatedAt_operator
-  createdAt: Micro_post_internal_link_createdAt_operator
-  id: Micro_post_internal_link_id_operator
-  AND: [Micro_post_internal_link_where_and]
-  OR: [Micro_post_internal_link_where_or]
-}
-
-type countMicro_post_internal_links {
-  totalDocs: Int
-}
-
-type micro_post_internal_linksDocAccess {
-  fields: Micro_post_internal_linksDocAccessFields
-  create: Micro_post_internal_linksCreateDocAccess
-  read: Micro_post_internal_linksReadDocAccess
-  update: Micro_post_internal_linksUpdateDocAccess
-  delete: Micro_post_internal_linksDeleteDocAccess
-}
-
-type Micro_post_internal_linksDocAccessFields {
-  title: Micro_post_internal_linksDocAccessFields_title
-  source_note: Micro_post_internal_linksDocAccessFields_source_note
-  target_note: Micro_post_internal_linksDocAccessFields_target_note
-  updatedAt: Micro_post_internal_linksDocAccessFields_updatedAt
-  createdAt: Micro_post_internal_linksDocAccessFields_createdAt
-}
-
-type Micro_post_internal_linksDocAccessFields_title {
-  create: Micro_post_internal_linksDocAccessFields_title_Create
-  read: Micro_post_internal_linksDocAccessFields_title_Read
-  update: Micro_post_internal_linksDocAccessFields_title_Update
-  delete: Micro_post_internal_linksDocAccessFields_title_Delete
-}
-
-type Micro_post_internal_linksDocAccessFields_title_Create {
-  permission: Boolean!
-}
-
-type Micro_post_internal_linksDocAccessFields_title_Read {
-  permission: Boolean!
-}
-
-type Micro_post_internal_linksDocAccessFields_title_Update {
-  permission: Boolean!
-}
-
-type Micro_post_internal_linksDocAccessFields_title_Delete {
-  permission: Boolean!
-}
-
-type Micro_post_internal_linksDocAccessFields_source_note {
-  create: Micro_post_internal_linksDocAccessFields_source_note_Create
-  read: Micro_post_internal_linksDocAccessFields_source_note_Read
-  update: Micro_post_internal_linksDocAccessFields_source_note_Update
-  delete: Micro_post_internal_linksDocAccessFields_source_note_Delete
-}
-
-type Micro_post_internal_linksDocAccessFields_source_note_Create {
-  permission: Boolean!
-}
-
-type Micro_post_internal_linksDocAccessFields_source_note_Read {
-  permission: Boolean!
-}
-
-type Micro_post_internal_linksDocAccessFields_source_note_Update {
-  permission: Boolean!
-}
-
-type Micro_post_internal_linksDocAccessFields_source_note_Delete {
-  permission: Boolean!
-}
-
-type Micro_post_internal_linksDocAccessFields_target_note {
-  create: Micro_post_internal_linksDocAccessFields_target_note_Create
-  read: Micro_post_internal_linksDocAccessFields_target_note_Read
-  update: Micro_post_internal_linksDocAccessFields_target_note_Update
-  delete: Micro_post_internal_linksDocAccessFields_target_note_Delete
-}
-
-type Micro_post_internal_linksDocAccessFields_target_note_Create {
-  permission: Boolean!
-}
-
-type Micro_post_internal_linksDocAccessFields_target_note_Read {
-  permission: Boolean!
-}
-
-type Micro_post_internal_linksDocAccessFields_target_note_Update {
-  permission: Boolean!
-}
-
-type Micro_post_internal_linksDocAccessFields_target_note_Delete {
-  permission: Boolean!
-}
-
-type Micro_post_internal_linksDocAccessFields_updatedAt {
-  create: Micro_post_internal_linksDocAccessFields_updatedAt_Create
-  read: Micro_post_internal_linksDocAccessFields_updatedAt_Read
-  update: Micro_post_internal_linksDocAccessFields_updatedAt_Update
-  delete: Micro_post_internal_linksDocAccessFields_updatedAt_Delete
-}
-
-type Micro_post_internal_linksDocAccessFields_updatedAt_Create {
-  permission: Boolean!
-}
-
-type Micro_post_internal_linksDocAccessFields_updatedAt_Read {
-  permission: Boolean!
-}
-
-type Micro_post_internal_linksDocAccessFields_updatedAt_Update {
-  permission: Boolean!
-}
-
-type Micro_post_internal_linksDocAccessFields_updatedAt_Delete {
-  permission: Boolean!
-}
-
-type Micro_post_internal_linksDocAccessFields_createdAt {
-  create: Micro_post_internal_linksDocAccessFields_createdAt_Create
-  read: Micro_post_internal_linksDocAccessFields_createdAt_Read
-  update: Micro_post_internal_linksDocAccessFields_createdAt_Update
-  delete: Micro_post_internal_linksDocAccessFields_createdAt_Delete
-}
-
-type Micro_post_internal_linksDocAccessFields_createdAt_Create {
-  permission: Boolean!
-}
-
-type Micro_post_internal_linksDocAccessFields_createdAt_Read {
-  permission: Boolean!
-}
-
-type Micro_post_internal_linksDocAccessFields_createdAt_Update {
-  permission: Boolean!
-}
-
-type Micro_post_internal_linksDocAccessFields_createdAt_Delete {
-  permission: Boolean!
-}
-
-type Micro_post_internal_linksCreateDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type Micro_post_internal_linksReadDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type Micro_post_internal_linksUpdateDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type Micro_post_internal_linksDeleteDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
 type Micro_post_external_links {
   docs: [Micro_post_external_link!]!
   hasNextPage: Boolean!
@@ -6741,13 +6466,12 @@ enum PayloadLockedDocument_Document_RelationTo {
   authors
   ai_call_logs
   micro_posts
-  micro_post_internal_links
   micro_post_external_links
   search
   payload_jobs
 }
 
-union PayloadLockedDocument_Document = Post | Media | User | Tag | Author | Ai_call_log | Micro_post | Micro_post_internal_link | Micro_post_external_link | Search | PayloadJob
+union PayloadLockedDocument_Document = Post | Media | User | Tag | Author | Ai_call_log | Micro_post | Micro_post_external_link | Search | PayloadJob
 
 type PayloadLockedDocument_User_Relationship {
   relationTo: PayloadLockedDocument_User_RelationTo
@@ -6798,7 +6522,6 @@ enum PayloadLockedDocument_document_Relation_RelationTo {
   authors
   ai_call_logs
   micro_posts
-  micro_post_internal_links
   micro_post_external_links
   search
   payload_jobs
@@ -7425,7 +7148,6 @@ type Access {
   authors: authorsAccess
   ai_call_logs: ai_call_logsAccess
   micro_posts: micro_postsAccess
-  micro_post_internal_links: micro_post_internal_linksAccess
   micro_post_external_links: micro_post_external_linksAccess
   search: searchAccess
   payload_jobs: payload_jobsAccess
@@ -9685,157 +9407,6 @@ type Micro_postsReadVersionsAccess {
   where: JSONObject
 }
 
-type micro_post_internal_linksAccess {
-  fields: Micro_post_internal_linksFields
-  create: Micro_post_internal_linksCreateAccess
-  read: Micro_post_internal_linksReadAccess
-  update: Micro_post_internal_linksUpdateAccess
-  delete: Micro_post_internal_linksDeleteAccess
-}
-
-type Micro_post_internal_linksFields {
-  title: Micro_post_internal_linksFields_title
-  source_note: Micro_post_internal_linksFields_source_note
-  target_note: Micro_post_internal_linksFields_target_note
-  updatedAt: Micro_post_internal_linksFields_updatedAt
-  createdAt: Micro_post_internal_linksFields_createdAt
-}
-
-type Micro_post_internal_linksFields_title {
-  create: Micro_post_internal_linksFields_title_Create
-  read: Micro_post_internal_linksFields_title_Read
-  update: Micro_post_internal_linksFields_title_Update
-  delete: Micro_post_internal_linksFields_title_Delete
-}
-
-type Micro_post_internal_linksFields_title_Create {
-  permission: Boolean!
-}
-
-type Micro_post_internal_linksFields_title_Read {
-  permission: Boolean!
-}
-
-type Micro_post_internal_linksFields_title_Update {
-  permission: Boolean!
-}
-
-type Micro_post_internal_linksFields_title_Delete {
-  permission: Boolean!
-}
-
-type Micro_post_internal_linksFields_source_note {
-  create: Micro_post_internal_linksFields_source_note_Create
-  read: Micro_post_internal_linksFields_source_note_Read
-  update: Micro_post_internal_linksFields_source_note_Update
-  delete: Micro_post_internal_linksFields_source_note_Delete
-}
-
-type Micro_post_internal_linksFields_source_note_Create {
-  permission: Boolean!
-}
-
-type Micro_post_internal_linksFields_source_note_Read {
-  permission: Boolean!
-}
-
-type Micro_post_internal_linksFields_source_note_Update {
-  permission: Boolean!
-}
-
-type Micro_post_internal_linksFields_source_note_Delete {
-  permission: Boolean!
-}
-
-type Micro_post_internal_linksFields_target_note {
-  create: Micro_post_internal_linksFields_target_note_Create
-  read: Micro_post_internal_linksFields_target_note_Read
-  update: Micro_post_internal_linksFields_target_note_Update
-  delete: Micro_post_internal_linksFields_target_note_Delete
-}
-
-type Micro_post_internal_linksFields_target_note_Create {
-  permission: Boolean!
-}
-
-type Micro_post_internal_linksFields_target_note_Read {
-  permission: Boolean!
-}
-
-type Micro_post_internal_linksFields_target_note_Update {
-  permission: Boolean!
-}
-
-type Micro_post_internal_linksFields_target_note_Delete {
-  permission: Boolean!
-}
-
-type Micro_post_internal_linksFields_updatedAt {
-  create: Micro_post_internal_linksFields_updatedAt_Create
-  read: Micro_post_internal_linksFields_updatedAt_Read
-  update: Micro_post_internal_linksFields_updatedAt_Update
-  delete: Micro_post_internal_linksFields_updatedAt_Delete
-}
-
-type Micro_post_internal_linksFields_updatedAt_Create {
-  permission: Boolean!
-}
-
-type Micro_post_internal_linksFields_updatedAt_Read {
-  permission: Boolean!
-}
-
-type Micro_post_internal_linksFields_updatedAt_Update {
-  permission: Boolean!
-}
-
-type Micro_post_internal_linksFields_updatedAt_Delete {
-  permission: Boolean!
-}
-
-type Micro_post_internal_linksFields_createdAt {
-  create: Micro_post_internal_linksFields_createdAt_Create
-  read: Micro_post_internal_linksFields_createdAt_Read
-  update: Micro_post_internal_linksFields_createdAt_Update
-  delete: Micro_post_internal_linksFields_createdAt_Delete
-}
-
-type Micro_post_internal_linksFields_createdAt_Create {
-  permission: Boolean!
-}
-
-type Micro_post_internal_linksFields_createdAt_Read {
-  permission: Boolean!
-}
-
-type Micro_post_internal_linksFields_createdAt_Update {
-  permission: Boolean!
-}
-
-type Micro_post_internal_linksFields_createdAt_Delete {
-  permission: Boolean!
-}
-
-type Micro_post_internal_linksCreateAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type Micro_post_internal_linksReadAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type Micro_post_internal_linksUpdateAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type Micro_post_internal_linksDeleteAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
 type micro_post_external_linksAccess {
   fields: Micro_post_external_linksFields
   create: Micro_post_external_linksCreateAccess
@@ -11255,10 +10826,6 @@ type Mutation {
   deleteMicro_post(id: String!, trash: Boolean): Micro_post
   duplicateMicro_post(id: String!, data: mutationMicro_postInput!): Micro_post
   restoreVersionMicro_post(id: String, draft: Boolean): Micro_post
-  createMicro_post_internal_link(data: mutationMicro_post_internal_linkInput!, draft: Boolean, locale: LocaleInputType): Micro_post_internal_link
-  updateMicro_post_internal_link(id: String!, autosave: Boolean, data: mutationMicro_post_internal_linkUpdateInput!, draft: Boolean, locale: LocaleInputType, trash: Boolean): Micro_post_internal_link
-  deleteMicro_post_internal_link(id: String!, trash: Boolean): Micro_post_internal_link
-  duplicateMicro_post_internal_link(id: String!, data: mutationMicro_post_internal_linkInput!): Micro_post_internal_link
   createMicro_post_external_link(data: mutationMicro_post_external_linkInput!, draft: Boolean, locale: LocaleInputType): Micro_post_external_link
   updateMicro_post_external_link(id: String!, autosave: Boolean, data: mutationMicro_post_external_linkUpdateInput!, draft: Boolean, locale: LocaleInputType, trash: Boolean): Micro_post_external_link
   deleteMicro_post_external_link(id: String!, trash: Boolean): Micro_post_external_link
@@ -11609,22 +11176,6 @@ enum Micro_postUpdate__status_MutationInput {
   published
 }
 
-input mutationMicro_post_internal_linkInput {
-  title: String
-  source_note: String
-  target_note: String
-  updatedAt: String
-  createdAt: String
-}
-
-input mutationMicro_post_internal_linkUpdateInput {
-  title: String
-  source_note: String
-  target_note: String
-  updatedAt: String
-  createdAt: String
-}
-
 input mutationMicro_post_external_linkInput {
   title: String
   target_url: String!
@@ -11810,7 +11361,6 @@ enum PayloadLockedDocument_DocumentRelationshipInputRelationTo {
   authors
   ai_call_logs
   micro_posts
-  micro_post_internal_links
   micro_post_external_links
   search
   payload_jobs
@@ -11846,7 +11396,6 @@ enum PayloadLockedDocumentUpdate_DocumentRelationshipInputRelationTo {
   authors
   ai_call_logs
   micro_posts
-  micro_post_internal_links
   micro_post_external_links
   search
   payload_jobs

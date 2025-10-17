@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 import type { CollectionBeforeChangeHook, DataFromCollectionSlug } from 'payload'
 import { remark } from 'remark'
+import type { MicroPost } from 'src/payload-types'
 import remarkLinkRewrite from './remarkLinkRewrite'
 
 type MicroPostData = DataFromCollectionSlug<'micro_posts'>
@@ -38,31 +39,34 @@ async function ensureExternalLinkAndAttach(
     data.externalLinks = [...(data.externalLinks || []), link.id]
   }
 
-  return `external_link://${link.id}`
+  return `externallink://${link.id}`
 }
 
 async function ensureInternalLinkTokenFromUrl(
+  data: Partial<MicroPost>,
   url: string,
   req: Parameters<CollectionBeforeChangeHook<MicroPostData>>[0]['req'],
 ): Promise<string | null> {
-  if (!url.startsWith(MICRO_POST_PREFIX)) return null
+  if (!url.startsWith(MICRO_POST_PREFIX) || data.id === undefined) return null
 
-  const microPostId = url.slice(MICRO_POST_PREFIX.length)
-  const microPost = await req.payload.findByID({
+  const targetId = url.slice(MICRO_POST_PREFIX.length)
+  const sourceMicroPost = await req.payload.findByID({
     collection: 'micro_posts',
-    id: microPostId,
+    id: data.id,
   })
 
-  if (!microPost) return null
+  if (!sourceMicroPost) {
+    throw new Error(`Source micro post with ID ${data.id} not found.`)
+  }
 
   const internalLinks = await req.payload.find({
     collection: 'micro_post_internal_links',
     where: {
       source_note: {
-        equals: microPost.id,
+        equals: sourceMicroPost.id,
       },
       target_note: {
-        equals: microPostId,
+        equals: targetId,
       },
     },
   })
@@ -72,13 +76,13 @@ async function ensureInternalLinkTokenFromUrl(
     link = await req.payload.create({
       collection: 'micro_post_internal_links',
       data: {
-        source_note: microPost.id,
-        target_note: microPostId,
+        source_note: sourceMicroPost.id,
+        target_note: targetId,
       },
     })
   }
 
-  return `internal_link://${link.id}`
+  return `internallink://${link.id}`
 }
 const isUrl = (str: string): boolean => {
   try {
@@ -98,10 +102,16 @@ const maybeReplaceMarkdownLink: CollectionBeforeChangeHook<
         .use(remarkLinkRewrite, {
           replacer: async (url) => {
             if (isUrl(url)) {
-              return await ensureExternalLinkAndAttach(url, req, data)
+              try {
+                return await ensureExternalLinkAndAttach(url, req, data)
+              } catch (e) {
+                throw new Error(`Failed to process external link: ${url}.`, {
+                  cause: e,
+                })
+              }
             }
 
-            const internalLinkToken = await ensureInternalLinkTokenFromUrl(url, req)
+            const internalLinkToken = await ensureInternalLinkTokenFromUrl(data, url, req)
             if (internalLinkToken) return internalLinkToken
 
             return url

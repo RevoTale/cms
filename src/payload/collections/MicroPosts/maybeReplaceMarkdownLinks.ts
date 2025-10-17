@@ -12,7 +12,6 @@ async function ensureExternalLinkAndAttach(
   req: Parameters<CollectionBeforeChangeHook<MicroPostData>>[0]['req'],
   data: Partial<MicroPostData>,
 ): Promise<string> {
-  data.externalLinks = []
   const externalLinks = await req.payload.find({
     collection: 'micro_post_external_links',
     where: {

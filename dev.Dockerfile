@@ -1,9 +1,22 @@
-FROM node:24-alpine
-RUN apk add --no-cache libc6-compat
-WORKDIR /app
-COPY . .
-RUN corepack enable pnpm && pnpm i
+FROM node:24-alpine AS base
 
+RUN apk add --no-cache libc6-compat
+
+ENV PNPM_HOME="/pnpm"
+ENV PNPM_STORE_PATH="/pnpm/store"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable pnpm
+
+WORKDIR /app
+
+FROM base AS deps
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm fetch --frozen-lockfile
+
+FROM base AS dev
+COPY --from=deps /pnpm /pnpm
+COPY . ./
+RUN pnpm install --offline --frozen-lockfile
 
 ENV NEXT_PUBLIC_SERVER_URL=""
 ENV NODE_ENV=development
@@ -20,6 +33,13 @@ ENV S3_ENDPOINT=''
 ENV S3_ACCESS_KEY_ID=''
 ENV S3_SECRET_ACCESS_KEY=''
 ENV S3_REGION=''
+ENV NODE_ENV=development
 
 EXPOSE 3000
-CMD pnpm install --force && pnpm dev
+
+CMD ["pnpm", "dev"]
+
+
+
+
+

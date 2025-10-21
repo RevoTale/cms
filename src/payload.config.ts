@@ -370,29 +370,46 @@ export default buildConfig({
         let excerpt = ''
         if (collectionSlug === 'micro_posts') {
           for (const locale of locales) {
-            const doc = await payload.findByID({
+            const docs = await payload.find({
               collection: collectionSlug,
-              id: searchDoc.doc.value,
+              where: {
+                id: {
+                  equals: searchDoc.doc.value,
+                },
+              },
               locale,
             })
+            if (docs.totalDocs === 0) {
+              return searchDoc
+            }
+            const [doc] = docs.docs
             excerpt += `${doc.title} ${doc.meta?.description ?? ''} ${doc.content} ${doc.meta?.title ?? ''} --- `
           }
         } else if (collectionSlug === 'authors') {
           for (const locale of locales) {
-            const doc = await payload.findByID({
+            const doc = await payload.find({
               collection: collectionSlug,
-              id: searchDoc.doc.value,
+              where: { id: { equals: searchDoc.doc.value } },
               locale,
             })
-            excerpt += `${doc.name} ${doc.bio} ${doc.slug} --- `
+            if (doc.totalDocs === 0) {
+              return searchDoc
+            }
+            const [docItem] = doc.docs
+            excerpt += `${docItem.name} ${docItem.bio} ${docItem.slug} --- `
           }
         } else if (collectionSlug === 'tags') {
           for (const locale of locales) {
-            const doc = await payload.findByID({
+            const docs = await payload.find({
               collection: collectionSlug,
-              id: searchDoc.doc.value,
+              where: { id: { equals: searchDoc.doc.value } },
               locale,
             })
+            if (docs.totalDocs === 0) {
+              return searchDoc
+            }
+            const [doc] = docs.docs
+
             excerpt += `${doc.title} ${doc.name} --- `
           }
         }

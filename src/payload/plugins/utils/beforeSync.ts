@@ -1,7 +1,6 @@
 import type { BeforeSync } from 'node_modules/@payloadcms/plugin-search/dist/types'
 import type { CollectionSlug } from 'payload'
 import { locales } from 'src/i18n-config'
-
 const beforeSync: BeforeSync = async ({ originalDoc, searchDoc, payload }) => {
   const collectionSlug = searchDoc.doc.relationTo as CollectionSlug
   let excerpt = ''

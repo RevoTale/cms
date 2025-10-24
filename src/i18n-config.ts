@@ -10,4 +10,5 @@ const locales: TypedLocale[] = [
   'fr-FR',
   'es-ES',
 ]
+export const defaultLocale = 'en-US'
 export { locales }

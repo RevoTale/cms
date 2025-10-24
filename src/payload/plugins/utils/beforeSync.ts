@@ -1,54 +1,78 @@
 import type { BeforeSync } from 'node_modules/@payloadcms/plugin-search/dist/types'
-import type { CollectionSlug } from 'payload'
+import type { CollectionSlug, Payload } from 'payload'
 import { locales } from 'src/i18n-config'
+type ExcerptBuilder = (doc: Record<string, unknown>) => string
+
+const excerptBuilders: Partial<Record<CollectionSlug, ExcerptBuilder>> = {
+  micro_posts: (doc) => {
+    const meta = (doc.meta as Record<string, unknown> | undefined) ?? {}
+    return [doc.title, meta.description, doc.content, meta.title]
+      .map((value) => (typeof value === 'string' ? value : ''))
+      .join(' ')
+  },
+  authors: (doc) =>
+    [doc.name, doc.bio, doc.slug]
+      .map((value) => (typeof value === 'string' ? value : ''))
+      .join(' '),
+  tags: (doc) =>
+    [doc.title, doc.name].map((value) => (typeof value === 'string' ? value : '')).join(' '),
+}
+
+interface BuildExcerptArgs {
+  payload: Payload
+  collectionSlug: CollectionSlug
+  docId: unknown
+  builder: ExcerptBuilder
+}
+
+const buildLocalizedExcerpt = async ({
+  payload,
+  collectionSlug,
+  docId,
+  builder,
+}: BuildExcerptArgs): Promise<string> => {
+  let excerpt = ''
+
+  for (const locale of locales) {
+    const result = await payload.find({
+      collection: collectionSlug,
+      where: { id: { equals: docId } },
+      locale,
+    })
+
+    if (result.totalDocs === 0) {
+      continue
+    }
+
+    const docs = result.docs as unknown as Array<Record<string, unknown>>
+    const [doc] = docs
+    excerpt += `${builder(doc)} --- `
+  }
+
+  return excerpt
+}
+
 const beforeSync: BeforeSync = async ({ originalDoc, searchDoc, payload }) => {
   const collectionSlug = searchDoc.doc.relationTo as CollectionSlug
-  let excerpt = ''
-  if (collectionSlug === 'micro_posts') {
-    for (const locale of locales) {
-      const docs = await payload.find({
-        collection: collectionSlug,
-        where: {
-          id: {
-            equals: searchDoc.doc.value,
-          },
-        },
-        locale,
-      })
-      if (docs.totalDocs === 0) {
-        return searchDoc
-      }
-      const [doc] = docs.docs
-      excerpt += `${doc.title} ${doc.meta?.description ?? ''} ${doc.content} ${doc.meta?.title ?? ''} --- `
-    }
-  } else if (collectionSlug === 'authors') {
-    for (const locale of locales) {
-      const doc = await payload.find({
-        collection: collectionSlug,
-        where: { id: { equals: searchDoc.doc.value } },
-        locale,
-      })
-      if (doc.totalDocs === 0) {
-        return searchDoc
-      }
-      const [docItem] = doc.docs
-      excerpt += `${docItem.name} ${docItem.bio} ${docItem.slug} --- `
-    }
-  } else if (collectionSlug === 'tags') {
-    for (const locale of locales) {
-      const docs = await payload.find({
-        collection: collectionSlug,
-        where: { id: { equals: searchDoc.doc.value } },
-        locale,
-      })
-      if (docs.totalDocs === 0) {
-        return searchDoc
-      }
-      const [doc] = docs.docs
+  const builder = excerptBuilders[collectionSlug]
 
-      excerpt += `${doc.title} ${doc.name} --- `
+  let excerpt = ''
+
+  if (builder) {
+    const computedExcerpt = await buildLocalizedExcerpt({
+      payload,
+      collectionSlug,
+      docId: searchDoc.doc.value,
+      builder,
+    })
+
+    if (computedExcerpt === '') {
+      return searchDoc
     }
+
+    excerpt = computedExcerpt
   }
+
   return {
     ...searchDoc,
     title: originalDoc?.title || searchDoc.title || originalDoc?.name || '',

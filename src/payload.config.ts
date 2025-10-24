@@ -5,12 +5,11 @@ import { seoPlugin } from '@payloadcms/plugin-seo'
 import type { GenerateDescription, GenerateURL } from '@payloadcms/plugin-seo/types'
 
 import { postgresAdapter } from '@payloadcms/db-postgres'
-import { searchPlugin } from '@payloadcms/plugin-search'
 import { s3Storage } from '@payloadcms/storage-s3'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import OpenAI from 'openai'
-import { buildConfig, type CollectionSlug, type TaskConfig, type WorkflowConfig } from 'payload'
+import { buildConfig } from 'payload'
 import sharp from 'sharp' // editor-import
 import type { MicroPost, Post } from 'src/payload-types'
 import Authors from './payload/collections/Authors'
@@ -26,7 +25,9 @@ import { Posts } from './payload/collections/Posts'
 import Tags from './payload/collections/Tags'
 import Users from './payload/collections/Users'
 import { seed } from './payload/endpoints/seed'
-import translateHandler from './payload/tasks/translate/translateHandler'
+import createSearchPlugin from './payload/plugins/createSearchPlugin'
+import documentTranslationTask from './payload/tasks/documentTranslationTask'
+import tranlateRemainingNotesTask from './payload/workflows/translateRemainingNotesTask'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
@@ -257,101 +258,8 @@ export default buildConfig({
       return enableCron
     },
 
-    workflows: [
-      {
-        queue: 'default',
-        retries: 1,
-        schedule: [
-          {
-            cron: '0/10 * * * *', // Every 10 minutes
-            queue: 'default',
-          },
-        ],
-        slug: 'localizeRemainedDocuments',
-        label: 'Localize remained documents',
-        handler: async ({ req }) => {
-          const { payload } = req
-
-          for (const locale of locales) {
-            const posts = await payload.find({
-              collection: 'micro_posts',
-              locale: 'en-US',
-              where: {
-                [`content.${locale}`]: {
-                  exists: false,
-                },
-                content: {
-                  not_equals: '',
-                },
-                cronTranslationLocalesQueued: {
-                  not_equals: locale,
-                },
-              },
-              limit: 100,
-            })
-            for (const post of posts.docs) {
-              await payload.update({
-                collection: 'micro_posts',
-                id: post.id,
-                data: {
-                  cronTranslationLocalesQueued: [
-                    ...(post.cronTranslationLocalesQueued || []),
-                    locale,
-                  ],
-                },
-                locale: 'en-US',
-              })
-            }
-            for (const post of posts.docs) {
-              await payload.jobs.queue({
-                task: 'translateDocument',
-                input: {
-                  postID: post.id,
-                  collection: 'micro_posts',
-                  sourceLocale: 'en-US',
-                  targetLocale: locale,
-                  userId: undefined,
-                },
-              })
-            }
-          }
-        },
-      } as WorkflowConfig<'localizeRemainedDocuments'>,
-    ],
-    tasks: [
-      {
-        retries: 1,
-        slug: 'translateDocument',
-        inputSchema: [
-          {
-            name: 'postID',
-            type: 'text',
-            required: true,
-          },
-          {
-            name: 'sourceLocale',
-            type: 'text',
-            required: true,
-          },
-          {
-            name: 'collection',
-            type: 'text',
-            required: true,
-          },
-          {
-            name: 'userId',
-            type: 'text',
-            required: false,
-          },
-          {
-            name: 'targetLocale',
-            type: 'text',
-            required: true,
-          },
-        ],
-        handler: translateHandler,
-      } as TaskConfig<'translateDocument'>,
-    ],
+    workflows: [tranlateRemainingNotesTask],
+    tasks: [documentTranslationTask],
   },
   plugins: [
     s3PluginConfig,
@@ -360,85 +268,7 @@ export default buildConfig({
       generateDescription,
       generateURL,
     }),
-    searchPlugin({
-      localize: false,
-      collections: ['micro_posts', 'tags', 'authors'],
-
-      // eslint-disable-next-line complexity
-      beforeSync: async ({ originalDoc, searchDoc, payload, req }) => {
-        const collectionSlug = searchDoc.doc.relationTo as CollectionSlug
-        let excerpt = ''
-        if (collectionSlug === 'micro_posts') {
-          for (const locale of locales) {
-            const docs = await payload.find({
-              collection: collectionSlug,
-              where: {
-                id: {
-                  equals: searchDoc.doc.value,
-                },
-              },
-              locale,
-            })
-            if (docs.totalDocs === 0) {
-              return searchDoc
-            }
-            const [doc] = docs.docs
-            excerpt += `${doc.title} ${doc.meta?.description ?? ''} ${doc.content} ${doc.meta?.title ?? ''} --- `
-          }
-        } else if (collectionSlug === 'authors') {
-          for (const locale of locales) {
-            const doc = await payload.find({
-              collection: collectionSlug,
-              where: { id: { equals: searchDoc.doc.value } },
-              locale,
-            })
-            if (doc.totalDocs === 0) {
-              return searchDoc
-            }
-            const [docItem] = doc.docs
-            excerpt += `${docItem.name} ${docItem.bio} ${docItem.slug} --- `
-          }
-        } else if (collectionSlug === 'tags') {
-          for (const locale of locales) {
-            const docs = await payload.find({
-              collection: collectionSlug,
-              where: { id: { equals: searchDoc.doc.value } },
-              locale,
-            })
-            if (docs.totalDocs === 0) {
-              return searchDoc
-            }
-            const [doc] = docs.docs
-
-            excerpt += `${doc.title} ${doc.name} --- `
-          }
-        }
-        return {
-          ...searchDoc,
-          title: originalDoc?.title || searchDoc.title || originalDoc?.name || '',
-          // - Modify your docs in any way here, this can be async
-          // - You also need to add the `excerpt` field in the `searchOverrides` config
-          excerpt,
-        }
-      },
-      searchOverrides: {
-        fields: ({ defaultFields }) => [
-          ...defaultFields,
-          {
-            name: 'excerpt',
-            type: 'textarea',
-            admin: {
-              position: 'sidebar',
-            },
-          },
-        ],
-      },
-      defaultPriorities: {
-        micro_posts: 10,
-        tags: 15,
-        authors: 20,
-      },
-    }),
+    createSearchPlugin(),
   ],
   secret: process.env.PAYLOAD_SECRET ?? '',
   sharp,

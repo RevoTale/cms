@@ -36,7 +36,10 @@ export const MicroPosts: CollectionConfig<'micro_posts'> = {
         beforeDocumentControls: ['@/components/ImageGenerator/GenerateImageButton'],
       },
     },
+    listSearchableFields: ['title', 'content'],
   },
+  enableQueryPresets: true,
+
 
   fields: [
     AutoTranslate,

@@ -6,23 +6,23 @@
  * and re-run `payload generate:db-schema` to regenerate this file.
  */
 
-import type { } from '@payloadcms/db-postgres'
-import { relations } from '@payloadcms/db-postgres/drizzle'
+import type {} from '@payloadcms/db-postgres'
 import {
-  boolean,
-  foreignKey,
-  index,
-  integer,
-  jsonb,
-  numeric,
-  pgEnum,
   pgTable,
-  serial,
-  timestamp,
+  index,
   uniqueIndex,
+  foreignKey,
   uuid,
+  boolean,
   varchar,
+  timestamp,
+  serial,
+  integer,
+  numeric,
+  jsonb,
+  pgEnum,
 } from '@payloadcms/db-postgres/drizzle/pg-core'
+import { sql, relations } from '@payloadcms/db-postgres/drizzle'
 export const enum__locales = pgEnum('enum__locales', [
   'en-US',
   'uk-UA',
@@ -90,6 +90,22 @@ export const enum_payload_jobs_task_slug = pgEnum('enum_payload_jobs_task_slug',
   'inline',
   'translateDocument',
 ])
+export const enum_payload_query_presets_access_read_constraint = pgEnum(
+  'enum_payload_query_presets_access_read_constraint',
+  ['everyone', 'onlyMe', 'specificUsers'],
+)
+export const enum_payload_query_presets_access_update_constraint = pgEnum(
+  'enum_payload_query_presets_access_update_constraint',
+  ['everyone', 'onlyMe', 'specificUsers'],
+)
+export const enum_payload_query_presets_access_delete_constraint = pgEnum(
+  'enum_payload_query_presets_access_delete_constraint',
+  ['everyone', 'onlyMe', 'specificUsers'],
+)
+export const enum_payload_query_presets_related_collection = pgEnum(
+  'enum_payload_query_presets_related_collection',
+  ['micro_posts'],
+)
 
 export const posts = pgTable(
   'posts',
@@ -1170,6 +1186,65 @@ export const payload_migrations = pgTable(
   ],
 )
 
+export const payload_query_presets = pgTable(
+  'payload_query_presets',
+  {
+    id: uuid('id').defaultRandom().primaryKey(),
+    title: varchar('title').notNull(),
+    isShared: boolean('is_shared').default(false),
+    access_read_constraint:
+      enum_payload_query_presets_access_read_constraint('access_read_constraint').default('onlyMe'),
+    access_update_constraint: enum_payload_query_presets_access_update_constraint(
+      'access_update_constraint',
+    ).default('onlyMe'),
+    access_delete_constraint: enum_payload_query_presets_access_delete_constraint(
+      'access_delete_constraint',
+    ).default('onlyMe'),
+    where: jsonb('where'),
+    columns: jsonb('columns'),
+    relatedCollection:
+      enum_payload_query_presets_related_collection('related_collection').notNull(),
+    isTemp: boolean('is_temp'),
+    updatedAt: timestamp('updated_at', { mode: 'string', withTimezone: true, precision: 3 })
+      .defaultNow()
+      .notNull(),
+    createdAt: timestamp('created_at', { mode: 'string', withTimezone: true, precision: 3 })
+      .defaultNow()
+      .notNull(),
+  },
+  (columns) => [
+    index('payload_query_presets_updated_at_idx').on(columns.updatedAt),
+    index('payload_query_presets_created_at_idx').on(columns.createdAt),
+  ],
+)
+
+export const payload_query_presets_rels = pgTable(
+  'payload_query_presets_rels',
+  {
+    id: serial('id').primaryKey(),
+    order: integer('order'),
+    parent: uuid('parent_id').notNull(),
+    path: varchar('path').notNull(),
+    usersID: uuid('users_id'),
+  },
+  (columns) => [
+    index('payload_query_presets_rels_order_idx').on(columns.order),
+    index('payload_query_presets_rels_parent_idx').on(columns.parent),
+    index('payload_query_presets_rels_path_idx').on(columns.path),
+    index('payload_query_presets_rels_users_id_idx').on(columns.usersID),
+    foreignKey({
+      columns: [columns['parent']],
+      foreignColumns: [payload_query_presets.id],
+      name: 'payload_query_presets_rels_parent_fk',
+    }).onDelete('cascade'),
+    foreignKey({
+      columns: [columns['usersID']],
+      foreignColumns: [users.id],
+      name: 'payload_query_presets_rels_users_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
 export const payload_jobs_stats = pgTable('payload_jobs_stats', {
   id: uuid('id').defaultRandom().primaryKey(),
   stats: jsonb('stats'),
@@ -1625,6 +1700,26 @@ export const relations_payload_preferences = relations(payload_preferences, ({ m
   }),
 }))
 export const relations_payload_migrations = relations(payload_migrations, () => ({}))
+export const relations_payload_query_presets_rels = relations(
+  payload_query_presets_rels,
+  ({ one }) => ({
+    parent: one(payload_query_presets, {
+      fields: [payload_query_presets_rels.parent],
+      references: [payload_query_presets.id],
+      relationName: '_rels',
+    }),
+    usersID: one(users, {
+      fields: [payload_query_presets_rels.usersID],
+      references: [users.id],
+      relationName: 'users',
+    }),
+  }),
+)
+export const relations_payload_query_presets = relations(payload_query_presets, ({ many }) => ({
+  _rels: many(payload_query_presets_rels, {
+    relationName: '_rels',
+  }),
+}))
 export const relations_payload_jobs_stats = relations(payload_jobs_stats, () => ({}))
 
 type DatabaseSchema = {
@@ -1642,6 +1737,10 @@ type DatabaseSchema = {
   enum_payload_jobs_log_parent_task_slug: typeof enum_payload_jobs_log_parent_task_slug
   enum_payload_jobs_workflow_slug: typeof enum_payload_jobs_workflow_slug
   enum_payload_jobs_task_slug: typeof enum_payload_jobs_task_slug
+  enum_payload_query_presets_access_read_constraint: typeof enum_payload_query_presets_access_read_constraint
+  enum_payload_query_presets_access_update_constraint: typeof enum_payload_query_presets_access_update_constraint
+  enum_payload_query_presets_access_delete_constraint: typeof enum_payload_query_presets_access_delete_constraint
+  enum_payload_query_presets_related_collection: typeof enum_payload_query_presets_related_collection
   posts: typeof posts
   posts_locales: typeof posts_locales
   posts_rels: typeof posts_rels
@@ -1676,6 +1775,8 @@ type DatabaseSchema = {
   payload_preferences: typeof payload_preferences
   payload_preferences_rels: typeof payload_preferences_rels
   payload_migrations: typeof payload_migrations
+  payload_query_presets: typeof payload_query_presets
+  payload_query_presets_rels: typeof payload_query_presets_rels
   payload_jobs_stats: typeof payload_jobs_stats
   relations_posts_locales: typeof relations_posts_locales
   relations_posts_rels: typeof relations_posts_rels
@@ -1711,6 +1812,8 @@ type DatabaseSchema = {
   relations_payload_preferences_rels: typeof relations_payload_preferences_rels
   relations_payload_preferences: typeof relations_payload_preferences
   relations_payload_migrations: typeof relations_payload_migrations
+  relations_payload_query_presets_rels: typeof relations_payload_query_presets_rels
+  relations_payload_query_presets: typeof relations_payload_query_presets
   relations_payload_jobs_stats: typeof relations_payload_jobs_stats
 }
 

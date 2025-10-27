@@ -1,7 +1,12 @@
 import type { Payload, WorkflowConfig } from 'payload'
 import { defaultLocale, locales } from 'src/i18n-config'
 import type { MicroPost } from 'src/payload-types'
-const findOriginalLocalePosts = async (payload: Payload, locale: (typeof locales)[number]) => {
+const defaultLimit = 100
+export const findOriginalLocalePosts = async (
+  payload: Payload,
+  locale: (typeof locales)[number],
+  limit = defaultLimit,
+) => {
   const posts = (
     await payload.find({
       collection: 'micro_posts',
@@ -20,7 +25,7 @@ const findOriginalLocalePosts = async (payload: Payload, locale: (typeof locales
           not_equals: locale,
         },
       },
-      limit: 100,
+      limit,
     })
   ).docs
   for (const post of posts) {

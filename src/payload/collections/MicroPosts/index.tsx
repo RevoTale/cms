@@ -32,6 +32,7 @@ export const MicroPosts: CollectionConfig<'micro_posts'> = {
     defaultColumns: ['updatedAt'],
     useAsTitle: 'title',
     components: {
+      beforeListTable: ['/payload/components/MicroPosts/MissingTranslationFilterButton'],
       edit: {
         beforeDocumentControls: ['@/components/ImageGenerator/GenerateImageButton'],
       },
@@ -39,7 +40,6 @@ export const MicroPosts: CollectionConfig<'micro_posts'> = {
     listSearchableFields: ['title', 'content'],
   },
   enableQueryPresets: true,
-
 
   fields: [
     AutoTranslate,

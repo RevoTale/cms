@@ -27,7 +27,6 @@ import Users from './payload/collections/Users'
 import { seed } from './payload/endpoints/seed'
 import createSearchPlugin from './payload/plugins/createSearchPlugin'
 import documentTranslationTask from './payload/tasks/documentTranslationTask'
-import tranlateRemainingNotesTask from './payload/workflows/translateRemainingNotesTask'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 

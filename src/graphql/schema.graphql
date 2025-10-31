@@ -57,8 +57,6 @@ type Query {
   PayloadQueryPresets(draft: Boolean, where: PayloadQueryPreset_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean): PayloadQueryPresets
   countPayloadQueryPresets(draft: Boolean, trash: Boolean, where: PayloadQueryPreset_where, locale: LocaleInputType): countPayloadQueryPresets
   docAccessPayloadQueryPreset(id: String!): payload_query_presetsDocAccess
-  PayloadJobsStat(draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, select: Boolean): PayloadJobsStat
-  docAccessPayloadJobsStat: payload_jobs_statsDocAccess
   Access: Access
 }
 
@@ -5323,12 +5321,10 @@ type PayloadJob {
   hasError: Boolean
   error: JSON
   log: [PayloadJob_Log!]
-  workflowSlug: PayloadJob_workflowSlug
   taskSlug: PayloadJob_taskSlug
   queue: String
   waitUntil: DateTime
   processing: Boolean
-  meta: JSON
   updatedAt: DateTime
   createdAt: DateTime
 }
@@ -5364,10 +5360,6 @@ type PayloadJob_Log_Parent {
 enum PayloadJob_Log_Parent_taskSlug {
   inline
   translateDocument
-}
-
-enum PayloadJob_workflowSlug {
-  localizeRemainedDocuments
 }
 
 enum PayloadJob_taskSlug {
@@ -5407,12 +5399,10 @@ input PayloadJob_where {
   log__parent__taskSlug: PayloadJob_log__parent__taskSlug_operator
   log__parent__taskID: PayloadJob_log__parent__taskID_operator
   log__id: PayloadJob_log__id_operator
-  workflowSlug: PayloadJob_workflowSlug_operator
   taskSlug: PayloadJob_taskSlug_operator
   queue: PayloadJob_queue_operator
   waitUntil: PayloadJob_waitUntil_operator
   processing: PayloadJob_processing_operator
-  meta: PayloadJob_meta_operator
   updatedAt: PayloadJob_updatedAt_operator
   createdAt: PayloadJob_createdAt_operator
   id: PayloadJob_id_operator
@@ -5597,19 +5587,6 @@ input PayloadJob_log__id_operator {
   exists: Boolean
 }
 
-input PayloadJob_workflowSlug_operator {
-  equals: PayloadJob_workflowSlug_Input
-  not_equals: PayloadJob_workflowSlug_Input
-  in: [PayloadJob_workflowSlug_Input]
-  not_in: [PayloadJob_workflowSlug_Input]
-  all: [PayloadJob_workflowSlug_Input]
-  exists: Boolean
-}
-
-enum PayloadJob_workflowSlug_Input {
-  localizeRemainedDocuments
-}
-
 input PayloadJob_taskSlug_operator {
   equals: PayloadJob_taskSlug_Input
   not_equals: PayloadJob_taskSlug_Input
@@ -5649,16 +5626,6 @@ input PayloadJob_waitUntil_operator {
 input PayloadJob_processing_operator {
   equals: Boolean
   not_equals: Boolean
-  exists: Boolean
-}
-
-input PayloadJob_meta_operator {
-  equals: JSON
-  not_equals: JSON
-  like: JSON
-  contains: JSON
-  within: JSON
-  intersects: JSON
   exists: Boolean
 }
 
@@ -5713,12 +5680,10 @@ input PayloadJob_where_and {
   log__parent__taskSlug: PayloadJob_log__parent__taskSlug_operator
   log__parent__taskID: PayloadJob_log__parent__taskID_operator
   log__id: PayloadJob_log__id_operator
-  workflowSlug: PayloadJob_workflowSlug_operator
   taskSlug: PayloadJob_taskSlug_operator
   queue: PayloadJob_queue_operator
   waitUntil: PayloadJob_waitUntil_operator
   processing: PayloadJob_processing_operator
-  meta: PayloadJob_meta_operator
   updatedAt: PayloadJob_updatedAt_operator
   createdAt: PayloadJob_createdAt_operator
   id: PayloadJob_id_operator
@@ -5744,12 +5709,10 @@ input PayloadJob_where_or {
   log__parent__taskSlug: PayloadJob_log__parent__taskSlug_operator
   log__parent__taskID: PayloadJob_log__parent__taskID_operator
   log__id: PayloadJob_log__id_operator
-  workflowSlug: PayloadJob_workflowSlug_operator
   taskSlug: PayloadJob_taskSlug_operator
   queue: PayloadJob_queue_operator
   waitUntil: PayloadJob_waitUntil_operator
   processing: PayloadJob_processing_operator
-  meta: PayloadJob_meta_operator
   updatedAt: PayloadJob_updatedAt_operator
   createdAt: PayloadJob_createdAt_operator
   id: PayloadJob_id_operator
@@ -5777,12 +5740,10 @@ type PayloadJobsDocAccessFields {
   hasError: PayloadJobsDocAccessFields_hasError
   error: PayloadJobsDocAccessFields_error
   log: PayloadJobsDocAccessFields_log
-  workflowSlug: PayloadJobsDocAccessFields_workflowSlug
   taskSlug: PayloadJobsDocAccessFields_taskSlug
   queue: PayloadJobsDocAccessFields_queue
   waitUntil: PayloadJobsDocAccessFields_waitUntil
   processing: PayloadJobsDocAccessFields_processing
-  meta: PayloadJobsDocAccessFields_meta
   updatedAt: PayloadJobsDocAccessFields_updatedAt
   createdAt: PayloadJobsDocAccessFields_createdAt
 }
@@ -6244,29 +6205,6 @@ type PayloadJobsDocAccessFields_log_id_Delete {
   permission: Boolean!
 }
 
-type PayloadJobsDocAccessFields_workflowSlug {
-  create: PayloadJobsDocAccessFields_workflowSlug_Create
-  read: PayloadJobsDocAccessFields_workflowSlug_Read
-  update: PayloadJobsDocAccessFields_workflowSlug_Update
-  delete: PayloadJobsDocAccessFields_workflowSlug_Delete
-}
-
-type PayloadJobsDocAccessFields_workflowSlug_Create {
-  permission: Boolean!
-}
-
-type PayloadJobsDocAccessFields_workflowSlug_Read {
-  permission: Boolean!
-}
-
-type PayloadJobsDocAccessFields_workflowSlug_Update {
-  permission: Boolean!
-}
-
-type PayloadJobsDocAccessFields_workflowSlug_Delete {
-  permission: Boolean!
-}
-
 type PayloadJobsDocAccessFields_taskSlug {
   create: PayloadJobsDocAccessFields_taskSlug_Create
   read: PayloadJobsDocAccessFields_taskSlug_Read
@@ -6356,29 +6294,6 @@ type PayloadJobsDocAccessFields_processing_Update {
 }
 
 type PayloadJobsDocAccessFields_processing_Delete {
-  permission: Boolean!
-}
-
-type PayloadJobsDocAccessFields_meta {
-  create: PayloadJobsDocAccessFields_meta_Create
-  read: PayloadJobsDocAccessFields_meta_Read
-  update: PayloadJobsDocAccessFields_meta_Update
-  delete: PayloadJobsDocAccessFields_meta_Delete
-}
-
-type PayloadJobsDocAccessFields_meta_Create {
-  permission: Boolean!
-}
-
-type PayloadJobsDocAccessFields_meta_Read {
-  permission: Boolean!
-}
-
-type PayloadJobsDocAccessFields_meta_Update {
-  permission: Boolean!
-}
-
-type PayloadJobsDocAccessFields_meta_Delete {
   permission: Boolean!
 }
 
@@ -7818,103 +7733,6 @@ type PayloadQueryPresetsDeleteDocAccess {
   where: JSONObject
 }
 
-type PayloadJobsStat {
-  stats: JSON
-  updatedAt: DateTime
-  createdAt: DateTime
-}
-
-type payload_jobs_statsDocAccess {
-  fields: PayloadJobsStatsDocAccessFields
-  read: PayloadJobsStatsReadDocAccess
-  update: PayloadJobsStatsUpdateDocAccess
-}
-
-type PayloadJobsStatsDocAccessFields {
-  stats: PayloadJobsStatsDocAccessFields_stats
-  updatedAt: PayloadJobsStatsDocAccessFields_updatedAt
-  createdAt: PayloadJobsStatsDocAccessFields_createdAt
-}
-
-type PayloadJobsStatsDocAccessFields_stats {
-  create: PayloadJobsStatsDocAccessFields_stats_Create
-  read: PayloadJobsStatsDocAccessFields_stats_Read
-  update: PayloadJobsStatsDocAccessFields_stats_Update
-  delete: PayloadJobsStatsDocAccessFields_stats_Delete
-}
-
-type PayloadJobsStatsDocAccessFields_stats_Create {
-  permission: Boolean!
-}
-
-type PayloadJobsStatsDocAccessFields_stats_Read {
-  permission: Boolean!
-}
-
-type PayloadJobsStatsDocAccessFields_stats_Update {
-  permission: Boolean!
-}
-
-type PayloadJobsStatsDocAccessFields_stats_Delete {
-  permission: Boolean!
-}
-
-type PayloadJobsStatsDocAccessFields_updatedAt {
-  create: PayloadJobsStatsDocAccessFields_updatedAt_Create
-  read: PayloadJobsStatsDocAccessFields_updatedAt_Read
-  update: PayloadJobsStatsDocAccessFields_updatedAt_Update
-  delete: PayloadJobsStatsDocAccessFields_updatedAt_Delete
-}
-
-type PayloadJobsStatsDocAccessFields_updatedAt_Create {
-  permission: Boolean!
-}
-
-type PayloadJobsStatsDocAccessFields_updatedAt_Read {
-  permission: Boolean!
-}
-
-type PayloadJobsStatsDocAccessFields_updatedAt_Update {
-  permission: Boolean!
-}
-
-type PayloadJobsStatsDocAccessFields_updatedAt_Delete {
-  permission: Boolean!
-}
-
-type PayloadJobsStatsDocAccessFields_createdAt {
-  create: PayloadJobsStatsDocAccessFields_createdAt_Create
-  read: PayloadJobsStatsDocAccessFields_createdAt_Read
-  update: PayloadJobsStatsDocAccessFields_createdAt_Update
-  delete: PayloadJobsStatsDocAccessFields_createdAt_Delete
-}
-
-type PayloadJobsStatsDocAccessFields_createdAt_Create {
-  permission: Boolean!
-}
-
-type PayloadJobsStatsDocAccessFields_createdAt_Read {
-  permission: Boolean!
-}
-
-type PayloadJobsStatsDocAccessFields_createdAt_Update {
-  permission: Boolean!
-}
-
-type PayloadJobsStatsDocAccessFields_createdAt_Delete {
-  permission: Boolean!
-}
-
-type PayloadJobsStatsReadDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type PayloadJobsStatsUpdateDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
 type Access {
   canAccessAdmin: Boolean!
   posts: postsAccess
@@ -7930,7 +7748,6 @@ type Access {
   payload_locked_documents: payload_locked_documentsAccess
   payload_preferences: payload_preferencesAccess
   payload_query_presets: payload_query_presetsAccess
-  payload_jobs_stats: payload_jobs_statsAccess
 }
 
 type postsAccess {
@@ -10502,12 +10319,10 @@ type PayloadJobsFields {
   hasError: PayloadJobsFields_hasError
   error: PayloadJobsFields_error
   log: PayloadJobsFields_log
-  workflowSlug: PayloadJobsFields_workflowSlug
   taskSlug: PayloadJobsFields_taskSlug
   queue: PayloadJobsFields_queue
   waitUntil: PayloadJobsFields_waitUntil
   processing: PayloadJobsFields_processing
-  meta: PayloadJobsFields_meta
   updatedAt: PayloadJobsFields_updatedAt
   createdAt: PayloadJobsFields_createdAt
 }
@@ -10969,29 +10784,6 @@ type PayloadJobsFields_log_id_Delete {
   permission: Boolean!
 }
 
-type PayloadJobsFields_workflowSlug {
-  create: PayloadJobsFields_workflowSlug_Create
-  read: PayloadJobsFields_workflowSlug_Read
-  update: PayloadJobsFields_workflowSlug_Update
-  delete: PayloadJobsFields_workflowSlug_Delete
-}
-
-type PayloadJobsFields_workflowSlug_Create {
-  permission: Boolean!
-}
-
-type PayloadJobsFields_workflowSlug_Read {
-  permission: Boolean!
-}
-
-type PayloadJobsFields_workflowSlug_Update {
-  permission: Boolean!
-}
-
-type PayloadJobsFields_workflowSlug_Delete {
-  permission: Boolean!
-}
-
 type PayloadJobsFields_taskSlug {
   create: PayloadJobsFields_taskSlug_Create
   read: PayloadJobsFields_taskSlug_Read
@@ -11081,29 +10873,6 @@ type PayloadJobsFields_processing_Update {
 }
 
 type PayloadJobsFields_processing_Delete {
-  permission: Boolean!
-}
-
-type PayloadJobsFields_meta {
-  create: PayloadJobsFields_meta_Create
-  read: PayloadJobsFields_meta_Read
-  update: PayloadJobsFields_meta_Update
-  delete: PayloadJobsFields_meta_Delete
-}
-
-type PayloadJobsFields_meta_Create {
-  permission: Boolean!
-}
-
-type PayloadJobsFields_meta_Read {
-  permission: Boolean!
-}
-
-type PayloadJobsFields_meta_Update {
-  permission: Boolean!
-}
-
-type PayloadJobsFields_meta_Delete {
   permission: Boolean!
 }
 
@@ -11954,97 +11723,6 @@ type PayloadQueryPresetsDeleteAccess {
   where: JSONObject
 }
 
-type payload_jobs_statsAccess {
-  fields: PayloadJobsStatsFields
-  read: PayloadJobsStatsReadAccess
-  update: PayloadJobsStatsUpdateAccess
-}
-
-type PayloadJobsStatsFields {
-  stats: PayloadJobsStatsFields_stats
-  updatedAt: PayloadJobsStatsFields_updatedAt
-  createdAt: PayloadJobsStatsFields_createdAt
-}
-
-type PayloadJobsStatsFields_stats {
-  create: PayloadJobsStatsFields_stats_Create
-  read: PayloadJobsStatsFields_stats_Read
-  update: PayloadJobsStatsFields_stats_Update
-  delete: PayloadJobsStatsFields_stats_Delete
-}
-
-type PayloadJobsStatsFields_stats_Create {
-  permission: Boolean!
-}
-
-type PayloadJobsStatsFields_stats_Read {
-  permission: Boolean!
-}
-
-type PayloadJobsStatsFields_stats_Update {
-  permission: Boolean!
-}
-
-type PayloadJobsStatsFields_stats_Delete {
-  permission: Boolean!
-}
-
-type PayloadJobsStatsFields_updatedAt {
-  create: PayloadJobsStatsFields_updatedAt_Create
-  read: PayloadJobsStatsFields_updatedAt_Read
-  update: PayloadJobsStatsFields_updatedAt_Update
-  delete: PayloadJobsStatsFields_updatedAt_Delete
-}
-
-type PayloadJobsStatsFields_updatedAt_Create {
-  permission: Boolean!
-}
-
-type PayloadJobsStatsFields_updatedAt_Read {
-  permission: Boolean!
-}
-
-type PayloadJobsStatsFields_updatedAt_Update {
-  permission: Boolean!
-}
-
-type PayloadJobsStatsFields_updatedAt_Delete {
-  permission: Boolean!
-}
-
-type PayloadJobsStatsFields_createdAt {
-  create: PayloadJobsStatsFields_createdAt_Create
-  read: PayloadJobsStatsFields_createdAt_Read
-  update: PayloadJobsStatsFields_createdAt_Update
-  delete: PayloadJobsStatsFields_createdAt_Delete
-}
-
-type PayloadJobsStatsFields_createdAt_Create {
-  permission: Boolean!
-}
-
-type PayloadJobsStatsFields_createdAt_Read {
-  permission: Boolean!
-}
-
-type PayloadJobsStatsFields_createdAt_Update {
-  permission: Boolean!
-}
-
-type PayloadJobsStatsFields_createdAt_Delete {
-  permission: Boolean!
-}
-
-type PayloadJobsStatsReadAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type PayloadJobsStatsUpdateAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
 type Mutation {
   createPost(data: mutationPostInput!, draft: Boolean, locale: LocaleInputType): Post
   updatePost(id: String!, autosave: Boolean, data: mutationPostUpdateInput!, draft: Boolean, locale: LocaleInputType, trash: Boolean): Post
@@ -12106,7 +11784,6 @@ type Mutation {
   updatePayloadQueryPreset(id: String!, autosave: Boolean, data: mutationPayloadQueryPresetUpdateInput!, draft: Boolean, locale: LocaleInputType, trash: Boolean): PayloadQueryPreset
   deletePayloadQueryPreset(id: String!, trash: Boolean): PayloadQueryPreset
   duplicatePayloadQueryPreset(id: String!, data: mutationPayloadQueryPresetInput!): PayloadQueryPreset
-  updatePayloadJobsStat(data: mutationPayloadJobsStatInput!, draft: Boolean, locale: LocaleInputType): PayloadJobsStat
 }
 
 input mutationPostInput {
@@ -12498,12 +12175,10 @@ input mutationPayloadJobInput {
   hasError: Boolean
   error: JSON
   log: [mutationPayloadJob_LogInput]
-  workflowSlug: PayloadJob_workflowSlug_MutationInput
   taskSlug: PayloadJob_taskSlug_MutationInput
   queue: String
   waitUntil: String
   processing: Boolean
-  meta: JSON
   updatedAt: String
   createdAt: String
 }
@@ -12536,10 +12211,6 @@ enum PayloadJob_Log_Parent_taskSlug_MutationInput {
   translateDocument
 }
 
-enum PayloadJob_workflowSlug_MutationInput {
-  localizeRemainedDocuments
-}
-
 enum PayloadJob_taskSlug_MutationInput {
   inline
   translateDocument
@@ -12553,12 +12224,10 @@ input mutationPayloadJobUpdateInput {
   hasError: Boolean
   error: JSON
   log: [mutationPayloadJobUpdate_LogInput]
-  workflowSlug: PayloadJobUpdate_workflowSlug_MutationInput
   taskSlug: PayloadJobUpdate_taskSlug_MutationInput
   queue: String
   waitUntil: String
   processing: Boolean
-  meta: JSON
   updatedAt: String
   createdAt: String
 }
@@ -12589,10 +12258,6 @@ input mutationPayloadJobUpdate_Log_ParentInput {
 enum PayloadJobUpdate_Log_Parent_taskSlug_MutationInput {
   inline
   translateDocument
-}
-
-enum PayloadJobUpdate_workflowSlug_MutationInput {
-  localizeRemainedDocuments
 }
 
 enum PayloadJobUpdate_taskSlug_MutationInput {
@@ -12812,10 +12477,4 @@ enum PayloadQueryPresetUpdate_Access_Delete_constraint_MutationInput {
 
 enum PayloadQueryPresetUpdate_relatedCollection_MutationInput {
   micro_posts
-}
-
-input mutationPayloadJobsStatInput {
-  stats: JSON
-  updatedAt: String
-  createdAt: String
 }

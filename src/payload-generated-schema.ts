@@ -83,9 +83,6 @@ export const enum_payload_jobs_log_parent_task_slug = pgEnum(
   'enum_payload_jobs_log_parent_task_slug',
   ['inline', 'translateDocument'],
 )
-export const enum_payload_jobs_workflow_slug = pgEnum('enum_payload_jobs_workflow_slug', [
-  'localizeRemainedDocuments',
-])
 export const enum_payload_jobs_task_slug = pgEnum('enum_payload_jobs_task_slug', [
   'inline',
   'translateDocument',
@@ -422,7 +419,7 @@ export const users = pgTable(
     }),
     salt: varchar('salt'),
     hash: varchar('hash'),
-    loginAttempts: numeric('login_attempts', { mode: 'number' }).default(0),
+    loginAttempts: numeric('login_attempts', { mode: 'number' }).default('0'),
     lockUntil: timestamp('lock_until', { mode: 'string', withTimezone: true, precision: 3 }),
   },
   (columns) => [
@@ -979,15 +976,13 @@ export const payload_jobs = pgTable(
     id: uuid('id').defaultRandom().primaryKey(),
     input: jsonb('input'),
     completedAt: timestamp('completed_at', { mode: 'string', withTimezone: true, precision: 3 }),
-    totalTried: numeric('total_tried', { mode: 'number' }).default(0),
+    totalTried: numeric('total_tried', { mode: 'number' }).default('0'),
     hasError: boolean('has_error').default(false),
     error: jsonb('error'),
-    workflowSlug: enum_payload_jobs_workflow_slug('workflow_slug'),
     taskSlug: enum_payload_jobs_task_slug('task_slug'),
     queue: varchar('queue').default('default'),
     waitUntil: timestamp('wait_until', { mode: 'string', withTimezone: true, precision: 3 }),
     processing: boolean('processing').default(false),
-    meta: jsonb('meta'),
     updatedAt: timestamp('updated_at', { mode: 'string', withTimezone: true, precision: 3 })
       .defaultNow()
       .notNull(),
@@ -999,7 +994,6 @@ export const payload_jobs = pgTable(
     index('payload_jobs_completed_at_idx').on(columns.completedAt),
     index('payload_jobs_total_tried_idx').on(columns.totalTried),
     index('payload_jobs_has_error_idx').on(columns.hasError),
-    index('payload_jobs_workflow_slug_idx').on(columns.workflowSlug),
     index('payload_jobs_task_slug_idx').on(columns.taskSlug),
     index('payload_jobs_queue_idx').on(columns.queue),
     index('payload_jobs_wait_until_idx').on(columns.waitUntil),
@@ -1244,13 +1238,6 @@ export const payload_query_presets_rels = pgTable(
     }).onDelete('cascade'),
   ],
 )
-
-export const payload_jobs_stats = pgTable('payload_jobs_stats', {
-  id: uuid('id').defaultRandom().primaryKey(),
-  stats: jsonb('stats'),
-  updatedAt: timestamp('updated_at', { mode: 'string', withTimezone: true, precision: 3 }),
-  createdAt: timestamp('created_at', { mode: 'string', withTimezone: true, precision: 3 }),
-})
 
 export const relations_posts_locales = relations(posts_locales, ({ one }) => ({
   _parentID: one(posts, {
@@ -1720,7 +1707,6 @@ export const relations_payload_query_presets = relations(payload_query_presets, 
     relationName: '_rels',
   }),
 }))
-export const relations_payload_jobs_stats = relations(payload_jobs_stats, () => ({}))
 
 type DatabaseSchema = {
   enum__locales: typeof enum__locales
@@ -1735,7 +1721,6 @@ type DatabaseSchema = {
   enum_payload_jobs_log_task_slug: typeof enum_payload_jobs_log_task_slug
   enum_payload_jobs_log_state: typeof enum_payload_jobs_log_state
   enum_payload_jobs_log_parent_task_slug: typeof enum_payload_jobs_log_parent_task_slug
-  enum_payload_jobs_workflow_slug: typeof enum_payload_jobs_workflow_slug
   enum_payload_jobs_task_slug: typeof enum_payload_jobs_task_slug
   enum_payload_query_presets_access_read_constraint: typeof enum_payload_query_presets_access_read_constraint
   enum_payload_query_presets_access_update_constraint: typeof enum_payload_query_presets_access_update_constraint
@@ -1777,7 +1762,6 @@ type DatabaseSchema = {
   payload_migrations: typeof payload_migrations
   payload_query_presets: typeof payload_query_presets
   payload_query_presets_rels: typeof payload_query_presets_rels
-  payload_jobs_stats: typeof payload_jobs_stats
   relations_posts_locales: typeof relations_posts_locales
   relations_posts_rels: typeof relations_posts_rels
   relations_posts: typeof relations_posts
@@ -1814,7 +1798,6 @@ type DatabaseSchema = {
   relations_payload_migrations: typeof relations_payload_migrations
   relations_payload_query_presets_rels: typeof relations_payload_query_presets_rels
   relations_payload_query_presets: typeof relations_payload_query_presets
-  relations_payload_jobs_stats: typeof relations_payload_jobs_stats
 }
 
 declare module '@payloadcms/db-postgres' {

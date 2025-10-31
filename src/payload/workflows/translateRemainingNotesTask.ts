@@ -72,7 +72,7 @@ const queueJobs = async (
     })
   }
 }
-const handler: WorkflowConfig<'localizeRemainedDocuments'>['handler'] = async ({ req }) => {
+const handler: WorkflowConfig['handler'] = async ({ req }) => {
   const { payload } = req
 
   for (const locale of locales) {
@@ -96,5 +96,5 @@ const translateRemainingNotesTask = {
   slug: 'localizeRemainedDocuments',
   label: 'Localize remained documents',
   handler,
-} as WorkflowConfig<'localizeRemainedDocuments'>
+}
 export default translateRemainingNotesTask

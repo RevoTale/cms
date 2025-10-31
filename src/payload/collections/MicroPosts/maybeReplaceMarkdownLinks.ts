@@ -46,11 +46,13 @@ const byIdCompare = <T extends { id: string }>(b: T | string): ((a: T | string) 
     return getIdCompare(a) === objId
   }
 }
+export const isExternalLink = (url: string): boolean =>
+  url.startsWith('http://') || url.startsWith('https://') || url.startsWith('mailto:')
 async function maybeTransformURLToExternalLink(
   url: string,
   payload: Payload,
 ): Promise<MicroPostExternalLink | null> {
-  if (!url.startsWith('http://') && !url.startsWith('https://') && !url.startsWith('mailto:')) {
+  if (!isExternalLink(url)) {
     return null
   }
   return await maybeCreateExternalLink(url, payload)
@@ -78,8 +80,11 @@ const maybeRevalidateExternalLink = async (
 ): Promise<MicroPostExternalLink | null> => {
   if (!url.startsWith(EXTERNAL_LINK_PREFIX)) return null
 
-  const targetUrl = url.slice(EXTERNAL_LINK_PREFIX.length)
-  return await maybeCreateExternalLink(targetUrl, payload)
+  const externalLinkId = url.slice(EXTERNAL_LINK_PREFIX.length)
+  return await payload.findByID({
+    collection: 'micro_post_external_links',
+    id: externalLinkId,
+  })
 }
 
 const maybeReplaceMarkdownLink: CollectionBeforeChangeHook<

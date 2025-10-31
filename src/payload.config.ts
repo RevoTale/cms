@@ -258,7 +258,7 @@ export default buildConfig({
       return enableCron
     },
 
-    workflows: [tranlateRemainingNotesTask],
+    // workflows: [tranlateRemainingNotesTask], It is broken. Temporary disable
     tasks: [documentTranslationTask],
   },
   plugins: [

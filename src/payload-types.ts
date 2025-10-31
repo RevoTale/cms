@@ -102,12 +102,8 @@ export interface Config {
   db: {
     defaultIDType: string;
   };
-  globals: {
-    'payload-jobs-stats': PayloadJobsStat;
-  };
-  globalsSelect: {
-    'payload-jobs-stats': PayloadJobsStatsSelect<false> | PayloadJobsStatsSelect<true>;
-  };
+  globals: {};
+  globalsSelect: {};
   locale: 'en-US' | 'uk-UA' | 'de-DE' | 'hi-IN' | 'ja-JP' | 'ru-RU' | 'fr-FR' | 'es-ES';
   user: User & {
     collection: 'users';
@@ -120,9 +116,7 @@ export interface Config {
         output: unknown;
       };
     };
-    workflows: {
-      localizeRemainedDocuments: WorkflowLocalizeRemainedDocuments;
-    };
+    workflows: unknown;
   };
 }
 export interface UserAuthOperations {
@@ -427,20 +421,10 @@ export interface PayloadJob {
         id?: string | null;
       }[]
     | null;
-  workflowSlug?: 'localizeRemainedDocuments' | null;
   taskSlug?: ('inline' | 'translateDocument') | null;
   queue?: string | null;
   waitUntil?: string | null;
   processing?: boolean | null;
-  meta?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -784,12 +768,10 @@ export interface PayloadJobsSelect<T extends boolean = true> {
             };
         id?: T;
       };
-  workflowSlug?: T;
   taskSlug?: T;
   queue?: T;
   waitUntil?: T;
   processing?: T;
-  meta?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -863,34 +845,6 @@ export interface PayloadQueryPresetsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "payload-jobs-stats".
- */
-export interface PayloadJobsStat {
-  id: string;
-  stats?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "payload-jobs-stats_select".
- */
-export interface PayloadJobsStatsSelect<T extends boolean = true> {
-  stats?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "TaskTranslateDocument".
  */
 export interface TaskTranslateDocument {
@@ -902,13 +856,6 @@ export interface TaskTranslateDocument {
     targetLocale: string;
   };
   output?: unknown;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "WorkflowLocalizeRemainedDocuments".
- */
-export interface WorkflowLocalizeRemainedDocuments {
-  input?: unknown;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

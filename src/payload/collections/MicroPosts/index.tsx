@@ -137,7 +137,7 @@ export const MicroPosts: CollectionConfig<'micro_posts'> = {
       hasMany: true,
       required: false,
       unique: true,
-      localized: false,
+      localized: true,
     },
 
     {
@@ -151,7 +151,7 @@ export const MicroPosts: CollectionConfig<'micro_posts'> = {
       label: 'External Links',
       hasMany: true,
       required: false,
-      localized: false,
+      localized: true,
     },
 
     {

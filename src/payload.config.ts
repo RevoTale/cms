@@ -10,7 +10,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import OpenAI from 'openai'
 import { buildConfig } from 'payload'
-import sharp from 'sharp' // editor-import
+import sharp from 'sharp'; // editor-import
 import type { MicroPost, Post } from 'src/payload-types'
 import Authors from './payload/collections/Authors'
 
@@ -226,6 +226,7 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URI,
     },
+    push: false,
     idType: 'uuid',
     prodMigrations: migrations,
   }),

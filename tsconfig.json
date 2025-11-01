@@ -14,7 +14,7 @@
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "incremental": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "module": "esnext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
@@ -26,9 +26,9 @@
       }
     ],
     "paths": {
-			"@shadcn/*": [
-				"./@shadcn/*"
-			],
+      "@shadcn/*": [
+        "./@shadcn/*"
+      ],
       "@payload-config": [
         "./src/payload.config.ts"
       ],
@@ -45,7 +45,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "redirects.js",
-    "next.config.ts"
+    "next.config.ts",
+    ".next/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",

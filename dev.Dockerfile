@@ -16,7 +16,7 @@ RUN pnpm fetch --frozen-lockfile
 FROM base AS dev
 COPY --from=deps /pnpm /pnpm
 COPY . ./
-RUN pnpm install --offline --frozen-lockfile
+
 
 ENV NEXT_PUBLIC_SERVER_URL=""
 ENV NODE_ENV=development
@@ -38,7 +38,7 @@ ENV NODE_ENV=development
 
 EXPOSE 3000
 
-CMD ["pnpm", "dev"]
+CMD ["sh", "-c", "pnpm install --force && pnpm dev"]
 
 
 

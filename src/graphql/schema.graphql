@@ -41,6 +41,10 @@ type Query {
   Searches(draft: Boolean, where: Search_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean): Searches
   countSearches(draft: Boolean, trash: Boolean, where: Search_where, locale: LocaleInputType): countSearches
   docAccessSearch(id: String!): searchDocAccess
+  PayloadKv(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, select: Boolean, trash: Boolean): PayloadKv
+  PayloadKvs(draft: Boolean, where: PayloadKv_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean): PayloadKvs
+  countPayloadKvs(draft: Boolean, trash: Boolean, where: PayloadKv_where, locale: LocaleInputType): countPayloadKvs
+  docAccessPayloadKv(id: String!): payload_kvDocAccess
   PayloadJob(id: String!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, select: Boolean, trash: Boolean): PayloadJob
   PayloadJobs(draft: Boolean, where: PayloadJob_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, pagination: Boolean, select: Boolean, sort: String, trash: Boolean): PayloadJobs
   countPayloadJobs(draft: Boolean, trash: Boolean, where: PayloadJob_where, locale: LocaleInputType): countPayloadJobs
@@ -5312,6 +5316,163 @@ type SearchDeleteDocAccess {
   where: JSONObject
 }
 
+type PayloadKv {
+  id: String!
+  key: String!
+  data: JSON!
+}
+
+type PayloadKvs {
+  docs: [PayloadKv!]!
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  limit: Int!
+  nextPage: Int
+  offset: Int
+  page: Int!
+  pagingCounter: Int!
+  prevPage: Int
+  totalDocs: Int!
+  totalPages: Int!
+}
+
+input PayloadKv_where {
+  key: PayloadKv_key_operator
+  data: PayloadKv_data_operator
+  id: PayloadKv_id_operator
+  AND: [PayloadKv_where_and]
+  OR: [PayloadKv_where_or]
+}
+
+input PayloadKv_key_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input PayloadKv_data_operator {
+  equals: JSON
+  not_equals: JSON
+  like: JSON
+  contains: JSON
+  within: JSON
+  intersects: JSON
+}
+
+input PayloadKv_id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input PayloadKv_where_and {
+  key: PayloadKv_key_operator
+  data: PayloadKv_data_operator
+  id: PayloadKv_id_operator
+  AND: [PayloadKv_where_and]
+  OR: [PayloadKv_where_or]
+}
+
+input PayloadKv_where_or {
+  key: PayloadKv_key_operator
+  data: PayloadKv_data_operator
+  id: PayloadKv_id_operator
+  AND: [PayloadKv_where_and]
+  OR: [PayloadKv_where_or]
+}
+
+type countPayloadKvs {
+  totalDocs: Int
+}
+
+type payload_kvDocAccess {
+  fields: PayloadKvDocAccessFields
+  create: PayloadKvCreateDocAccess
+  read: PayloadKvReadDocAccess
+  update: PayloadKvUpdateDocAccess
+  delete: PayloadKvDeleteDocAccess
+}
+
+type PayloadKvDocAccessFields {
+  key: PayloadKvDocAccessFields_key
+  data: PayloadKvDocAccessFields_data
+}
+
+type PayloadKvDocAccessFields_key {
+  create: PayloadKvDocAccessFields_key_Create
+  read: PayloadKvDocAccessFields_key_Read
+  update: PayloadKvDocAccessFields_key_Update
+  delete: PayloadKvDocAccessFields_key_Delete
+}
+
+type PayloadKvDocAccessFields_key_Create {
+  permission: Boolean!
+}
+
+type PayloadKvDocAccessFields_key_Read {
+  permission: Boolean!
+}
+
+type PayloadKvDocAccessFields_key_Update {
+  permission: Boolean!
+}
+
+type PayloadKvDocAccessFields_key_Delete {
+  permission: Boolean!
+}
+
+type PayloadKvDocAccessFields_data {
+  create: PayloadKvDocAccessFields_data_Create
+  read: PayloadKvDocAccessFields_data_Read
+  update: PayloadKvDocAccessFields_data_Update
+  delete: PayloadKvDocAccessFields_data_Delete
+}
+
+type PayloadKvDocAccessFields_data_Create {
+  permission: Boolean!
+}
+
+type PayloadKvDocAccessFields_data_Read {
+  permission: Boolean!
+}
+
+type PayloadKvDocAccessFields_data_Update {
+  permission: Boolean!
+}
+
+type PayloadKvDocAccessFields_data_Delete {
+  permission: Boolean!
+}
+
+type PayloadKvCreateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type PayloadKvReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type PayloadKvUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type PayloadKvDeleteDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
 type PayloadJob {
   id: String!
   input: JSON
@@ -6387,10 +6548,11 @@ enum PayloadLockedDocument_Document_RelationTo {
   micro_posts
   micro_post_external_links
   search
+  payload_kv
   payload_jobs
 }
 
-union PayloadLockedDocument_Document = Post | Media | User | Tag | Author | Ai_call_log | Micro_post | Micro_post_external_link | Search | PayloadJob
+union PayloadLockedDocument_Document = Post | Media | User | Tag | Author | Ai_call_log | Micro_post | Micro_post_external_link | Search | PayloadKv | PayloadJob
 
 type PayloadLockedDocument_User_Relationship {
   relationTo: PayloadLockedDocument_User_RelationTo
@@ -6443,6 +6605,7 @@ enum PayloadLockedDocument_document_Relation_RelationTo {
   micro_posts
   micro_post_external_links
   search
+  payload_kv
   payload_jobs
 }
 
@@ -7744,6 +7907,7 @@ type Access {
   micro_posts: micro_postsAccess
   micro_post_external_links: micro_post_external_linksAccess
   search: searchAccess
+  payload_kv: payload_kvAccess
   payload_jobs: payload_jobsAccess
   payload_locked_documents: payload_locked_documentsAccess
   payload_preferences: payload_preferencesAccess
@@ -10303,6 +10467,85 @@ type SearchDeleteAccess {
   where: JSONObject
 }
 
+type payload_kvAccess {
+  fields: PayloadKvFields
+  create: PayloadKvCreateAccess
+  read: PayloadKvReadAccess
+  update: PayloadKvUpdateAccess
+  delete: PayloadKvDeleteAccess
+}
+
+type PayloadKvFields {
+  key: PayloadKvFields_key
+  data: PayloadKvFields_data
+}
+
+type PayloadKvFields_key {
+  create: PayloadKvFields_key_Create
+  read: PayloadKvFields_key_Read
+  update: PayloadKvFields_key_Update
+  delete: PayloadKvFields_key_Delete
+}
+
+type PayloadKvFields_key_Create {
+  permission: Boolean!
+}
+
+type PayloadKvFields_key_Read {
+  permission: Boolean!
+}
+
+type PayloadKvFields_key_Update {
+  permission: Boolean!
+}
+
+type PayloadKvFields_key_Delete {
+  permission: Boolean!
+}
+
+type PayloadKvFields_data {
+  create: PayloadKvFields_data_Create
+  read: PayloadKvFields_data_Read
+  update: PayloadKvFields_data_Update
+  delete: PayloadKvFields_data_Delete
+}
+
+type PayloadKvFields_data_Create {
+  permission: Boolean!
+}
+
+type PayloadKvFields_data_Read {
+  permission: Boolean!
+}
+
+type PayloadKvFields_data_Update {
+  permission: Boolean!
+}
+
+type PayloadKvFields_data_Delete {
+  permission: Boolean!
+}
+
+type PayloadKvCreateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type PayloadKvReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type PayloadKvUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type PayloadKvDeleteAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
 type payload_jobsAccess {
   fields: PayloadJobsFields
   create: PayloadJobsCreateAccess
@@ -11768,6 +12011,10 @@ type Mutation {
   updateSearch(id: String!, autosave: Boolean, data: mutationSearchUpdateInput!, draft: Boolean, locale: LocaleInputType, trash: Boolean): Search
   deleteSearch(id: String!, trash: Boolean): Search
   duplicateSearch(id: String!, data: mutationSearchInput!): Search
+  createPayloadKv(data: mutationPayloadKvInput!, draft: Boolean, locale: LocaleInputType): PayloadKv
+  updatePayloadKv(id: String!, autosave: Boolean, data: mutationPayloadKvUpdateInput!, draft: Boolean, locale: LocaleInputType, trash: Boolean): PayloadKv
+  deletePayloadKv(id: String!, trash: Boolean): PayloadKv
+  duplicatePayloadKv(id: String!, data: mutationPayloadKvInput!): PayloadKv
   createPayloadJob(data: mutationPayloadJobInput!, draft: Boolean, locale: LocaleInputType): PayloadJob
   updatePayloadJob(id: String!, autosave: Boolean, data: mutationPayloadJobUpdateInput!, draft: Boolean, locale: LocaleInputType, trash: Boolean): PayloadJob
   deletePayloadJob(id: String!, trash: Boolean): PayloadJob
@@ -12167,6 +12414,16 @@ enum SearchUpdate_DocRelationshipInputRelationTo {
   authors
 }
 
+input mutationPayloadKvInput {
+  key: String!
+  data: JSON!
+}
+
+input mutationPayloadKvUpdateInput {
+  key: String
+  data: JSON
+}
+
 input mutationPayloadJobInput {
   input: JSON
   taskStatus: JSON
@@ -12288,6 +12545,7 @@ enum PayloadLockedDocument_DocumentRelationshipInputRelationTo {
   micro_posts
   micro_post_external_links
   search
+  payload_kv
   payload_jobs
 }
 
@@ -12323,6 +12581,7 @@ enum PayloadLockedDocumentUpdate_DocumentRelationshipInputRelationTo {
   micro_posts
   micro_post_external_links
   search
+  payload_kv
   payload_jobs
 }
 

@@ -6,23 +6,23 @@
  * and re-run `payload generate:db-schema` to regenerate this file.
  */
 
-import type { } from '@payloadcms/db-postgres'
-import { relations } from '@payloadcms/db-postgres/drizzle'
+import type {} from '@payloadcms/db-postgres'
 import {
-  boolean,
-  foreignKey,
-  index,
-  integer,
-  jsonb,
-  numeric,
-  pgEnum,
   pgTable,
-  serial,
-  timestamp,
+  index,
   uniqueIndex,
+  foreignKey,
   uuid,
+  boolean,
   varchar,
+  timestamp,
+  serial,
+  integer,
+  numeric,
+  jsonb,
+  pgEnum,
 } from '@payloadcms/db-postgres/drizzle/pg-core'
+import { sql, relations } from '@payloadcms/db-postgres/drizzle'
 export const enum__locales = pgEnum('enum__locales', [
   'en-US',
   'uk-UA',
@@ -934,6 +934,16 @@ export const search_rels = pgTable(
   ],
 )
 
+export const payload_kv = pgTable(
+  'payload_kv',
+  {
+    id: uuid('id').defaultRandom().primaryKey(),
+    key: varchar('key').notNull(),
+    data: jsonb('data').notNull(),
+  },
+  (columns) => [uniqueIndex('payload_kv_key_idx').on(columns.key)],
+)
+
 export const payload_jobs_log = pgTable(
   'payload_jobs_log',
   {
@@ -1038,6 +1048,7 @@ export const payload_locked_documents_rels = pgTable(
     micro_postsID: uuid('micro_posts_id'),
     micro_post_external_linksID: uuid('micro_post_external_links_id'),
     searchID: uuid('search_id'),
+    'payload-kvID': uuid('payload_kv_id'),
     'payload-jobsID': uuid('payload_jobs_id'),
   },
   (columns) => [
@@ -1055,6 +1066,7 @@ export const payload_locked_documents_rels = pgTable(
       columns.micro_post_external_linksID,
     ),
     index('payload_locked_documents_rels_search_id_idx').on(columns.searchID),
+    index('payload_locked_documents_rels_payload_kv_id_idx').on(columns['payload-kvID']),
     index('payload_locked_documents_rels_payload_jobs_id_idx').on(columns['payload-jobsID']),
     foreignKey({
       columns: [columns['parent']],
@@ -1105,6 +1117,11 @@ export const payload_locked_documents_rels = pgTable(
       columns: [columns['searchID']],
       foreignColumns: [search.id],
       name: 'payload_locked_documents_rels_search_fk',
+    }).onDelete('cascade'),
+    foreignKey({
+      columns: [columns['payload-kvID']],
+      foreignColumns: [payload_kv.id],
+      name: 'payload_locked_documents_rels_payload_kv_fk',
     }).onDelete('cascade'),
     foreignKey({
       columns: [columns['payload-jobsID']],
@@ -1586,6 +1603,7 @@ export const relations_search = relations(search, ({ many }) => ({
     relationName: '_rels',
   }),
 }))
+export const relations_payload_kv = relations(payload_kv, () => ({}))
 export const relations_payload_jobs_log = relations(payload_jobs_log, ({ one }) => ({
   _parentID: one(payload_jobs, {
     fields: [payload_jobs_log._parentID],
@@ -1650,6 +1668,11 @@ export const relations_payload_locked_documents_rels = relations(
       fields: [payload_locked_documents_rels.searchID],
       references: [search.id],
       relationName: 'search',
+    }),
+    'payload-kvID': one(payload_kv, {
+      fields: [payload_locked_documents_rels['payload-kvID']],
+      references: [payload_kv.id],
+      relationName: 'payload-kv',
     }),
     'payload-jobsID': one(payload_jobs, {
       fields: [payload_locked_documents_rels['payload-jobsID']],
@@ -1753,6 +1776,7 @@ type DatabaseSchema = {
   micro_post_external_links_locales: typeof micro_post_external_links_locales
   search: typeof search
   search_rels: typeof search_rels
+  payload_kv: typeof payload_kv
   payload_jobs_log: typeof payload_jobs_log
   payload_jobs: typeof payload_jobs
   payload_locked_documents: typeof payload_locked_documents
@@ -1789,6 +1813,7 @@ type DatabaseSchema = {
   relations_micro_post_external_links: typeof relations_micro_post_external_links
   relations_search_rels: typeof relations_search_rels
   relations_search: typeof relations_search
+  relations_payload_kv: typeof relations_payload_kv
   relations_payload_jobs_log: typeof relations_payload_jobs_log
   relations_payload_jobs: typeof relations_payload_jobs
   relations_payload_locked_documents_rels: typeof relations_payload_locked_documents_rels

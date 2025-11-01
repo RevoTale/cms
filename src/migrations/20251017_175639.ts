@@ -1,15 +1,14 @@
-import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres'
+import { MigrateDownArgs, MigrateUpArgs, sql } from '@payloadcms/db-postgres'
 
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.execute(sql`
-   ALTER TABLE "micro_post_internal_links" DISABLE ROW LEVEL SECURITY;
-  ALTER TABLE "micro_post_internal_links_locales" DISABLE ROW LEVEL SECURITY;
-  DROP TABLE "micro_post_internal_links" CASCADE;
-  DROP TABLE "micro_post_internal_links_locales" CASCADE;
-  ALTER TABLE "payload_locked_documents_rels" DROP CONSTRAINT "payload_locked_documents_rels_micro_post_internal_links_fk";
-  
-  DROP INDEX "payload_locked_documents_rels_micro_post_internal_links__idx";
-  ALTER TABLE "payload_locked_documents_rels" DROP COLUMN "micro_post_internal_links_id";`)
+    ALTER TABLE IF EXISTS "micro_post_internal_links" DISABLE ROW LEVEL SECURITY;
+    ALTER TABLE IF EXISTS "micro_post_internal_links_locales" DISABLE ROW LEVEL SECURITY;
+    DROP TABLE IF EXISTS "micro_post_internal_links" CASCADE;
+    DROP TABLE IF EXISTS "micro_post_internal_links_locales" CASCADE;
+    ALTER TABLE "payload_locked_documents_rels" DROP CONSTRAINT IF EXISTS "payload_locked_documents_rels_micro_post_internal_links_fk";
+    DROP INDEX IF EXISTS "payload_locked_documents_rels_micro_post_internal_links__idx";
+    ALTER TABLE "payload_locked_documents_rels" DROP COLUMN IF EXISTS "micro_post_internal_links_id";`)
 }
 
 export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {

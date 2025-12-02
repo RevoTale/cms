@@ -84,7 +84,7 @@ const TABLE: ElementTransformer = {
     }
 
     const firstRowCells = mapToTableCells(rawLine)
-    if (firstRowCells == null) {
+    if (firstRowCells === null) {
       return
     }
 
@@ -141,7 +141,7 @@ const collectTableRows = (
     }
 
     const siblingCells = mapToTableCells(textChild.getTextContent())
-    if (siblingCells == null) {
+    if (siblingCells === null) {
       break
     }
 
@@ -199,7 +199,7 @@ const createEmptyTableCell = (): TableCellNode => {
 
 const mapToTableCells = (rawLine: string): TableCellNode[] | null => {
   const match = TABLE_ROW_REG_EXP.exec(rawLine)
-  if (match == null || match[1] == null) {
+  if (match === null || match[1] === null) {
     return null
   }
 

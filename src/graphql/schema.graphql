@@ -6548,11 +6548,9 @@ enum PayloadLockedDocument_Document_RelationTo {
   micro_posts
   micro_post_external_links
   search
-  payload_kv
-  payload_jobs
 }
 
-union PayloadLockedDocument_Document = Post | Media | User | Tag | Author | Ai_call_log | Micro_post | Micro_post_external_link | Search | PayloadKv | PayloadJob
+union PayloadLockedDocument_Document = Post | Media | User | Tag | Author | Ai_call_log | Micro_post | Micro_post_external_link | Search
 
 type PayloadLockedDocument_User_Relationship {
   relationTo: PayloadLockedDocument_User_RelationTo
@@ -6605,8 +6603,6 @@ enum PayloadLockedDocument_document_Relation_RelationTo {
   micro_posts
   micro_post_external_links
   search
-  payload_kv
-  payload_jobs
 }
 
 input PayloadLockedDocument_globalSlug_operator {
@@ -12545,8 +12541,6 @@ enum PayloadLockedDocument_DocumentRelationshipInputRelationTo {
   micro_posts
   micro_post_external_links
   search
-  payload_kv
-  payload_jobs
 }
 
 input PayloadLockedDocument_UserRelationshipInput {
@@ -12581,8 +12575,6 @@ enum PayloadLockedDocumentUpdate_DocumentRelationshipInputRelationTo {
   micro_posts
   micro_post_external_links
   search
-  payload_kv
-  payload_jobs
 }
 
 input PayloadLockedDocumentUpdate_UserRelationshipInput {

@@ -204,13 +204,13 @@ export const ToolbarPlugin = () => {
 
   const ensureTableSelection = useCallback(() => {
     const selection = $getSelection()
-    if (selection == null) {
+    if (selection === null) {
       return false
     }
 
     if ($isRangeSelection(selection)) {
       const cellFromAnchor = $getTableCellNodeFromLexicalNode(selection.anchor.getNode())
-      return cellFromAnchor != null
+      return cellFromAnchor !== null
     }
 
     if ($isTableSelection(selection)) {

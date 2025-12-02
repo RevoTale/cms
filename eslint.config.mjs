@@ -30,6 +30,7 @@ const eslintConfig = defineConfig(
 "@typescript-eslint/prefer-destructuring": "off",
 "@typescript-eslint/prefer-optional-chain": "off",
 "react/prop-types": "off",
+"no-await-in-loop": "off",
 
       // New global relaxations
       '@typescript-eslint/explicit-function-return-type': 'off',

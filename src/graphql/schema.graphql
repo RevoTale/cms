@@ -7127,6 +7127,7 @@ type PayloadQueryPreset {
   access: PayloadQueryPreset_Access
   where: JSON
   columns: JSON
+  groupBy: String
   relatedCollection: PayloadQueryPreset_relatedCollection!
   isTemp: Boolean
   updatedAt: DateTime
@@ -7201,6 +7202,7 @@ input PayloadQueryPreset_where {
   access__delete__users: PayloadQueryPreset_access__delete__users_operator
   where: PayloadQueryPreset_where_operator
   columns: PayloadQueryPreset_columns_operator
+  groupBy: PayloadQueryPreset_groupBy_operator
   relatedCollection: PayloadQueryPreset_relatedCollection_operator
   isTemp: PayloadQueryPreset_isTemp_operator
   updatedAt: PayloadQueryPreset_updatedAt_operator
@@ -7318,6 +7320,17 @@ input PayloadQueryPreset_columns_operator {
   exists: Boolean
 }
 
+input PayloadQueryPreset_groupBy_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
 input PayloadQueryPreset_relatedCollection_operator {
   equals: PayloadQueryPreset_relatedCollection_Input
   not_equals: PayloadQueryPreset_relatedCollection_Input
@@ -7380,6 +7393,7 @@ input PayloadQueryPreset_where_and {
   access__delete__users: PayloadQueryPreset_access__delete__users_operator
   where: PayloadQueryPreset_where_operator
   columns: PayloadQueryPreset_columns_operator
+  groupBy: PayloadQueryPreset_groupBy_operator
   relatedCollection: PayloadQueryPreset_relatedCollection_operator
   isTemp: PayloadQueryPreset_isTemp_operator
   updatedAt: PayloadQueryPreset_updatedAt_operator
@@ -7400,6 +7414,7 @@ input PayloadQueryPreset_where_or {
   access__delete__users: PayloadQueryPreset_access__delete__users_operator
   where: PayloadQueryPreset_where_operator
   columns: PayloadQueryPreset_columns_operator
+  groupBy: PayloadQueryPreset_groupBy_operator
   relatedCollection: PayloadQueryPreset_relatedCollection_operator
   isTemp: PayloadQueryPreset_isTemp_operator
   updatedAt: PayloadQueryPreset_updatedAt_operator
@@ -7427,6 +7442,7 @@ type PayloadQueryPresetsDocAccessFields {
   access: PayloadQueryPresetsDocAccessFields_access
   where: PayloadQueryPresetsDocAccessFields_where
   columns: PayloadQueryPresetsDocAccessFields_columns
+  groupBy: PayloadQueryPresetsDocAccessFields_groupBy
   relatedCollection: PayloadQueryPresetsDocAccessFields_relatedCollection
   isTemp: PayloadQueryPresetsDocAccessFields_isTemp
   updatedAt: PayloadQueryPresetsDocAccessFields_updatedAt
@@ -7777,6 +7793,29 @@ type PayloadQueryPresetsDocAccessFields_columns_Update {
 }
 
 type PayloadQueryPresetsDocAccessFields_columns_Delete {
+  permission: Boolean!
+}
+
+type PayloadQueryPresetsDocAccessFields_groupBy {
+  create: PayloadQueryPresetsDocAccessFields_groupBy_Create
+  read: PayloadQueryPresetsDocAccessFields_groupBy_Read
+  update: PayloadQueryPresetsDocAccessFields_groupBy_Update
+  delete: PayloadQueryPresetsDocAccessFields_groupBy_Delete
+}
+
+type PayloadQueryPresetsDocAccessFields_groupBy_Create {
+  permission: Boolean!
+}
+
+type PayloadQueryPresetsDocAccessFields_groupBy_Read {
+  permission: Boolean!
+}
+
+type PayloadQueryPresetsDocAccessFields_groupBy_Update {
+  permission: Boolean!
+}
+
+type PayloadQueryPresetsDocAccessFields_groupBy_Delete {
   permission: Boolean!
 }
 
@@ -11497,6 +11536,7 @@ type PayloadQueryPresetsFields {
   access: PayloadQueryPresetsFields_access
   where: PayloadQueryPresetsFields_where
   columns: PayloadQueryPresetsFields_columns
+  groupBy: PayloadQueryPresetsFields_groupBy
   relatedCollection: PayloadQueryPresetsFields_relatedCollection
   isTemp: PayloadQueryPresetsFields_isTemp
   updatedAt: PayloadQueryPresetsFields_updatedAt
@@ -11847,6 +11887,29 @@ type PayloadQueryPresetsFields_columns_Update {
 }
 
 type PayloadQueryPresetsFields_columns_Delete {
+  permission: Boolean!
+}
+
+type PayloadQueryPresetsFields_groupBy {
+  create: PayloadQueryPresetsFields_groupBy_Create
+  read: PayloadQueryPresetsFields_groupBy_Read
+  update: PayloadQueryPresetsFields_groupBy_Update
+  delete: PayloadQueryPresetsFields_groupBy_Delete
+}
+
+type PayloadQueryPresetsFields_groupBy_Create {
+  permission: Boolean!
+}
+
+type PayloadQueryPresetsFields_groupBy_Read {
+  permission: Boolean!
+}
+
+type PayloadQueryPresetsFields_groupBy_Update {
+  permission: Boolean!
+}
+
+type PayloadQueryPresetsFields_groupBy_Delete {
   permission: Boolean!
 }
 
@@ -12626,6 +12689,7 @@ input mutationPayloadQueryPresetInput {
   access: mutationPayloadQueryPreset_AccessInput
   where: JSON
   columns: JSON
+  groupBy: String
   relatedCollection: PayloadQueryPreset_relatedCollection_MutationInput!
   isTemp: Boolean
   updatedAt: String
@@ -12681,6 +12745,7 @@ input mutationPayloadQueryPresetUpdateInput {
   access: mutationPayloadQueryPresetUpdate_AccessInput
   where: JSON
   columns: JSON
+  groupBy: String
   relatedCollection: PayloadQueryPresetUpdate_relatedCollection_MutationInput
   isTemp: Boolean
   updatedAt: String

@@ -1209,6 +1209,7 @@ export const payload_query_presets = pgTable(
     ).default('onlyMe'),
     where: jsonb('where'),
     columns: jsonb('columns'),
+    groupBy: varchar('group_by'),
     relatedCollection:
       enum_payload_query_presets_related_collection('related_collection').notNull(),
     isTemp: boolean('is_temp'),

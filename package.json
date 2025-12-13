@@ -71,7 +71,7 @@
     "@types/node": "24.10.3",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
-    "eslint": "9.39.1",
+    "eslint": "9.39.2",
     "eslint-config-love": "^137.0.0",
     "eslint-config-nice-nextjs": "^0.4.0",
     "eslint-plugin-prettier": "^5.5.4",

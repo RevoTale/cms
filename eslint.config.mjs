@@ -31,6 +31,7 @@ const eslintConfig = defineConfig(
 "@typescript-eslint/prefer-optional-chain": "off",
 "react/prop-types": "off",
 "no-await-in-loop": "off",
+"prefer-named-capture-group": "off",
 
       // New global relaxations
       '@typescript-eslint/explicit-function-return-type': 'off',

@@ -62,7 +62,7 @@ export const replaceAsync = async function (
   for (const it of matches) {
     result += str.slice(lastIndex, it.index)
     const replacement = replacements[i]
-    i = i + 1
+    i += 1
     result += replacement
     lastIndex = it.index + it.length
   }

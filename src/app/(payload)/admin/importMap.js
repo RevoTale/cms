@@ -21,6 +21,7 @@ import { default as default_18511c0cf9cf95761601ec48f5703bd5 } from '../../../gr
 import { default as default_6bf288f4387b1ea5c71ce14579a9098c } from '../../../payload/components/BeforeDashboard'
 import { default as default_85bc59714294c8b0fddcdba92bbdc31b } from '../../../payload/components/BeforeLogin'
 import { S3ClientUploadHandler as S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24 } from '@payloadcms/storage-s3/client'
+import { CollectionCards as CollectionCards_ab83ff7e88da8d3530831f296ec4756a } from '@payloadcms/ui/rsc'
 
 export const importMap = {
   "@/components/AutoTranslation/AutoTranslateButton#default": default_2803ba5d37e0e98c0a514325dba8ed4c,
@@ -45,5 +46,6 @@ export const importMap = {
   "/graphics/Logo#default": default_18511c0cf9cf95761601ec48f5703bd5,
   "/payload/components/BeforeDashboard#default": default_6bf288f4387b1ea5c71ce14579a9098c,
   "/payload/components/BeforeLogin#default": default_85bc59714294c8b0fddcdba92bbdc31b,
-  "@payloadcms/storage-s3/client#S3ClientUploadHandler": S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24
+  "@payloadcms/storage-s3/client#S3ClientUploadHandler": S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24,
+  "@payloadcms/ui/rsc#CollectionCards": CollectionCards_ab83ff7e88da8d3530831f296ec4756a
 }

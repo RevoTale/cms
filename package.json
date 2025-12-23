@@ -51,7 +51,7 @@
     "graphql": "^16.11.0",
     "lexical": "^0.39.0",
     "lucide-react": "^0.562.0",
-    "next": "16.1.0",
+    "next": "16.1.1",
     "openai": "^6.7.0",
     "payload": "3.69.0",
     "react": "^19.2.0",
@@ -64,7 +64,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
-    "@next/eslint-plugin-next": "16.1.0",
+    "@next/eslint-plugin-next": "16.1.1",
     "@tailwindcss/postcss": "^4.1.16",
     "@tailwindcss/typography": "^0.5.19",
     "@types/escape-html": "^1.0.4",
@@ -84,7 +84,7 @@
   "engines": {
     "node": ">=20.9.0"
   },
-  "packageManager": "pnpm@10.26.1",
+  "packageManager": "pnpm@10.26.2",
   "pnpm": {
     "onlyBuiltDependencies": [
       "@parcel/watcher",

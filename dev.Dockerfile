@@ -1,22 +1,11 @@
-FROM node:24-alpine AS base
+FROM oven/bun:1-alpine AS base
 
 RUN apk add --no-cache libc6-compat
 
-ENV PNPM_HOME="/pnpm"
-ENV PNPM_STORE_PATH="/pnpm/store"
-ENV PATH="$PNPM_HOME:$PATH"
-RUN corepack enable pnpm
-
 WORKDIR /app
 
-FROM base AS deps
-COPY package.json pnpm-lock.yaml ./
-RUN pnpm fetch --frozen-lockfile
-
 FROM base AS dev
-COPY --from=deps /pnpm /pnpm
 COPY . ./
-
 
 ENV NEXT_PUBLIC_SERVER_URL=""
 ENV NODE_ENV=development
@@ -38,9 +27,4 @@ ENV NODE_ENV=development
 
 EXPOSE 3000
 
-CMD ["sh", "-c", "pnpm install --force && pnpm dev"]
-
-
-
-
-
+CMD ["sh", "-c", "bun install && bun dev"]

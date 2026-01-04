@@ -48,7 +48,7 @@ Use the `git` CLI to clone this template directly to your machine:
 
 1. First [clone the repo](#clone) if you have not done so already
 1. `cd my-project && cp .env.example .env` to copy the example environment variables
-1. `pnpm install && pnpm dev` to install dependencies and start the dev server
+1. `bun install && bun dev` to install dependencies and start the dev server
 1. open `http://localhost:3000` to open the app in your browser
 
 That's it! Changes made in `./src` will be reflected in your app. Follow the on-screen instructions to login and create your first admin user. Then check out [Production](#production) once you're ready to build and serve your app, and [Deployment](#deployment) when you're ready to go live.
@@ -197,8 +197,8 @@ The seed script will also create a demo user for demonstration purposes only:
 
 To run Payload in production, you need to build and start the Admin panel. To do so, follow these steps:
 
-1. Invoke the `next build` script by running `pnpm build` or `npm run build` in your project root. This creates a `.next` directory with a production-ready admin bundle.
-1. Finally run `pnpm start` or `npm run start` to run Node in production and serve Payload from the `.build` directory.
+1. Invoke the `next build` script by running `bun run build` or `npm run build` in your project root. This creates a `.next` directory with a production-ready admin bundle.
+1. Finally run `bun run start` or `npm run start` to run Node in production and serve Payload from the `.build` directory.
 1. When you're ready to go live, see [Deployment](#deployment) for more details.
 
 ### Deploying to Payload Cloud

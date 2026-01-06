@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.3](https://github.com/RevoTale/cms/compare/v0.1.2...v0.1.3) (2026-01-06)
+
+
+### Bug Fixes
+
+* add jose as deps to prevent runtime fail ([bb852d9](https://github.com/RevoTale/cms/commit/bb852d95575ba9c963940dff1e9120adaf5fa6a3))
+* release with version included ([2f8ce1a](https://github.com/RevoTale/cms/commit/2f8ce1adef4a75dfa3838e2ca541cd2597778b03))
+
 ## [0.1.2](https://github.com/RevoTale/cms/compare/v0.1.1...v0.1.2) (2026-01-06)
 
 

@@ -8,7 +8,6 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: PAYLOAD_PUBLIC_SERVER_URL ? [new URL(PAYLOAD_PUBLIC_SERVER_URL)] : [],
   },
-  serverExternalPackages: ['@payloadcms/db-postgres'],
   reactStrictMode: true,
   output: 'standalone',
 }

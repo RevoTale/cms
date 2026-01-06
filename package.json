@@ -7,7 +7,7 @@
   "scripts": {
     "build": "next build --experimental-build-mode compile",
     "dev": "next dev",
-    "ii": "bun install",
+    "ii": "bun install --linker=isolated",
     "lint": "eslint .",
     "payload": "bunx cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts bun --bun payload",
     "lint:fix": "eslint --fix .",

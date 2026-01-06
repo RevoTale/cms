@@ -129,13 +129,11 @@ const sss: GenerateFileURL = ({ filename, prefix = '' }) => {
   return `https://cms.s3.revotale.com/${prefix}/${filename}`
 }
 
-const serverURl: string | null = process.env.PAYLOAD_PUBLIC_SERVER_URL ?? null
-if (!serverURl) {
-  throw new Error('Server url is not defined')
-}
+const serverURl: string | undefined = process.env.PAYLOAD_PUBLIC_SERVER_URL ?? undefined
+
 const enableCron = process.env.ENABLE_CRON === '1'
-const serverDomain = new URL(serverURl).hostname
-const hostnameWithProtocol = `https://${serverDomain}`
+const serverDomain = serverURl ? new URL(serverURl).hostname : undefined
+const hostnameWithProtocol = serverDomain ? `https://${serverDomain}` : undefined
 const bucket = process.env.S3_BUCKET ?? ''
 const enableS3 = true //Added alway true because due to the following issues https://github.com/payloadcms/payload/issues/12475
 const s3PluginConfig = s3Storage({
@@ -232,8 +230,8 @@ export default buildConfig({
   }),
   serverURL: hostnameWithProtocol,
   collections: [Posts, Media, Users, Tags, Authors, AICallLogs, MicroPosts, MicroPostExternalLink],
-  cors: [hostnameWithProtocol].filter(Boolean),
-  csrf: [hostnameWithProtocol].filter(Boolean),
+  cors: hostnameWithProtocol ? [hostnameWithProtocol] : undefined,
+  csrf: hostnameWithProtocol ? [hostnameWithProtocol] : undefined,
   globals: [],
 
   jobs: {
@@ -270,7 +268,7 @@ export default buildConfig({
     }),
     createSearchPlugin(),
   ],
-  secret: process.env.PAYLOAD_SECRET ?? '',
+  secret: process.env.PAYLOAD_SECRET ?? 'some_fallback',
   sharp,
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),

@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.4](https://github.com/RevoTale/cms/compare/v0.1.3...v0.1.4) (2026-01-06)
+
+
+### Bug Fixes
+
+* refactor npm scripts to be simple and fix Bun fails to execute some scripts ([4c8cbb9](https://github.com/RevoTale/cms/commit/4c8cbb9b2fdffb7319d637fc21409b8cf2aa13bd))
+* runtime error where `jose` module not found due to the bug in NextJs. According to the https://github.com/vercel/next.js/issues/86866#issuecomment-3716488197 ([02d2c36](https://github.com/RevoTale/cms/commit/02d2c362c856918c88c6bafdaebc31a58b74b901))
+
 ## [0.1.3](https://github.com/RevoTale/cms/compare/v0.1.2...v0.1.3) (2026-01-06)
 
 

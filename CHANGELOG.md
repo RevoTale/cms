@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.2](https://github.com/RevoTale/cms/compare/v0.1.1...v0.1.2) (2026-01-06)
+
+
+### Bug Fixes
+
+* Increase max content size to allow post my last blog ([e882709](https://github.com/RevoTale/cms/commit/e8827090ded09e078e30ab775a9e82ae71fe8fb1))
+* latest packages ([7efe59a](https://github.com/RevoTale/cms/commit/7efe59a32b98bdd849675f0fe73a6ae7e6c0d270))
+* Refactor secret env and host to make generrate scripts work without env provided ([7bcfa0e](https://github.com/RevoTale/cms/commit/7bcfa0e9014f9efbc713a1848121b6c2c865f88f))
+
 ## [0.1.1](https://github.com/RevoTale/cms/compare/v0.1.0...v0.1.1) (2026-01-05)
 
 

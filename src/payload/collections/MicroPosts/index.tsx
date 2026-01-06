@@ -72,7 +72,7 @@ export const MicroPosts: CollectionConfig<'micro_posts'> = {
       label: false,
       required: true,
       localized: true,
-      maxLength: 4000,
+      maxLength: 8000,
       minLength: 2,
       admin: {
         components: {

@@ -7,19 +7,9 @@
   "scripts": {
     "build": "next build --experimental-build-mode compile",
     "dev": "next dev",
-    "ii": "bun install --linker=isolated",
-    "lint": "eslint .",
     "payload": "bunx cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts bun --bun payload",
-    "lint:fix": "eslint --fix .",
-    "tsc": "tsc --noEmit",
-    "test": "bun run tsc && bun run lint",
     "start": "next start",
-    "generate": "bun run generate:types && bun run generate:importmap && bun run generate:graphQLSchema && bun run generate:db-schema",
-    "generate:types": "bun run payload generate:types",
-    "generate:db-schema": "bun run payload generate:db-schema",
     "migrate:is-up-to-date": "bun run payload migrate:create --check",
-    "generate:importmap": "payload generate:importmap",
-    "generate:graphQLSchema": "bun run payload payload-graphql generate:schema",
     "migrate:create": "bun run payload migrate:create --skip-empty"
   },
   "dependencies": {

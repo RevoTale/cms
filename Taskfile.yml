@@ -1,0 +1,21 @@
+version: "3"
+
+tasks:
+  codegen:
+    desc: Run CMS generators (types/importmap/schema/db-schema)
+    cmds:
+      - bun run payload generate:types
+      - bun run payload generate:importmap
+      - bun run payload payload-graphql generate:schema
+      - bun run payload generate:db-schema
+
+  fix:
+    desc: Auto-fix lint issues
+    cmds:
+      - bunx eslint --fix .
+
+  validate:
+    desc: Run lint + typecheck
+    cmds:
+      - bunx eslint .
+      - bunx tsc --noEmit

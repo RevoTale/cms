@@ -17,5 +17,5 @@ tasks:
   validate:
     desc: Run lint + typecheck
     cmds:
-      - bunx eslint .
       - bunx tsc --noEmit
+      - bunx eslint .

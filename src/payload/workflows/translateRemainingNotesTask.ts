@@ -40,8 +40,7 @@ const updatePostsQueuedLocales = async (
   payload: Payload,
   posts: MicroPost[],
   locale: (typeof locales)[number],
-) => {
-  return await Promise.all(
+) => await Promise.all(
     posts.map(
       async (post) =>
         await payload.update({
@@ -53,7 +52,6 @@ const updatePostsQueuedLocales = async (
         }),
     ),
   )
-}
 const queueJobs = async (
   payload: Payload,
   updatedPosts: MicroPost[],

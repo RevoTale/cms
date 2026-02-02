@@ -69,8 +69,7 @@ const AutoTranslateButton: FunctionComponent = () => {
           : `Translating to ${pendingLocale}...`}
       </Button>
       <div className="flex  gap-2 max-w-full flex-wrap ">
-        {locales.map((locale) => {
-          return (
+        {locales.map((locale) => (
             <Button
               className="my-1 flex"
               key={locale}
@@ -81,8 +80,7 @@ const AutoTranslateButton: FunctionComponent = () => {
             >
               To {locale}
             </Button>
-          )
-        })}
+          ))}
       </div>
       <div>
         {results.map((result, index) => (

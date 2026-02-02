@@ -1,5 +1,4 @@
-const Icon = () => {
-  return (
+const Icon = () => (
     <div>
       <svg viewBox="0 0 315 315" className="w-full" xmlns="http://www.w3.org/2000/svg">
         <path
@@ -14,5 +13,4 @@ const Icon = () => {
       </svg>
     </div>
   )
-}
 export default Icon

@@ -1,5 +1,3 @@
-const Page = () => {
-  return <div>Silence is golden...</div>
-}
+const Page = () => <div>Silence is golden...</div>
 
 export default Page

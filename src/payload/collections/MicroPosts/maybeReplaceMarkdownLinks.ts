@@ -42,9 +42,7 @@ const getIdCompare = <T extends { id: string }>(obj: T | string): string =>
   typeof obj === 'string' ? obj : obj.id
 const byIdCompare = <T extends { id: string }>(b: T | string): ((a: T | string) => boolean) => {
   const objId = getIdCompare(b)
-  return (a: T | string): boolean => {
-    return getIdCompare(a) === objId
-  }
+  return (a: T | string): boolean => getIdCompare(a) === objId
 }
 export const isExternalLink = (url: string): boolean =>
   url.startsWith('http://') || url.startsWith('https://') || url.startsWith('mailto:')

@@ -1,8 +1,7 @@
 import { searchPlugin } from '@payloadcms/plugin-search'
 import beforeSync from './utils/beforeSync'
 
-const createSearchPlugin = () => {
-  return searchPlugin({
+const createSearchPlugin = () => searchPlugin({
     localize: false,
     collections: ['micro_posts', 'tags', 'authors'],
 
@@ -25,5 +24,4 @@ const createSearchPlugin = () => {
       authors: 20,
     },
   })
-}
 export default createSearchPlugin

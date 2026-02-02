@@ -24,8 +24,7 @@ import type React from 'react'
  * You'll probably want to create your own toolbar component that includes only the buttons that you need.
  * @group Toolbar Components
  */
-export const KitchenSinkToolbar: React.FC = () => {
-  return (
+export const KitchenSinkToolbar: React.FC = () => (
     <DiffSourceToggleWrapper>
       <ConditionalContents
         options={[
@@ -72,4 +71,3 @@ export const KitchenSinkToolbar: React.FC = () => {
       />
     </DiffSourceToggleWrapper>
   )
-}

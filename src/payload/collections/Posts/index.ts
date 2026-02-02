@@ -76,13 +76,11 @@ export const Posts: CollectionConfig = {
               admin: {
                 position: 'sidebar',
               },
-              filterOptions: ({ id }) => {
-                return {
+              filterOptions: ({ id }) => ({
                   id: {
                     not_in: [id],
                   },
-                }
-              },
+                }),
               hasMany: true,
               relationTo: 'posts',
             },

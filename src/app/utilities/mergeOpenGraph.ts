@@ -14,10 +14,8 @@ const defaultOpenGraph: Metadata['openGraph'] = {
   title: 'RevoTale',
 }
 
-export const mergeOpenGraph = (og?: Metadata['openGraph']): Metadata['openGraph'] => {
-  return {
+export const mergeOpenGraph = (og?: Metadata['openGraph']): Metadata['openGraph'] => ({
     ...defaultOpenGraph,
     ...og,
     images: og?.images ? og.images : defaultOpenGraph.images,
-  }
-}
+  })

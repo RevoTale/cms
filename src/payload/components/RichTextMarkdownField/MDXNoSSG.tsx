@@ -47,9 +47,9 @@ const RichTextMarkdownField: FunctionComponent<{
           thematicBreakPlugin(),
           tablePlugin(),
           imagePlugin({
-            imageUploadHandler: async () => {
-              return await Promise.resolve('https://picsum.photos/200/300') //TODO - replace with actual upload logic
-            },
+            imageUploadHandler: async () => 
+               await Promise.resolve('https://picsum.photos/200/300') //TODO - replace with actual upload logic
+            ,
             imageAutocompleteSuggestions: [],
           }),
           sandpackPlugin(),

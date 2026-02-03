@@ -20,8 +20,18 @@ tasks:
     cmds:
       - bunx eslint --fix .
 
-  validate:
-    desc: Run lint + typecheck
+  lint:
+    desc: Lint sources
+    cmds:
+      - bunx eslint .
+
+  typecheck:
+    desc: Run TypeScript typecheck
     cmds:
       - bunx tsc --noEmit
-      - bunx eslint .
+
+  validate:
+    desc: Run lint + typecheck in parallel
+    deps:
+      - lint
+      - typecheck

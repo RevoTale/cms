@@ -26,7 +26,7 @@ jobs:
         id: release
         with:
           release-type: simple
-          token: ${{ secrets.RELEASE_PLEASE_TOKEN || github.token }}
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
 
   build-and-push-docker:
     needs: [release-please, test]

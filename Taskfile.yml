@@ -9,6 +9,12 @@ tasks:
       - bun run payload payload-graphql generate:schema
       - bun run payload generate:db-schema
 
+  codegen:check:
+    desc: Run codegen and fail if it changes the working tree
+    cmds:
+      - task: codegen
+      - test -z "$(git status --porcelain)"
+
   fix:
     desc: Auto-fix lint issues
     cmds:

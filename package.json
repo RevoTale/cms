@@ -7,7 +7,7 @@
   "scripts": {
     "build": "next build --experimental-build-mode compile",
     "dev": "next dev",
-    "payload": "bunx cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts bun --bun payload",
+    "p:cli": "bunx cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts bunx --bun payload --disable-transpile",
     "start": "next start",
     "migrate:is-up-to-date": "bun run payload migrate:create --check",
     "migrate:create": "bun run payload migrate:create --skip-empty"

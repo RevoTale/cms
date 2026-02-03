@@ -4,10 +4,10 @@ tasks:
   codegen:
     desc: Run CMS generators (types/importmap/schema/db-schema)
     cmds:
-      - bun run payload generate:types
-      - bun run payload generate:importmap
-      - bun run payload payload-graphql generate:schema
-      - bun run payload generate:db-schema
+      - bun run p:cli generate:types
+      - bun run p:cli generate:importmap
+      - bun run payload-graphql --disable-transpile generate:schema
+      - bun run p:cli generate:db-schema
 
   codegen:check:
     desc: Run codegen and fail if it changes the working tree

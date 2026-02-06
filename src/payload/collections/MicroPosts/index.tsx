@@ -5,7 +5,7 @@ import {
   OverviewField,
 } from '@payloadcms/plugin-seo/fields'
 
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig, DataFromCollectionSlug, Validate } from 'payload'
 
 import { locales } from 'src/i18n-config'
 import { AutoTranslate } from 'src/payload/fields/autoTranslate'
@@ -16,6 +16,55 @@ import dedupeCronTranslationLocalesQueuedHook from './dedupeCronTranslationLocal
 import maybeAddAuthorSlugHook from './maybeAddAuthorSlugHook'
 import maybeFallbackSEOImageHook from './maybeFallbackSEOImageHook'
 import maybeReplaceMarkdownLink from './maybeReplaceMarkdownLinks'
+
+const SHORT_POST_MAX = 255
+type MicroPostData = DataFromCollectionSlug<'micro_posts'>
+
+const getPostTypeFromContent = (content: unknown): 'short' | 'long' => {
+  if (typeof content !== 'string') {
+    if (!content || typeof content !== 'object') {
+      return 'short'
+    }
+
+    const localizedValues = Object.values(content as Record<string, unknown>)
+    const hasLongVariant = localizedValues.some(
+      (localizedValue) =>
+        typeof localizedValue === 'string' && localizedValue.length >= SHORT_POST_MAX,
+    )
+
+    return hasLongVariant ? 'long' : 'short'
+  }
+
+  return content.length < SHORT_POST_MAX ? 'short' : 'long'
+}
+
+const getPostTypeFromData = (data: Partial<MicroPostData> | undefined): 'short' | 'long' =>
+  getPostTypeFromContent(data?.content)
+
+const hasNonEmptyText = (value: unknown): value is string =>
+  typeof value === 'string' && value.trim().length > 0
+
+const validateLongPostTitle: Validate<string, Partial<MicroPostData>> = (value, { data }) => {
+  if (getPostTypeFromData(data) === 'long' && !hasNonEmptyText(value)) {
+    return 'Title is required for long posts.'
+  }
+
+  return true
+}
+
+const validateShortPostContent: Validate<
+  string,
+  Partial<MicroPostData>,
+  Partial<MicroPostData>
+> = (value, { siblingData }) => {
+  const postType = getPostTypeFromData(siblingData)
+  if (postType === 'short' && typeof value === 'string' && value.length >= SHORT_POST_MAX) {
+    return `Short posts must be less than ${SHORT_POST_MAX} characters.`
+  }
+
+  return true
+}
+
 export const MicroPosts: CollectionConfig<'micro_posts'> = {
   labels: {
     plural: 'Micro Posts',
@@ -46,9 +95,10 @@ export const MicroPosts: CollectionConfig<'micro_posts'> = {
     {
       name: 'title',
       type: 'text',
-      required: true,
+      required: false,
       localized: true,
       maxLength: 100,
+      validate: validateLongPostTitle,
     },
     {
       name: 'cronTranslationLocalesQueued',
@@ -67,13 +117,37 @@ export const MicroPosts: CollectionConfig<'micro_posts'> = {
       label: 'Attachment',
     },
     {
+      name: 'post_type',
+      type: 'select',
+      required: true,
+      label: 'Post Type',
+      localized: true,
+      defaultValue: 'short',
+      admin: {
+        readOnly: true,
+      },
+      options: [
+        { label: 'Short', value: 'short' },
+        { label: 'Long', value: 'long' },
+      ],
+      hooks: {
+        beforeValidate: [
+          ({ siblingData }) => getPostTypeFromContent(siblingData.content),
+        ],
+        beforeChange: [
+          ({ siblingData }) => getPostTypeFromContent(siblingData.content),
+        ],
+      },
+    },
+    {
       name: 'content',
       type: 'textarea',
       label: false,
       required: true,
       localized: true,
-      maxLength: 8000,
+      maxLength: 10000,
       minLength: 2,
+      validate: validateShortPostContent,
       admin: {
         components: {
           Field: '/payload/components/RichTextMarkdownField',

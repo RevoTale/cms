@@ -53,6 +53,10 @@ export const enum_micro_posts_status = pgEnum("enum_micro_posts_status", [
   "draft",
   "published",
 ]);
+export const enum_micro_posts_post_type = pgEnum("enum_micro_posts_post_type", [
+  "short",
+  "long",
+]);
 export const enum__micro_posts_v_version_cron_translation_locales_queued =
   pgEnum("enum__micro_posts_v_version_cron_translation_locales_queued", [
     "en-US",
@@ -71,6 +75,10 @@ export const enum__micro_posts_v_version_status = pgEnum(
 export const enum__micro_posts_v_published_locale = pgEnum(
   "enum__micro_posts_v_published_locale",
   ["en-US", "uk-UA", "de-DE", "hi-IN", "ja-JP", "ru-RU", "fr-FR", "es-ES"],
+);
+export const enum__micro_posts_v_version_post_type = pgEnum(
+  "enum__micro_posts_v_version_post_type",
+  ["short", "long"],
 );
 export const enum_payload_jobs_log_task_slug = pgEnum(
   "enum_payload_jobs_log_task_slug",
@@ -710,6 +718,7 @@ export const micro_posts_locales = pgTable(
   "micro_posts_locales",
   {
     title: varchar("title"),
+    post_type: enum_micro_posts_post_type("post_type").default("short"),
     content: varchar("content"),
     meta_title: varchar("meta_title"),
     meta_image: uuid("meta_image_id").references(() => media.id, {
@@ -909,6 +918,10 @@ export const _micro_posts_v_locales = pgTable(
   "_micro_posts_v_locales",
   {
     version_title: varchar("version_title"),
+    version_post_type:
+      enum__micro_posts_v_version_post_type("version_post_type").default(
+        "short",
+      ),
     version_content: varchar("version_content"),
     version_meta_title: varchar("version_meta_title"),
     version_meta_image: uuid("version_meta_image_id").references(
@@ -1998,9 +2011,11 @@ type DatabaseSchema = {
   enum__posts_v_published_locale: typeof enum__posts_v_published_locale;
   enum_micro_posts_cron_translation_locales_queued: typeof enum_micro_posts_cron_translation_locales_queued;
   enum_micro_posts_status: typeof enum_micro_posts_status;
+  enum_micro_posts_post_type: typeof enum_micro_posts_post_type;
   enum__micro_posts_v_version_cron_translation_locales_queued: typeof enum__micro_posts_v_version_cron_translation_locales_queued;
   enum__micro_posts_v_version_status: typeof enum__micro_posts_v_version_status;
   enum__micro_posts_v_published_locale: typeof enum__micro_posts_v_published_locale;
+  enum__micro_posts_v_version_post_type: typeof enum__micro_posts_v_version_post_type;
   enum_payload_jobs_log_task_slug: typeof enum_payload_jobs_log_task_slug;
   enum_payload_jobs_log_state: typeof enum_payload_jobs_log_state;
   enum_payload_jobs_log_parent_task_slug: typeof enum_payload_jobs_log_parent_task_slug;

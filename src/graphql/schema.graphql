@@ -3359,6 +3359,7 @@ type Micro_post {
   title: String
   cronTranslationLocalesQueued: [Micro_post_cronTranslationLocalesQueued!]
   attachment(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Media
+  post_type: Micro_post_post_type
   content: String
   slug: String
   tags(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Tag!]
@@ -3383,6 +3384,11 @@ enum Micro_post_cronTranslationLocalesQueued {
   ru_RU
   fr_FR
   es_ES
+}
+
+enum Micro_post_post_type {
+  short
+  long
 }
 
 type Micro_post_Meta {
@@ -3432,6 +3438,7 @@ input Micro_post_where {
   title: Micro_post_title_operator
   cronTranslationLocalesQueued: Micro_post_cronTranslationLocalesQueued_operator
   attachment: Micro_post_attachment_operator
+  post_type: Micro_post_post_type_operator
   content: Micro_post_content_operator
   slug: Micro_post_slug_operator
   tags: Micro_post_tags_operator
@@ -3462,6 +3469,7 @@ input Micro_post_title_operator {
   in: [String]
   not_in: [String]
   all: [String]
+  exists: Boolean
 }
 
 input Micro_post_cronTranslationLocalesQueued_operator {
@@ -3491,6 +3499,19 @@ input Micro_post_attachment_operator {
   not_in: [JSON]
   all: [JSON]
   exists: Boolean
+}
+
+input Micro_post_post_type_operator {
+  equals: Micro_post_post_type_Input
+  not_equals: Micro_post_post_type_Input
+  in: [Micro_post_post_type_Input]
+  not_in: [Micro_post_post_type_Input]
+  all: [Micro_post_post_type_Input]
+}
+
+enum Micro_post_post_type_Input {
+  short
+  long
 }
 
 input Micro_post_content_operator {
@@ -3668,6 +3689,7 @@ input Micro_post_where_and {
   title: Micro_post_title_operator
   cronTranslationLocalesQueued: Micro_post_cronTranslationLocalesQueued_operator
   attachment: Micro_post_attachment_operator
+  post_type: Micro_post_post_type_operator
   content: Micro_post_content_operator
   slug: Micro_post_slug_operator
   tags: Micro_post_tags_operator
@@ -3694,6 +3716,7 @@ input Micro_post_where_or {
   title: Micro_post_title_operator
   cronTranslationLocalesQueued: Micro_post_cronTranslationLocalesQueued_operator
   attachment: Micro_post_attachment_operator
+  post_type: Micro_post_post_type_operator
   content: Micro_post_content_operator
   slug: Micro_post_slug_operator
   tags: Micro_post_tags_operator
@@ -3733,6 +3756,7 @@ type Micro_postsDocAccessFields {
   title: Micro_postsDocAccessFields_title
   cronTranslationLocalesQueued: Micro_postsDocAccessFields_cronTranslationLocalesQueued
   attachment: Micro_postsDocAccessFields_attachment
+  post_type: Micro_postsDocAccessFields_post_type
   content: Micro_postsDocAccessFields_content
   slug: Micro_postsDocAccessFields_slug
   tags: Micro_postsDocAccessFields_tags
@@ -3814,6 +3838,29 @@ type Micro_postsDocAccessFields_attachment_Update {
 }
 
 type Micro_postsDocAccessFields_attachment_Delete {
+  permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_post_type {
+  create: Micro_postsDocAccessFields_post_type_Create
+  read: Micro_postsDocAccessFields_post_type_Read
+  update: Micro_postsDocAccessFields_post_type_Update
+  delete: Micro_postsDocAccessFields_post_type_Delete
+}
+
+type Micro_postsDocAccessFields_post_type_Create {
+  permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_post_type_Read {
+  permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_post_type_Update {
+  permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_post_type_Delete {
   permission: Boolean!
 }
 
@@ -4313,6 +4360,7 @@ type Micro_postVersion_Version {
   title: String
   cronTranslationLocalesQueued: [Micro_postVersion_Version_cronTranslationLocalesQueued!]
   attachment(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Media
+  post_type: Micro_postVersion_Version_post_type
   content: String
   slug: String
   tags(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Tag!]
@@ -4337,6 +4385,11 @@ enum Micro_postVersion_Version_cronTranslationLocalesQueued {
   ru_RU
   fr_FR
   es_ES
+}
+
+enum Micro_postVersion_Version_post_type {
+  short
+  long
 }
 
 type Micro_postVersion_Version_Meta {
@@ -4390,6 +4443,7 @@ input versionsMicro_post_where {
   version__title: versionsMicro_post_version__title_operator
   version__cronTranslationLocalesQueued: versionsMicro_post_version__cronTranslationLocalesQueued_operator
   version__attachment: versionsMicro_post_version__attachment_operator
+  version__post_type: versionsMicro_post_version__post_type_operator
   version__content: versionsMicro_post_version__content_operator
   version__slug: versionsMicro_post_version__slug_operator
   version__tags: versionsMicro_post_version__tags_operator
@@ -4435,6 +4489,7 @@ input versionsMicro_post_version__title_operator {
   in: [String]
   not_in: [String]
   all: [String]
+  exists: Boolean
 }
 
 input versionsMicro_post_version__cronTranslationLocalesQueued_operator {
@@ -4464,6 +4519,19 @@ input versionsMicro_post_version__attachment_operator {
   not_in: [JSON]
   all: [JSON]
   exists: Boolean
+}
+
+input versionsMicro_post_version__post_type_operator {
+  equals: versionsMicro_post_version__post_type_Input
+  not_equals: versionsMicro_post_version__post_type_Input
+  in: [versionsMicro_post_version__post_type_Input]
+  not_in: [versionsMicro_post_version__post_type_Input]
+  all: [versionsMicro_post_version__post_type_Input]
+}
+
+enum versionsMicro_post_version__post_type_Input {
+  short
+  long
 }
 
 input versionsMicro_post_version__content_operator {
@@ -4702,6 +4770,7 @@ input versionsMicro_post_where_and {
   version__title: versionsMicro_post_version__title_operator
   version__cronTranslationLocalesQueued: versionsMicro_post_version__cronTranslationLocalesQueued_operator
   version__attachment: versionsMicro_post_version__attachment_operator
+  version__post_type: versionsMicro_post_version__post_type_operator
   version__content: versionsMicro_post_version__content_operator
   version__slug: versionsMicro_post_version__slug_operator
   version__tags: versionsMicro_post_version__tags_operator
@@ -4735,6 +4804,7 @@ input versionsMicro_post_where_or {
   version__title: versionsMicro_post_version__title_operator
   version__cronTranslationLocalesQueued: versionsMicro_post_version__cronTranslationLocalesQueued_operator
   version__attachment: versionsMicro_post_version__attachment_operator
+  version__post_type: versionsMicro_post_version__post_type_operator
   version__content: versionsMicro_post_version__content_operator
   version__slug: versionsMicro_post_version__slug_operator
   version__tags: versionsMicro_post_version__tags_operator
@@ -9636,6 +9706,7 @@ type Micro_postsFields {
   title: Micro_postsFields_title
   cronTranslationLocalesQueued: Micro_postsFields_cronTranslationLocalesQueued
   attachment: Micro_postsFields_attachment
+  post_type: Micro_postsFields_post_type
   content: Micro_postsFields_content
   slug: Micro_postsFields_slug
   tags: Micro_postsFields_tags
@@ -9717,6 +9788,29 @@ type Micro_postsFields_attachment_Update {
 }
 
 type Micro_postsFields_attachment_Delete {
+  permission: Boolean!
+}
+
+type Micro_postsFields_post_type {
+  create: Micro_postsFields_post_type_Create
+  read: Micro_postsFields_post_type_Read
+  update: Micro_postsFields_post_type_Update
+  delete: Micro_postsFields_post_type_Delete
+}
+
+type Micro_postsFields_post_type_Create {
+  permission: Boolean!
+}
+
+type Micro_postsFields_post_type_Read {
+  permission: Boolean!
+}
+
+type Micro_postsFields_post_type_Update {
+  permission: Boolean!
+}
+
+type Micro_postsFields_post_type_Delete {
   permission: Boolean!
 }
 
@@ -12321,6 +12415,7 @@ input mutationMicro_postInput {
   title: String
   cronTranslationLocalesQueued: [Micro_post_cronTranslationLocalesQueued_MutationInput]
   attachment: String
+  post_type: Micro_post_post_type_MutationInput
   content: String
   slug: String!
   tags: [String]
@@ -12345,6 +12440,11 @@ enum Micro_post_cronTranslationLocalesQueued_MutationInput {
   ru_RU
   fr_FR
   es_ES
+}
+
+enum Micro_post_post_type_MutationInput {
+  short
+  long
 }
 
 input mutationMicro_post_MetaInput {
@@ -12372,6 +12472,7 @@ input mutationMicro_postUpdateInput {
   title: String
   cronTranslationLocalesQueued: [Micro_postUpdate_cronTranslationLocalesQueued_MutationInput]
   attachment: String
+  post_type: Micro_postUpdate_post_type_MutationInput
   content: String
   slug: String
   tags: [String]
@@ -12396,6 +12497,11 @@ enum Micro_postUpdate_cronTranslationLocalesQueued_MutationInput {
   ru_RU
   fr_FR
   es_ES
+}
+
+enum Micro_postUpdate_post_type_MutationInput {
+  short
+  long
 }
 
 input mutationMicro_postUpdate_MetaInput {

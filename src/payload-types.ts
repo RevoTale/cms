@@ -113,9 +113,7 @@ export interface Config {
   globals: {};
   globalsSelect: {};
   locale: 'en-US' | 'uk-UA' | 'de-DE' | 'hi-IN' | 'ja-JP' | 'ru-RU' | 'fr-FR' | 'es-ES';
-  user: User & {
-    collection: 'users';
-  };
+  user: User;
   jobs: {
     tasks: {
       translateDocument: TaskTranslateDocument;
@@ -249,6 +247,7 @@ export interface User {
       }[]
     | null;
   password?: string | null;
+  collection: 'users';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -270,11 +269,12 @@ export interface AiCallLog {
  */
 export interface MicroPost {
   id: string;
-  title: string;
+  title?: string | null;
   cronTranslationLocalesQueued?:
     | ('en-US' | 'uk-UA' | 'de-DE' | 'hi-IN' | 'ja-JP' | 'ru-RU' | 'fr-FR' | 'es-ES')[]
     | null;
   attachment?: (string | null) | Media;
+  post_type: 'short' | 'long';
   content: string;
   slug: string;
   tags: (string | Tag)[];
@@ -708,6 +708,7 @@ export interface MicroPostsSelect<T extends boolean = true> {
   title?: T;
   cronTranslationLocalesQueued?: T;
   attachment?: T;
+  post_type?: T;
   content?: T;
   slug?: T;
   tags?: T;

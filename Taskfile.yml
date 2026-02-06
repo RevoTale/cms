@@ -24,7 +24,12 @@ tasks:
     desc: Auto-fix lint issues
     cmds:
       - bunx eslint --fix .
-
+  migrate:create:
+    cmds:
+      - bun run p:cli migrate:create --skip-empty
+  migrate:is-up-to-date:
+    cmds:
+      - bun run p:cli migrate:create --check
   lint:
     desc: Lint sources
     cmds:

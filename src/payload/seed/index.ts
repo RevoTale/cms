@@ -275,6 +275,7 @@ const seedMicroPosts = async ({
         content: seedData.content,
         tags: seedData.tags,
         authors: [authorId],
+        post_type:'long',
         _status: 'published' as const,
         externalLinks: externalLinkIds,
         linkedMicroPosts: linkedMicroPostIds,

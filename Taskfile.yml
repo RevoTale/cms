@@ -13,7 +13,12 @@ tasks:
     desc: Run codegen and fail if it changes the working tree
     cmds:
       - task: codegen
-      - test -z "$(git status --porcelain)"
+      - |
+        if [ -n "$(git status --porcelain)" ]; then
+          echo "Codegen changed files:"
+          git status --short
+          exit 1
+        fi
 
   fix:
     desc: Auto-fix lint issues

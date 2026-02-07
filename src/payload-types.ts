@@ -221,6 +221,9 @@ export interface Tag {
  */
 export interface MicroPost {
   id: string;
+  /**
+   * Required only for long posts (255+ chars).
+   */
   title?: string | null;
   cronTranslationLocalesQueued?:
     | ('en-US' | 'uk-UA' | 'de-DE' | 'hi-IN' | 'ja-JP' | 'ru-RU' | 'fr-FR' | 'es-ES')[]
@@ -229,7 +232,7 @@ export interface MicroPost {
   post_type: 'short' | 'long';
   content: string;
   slug: string;
-  tags: (string | Tag)[];
+  tags?: (string | Tag)[] | null;
   meta?: {
     title?: string | null;
     /**

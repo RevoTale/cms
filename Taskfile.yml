@@ -6,7 +6,7 @@ tasks:
     cmds:
       - bun run p:cli generate:types
       - bun run p:cli generate:importmap
-      - bun run payload-graphql --disable-transpile generate:schema
+      - bunx cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts bunx --bun payload-graphql --disable-transpile generate:schema
       - bun run p:cli generate:db-schema
 
   codegen:check:

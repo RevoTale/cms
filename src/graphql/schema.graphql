@@ -62,6 +62,7 @@ type Query {
   countPayloadQueryPresets(draft: Boolean, trash: Boolean, where: PayloadQueryPreset_where, locale: LocaleInputType): countPayloadQueryPresets
   docAccessPayloadQueryPreset(id: String!): payload_query_presetsDocAccess
   Access: Access
+  availableTagsByMicroPostType(locale: LocaleInputType, postType: String): [Tag!]!
 }
 
 type Post {

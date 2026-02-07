@@ -10,8 +10,9 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import OpenAI from 'openai'
 import { buildConfig } from 'payload'
+import type { PayloadRequest, TypedLocale } from 'payload'
 import sharp from 'sharp' // editor-import
-import type { MicroPost, Post } from 'src/payload-types'
+import type { MicroPost, Post, Tag } from 'src/payload-types'
 import Authors from './payload/collections/Authors'
 
 import type { GenerateFileURL } from '@payloadcms/plugin-cloud-storage/types'
@@ -156,10 +157,114 @@ const s3PluginConfig = s3Storage({
     // ... Other S3 configuration
   },
 })
+
+const gqlLocaleToPayloadLocale = (locale: unknown): TypedLocale | undefined => {
+  if (typeof locale !== 'string' || locale.length === 0) {
+    return undefined
+  }
+
+  const localeWithDash = locale.replace(/_/g, '-')
+  return locales.find((availableLocale) => availableLocale === localeWithDash)
+}
+
+const toTagId = (tag: string | Tag): string => typeof tag === 'string' ? tag : tag.id
+
 export default buildConfig({
   graphQL: {
     disablePlaygroundInProduction: false,
     schemaOutputFile: path.resolve(dirname, './graphql/schema.graphql'),
+    queries: (GraphQL, graphQLContext) => {
+      const tagType = graphQLContext.collections.tags?.graphQL?.type
+
+      if (!tagType) {
+        throw new Error('Missing GraphQL type for the "tags" collection.')
+      }
+
+      return {
+        availableTagsByMicroPostType: {
+          type: new GraphQL.GraphQLNonNull(
+            new GraphQL.GraphQLList(new GraphQL.GraphQLNonNull(tagType)),
+          ),
+          args: {
+            locale: {
+              type: graphQLContext.types.localeInputType ?? GraphQL.GraphQLString,
+            },
+            postType: {
+              type: GraphQL.GraphQLString,
+            },
+          },
+          resolve: async (
+            _source: unknown,
+            args: { locale?: string; postType?: string },
+            context: { req: PayloadRequest },
+          ) => {
+            const locale = gqlLocaleToPayloadLocale(args?.locale)
+            const postType = args?.postType
+            const payload = context.req.payload
+
+            if (postType && postType !== 'short' && postType !== 'long') {
+              throw new Error('postType must be either "short" or "long".')
+            }
+
+            const where: {
+              _status: {
+                equals: 'published'
+              }
+              post_type?: {
+                equals: 'short' | 'long'
+              }
+            } = {
+              _status: {
+                equals: 'published',
+              },
+            }
+
+            if (postType === 'short' || postType === 'long') {
+              where.post_type = {
+                equals: postType,
+              }
+            }
+
+            const microPostsResult = await payload.find({
+              collection: 'micro_posts',
+              depth: 0,
+              locale,
+              pagination: false,
+              select: {
+                tags: true,
+              },
+              where,
+            })
+            const tagIds = Array.from(
+              new Set(
+                microPostsResult.docs.flatMap((microPost) =>
+                  microPost.tags.map(toTagId),
+                ),
+              ),
+            )
+
+            if (tagIds.length === 0) {
+              return []
+            }
+
+            const tagsResult = await payload.find({
+              collection: 'tags',
+              depth: 0,
+              locale,
+              pagination: false,
+              sort: 'title',
+              where: {
+                id: {
+                  in: tagIds,
+                },
+              },
+            })
+
+            return tagsResult.docs
+          },
+        },
+      }
+    },
   },
   localization: {
     locales,

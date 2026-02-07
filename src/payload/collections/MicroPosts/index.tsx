@@ -5,7 +5,14 @@ import {
   OverviewField,
 } from '@payloadcms/plugin-seo/fields'
 
-import type { CollectionConfig, DataFromCollectionSlug, Validate } from 'payload'
+import type {
+  CollectionBeforeChangeHook,
+  CollectionBeforeValidateHook,
+  CollectionConfig,
+  DataFromCollectionSlug,
+  FieldHook,
+  Validate,
+} from 'payload'
 
 import { locales } from 'src/i18n-config'
 import { AutoTranslate } from 'src/payload/fields/autoTranslate'
@@ -65,6 +72,144 @@ const validateShortPostContent: Validate<
   return true
 }
 
+const formatSlugValue = (value: string): string =>
+  value
+    .replace(/ /gv, '-')
+    .replace(/[^\w-]+/gv, '')
+    .toLowerCase()
+
+const pickFirstText = (value: unknown): string | undefined => {
+  if (typeof value === 'string' && value.trim().length > 0) {
+    return value
+  }
+
+  if (!value || typeof value !== 'object') {
+    return undefined
+  }
+
+  for (const localizedValue of Object.values(value as Record<string, unknown>)) {
+    if (typeof localizedValue === 'string' && localizedValue.trim().length > 0) {
+      return localizedValue
+    }
+  }
+
+  return undefined
+}
+
+const getSlugSource = (data: Partial<MicroPostData> | undefined): string | undefined =>
+  pickFirstText(data?.title) ?? pickFirstText(data?.content)
+
+const getID = (value: unknown): number | string | undefined => {
+  if (typeof value === 'number' || typeof value === 'string') {
+    return value
+  }
+
+  if (!value || typeof value !== 'object' || !('id' in value)) {
+    return undefined
+  }
+
+  const id = (value as { id?: unknown }).id
+  if (typeof id === 'number' || typeof id === 'string') {
+    return id
+  }
+
+  return undefined
+}
+
+const formatMicroPostSlug: FieldHook<MicroPostData, string | undefined> = ({
+  data,
+  originalDoc,
+  value,
+}) => {
+  if (typeof value === 'string' && value.trim().length > 0) {
+    return formatSlugValue(value)
+  }
+
+  const source = getSlugSource(data) ?? getSlugSource(originalDoc)
+  if (!source) {
+    return value
+  }
+
+  return formatSlugValue(source)
+}
+
+const applyDefaultAuthorsBeforeValidateHook: CollectionBeforeValidateHook<MicroPostData> = async ({
+  data,
+  operation,
+  req,
+}) => {
+  if (operation !== 'create' || !data) {
+    return data
+  }
+
+  if (Array.isArray(data.authors) && data.authors.length > 0) {
+    return data
+  }
+
+  const latestMicroPosts = await req.payload.find({
+    collection: 'micro_posts',
+    depth: 0,
+    limit: 1,
+    overrideAccess: true,
+    sort: '-updatedAt',
+  })
+
+  const lastMicroPost = latestMicroPosts.docs[0]
+  const lastAuthorIDs =
+    lastMicroPost?.authors
+      ?.map((author) => getID(author))
+      .filter((authorID): authorID is number | string => authorID !== undefined) ?? []
+
+  if (lastAuthorIDs.length > 0) {
+    return {
+      ...data,
+      authors: lastAuthorIDs,
+    }
+  }
+
+  const latestAuthors = await req.payload.find({
+    collection: 'authors',
+    depth: 0,
+    limit: 1,
+    overrideAccess: true,
+    sort: '-updatedAt',
+  })
+
+  const fallbackAuthorID = getID(latestAuthors.docs[0])
+  if (fallbackAuthorID === undefined) {
+    return data
+  }
+
+  return {
+    ...data,
+    authors: [fallbackAuthorID],
+  }
+}
+
+const derivePostTypeBeforeValidateHook: CollectionBeforeValidateHook<MicroPostData> = ({
+  data,
+}) => {
+  if (!data) {
+    return data
+  }
+
+  return {
+    ...data,
+    post_type: getPostTypeFromContent(data.content),
+  }
+}
+
+const derivePostTypeBeforeChangeHook: CollectionBeforeChangeHook<MicroPostData> = ({ data }) => {
+  if (!data) {
+    return data
+  }
+
+  return {
+    ...data,
+    post_type: getPostTypeFromContent(data.content),
+  }
+}
+
 export const MicroPosts: CollectionConfig<'micro_posts'> = {
   labels: {
     plural: 'Micro Posts',
@@ -98,6 +243,9 @@ export const MicroPosts: CollectionConfig<'micro_posts'> = {
       required: false,
       localized: true,
       maxLength: 100,
+      admin: {
+        description: 'Required only for long posts (255+ chars).',
+      },
       validate: validateLongPostTitle,
     },
     {
@@ -130,14 +278,6 @@ export const MicroPosts: CollectionConfig<'micro_posts'> = {
         { label: 'Short', value: 'short' },
         { label: 'Long', value: 'long' },
       ],
-      hooks: {
-        beforeValidate: [
-          ({ siblingData }) => getPostTypeFromContent(siblingData.content),
-        ],
-        beforeChange: [
-          ({ siblingData }) => getPostTypeFromContent(siblingData.content),
-        ],
-      },
     },
     {
       name: 'content',
@@ -154,10 +294,13 @@ export const MicroPosts: CollectionConfig<'micro_posts'> = {
         },
       },
     },
-    slugField('slug', {
+    slugField('title', {
       unique: true,
       required: true,
       localized: false,
+      hooks: {
+        beforeValidate: [formatMicroPostSlug],
+      },
     }),
 
     {
@@ -169,7 +312,7 @@ export const MicroPosts: CollectionConfig<'micro_posts'> = {
       hasMany: true,
       relationTo: 'tags',
       label: 'Tags',
-      required: true,
+      required: false,
     },
 
     {
@@ -306,7 +449,9 @@ export const MicroPosts: CollectionConfig<'micro_posts'> = {
     },
   ],
   hooks: {
+    beforeValidate: [derivePostTypeBeforeValidateHook, applyDefaultAuthorsBeforeValidateHook],
     beforeChange: [
+      derivePostTypeBeforeChangeHook,
       dedupeCronTranslationLocalesQueuedHook,
       maybeAddAuthorSlugHook,
       maybeFallbackSEOImageHook,

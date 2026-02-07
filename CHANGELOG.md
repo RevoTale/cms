@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/RevoTale/cms/compare/v0.2.0...v0.2.1) (2026-02-07)
+
+
+### Bug Fixes
+
+* increate gql complexity because queries fail ([839afe1](https://github.com/RevoTale/cms/commit/839afe192a27c836aa2b934a4f9552420a63080a))
+
 ## [0.2.0](https://github.com/RevoTale/cms/compare/v0.1.4...v0.2.0) (2026-02-07)
 
 

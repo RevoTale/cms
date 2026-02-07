@@ -133,7 +133,7 @@ const serverDomain = serverURl ? new URL(serverURl).hostname : undefined
 const hostnameWithProtocol = serverDomain ? `https://${serverDomain}` : undefined
 const DEFAULT_API_DEPTH = 1
 const DEFAULT_API_MAX_DEPTH = 2
-const DEFAULT_GRAPHQL_MAX_COMPLEXITY = 300
+const DEFAULT_GRAPHQL_MAX_COMPLEXITY = 600
 const toNonNegativeInt = (value: string | undefined, fallback: number): number => {
   const parsed = Number.parseInt(value ?? '', 10)
   return Number.isNaN(parsed) || parsed < 0 ? fallback : parsed

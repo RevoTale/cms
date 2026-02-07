@@ -131,6 +131,22 @@ const serverURl: string | undefined = process.env.PAYLOAD_PUBLIC_SERVER_URL ?? u
 const enableCron = process.env.ENABLE_CRON === '1'
 const serverDomain = serverURl ? new URL(serverURl).hostname : undefined
 const hostnameWithProtocol = serverDomain ? `https://${serverDomain}` : undefined
+const DEFAULT_API_DEPTH = 1
+const DEFAULT_API_MAX_DEPTH = 2
+const DEFAULT_GRAPHQL_MAX_COMPLEXITY = 300
+const toNonNegativeInt = (value: string | undefined, fallback: number): number => {
+  const parsed = Number.parseInt(value ?? '', 10)
+  return Number.isNaN(parsed) || parsed < 0 ? fallback : parsed
+}
+
+const toPositiveInt = (value: string | undefined, fallback: number): number => {
+  const parsed = Number.parseInt(value ?? '', 10)
+  return Number.isNaN(parsed) || parsed < 1 ? fallback : parsed
+}
+
+const payloadDefaultDepth = toNonNegativeInt(process.env.PAYLOAD_API_DEFAULT_DEPTH, DEFAULT_API_DEPTH)
+const payloadMaxDepth = Math.max(payloadDefaultDepth, toNonNegativeInt(process.env.PAYLOAD_API_MAX_DEPTH, DEFAULT_API_MAX_DEPTH))
+const payloadGraphQLMaxComplexity = toPositiveInt(process.env.PAYLOAD_GRAPHQL_MAX_COMPLEXITY, DEFAULT_GRAPHQL_MAX_COMPLEXITY)
 const bucket = process.env.S3_BUCKET ?? ''
 const enableS3 = true //Added alway true because due to the following issues https://github.com/payloadcms/payload/issues/12475
 const s3PluginConfig = s3Storage({
@@ -170,8 +186,11 @@ const gqlLocaleToPayloadLocale = (locale: unknown): TypedLocale | undefined => {
 const toTagId = (tag: string | Tag): string => typeof tag === 'string' ? tag : tag.id
 
 export default buildConfig({
+  defaultDepth: payloadDefaultDepth,
   graphQL: {
-    disablePlaygroundInProduction: false,
+    disableIntrospectionInProduction: true,
+    disablePlaygroundInProduction: true,
+    maxComplexity: payloadGraphQLMaxComplexity,
     schemaOutputFile: path.resolve(dirname, './graphql/schema.graphql'),
     queries: (GraphQL, graphQLContext) => {
       const tagType = graphQLContext.collections.tags?.graphQL?.type
@@ -329,6 +348,7 @@ export default buildConfig({
     idType: 'uuid',
     prodMigrations: migrations,
   }),
+  maxDepth: payloadMaxDepth,
   serverURL: hostnameWithProtocol,
   collections: [Posts, Media, Users, Tags, Authors, AICallLogs, MicroPosts, MicroPostExternalLink],
   cors: hostnameWithProtocol ? [hostnameWithProtocol] : undefined,

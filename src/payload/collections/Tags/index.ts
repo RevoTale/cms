@@ -42,6 +42,13 @@ const Tags: CollectionConfig = {
       localized: true,
       required: true,
     },
+    {
+  name: 'micro_posts',        // virtual field on Tag
+  type: 'join',
+  collection: 'micro_posts',  // join into Posts
+  on: 'tags',           // the field on Posts that points to Tags
+  hasMany: true,        // because posts.tags is hasMany
+},
     nameField,
   ],
 }

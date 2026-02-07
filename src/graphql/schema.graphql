@@ -132,17 +132,77 @@ enum FallbackLocaleInputType {
 type Tag {
   id: String!
   title: String
+  micro_posts(count: Boolean, limit: Int, page: Int, sort: String, where: Micro_post_where): Tag_Micro_posts
   name: String!
   updatedAt: DateTime
   createdAt: DateTime
 }
 
-type Post_Meta {
+type Tag_Micro_posts {
+  docs: [Micro_post!]!
+  hasNextPage: Boolean!
+  totalDocs: Int
+}
+
+type Micro_post {
+  id: String!
+  title: String
+  cronTranslationLocalesQueued: [Micro_post_cronTranslationLocalesQueued!]
+  attachment(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Media
+  post_type: Micro_post_post_type
+  content: String
+  slug: String
+  tags(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Tag!]
+  meta: Micro_post_Meta
+  linkedMicroPosts(draft: Boolean, locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Micro_post!]
+  externalLinks(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Micro_post_external_link!]
+  social: Micro_post_Social
+  publishedAt: DateTime
+  authors(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Author!]
+  authorSlug: String
+  updatedAt: DateTime
+  createdAt: DateTime
+  _status: Micro_post__status
+}
+
+enum Micro_post_cronTranslationLocalesQueued {
+  en_US
+  uk_UA
+  de_DE
+  hi_IN
+  ja_JP
+  ru_RU
+  fr_FR
+  es_ES
+}
+
+enum Micro_post_post_type {
+  short
+  long
+}
+
+type Micro_post_Meta {
   title: String
   image(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Media
-  nofollow: Boolean
-  noindex: Boolean
   description: String
+}
+
+type Micro_post_external_link {
+  id: String!
+  title: String
+  target_url: String!
+  updatedAt: DateTime
+  createdAt: DateTime
+}
+
+type Micro_post_Social {
+  x: Micro_post_Social_X
+}
+
+type Micro_post_Social_X {
+  autoPost: Boolean
+  autoPosted: Boolean
+  autoPostedAt: DateTime
 }
 
 type Author {
@@ -185,6 +245,329 @@ type User_Sessions {
   id: String
   createdAt: DateTime
   expiresAt: DateTime
+}
+
+enum Micro_post__status {
+  draft
+  published
+}
+
+input Micro_post_where {
+  title: Micro_post_title_operator
+  cronTranslationLocalesQueued: Micro_post_cronTranslationLocalesQueued_operator
+  attachment: Micro_post_attachment_operator
+  post_type: Micro_post_post_type_operator
+  content: Micro_post_content_operator
+  slug: Micro_post_slug_operator
+  tags: Micro_post_tags_operator
+  meta__title: Micro_post_meta__title_operator
+  meta__image: Micro_post_meta__image_operator
+  meta__description: Micro_post_meta__description_operator
+  linkedMicroPosts: Micro_post_linkedMicroPosts_operator
+  externalLinks: Micro_post_externalLinks_operator
+  social__x__autoPost: Micro_post_social__x__autoPost_operator
+  social__x__autoPosted: Micro_post_social__x__autoPosted_operator
+  social__x__autoPostedAt: Micro_post_social__x__autoPostedAt_operator
+  publishedAt: Micro_post_publishedAt_operator
+  authors: Micro_post_authors_operator
+  authorSlug: Micro_post_authorSlug_operator
+  updatedAt: Micro_post_updatedAt_operator
+  createdAt: Micro_post_createdAt_operator
+  _status: Micro_post__status_operator
+  id: Micro_post_id_operator
+  AND: [Micro_post_where_and]
+  OR: [Micro_post_where_or]
+}
+
+input Micro_post_title_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Micro_post_cronTranslationLocalesQueued_operator {
+  equals: Micro_post_cronTranslationLocalesQueued_Input
+  not_equals: Micro_post_cronTranslationLocalesQueued_Input
+  in: [Micro_post_cronTranslationLocalesQueued_Input]
+  not_in: [Micro_post_cronTranslationLocalesQueued_Input]
+  all: [Micro_post_cronTranslationLocalesQueued_Input]
+  exists: Boolean
+}
+
+enum Micro_post_cronTranslationLocalesQueued_Input {
+  en_US
+  uk_UA
+  de_DE
+  hi_IN
+  ja_JP
+  ru_RU
+  fr_FR
+  es_ES
+}
+
+input Micro_post_attachment_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+  exists: Boolean
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
+
+input Micro_post_post_type_operator {
+  equals: Micro_post_post_type_Input
+  not_equals: Micro_post_post_type_Input
+  in: [Micro_post_post_type_Input]
+  not_in: [Micro_post_post_type_Input]
+  all: [Micro_post_post_type_Input]
+}
+
+enum Micro_post_post_type_Input {
+  short
+  long
+}
+
+input Micro_post_content_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+}
+
+input Micro_post_slug_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Micro_post_tags_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+}
+
+input Micro_post_meta__title_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Micro_post_meta__image_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+  exists: Boolean
+}
+
+input Micro_post_meta__description_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  exists: Boolean
+}
+
+input Micro_post_linkedMicroPosts_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+  exists: Boolean
+}
+
+input Micro_post_externalLinks_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+  exists: Boolean
+}
+
+input Micro_post_social__x__autoPost_operator {
+  equals: Boolean
+  not_equals: Boolean
+  exists: Boolean
+}
+
+input Micro_post_social__x__autoPosted_operator {
+  equals: Boolean
+  not_equals: Boolean
+  exists: Boolean
+}
+
+input Micro_post_social__x__autoPostedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Micro_post_publishedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Micro_post_authors_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+}
+
+input Micro_post_authorSlug_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Micro_post_updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Micro_post_createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Micro_post__status_operator {
+  equals: Micro_post__status_Input
+  not_equals: Micro_post__status_Input
+  in: [Micro_post__status_Input]
+  not_in: [Micro_post__status_Input]
+  all: [Micro_post__status_Input]
+  exists: Boolean
+}
+
+enum Micro_post__status_Input {
+  draft
+  published
+}
+
+input Micro_post_id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Micro_post_where_and {
+  title: Micro_post_title_operator
+  cronTranslationLocalesQueued: Micro_post_cronTranslationLocalesQueued_operator
+  attachment: Micro_post_attachment_operator
+  post_type: Micro_post_post_type_operator
+  content: Micro_post_content_operator
+  slug: Micro_post_slug_operator
+  tags: Micro_post_tags_operator
+  meta__title: Micro_post_meta__title_operator
+  meta__image: Micro_post_meta__image_operator
+  meta__description: Micro_post_meta__description_operator
+  linkedMicroPosts: Micro_post_linkedMicroPosts_operator
+  externalLinks: Micro_post_externalLinks_operator
+  social__x__autoPost: Micro_post_social__x__autoPost_operator
+  social__x__autoPosted: Micro_post_social__x__autoPosted_operator
+  social__x__autoPostedAt: Micro_post_social__x__autoPostedAt_operator
+  publishedAt: Micro_post_publishedAt_operator
+  authors: Micro_post_authors_operator
+  authorSlug: Micro_post_authorSlug_operator
+  updatedAt: Micro_post_updatedAt_operator
+  createdAt: Micro_post_createdAt_operator
+  _status: Micro_post__status_operator
+  id: Micro_post_id_operator
+  AND: [Micro_post_where_and]
+  OR: [Micro_post_where_or]
+}
+
+input Micro_post_where_or {
+  title: Micro_post_title_operator
+  cronTranslationLocalesQueued: Micro_post_cronTranslationLocalesQueued_operator
+  attachment: Micro_post_attachment_operator
+  post_type: Micro_post_post_type_operator
+  content: Micro_post_content_operator
+  slug: Micro_post_slug_operator
+  tags: Micro_post_tags_operator
+  meta__title: Micro_post_meta__title_operator
+  meta__image: Micro_post_meta__image_operator
+  meta__description: Micro_post_meta__description_operator
+  linkedMicroPosts: Micro_post_linkedMicroPosts_operator
+  externalLinks: Micro_post_externalLinks_operator
+  social__x__autoPost: Micro_post_social__x__autoPost_operator
+  social__x__autoPosted: Micro_post_social__x__autoPosted_operator
+  social__x__autoPostedAt: Micro_post_social__x__autoPostedAt_operator
+  publishedAt: Micro_post_publishedAt_operator
+  authors: Micro_post_authors_operator
+  authorSlug: Micro_post_authorSlug_operator
+  updatedAt: Micro_post_updatedAt_operator
+  createdAt: Micro_post_createdAt_operator
+  _status: Micro_post__status_operator
+  id: Micro_post_id_operator
+  AND: [Micro_post_where_and]
+  OR: [Micro_post_where_or]
+}
+
+type Post_Meta {
+  title: String
+  image(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Media
+  nofollow: Boolean
+  noindex: Boolean
+  description: String
 }
 
 enum Post__status {
@@ -257,11 +640,6 @@ input Post_featuredImage_operator {
   not_in: [JSON]
   all: [JSON]
 }
-
-"""
-The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
-"""
-scalar JSON @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
 
 input Post_content_operator {
   equals: String
@@ -2486,6 +2864,7 @@ type tagsDocAccess {
 
 type TagsDocAccessFields {
   title: TagsDocAccessFields_title
+  micro_posts: TagsDocAccessFields_micro_posts
   name: TagsDocAccessFields_name
   updatedAt: TagsDocAccessFields_updatedAt
   createdAt: TagsDocAccessFields_createdAt
@@ -2511,6 +2890,29 @@ type TagsDocAccessFields_title_Update {
 }
 
 type TagsDocAccessFields_title_Delete {
+  permission: Boolean!
+}
+
+type TagsDocAccessFields_micro_posts {
+  create: TagsDocAccessFields_micro_posts_Create
+  read: TagsDocAccessFields_micro_posts_Read
+  update: TagsDocAccessFields_micro_posts_Update
+  delete: TagsDocAccessFields_micro_posts_Delete
+}
+
+type TagsDocAccessFields_micro_posts_Create {
+  permission: Boolean!
+}
+
+type TagsDocAccessFields_micro_posts_Read {
+  permission: Boolean!
+}
+
+type TagsDocAccessFields_micro_posts_Update {
+  permission: Boolean!
+}
+
+type TagsDocAccessFields_micro_posts_Delete {
   permission: Boolean!
 }
 
@@ -3354,72 +3756,6 @@ type Ai_call_logsDeleteDocAccess {
   where: JSONObject
 }
 
-type Micro_post {
-  id: String!
-  title: String
-  cronTranslationLocalesQueued: [Micro_post_cronTranslationLocalesQueued!]
-  attachment(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Media
-  post_type: Micro_post_post_type
-  content: String
-  slug: String
-  tags(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Tag!]
-  meta: Micro_post_Meta
-  linkedMicroPosts(draft: Boolean, locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Micro_post!]
-  externalLinks(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Micro_post_external_link!]
-  social: Micro_post_Social
-  publishedAt: DateTime
-  authors(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Author!]
-  authorSlug: String
-  updatedAt: DateTime
-  createdAt: DateTime
-  _status: Micro_post__status
-}
-
-enum Micro_post_cronTranslationLocalesQueued {
-  en_US
-  uk_UA
-  de_DE
-  hi_IN
-  ja_JP
-  ru_RU
-  fr_FR
-  es_ES
-}
-
-enum Micro_post_post_type {
-  short
-  long
-}
-
-type Micro_post_Meta {
-  title: String
-  image(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Media
-  description: String
-}
-
-type Micro_post_external_link {
-  id: String!
-  title: String
-  target_url: String!
-  updatedAt: DateTime
-  createdAt: DateTime
-}
-
-type Micro_post_Social {
-  x: Micro_post_Social_X
-}
-
-type Micro_post_Social_X {
-  autoPost: Boolean
-  autoPosted: Boolean
-  autoPostedAt: DateTime
-}
-
-enum Micro_post__status {
-  draft
-  published
-}
-
 type Micro_posts {
   docs: [Micro_post!]!
   hasNextPage: Boolean!
@@ -3432,311 +3768,6 @@ type Micro_posts {
   prevPage: Int
   totalDocs: Int!
   totalPages: Int!
-}
-
-input Micro_post_where {
-  title: Micro_post_title_operator
-  cronTranslationLocalesQueued: Micro_post_cronTranslationLocalesQueued_operator
-  attachment: Micro_post_attachment_operator
-  post_type: Micro_post_post_type_operator
-  content: Micro_post_content_operator
-  slug: Micro_post_slug_operator
-  tags: Micro_post_tags_operator
-  meta__title: Micro_post_meta__title_operator
-  meta__image: Micro_post_meta__image_operator
-  meta__description: Micro_post_meta__description_operator
-  linkedMicroPosts: Micro_post_linkedMicroPosts_operator
-  externalLinks: Micro_post_externalLinks_operator
-  social__x__autoPost: Micro_post_social__x__autoPost_operator
-  social__x__autoPosted: Micro_post_social__x__autoPosted_operator
-  social__x__autoPostedAt: Micro_post_social__x__autoPostedAt_operator
-  publishedAt: Micro_post_publishedAt_operator
-  authors: Micro_post_authors_operator
-  authorSlug: Micro_post_authorSlug_operator
-  updatedAt: Micro_post_updatedAt_operator
-  createdAt: Micro_post_createdAt_operator
-  _status: Micro_post__status_operator
-  id: Micro_post_id_operator
-  AND: [Micro_post_where_and]
-  OR: [Micro_post_where_or]
-}
-
-input Micro_post_title_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Micro_post_cronTranslationLocalesQueued_operator {
-  equals: Micro_post_cronTranslationLocalesQueued_Input
-  not_equals: Micro_post_cronTranslationLocalesQueued_Input
-  in: [Micro_post_cronTranslationLocalesQueued_Input]
-  not_in: [Micro_post_cronTranslationLocalesQueued_Input]
-  all: [Micro_post_cronTranslationLocalesQueued_Input]
-  exists: Boolean
-}
-
-enum Micro_post_cronTranslationLocalesQueued_Input {
-  en_US
-  uk_UA
-  de_DE
-  hi_IN
-  ja_JP
-  ru_RU
-  fr_FR
-  es_ES
-}
-
-input Micro_post_attachment_operator {
-  equals: JSON
-  not_equals: JSON
-  in: [JSON]
-  not_in: [JSON]
-  all: [JSON]
-  exists: Boolean
-}
-
-input Micro_post_post_type_operator {
-  equals: Micro_post_post_type_Input
-  not_equals: Micro_post_post_type_Input
-  in: [Micro_post_post_type_Input]
-  not_in: [Micro_post_post_type_Input]
-  all: [Micro_post_post_type_Input]
-}
-
-enum Micro_post_post_type_Input {
-  short
-  long
-}
-
-input Micro_post_content_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-}
-
-input Micro_post_slug_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-}
-
-input Micro_post_tags_operator {
-  equals: JSON
-  not_equals: JSON
-  in: [JSON]
-  not_in: [JSON]
-  all: [JSON]
-}
-
-input Micro_post_meta__title_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Micro_post_meta__image_operator {
-  equals: JSON
-  not_equals: JSON
-  in: [JSON]
-  not_in: [JSON]
-  all: [JSON]
-  exists: Boolean
-}
-
-input Micro_post_meta__description_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  exists: Boolean
-}
-
-input Micro_post_linkedMicroPosts_operator {
-  equals: JSON
-  not_equals: JSON
-  in: [JSON]
-  not_in: [JSON]
-  all: [JSON]
-  exists: Boolean
-}
-
-input Micro_post_externalLinks_operator {
-  equals: JSON
-  not_equals: JSON
-  in: [JSON]
-  not_in: [JSON]
-  all: [JSON]
-  exists: Boolean
-}
-
-input Micro_post_social__x__autoPost_operator {
-  equals: Boolean
-  not_equals: Boolean
-  exists: Boolean
-}
-
-input Micro_post_social__x__autoPosted_operator {
-  equals: Boolean
-  not_equals: Boolean
-  exists: Boolean
-}
-
-input Micro_post_social__x__autoPostedAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Micro_post_publishedAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Micro_post_authors_operator {
-  equals: JSON
-  not_equals: JSON
-  in: [JSON]
-  not_in: [JSON]
-  all: [JSON]
-}
-
-input Micro_post_authorSlug_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Micro_post_updatedAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Micro_post_createdAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Micro_post__status_operator {
-  equals: Micro_post__status_Input
-  not_equals: Micro_post__status_Input
-  in: [Micro_post__status_Input]
-  not_in: [Micro_post__status_Input]
-  all: [Micro_post__status_Input]
-  exists: Boolean
-}
-
-enum Micro_post__status_Input {
-  draft
-  published
-}
-
-input Micro_post_id_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Micro_post_where_and {
-  title: Micro_post_title_operator
-  cronTranslationLocalesQueued: Micro_post_cronTranslationLocalesQueued_operator
-  attachment: Micro_post_attachment_operator
-  post_type: Micro_post_post_type_operator
-  content: Micro_post_content_operator
-  slug: Micro_post_slug_operator
-  tags: Micro_post_tags_operator
-  meta__title: Micro_post_meta__title_operator
-  meta__image: Micro_post_meta__image_operator
-  meta__description: Micro_post_meta__description_operator
-  linkedMicroPosts: Micro_post_linkedMicroPosts_operator
-  externalLinks: Micro_post_externalLinks_operator
-  social__x__autoPost: Micro_post_social__x__autoPost_operator
-  social__x__autoPosted: Micro_post_social__x__autoPosted_operator
-  social__x__autoPostedAt: Micro_post_social__x__autoPostedAt_operator
-  publishedAt: Micro_post_publishedAt_operator
-  authors: Micro_post_authors_operator
-  authorSlug: Micro_post_authorSlug_operator
-  updatedAt: Micro_post_updatedAt_operator
-  createdAt: Micro_post_createdAt_operator
-  _status: Micro_post__status_operator
-  id: Micro_post_id_operator
-  AND: [Micro_post_where_and]
-  OR: [Micro_post_where_or]
-}
-
-input Micro_post_where_or {
-  title: Micro_post_title_operator
-  cronTranslationLocalesQueued: Micro_post_cronTranslationLocalesQueued_operator
-  attachment: Micro_post_attachment_operator
-  post_type: Micro_post_post_type_operator
-  content: Micro_post_content_operator
-  slug: Micro_post_slug_operator
-  tags: Micro_post_tags_operator
-  meta__title: Micro_post_meta__title_operator
-  meta__image: Micro_post_meta__image_operator
-  meta__description: Micro_post_meta__description_operator
-  linkedMicroPosts: Micro_post_linkedMicroPosts_operator
-  externalLinks: Micro_post_externalLinks_operator
-  social__x__autoPost: Micro_post_social__x__autoPost_operator
-  social__x__autoPosted: Micro_post_social__x__autoPosted_operator
-  social__x__autoPostedAt: Micro_post_social__x__autoPostedAt_operator
-  publishedAt: Micro_post_publishedAt_operator
-  authors: Micro_post_authors_operator
-  authorSlug: Micro_post_authorSlug_operator
-  updatedAt: Micro_post_updatedAt_operator
-  createdAt: Micro_post_createdAt_operator
-  _status: Micro_post__status_operator
-  id: Micro_post_id_operator
-  AND: [Micro_post_where_and]
-  OR: [Micro_post_where_or]
 }
 
 type countMicro_posts {
@@ -9126,6 +9157,7 @@ type tagsAccess {
 
 type TagsFields {
   title: TagsFields_title
+  micro_posts: TagsFields_micro_posts
   name: TagsFields_name
   updatedAt: TagsFields_updatedAt
   createdAt: TagsFields_createdAt
@@ -9151,6 +9183,29 @@ type TagsFields_title_Update {
 }
 
 type TagsFields_title_Delete {
+  permission: Boolean!
+}
+
+type TagsFields_micro_posts {
+  create: TagsFields_micro_posts_Create
+  read: TagsFields_micro_posts_Read
+  update: TagsFields_micro_posts_Update
+  delete: TagsFields_micro_posts_Delete
+}
+
+type TagsFields_micro_posts_Create {
+  permission: Boolean!
+}
+
+type TagsFields_micro_posts_Read {
+  permission: Boolean!
+}
+
+type TagsFields_micro_posts_Update {
+  permission: Boolean!
+}
+
+type TagsFields_micro_posts_Delete {
   permission: Boolean!
 }
 

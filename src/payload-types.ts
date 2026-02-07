@@ -83,7 +83,11 @@ export interface Config {
     'payload-migrations': PayloadMigration;
     'payload-query-presets': PayloadQueryPreset;
   };
-  collectionsJoins: {};
+  collectionsJoins: {
+    tags: {
+      micro_posts: 'micro_posts';
+    };
+  };
   collectionsSelect: {
     posts: PostsSelect<false> | PostsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
@@ -202,7 +206,62 @@ export interface Media {
 export interface Tag {
   id: string;
   title: string;
+  micro_posts?: {
+    docs?: (string | MicroPost)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
   name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "micro_posts".
+ */
+export interface MicroPost {
+  id: string;
+  title?: string | null;
+  cronTranslationLocalesQueued?:
+    | ('en-US' | 'uk-UA' | 'de-DE' | 'hi-IN' | 'ja-JP' | 'ru-RU' | 'fr-FR' | 'es-ES')[]
+    | null;
+  attachment?: (string | null) | Media;
+  post_type: 'short' | 'long';
+  content: string;
+  slug: string;
+  tags: (string | Tag)[];
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+    description?: string | null;
+  };
+  linkedMicroPosts?: (string | MicroPost)[] | null;
+  externalLinks?: (string | MicroPostExternalLink)[] | null;
+  social?: {
+    x?: {
+      autoPost?: boolean | null;
+      autoPosted?: boolean | null;
+      autoPostedAt?: string | null;
+    };
+  };
+  publishedAt?: string | null;
+  authors: (string | Author)[];
+  authorSlug?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "micro_post_external_links".
+ */
+export interface MicroPostExternalLink {
+  id: string;
+  title: string;
+  target_url: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -260,56 +319,6 @@ export interface AiCallLog {
   output: string;
   execution_time: number;
   user?: (string | null) | User;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "micro_posts".
- */
-export interface MicroPost {
-  id: string;
-  title?: string | null;
-  cronTranslationLocalesQueued?:
-    | ('en-US' | 'uk-UA' | 'de-DE' | 'hi-IN' | 'ja-JP' | 'ru-RU' | 'fr-FR' | 'es-ES')[]
-    | null;
-  attachment?: (string | null) | Media;
-  post_type: 'short' | 'long';
-  content: string;
-  slug: string;
-  tags: (string | Tag)[];
-  meta?: {
-    title?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (string | null) | Media;
-    description?: string | null;
-  };
-  linkedMicroPosts?: (string | MicroPost)[] | null;
-  externalLinks?: (string | MicroPostExternalLink)[] | null;
-  social?: {
-    x?: {
-      autoPost?: boolean | null;
-      autoPosted?: boolean | null;
-      autoPostedAt?: string | null;
-    };
-  };
-  publishedAt?: string | null;
-  authors: (string | Author)[];
-  authorSlug?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "micro_post_external_links".
- */
-export interface MicroPostExternalLink {
-  id: string;
-  title: string;
-  target_url: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -665,6 +674,7 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface TagsSelect<T extends boolean = true> {
   title?: T;
+  micro_posts?: T;
   name?: T;
   updatedAt?: T;
   createdAt?: T;

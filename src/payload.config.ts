@@ -257,7 +257,7 @@ export default buildConfig({
             const tagIds = Array.from(
               new Set(
                 microPostsResult.docs.flatMap((microPost) =>
-                  microPost.tags.map(toTagId),
+                  microPost.tags?.map(toTagId) ?? [],
                 ),
               ),
             )

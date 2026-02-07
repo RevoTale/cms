@@ -1,5 +1,5 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable complexity, @typescript-eslint/no-dynamic-delete, max-depth, @typescript-eslint/max-params */
+/* eslint-disable no-param-reassign -- Translation traversal mutates accumulator objects while walking nested field trees. */
+/* eslint-disable complexity, @typescript-eslint/no-dynamic-delete, max-depth, @typescript-eslint/max-params -- The translator handles heterogeneous Payload field structures in a single recursive pass. */
 import OpenAI from 'openai'
 import type {
   BasePayload,

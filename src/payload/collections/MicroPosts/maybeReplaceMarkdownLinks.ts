@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import type { CollectionBeforeChangeHook, DataFromCollectionSlug, Payload } from 'payload'
 import { remark } from 'remark'
 import type { MicroPost, MicroPostExternalLink } from 'src/payload-types'
@@ -38,12 +37,6 @@ const maybeCreateExternalLink = async (
   })
 }
 
-const getIdCompare = <T extends { id: string }>(obj: T | string): string =>
-  typeof obj === 'string' ? obj : obj.id
-const byIdCompare = <T extends { id: string }>(b: T | string): ((a: T | string) => boolean) => {
-  const objId = getIdCompare(b)
-  return (a: T | string): boolean => getIdCompare(a) === objId
-}
 export const isExternalLink = (url: string): boolean =>
   url.startsWith('http://') || url.startsWith('https://') || url.startsWith('mailto:')
 async function maybeTransformURLToExternalLink(
@@ -88,38 +81,43 @@ const maybeRevalidateExternalLink = async (
 const maybeReplaceMarkdownLink: CollectionBeforeChangeHook<
   DataFromCollectionSlug<'micro_posts'>
 > = async ({ data, req }) => {
-  if (data.content) {
-    data.externalLinks = []
-    data.linkedMicroPosts = []
-    data.content = (
-      await remark()
-        .use(remarkLinkRewrite, {
-          // eslint-disable-next-line complexity -- max-statements
-          replacer: async (url) => {
-            const externalLink =
-              (await maybeRevalidateExternalLink(url, req.payload)) ??
-              (await maybeTransformURLToExternalLink(url, req.payload))
-            if (externalLink) {
-              if (!data.externalLinks?.some(byIdCompare(externalLink))) {
-                data.externalLinks?.push(externalLink.id)
-              }
-              return EXTERNAL_LINK_PREFIX + externalLink?.id
-            }
-            const internalLink = await maybeRevalidateMicroPostLink(url, req.payload)
-            if (internalLink) {
-              if (!data.linkedMicroPosts?.some(byIdCompare(internalLink))) {
-                data.linkedMicroPosts?.push(internalLink.id)
-              }
-              return MICRO_POST_PREFIX + internalLink.id
-            }
+  if (!data?.content) {
+    return data
+  }
 
-            throw new Error(`None of transformers match url: ${url}`)
-          },
-        })
-        .process(data.content)
-    ).toString()
+  const externalLinkIds = new Set<string>()
+  const linkedMicroPostIds = new Set<string>()
+  const content = (
+    await remark()
+      .use(remarkLinkRewrite, {
+        replacer: async (url) => {
+          const externalLink =
+            (await maybeRevalidateExternalLink(url, req.payload)) ??
+            (await maybeTransformURLToExternalLink(url, req.payload))
+          if (externalLink) {
+            const externalLinkId = externalLink.id
+            externalLinkIds.add(externalLinkId)
+            return EXTERNAL_LINK_PREFIX + externalLinkId
+          }
 
-    // Fetch the attachment to validate it's an image
+          const internalLink = await maybeRevalidateMicroPostLink(url, req.payload)
+          if (internalLink) {
+            const linkedMicroPostId = internalLink.id
+            linkedMicroPostIds.add(linkedMicroPostId)
+            return MICRO_POST_PREFIX + linkedMicroPostId
+          }
+
+          throw new Error(`None of transformers match url: ${url}`)
+        },
+      })
+      .process(data.content)
+  ).toString()
+
+  return {
+    ...data,
+    externalLinks: Array.from(externalLinkIds),
+    linkedMicroPosts: Array.from(linkedMicroPostIds),
+    content,
   }
 }
 

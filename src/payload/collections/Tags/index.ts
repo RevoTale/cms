@@ -11,7 +11,7 @@ const nameField: TextField = {
   label: 'Tag Name',
   localized: false,
   validate: (value) => {
-    const re = /^\w+$/
+    const re = /^\w+$/v
     if (!re.test(value ?? '')) {
       return 'This field is required'
     }

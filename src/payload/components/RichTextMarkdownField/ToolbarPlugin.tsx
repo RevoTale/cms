@@ -161,7 +161,7 @@ export const ToolbarPlugin = () => {
   }, [editor])
 
   const promptForLink = useCallback(() => {
-    // eslint-disable-next-line no-alert
+    // eslint-disable-next-line no-alert -- Lightweight admin prompt avoids introducing modal state for a simple URL input.
     const url = window.prompt('Enter URL', 'https://')
     if (url === null) {
       return

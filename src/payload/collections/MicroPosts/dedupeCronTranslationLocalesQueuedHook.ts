@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import type { CollectionBeforeChangeHook, DataFromCollectionSlug, TypedLocale } from 'payload'
 
 import { locales } from 'src/i18n-config'
@@ -32,7 +31,7 @@ const dedupeCronTranslationLocalesQueuedHook: CollectionBeforeChangeHook<MicroPo
   data,
 }) => {
   if (!data || !Array.isArray(data.cronTranslationLocalesQueued)) {
-    return
+    return data
   }
 
   const seen = new Set<TypedLocale>()
@@ -56,7 +55,10 @@ const dedupeCronTranslationLocalesQueuedHook: CollectionBeforeChangeHook<MicroPo
     normalized.push(locale)
   }
 
-  data.cronTranslationLocalesQueued = normalized
+  return {
+    ...data,
+    cronTranslationLocalesQueued: normalized,
+  }
 }
 
 export default dedupeCronTranslationLocalesQueuedHook

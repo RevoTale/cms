@@ -9,7 +9,7 @@
     "dev": "next dev",
     "p:cli": "bunx cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts bunx --bun payload --disable-transpile",
     "start": "next start"
-    },
+  },
   "dependencies": {
     "@lexical/code": "^0.40.0",
     "@lexical/link": "^0.40.0",
@@ -58,7 +58,7 @@
     "@types/node": "25.2.1",
     "@types/react": "^19.2.13",
     "@types/react-dom": "^19.2.3",
-    "eslint": "9.39.2",
+    "eslint": "^9.39.2",
     "eslint-config-love": "^149.0.0",
     "eslint-config-nice-nextjs": "^0.4.0",
     "eslint-plugin-prettier": "^5.5.5",
@@ -71,5 +71,5 @@
   "engines": {
     "node": ">=20.9.0"
   },
-  "packageManager": "bun@1.1.40"
+  "packageManager": "bun@1.3.8"
 }

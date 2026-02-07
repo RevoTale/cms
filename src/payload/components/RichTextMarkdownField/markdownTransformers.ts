@@ -25,8 +25,8 @@ import {
 } from '@lexical/table'
 import { $createParagraphNode, $isParagraphNode, $isTextNode } from 'lexical'
 
-const TABLE_ROW_REG_EXP = /^(?:\|)(.+)(?:\|)\s?$/
-const TABLE_ROW_DIVIDER_REG_EXP = /^(\| ?:?-*:? ?)+\|\s?$/
+const TABLE_ROW_REG_EXP = /^(?:\|)(.+)(?:\|)\s?$/v
+const TABLE_ROW_DIVIDER_REG_EXP = /^(\| ?:?-*:? ?)+\|\s?$/v
 
 const BASE_TRANSFORMERS: Transformer[] = [
   ...ELEMENT_TRANSFORMERS,
@@ -58,7 +58,7 @@ const TABLE: ElementTransformer = {
         }
 
         const cellMarkdown = $convertToMarkdownString(TRANSFORMERS, cell)
-          .replace(/\n/g, '\\n')
+          .replace(/\n/gv, '\\n')
           .trim()
         cells.push(cellMarkdown)
 
@@ -182,7 +182,7 @@ const insertTable = (parentNode: ElementNode, tableNode: TableNode, maxColumns: 
 }
 
 const createTableCell = (rawText: string): TableCellNode => {
-  const textContent = rawText.replace(/\\n/g, '\n').trim()
+  const textContent = rawText.replace(/\\n/gv, '\n').trim()
   const cell = $createTableCellNode(TableCellHeaderStates.NO_STATUS)
   $convertFromMarkdownString(textContent, BASE_TRANSFORMERS, cell)
   if (cell.getChildrenSize() === 0) {

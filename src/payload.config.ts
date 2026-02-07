@@ -1,4 +1,4 @@
-/* eslint-disable no-param-reassign */
+/* eslint-disable no-param-reassign -- Payload config callbacks intentionally mutate objects from third-party plugin APIs. */
 // storage-adapter-import-placeholder
 
 import { seoPlugin } from '@payloadcms/plugin-seo'
@@ -179,7 +179,7 @@ const gqlLocaleToPayloadLocale = (locale: unknown): TypedLocale | undefined => {
     return undefined
   }
 
-  const localeWithDash = locale.replace(/_/g, '-')
+  const localeWithDash = locale.replace(/_/gv, '-')
   return locales.find((availableLocale) => availableLocale === localeWithDash)
 }
 

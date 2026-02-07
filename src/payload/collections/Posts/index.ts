@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import {
   MetaDescriptionField,
   MetaImageField,
@@ -192,16 +191,24 @@ export const Posts: CollectionConfig = {
 
     beforeChange: [
       async ({ data, req }) => {
-        if (data.authors && data.authors.length > 0) {
-          const author = await req.payload.findByID({
-            collection: 'authors',
-            id: data.authors[0],
-          })
-          if (author && author.slug) {
-            data.authorSlug = author.slug
-          }
+        if (!data?.authors || data.authors.length === 0) {
+          return data
         }
-        return data
+
+        const firstAuthor = data.authors[0]
+        const author = await req.payload.findByID({
+          collection: 'authors',
+          id: typeof firstAuthor === 'string' ? firstAuthor : firstAuthor.id,
+        })
+
+        if (!author?.slug) {
+          return data
+        }
+
+        return {
+          ...data,
+          authorSlug: author.slug,
+        }
       },
     ],
   },

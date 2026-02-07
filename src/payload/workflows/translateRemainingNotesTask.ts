@@ -31,7 +31,7 @@ export const findOriginalLocalePosts = async (
   for (const post of posts) {
     //Validate twice to avoid money spend on AI
     if (post.cronTranslationLocalesQueued?.includes(locale) === true) {
-      throw new Error('BAD QUERY 1 ' + locale)
+      throw new Error(`BAD QUERY 1 ${  locale}`)
     }
   }
   return posts

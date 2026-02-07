@@ -21,8 +21,8 @@ const toSlug = (value: string): string =>
   value
     .trim()
     .toLowerCase()
-    .replace(/ /g, '-')
-    .replace(/[^\w-]+/g, '')
+    .replace(/ /gv, '-')
+    .replace(/[^\w-]+/gv, '')
 
 interface ExternalLinkSeed {
   title: string

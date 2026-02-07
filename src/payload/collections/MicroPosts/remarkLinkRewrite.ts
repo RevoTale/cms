@@ -77,7 +77,7 @@ export const replaceAsync = async function (
  * @returns {Promise<*>}
  */
 export const rewriteJSXURL = async (value: string, replacer: Replacer): Promise<string> =>
-  await replaceAsync(value, /href="(.*?)"/g, async (_: string, url: string) => {
+  await replaceAsync(value, /href="(.*?)"/gv, async (_: string, url: string) => {
     const newUrl = await replacer(url)
     return `href="${newUrl}"`
   })
@@ -95,24 +95,23 @@ function remarkLinkRewrite(options: { replacer?: Replacer } = { replacer: defaul
       }
       if (node.type === 'jsx' || node.type === 'html') {
         const htmlNode = node as HTMLLikeNode
-        if (typeof htmlNode.value === 'string' && /<a.*>/.test(htmlNode.value)) {
+        if (typeof htmlNode.value === 'string' && /<a.*>/v.test(htmlNode.value)) {
           nodes.push(htmlNode)
         }
       }
     })
 
-    await Promise.all(
-      nodes.map(async (node) => {
-        if (node.type === 'link') {
-          // eslint-disable-next-line no-param-reassign
-          node.url = await replacer(node.url)
-        }
-        if (node.type === 'jsx' || node.type === 'html') {
-          // eslint-disable-next-line no-param-reassign
-          node.value = await rewriteJSXURL(node.value, replacer)
-        }
-      }),
-    )
+    for (const currentNode of nodes) {
+      if (currentNode.type === 'link') {
+        const rewrittenURL = await replacer(currentNode.url)
+        currentNode.url = rewrittenURL
+        continue
+      }
+
+      const rewrittenValue = await rewriteJSXURL(currentNode.value, replacer)
+      currentNode.value = rewrittenValue
+    }
+
     return tree
   }
 }

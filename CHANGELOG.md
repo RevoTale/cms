@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.3.0](https://github.com/RevoTale/cms/compare/v0.2.1...v0.3.0) (2026-02-07)
+
+
+### Features
+
+* import the UI and bug fixes for the sshort post admin editors ([97e046e](https://github.com/RevoTale/cms/commit/97e046e8d06bb41e568af8229581d725ac24046b))
+
+
+### Bug Fixes
+
+* codegen ([4513fbe](https://github.com/RevoTale/cms/commit/4513fbea8fd11ca53a2637bba7387bdf27b4670a))
+* type error ([eada24a](https://github.com/RevoTale/cms/commit/eada24af4470965a8461fa1f5dff28b83502dcf7))
+
 ## [0.2.1](https://github.com/RevoTale/cms/compare/v0.2.0...v0.2.1) (2026-02-07)
 
 

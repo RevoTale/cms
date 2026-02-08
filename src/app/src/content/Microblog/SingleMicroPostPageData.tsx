@@ -1,12 +1,13 @@
-import {getFragmentData, graphql, type FragmentType} from '@blog/gql'
+import { type FragmentType, getFragmentData, graphql } from '@blog/gql'
 import BreaadcrumbsSkeleton from '@revotale/ui/BreaadcrumbsSkeleton'
-import {InlineSkeleton} from '@revotale/ui/InlineSkeleton'
-import type {Locale} from 'next-intl'
-import {Suspense, type FunctionComponent} from 'react'
+import { InlineSkeleton } from '@revotale/ui/InlineSkeleton'
+import type { Locale } from 'next-intl'
+import { type FunctionComponent, Suspense } from 'react'
 import getDomain from '../../config/getDomain'
 import BlogListItemAuthor from '../Blog/List/BlogListItemAuthor'
 import ContentfulImage from '../Contentful/ContentfulImage'
 import NoteJsonLD from '../LdJson/NoteJsonLD'
+import getMicropostHref from './getMicroPostHref'
 import InternalLinksList from './InternalLinksList'
 import MicroBlogTag from './MicroBlogTag'
 import MicroBlogTagSkeleton from './MicroBlogTagSkeleton'
@@ -17,7 +18,6 @@ import OutgoingLinksList from './OutgoingLinksList'
 import PostPublishDate from './PostPublishDate'
 import ShareButtons from './ShareButtons'
 import ShareButtonsSkeleton from './ShareButtonsSkeleton'
-import getMicropostHref from './getMicroPostHref'
 export const dataFrag = graphql(/* GraphQL */ `
 	fragment SinglePostPageData on Micro_post {
 		...MicroBlogPostText_Text
@@ -55,10 +55,8 @@ interface Props {
 	priority?: boolean
 }
 
-const getTranslateLinks = (
-	post: FragmentType<typeof dataFrag>
-): Record<string, string> => {
-	const {externalLinks, linkedMicroPosts} = getFragmentData(dataFrag, post)
+const getTranslateLinks = (post: FragmentType<typeof dataFrag>): Record<string, string> => {
+	const { externalLinks, linkedMicroPosts } = getFragmentData(dataFrag, post)
 
 	const externalLinksMap: Record<string, string> = {}
 	if (externalLinks) {
@@ -80,25 +78,15 @@ const getTranslateLinks = (
 	}
 }
 
-const SingleMicroBlogPostPageData: FunctionComponent<Props> = ({
-	post,
-	priority,
-	locale,
-}) => {
+const SingleMicroBlogPostPageData: FunctionComponent<Props> = ({ post, priority, locale }) => {
 	const data = getFragmentData(dataFrag, post)
 	const tags = data?.tags ?? null
-	const breadCrumSkeleton = (
-		<BreaadcrumbsSkeleton className="m-auto" count={4} />
-	)
+	const breadCrumSkeleton = <BreaadcrumbsSkeleton className="m-auto" count={4} />
 	return (
 		<div className="max-w-2xl mx-auto">
 			{data === null ? null : (
 				<Suspense>
-					<NoteJsonLD
-						rootUrl={getDomain()}
-						note={data}
-						locale={locale}
-					/>
+					<NoteJsonLD rootUrl={getDomain()} note={data} locale={locale} />
 				</Suspense>
 			)}
 
@@ -106,31 +94,16 @@ const SingleMicroBlogPostPageData: FunctionComponent<Props> = ({
 				breadCrumSkeleton
 			) : (
 				<Suspense fallback={breadCrumSkeleton}>
-					<NoteBreadcrumbs
-						locale={locale}
-						className="m-auto"
-						post={data}
-					/>
+					<NoteBreadcrumbs locale={locale} className="m-auto" post={data} />
 				</Suspense>
 			)}
 			<div className="mt-5 flex flex-wrap gap-4 items-center">
 				{data ? (
-					data.authors?.map(author => (
-						<BlogListItemAuthor
-							key={author.id}
-							author={author}
-							locale={locale}
-						/>
-					))
+					data.authors?.map(author => <BlogListItemAuthor key={author.id} author={author} locale={locale} />)
 				) : (
 					<BlogListItemAuthor author={null} locale={locale} />
 				)}
-				<PostPublishDate
-					post={data}
-					showTime
-					className="ml-auto"
-					locale={locale}
-				/>
+				<PostPublishDate post={data} showTime className="ml-auto" locale={locale} />
 			</div>
 			{tags === null || tags.length > 0 ? (
 				<div className="flex gap-3 justify-end mt-1">
@@ -140,32 +113,20 @@ const SingleMicroBlogPostPageData: FunctionComponent<Props> = ({
 							<MicroBlogTagSkeleton />
 						</>
 					) : (
-						tags.map(tag => (
-							<MicroBlogTag
-								key={tag.id}
-								locale={locale}
-								tag={tag}
-							/>
-						))
+						tags.map(tag => <MicroBlogTag key={tag.id} locale={locale} tag={tag} />)
 					)}
 				</div>
 			) : null}
 			{data === null ? (
 				<ShareButtonsSkeleton />
 			) : (
-				<ShareButtons
-					attachmentScroll={Boolean(data.attachment ?? undefined)}
-					post={data}
-					locale={locale}
-				/>
+				<ShareButtons attachmentScroll={Boolean(data.attachment ?? undefined)} post={data} locale={locale} />
 			)}
 
 			<article className="mt-8">
 				{data ? (
 					data.title === null || data.title === '' ? null : (
-						<h1 className="text-3xl font-bold mb-2">
-							{data.title}
-						</h1>
+						<h1 className="text-3xl font-bold mb-2">{data.title}</h1>
 					)
 				) : (
 					<InlineSkeleton className="w-40 h-9 block font-bold mb-2" />

@@ -1,23 +1,19 @@
 import Breadcrumbs from '@revotale/ui/Breadcrumbs'
 import PrimaryHeader from '@revotale/ui/PrimaryHeader'
-import type {Locale} from 'next-intl'
-import {getTranslations} from 'next-intl/server'
-import type {FunctionComponent, ReactNode} from 'react'
+import type { Locale } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
+import type { FunctionComponent, ReactNode } from 'react'
 import 'server-only'
 import getDomain from '../../config/getDomain'
-import {ToolsCrumb} from '../../linking/map/tools'
+import { ToolsCrumb } from '../../linking/map/tools'
+
 interface Props {
 	title: string
 	currentHref: string
 	children: ReactNode
 	locale: Locale
 }
-const UtilityTemplate: FunctionComponent<Props> = async ({
-	title,
-	currentHref,
-	children,
-	locale,
-}) => {
+const UtilityTemplate: FunctionComponent<Props> = async ({ title, currentHref, children, locale }) => {
 	const t = await getTranslations({
 		namespace: 'Breadcrumbs',
 		locale,
@@ -29,7 +25,7 @@ const UtilityTemplate: FunctionComponent<Props> = async ({
 				<Breadcrumbs
 					rootUrl={getDomain()}
 					locale={locale}
-					homeCrumb={{title: t('home'), href: '/'}}
+					homeCrumb={{ title: t('home'), href: '/' }}
 					crumbs={[
 						{
 							href: ToolsCrumb.href,

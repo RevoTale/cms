@@ -1,31 +1,25 @@
+import { InlineSkeleton } from '@revotale/ui/InlineSkeleton'
+import type { Metadata } from 'next'
+import type { Locale } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
+import { type FunctionComponent, Suspense } from 'react'
 import generateAlternatesMeta from '@/i18n/generateAlternatesMeta'
 import type PagePropsWithLocale from '@/i18n/PagePropsWithLocale'
-import {InlineSkeleton} from '@revotale/ui/InlineSkeleton'
-import type {Metadata} from 'next'
-import type {Locale} from 'next-intl'
-import {getTranslations} from 'next-intl/server'
-import {type FunctionComponent, Suspense} from 'react'
 import DurationResize from '../../../../src/content/Tools/DurationResize'
 import UtilityTemplate from '../../../../src/content/Tools/UtilityTemplate'
-import {VideoDurationChanger} from '../../../../src/linking/map/tools'
+import { VideoDurationChanger } from '../../../../src/linking/map/tools'
 
-export const generateMetadata = async ({
-	params,
-}: {
-	params: Promise<{locale: Locale}>
-}): Promise<Metadata> => {
-	const {locale} = await params
-	const t = await getTranslations({locale, namespace: 'DurationConverter'})
+export const generateMetadata = async ({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> => {
+	const { locale } = await params
+	const t = await getTranslations({ locale, namespace: 'DurationConverter' })
 	return {
 		title: t('seo_title'),
 		description: t('seo_desc'),
 		alternates: generateAlternatesMeta(VideoDurationChanger.href, locale),
 	}
 }
-const DurationConverter: FunctionComponent<PagePropsWithLocale> = async ({
-	params,
-}) => {
-	const {locale} = await params
+const DurationConverter: FunctionComponent<PagePropsWithLocale> = async ({ params }) => {
+	const { locale } = await params
 	const [t, tVideoUtility] = await Promise.all([
 		getTranslations({
 			locale,
@@ -37,10 +31,7 @@ const DurationConverter: FunctionComponent<PagePropsWithLocale> = async ({
 		}),
 	])
 	return (
-		<UtilityTemplate
-			locale={locale}
-			currentHref={VideoDurationChanger.href}
-			title={t('VideoSpeedChange')}>
+		<UtilityTemplate locale={locale} currentHref={VideoDurationChanger.href} title={t('VideoSpeedChange')}>
 			<div className="flex justify-start w-full">
 				<Suspense
 					fallback={

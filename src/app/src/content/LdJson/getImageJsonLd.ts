@@ -1,5 +1,5 @@
-import {type FragmentType, getFragmentData, graphql} from '@blog/gql'
-import type {ImageObject, WithContext} from 'schema-dts'
+import { type FragmentType, getFragmentData, graphql } from '@blog/gql'
+import type { ImageObject, WithContext } from 'schema-dts'
 import getImageUrlThumb from '../utils/seo/getImageUrlThumb'
 
 export const imageJsonLdFragment = graphql(/* GraphQL */ `
@@ -12,17 +12,10 @@ export const imageJsonLdFragment = graphql(/* GraphQL */ `
 	}
 `)
 type Data = WithContext<ImageObject>
-const getImageJsonLd = (
-	rootUrl: string,
-	image: FragmentType<typeof imageJsonLdFragment>
-): Data | undefined => {
+const getImageJsonLd = (rootUrl: string, image: FragmentType<typeof imageJsonLdFragment>): Data | undefined => {
 	const data = getFragmentData(imageJsonLdFragment, image)
-	const {url, width, height} = data
-	if (
-		typeof url !== 'string' ||
-		typeof width !== 'number' ||
-		typeof height !== 'number'
-	) {
+	const { url, width, height } = data
+	if (typeof url !== 'string' || typeof width !== 'number' || typeof height !== 'number') {
 		return undefined
 	}
 	const formatted = getImageUrlThumb(url, rootUrl, {

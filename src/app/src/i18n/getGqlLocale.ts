@@ -1,4 +1,4 @@
-import {LocaleInputType} from '../gql/graphql'
+import { LocaleInputType } from '../gql/graphql'
 
 const getGqlLocale = (locale: string): LocaleInputType =>
 	({

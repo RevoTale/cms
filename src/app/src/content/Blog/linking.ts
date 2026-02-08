@@ -1,5 +1,5 @@
-import type {ParameterOptions} from 'next-navigation-utils'
-import {pageType, stringType} from 'next-navigation-utils/parameters'
+import type { ParameterOptions } from 'next-navigation-utils'
+import { pageType, stringType } from 'next-navigation-utils/parameters'
 export const tagInURLOption: ParameterOptions<string[] | null> = {
 	name: 'tag_name_in',
 	decode: v => {

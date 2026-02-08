@@ -1,12 +1,12 @@
-import {getFragmentData} from '@blog/gql'
-import {Feed} from 'feed'
-import type {Locale} from 'next-intl'
-import {getTranslations} from 'next-intl/server'
-import type {NextRequest} from 'next/server'
-import {rssFrag} from '../../../../src/content/Microblog/blogPostListGql'
-import {defaultLocale, locales} from '../../../../src/i18n/config'
+import { getFragmentData } from '@blog/gql'
+import { Feed } from 'feed'
+import type { NextRequest } from 'next/server'
+import type { Locale } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
+import { rssFrag } from '../../../../src/content/Microblog/blogPostListGql'
+import { defaultLocale, locales } from '../../../../src/i18n/config'
 import getUrl from '../../../../src/linking/getUrl'
-import {fetchData} from '../../../[locale]/blog/notes/fetchData'
+import { fetchData } from '../../../[locale]/blog/notes/fetchData'
 
 function isValidLocale(locale: string): locale is Locale {
 	return (locales as readonly string[]).includes(locale)
@@ -16,26 +16,17 @@ async function createFeed(req: NextRequest): Promise<Feed> {
 	// Extract locale from query parameters since this route is not in [locale] directory
 	const localeParam = req.nextUrl.searchParams.get('locale')
 	const locale: Locale =
-		localeParam !== null &&
-		localeParam.trim() !== '' &&
-		isValidLocale(localeParam)
-			? localeParam
-			: defaultLocale
-	const t = await getTranslations({locale, namespace: 'RssFeed'})
+		localeParam !== null && localeParam.trim() !== '' && isValidLocale(localeParam) ? localeParam : defaultLocale
+	const t = await getTranslations({ locale, namespace: 'RssFeed' })
 
 	// Fetch the micro posts
-	const resultPosts = await fetchData(
-		Object.fromEntries(req.nextUrl.searchParams.entries()),
-		locale
-	)
+	const resultPosts = await fetchData(Object.fromEntries(req.nextUrl.searchParams.entries()), locale)
 
 	const posts = resultPosts.items ?? []
 
-	const firstValidPost =
-		0 in posts ? getFragmentData(rssFrag, posts[0]) : null
+	const firstValidPost = 0 in posts ? getFragmentData(rssFrag, posts[0]) : null
 	const feedUpdated =
-		firstValidPost !== null &&
-		typeof firstValidPost.publishedAt === 'string'
+		firstValidPost !== null && typeof firstValidPost.publishedAt === 'string'
 			? new Date(firstValidPost.publishedAt)
 			: new Date()
 
@@ -66,10 +57,7 @@ async function createFeed(req: NextRequest): Promise<Feed> {
 		const postData = getFragmentData(rssFrag, post)
 
 		const postUrl = getUrl(`/blog/note/${postData.id}`, locale)
-		const authors =
-			postData.authors
-				?.map(author => author.name ?? t('unknownAuthor'))
-				.join(', ') ?? t('authorName')
+		const authors = postData.authors?.map(author => author.name ?? t('unknownAuthor')).join(', ') ?? t('authorName')
 		const tags = postData.tags?.map(tag => tag.name).filter(Boolean) ?? []
 
 		feed.addItem({
@@ -85,13 +73,10 @@ async function createFeed(req: NextRequest): Promise<Feed> {
 			],
 
 			date:
-				postData.publishedAt !== null &&
-				postData.publishedAt !== undefined
+				postData.publishedAt !== null && postData.publishedAt !== undefined
 					? new Date(postData.publishedAt)
 					: new Date(),
-			category: tags
-				.filter((tag): tag is string => typeof tag === 'string')
-				.map((tag: string) => ({name: tag})),
+			category: tags.filter((tag): tag is string => typeof tag === 'string').map((tag: string) => ({ name: tag })),
 		})
 	}
 
@@ -109,16 +94,12 @@ export async function GET(request: NextRequest): Promise<Response> {
 				'Cache-Control': 'public, max-age=3600, s-maxage=3600',
 			},
 		})
-	} catch (error) {
+	} catch (_error) {
 		// Extract locale for error message
 		const localeParam = request.nextUrl.searchParams.get('locale')
 		const locale: Locale =
-			localeParam !== null &&
-			localeParam.trim() !== '' &&
-			isValidLocale(localeParam)
-				? localeParam
-				: defaultLocale
-		const t = await getTranslations({locale, namespace: 'RssFeed'})
-		return new Response(t('internalServerError'), {status: 500})
+			localeParam !== null && localeParam.trim() !== '' && isValidLocale(localeParam) ? localeParam : defaultLocale
+		const t = await getTranslations({ locale, namespace: 'RssFeed' })
+		return new Response(t('internalServerError'), { status: 500 })
 	}
 }

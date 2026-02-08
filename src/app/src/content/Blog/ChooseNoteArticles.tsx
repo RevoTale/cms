@@ -1,18 +1,16 @@
+import { cn } from '@shadcn/lib/utils'
+import { buttonVariants } from '@shadcn/ui/button'
+import { ArrowRightIcon } from 'lucide-react'
+import type { Locale } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
+import type { FunctionComponent } from 'react'
 import NextLink from '@/i18n/LocaleLink'
-import {cn} from '@shadcn/lib/utils'
-import {buttonVariants} from '@shadcn/ui/button'
-import {ArrowRightIcon} from 'lucide-react'
-import type {Locale} from 'next-intl'
-import {getTranslations} from 'next-intl/server'
-import type {FunctionComponent} from 'react'
+
 interface Props {
 	className?: string
 	locale: Locale
 }
-const ChooseNoteArticles: FunctionComponent<Props> = async ({
-	className,
-	locale,
-}) => {
+const ChooseNoteArticles: FunctionComponent<Props> = async ({ className, locale }) => {
 	const t = await getTranslations({
 		locale,
 		namespace: 'Blog',
@@ -26,8 +24,9 @@ const ChooseNoteArticles: FunctionComponent<Props> = async ({
 					buttonVariants({
 						variant: 'outline',
 						size: 'default',
-					})
-				)}>
+					}),
+				)}
+			>
 				{t('go_to_notes')} <ArrowRightIcon />
 			</NextLink>
 			<NextLink
@@ -37,8 +36,9 @@ const ChooseNoteArticles: FunctionComponent<Props> = async ({
 					buttonVariants({
 						variant: 'outline',
 						size: 'default',
-					})
-				)}>
+					}),
+				)}
+			>
 				{t('go_to_micro_tales')} <ArrowRightIcon />
 			</NextLink>
 		</div>

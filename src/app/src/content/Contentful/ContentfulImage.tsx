@@ -1,6 +1,6 @@
-import {type FragmentType, getFragmentData, graphql} from '@blog/gql'
+import { type FragmentType, getFragmentData, graphql } from '@blog/gql'
 import Image from 'next/image'
-import type {FunctionComponent} from 'react'
+import type { FunctionComponent } from 'react'
 import fallbackSrc from './default-fallback-image.png'
 export const contentfulImageFragment = graphql(/* GraphQL */ `
 	fragment ContentfulImage on Media {
@@ -23,11 +23,7 @@ interface ContentfulImageProps {
 	id?: string
 }
 
-const ContentfulImage: FunctionComponent<ContentfulImageProps> = ({
-	image,
-	priority,
-	...props
-}) => {
+const ContentfulImage: FunctionComponent<ContentfulImageProps> = ({ image, priority, ...props }) => {
 	const data = getFragmentData(contentfulImageFragment, image)
 	const url = data.url ?? null
 	const height = data.height ?? null

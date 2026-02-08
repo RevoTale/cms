@@ -1,4 +1,4 @@
-import {graphql} from '@blog/gql'
+import { graphql } from '@blog/gql'
 
 const tagFrag = graphql(/* GraphQL */ `
 	fragment MicroBlogTag on Tag {
@@ -8,4 +8,4 @@ const tagFrag = graphql(/* GraphQL */ `
 	}
 `)
 
-export {tagFrag}
+export { tagFrag }

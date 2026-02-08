@@ -1,13 +1,14 @@
+import { SearchIcon } from 'lucide-react'
+import type { Locale } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
+import type { FunctionComponent } from 'react'
 import LocaleLink from '@/i18n/LocaleLink'
-import {SearchIcon} from 'lucide-react'
-import type {Locale} from 'next-intl'
-import {getTranslations} from 'next-intl/server'
-import type {FunctionComponent} from 'react'
+
 interface Props {
 	className?: string
 	locale: Locale
 }
-const SearchLink: FunctionComponent<Props> = async ({className, locale}) => {
+const SearchLink: FunctionComponent<Props> = async ({ className, locale }) => {
 	const t = await getTranslations({
 		locale,
 		namespace: 'Header',

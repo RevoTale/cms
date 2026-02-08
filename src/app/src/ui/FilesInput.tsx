@@ -1,18 +1,14 @@
-import {Input} from '@shadcn/ui/input'
-import {Label} from '@shadcn/ui/label'
-import type {FunctionComponent} from 'react'
+import { Input } from '@shadcn/ui/input'
+import { Label } from '@shadcn/ui/label'
+import type { FunctionComponent } from 'react'
+
 interface Props {
 	setFiles: (files: File[]) => void
 	id: string
 	label: string
 	disabled?: boolean
 }
-const FilesInput: FunctionComponent<Props> = ({
-	id,
-	label,
-	setFiles,
-	disabled,
-}) => (
+const FilesInput: FunctionComponent<Props> = ({ id, label, setFiles, disabled }) => (
 	<div className="grid w-full max-w-sm items-center gap-1.5">
 		<Label htmlFor={id}>{label}</Label>
 		<Input

@@ -1,5 +1,5 @@
-import {type FragmentType, getFragmentData, graphql} from '@blog/gql'
-import {makeRelativeLink, type RelativeURL} from 'next-navigation-utils'
+import { type FragmentType, getFragmentData, graphql } from '@blog/gql'
+import { makeRelativeLink, type RelativeURL } from 'next-navigation-utils'
 export const BlogGetMicropostHref = graphql(/* GraphQL */ `
 	fragment Blog_getMicropostHref on Micro_post {
 		id
@@ -7,9 +7,7 @@ export const BlogGetMicropostHref = graphql(/* GraphQL */ `
 	}
 `)
 
-const getMicropostHref = (
-	micropost: FragmentType<typeof BlogGetMicropostHref>
-): RelativeURL => {
+const getMicropostHref = (micropost: FragmentType<typeof BlogGetMicropostHref>): RelativeURL => {
 	const frag = getFragmentData(BlogGetMicropostHref, micropost)
 	return makeRelativeLink(`/blog/note/${frag.slug}`)
 }

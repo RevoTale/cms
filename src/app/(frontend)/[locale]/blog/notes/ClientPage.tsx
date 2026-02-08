@@ -1,20 +1,16 @@
 'use client'
+import type { ApolloClient } from '@apollo/client'
+import { useApolloClient } from '@apollo/client/react'
+import { useOnChange, useOnce, usePromiseHandler } from '@bladl/react-hooks'
+import { type FragmentType, getFragmentData } from '@blog/gql'
+import { type ReadonlyURLSearchParams, useSearchParams } from 'next/navigation'
+import { getSearchParamValue } from 'next-navigation-utils'
+import { useRelativeLink } from 'next-navigation-utils/client'
+import { type FunctionComponent, Suspense } from 'react'
+import type { Locale } from 'use-intl'
 import getGqlLocale from '@/i18n/getGqlLocale'
-import type {ApolloClient} from '@apollo/client'
-import {useApolloClient} from '@apollo/client/react'
-import {useOnce, useOnChange, usePromiseHandler} from '@bladl/react-hooks'
-import {getFragmentData, type FragmentType} from '@blog/gql'
-import {getSearchParamValue} from 'next-navigation-utils'
-import {useRelativeLink} from 'next-navigation-utils/client'
-import {useSearchParams, type ReadonlyURLSearchParams} from 'next/navigation'
-import {Suspense, type FunctionComponent} from 'react'
-import type {Locale} from 'use-intl'
-import {
-	authorSlugInOption,
-	pageOption,
-	tagInURLOption,
-} from '../../../../src/content/Blog/linking'
-import type {noteJsonldFragment} from '../../../../src/content/LdJson/NoteJsonLD'
+import { authorSlugInOption, pageOption, tagInURLOption } from '../../../../src/content/Blog/linking'
+import type { noteJsonldFragment } from '../../../../src/content/LdJson/NoteJsonLD'
 import NotesBlogJsonLd from '../../../../src/content/LdJson/NotesBlogJsonLd'
 import {
 	authorQuery,
@@ -25,12 +21,13 @@ import {
 import fetchMicroblogPostList from '../../../../src/content/Microblog/fetchMicroblogPostList'
 import canonizeSearchQuery from '../../../../src/utils/canonizeSearchQuery'
 import NotesPageClient from './NotesPageClient'
-import {availableParams} from './notesParams'
-import {getTagIds, tagFragment} from './notesQueries'
+import { availableParams } from './notesParams'
+import { getTagIds, tagFragment } from './notesQueries'
+
 const fetchTagNameIn = async (
 	c: ApolloClient,
 	tagNameIn: string[] | null,
-	locale: string
+	locale: string,
 ): Promise<Array<FragmentType<typeof tagFragment>> | undefined> => {
 	if (tagNameIn === null || tagNameIn.length === 0) {
 		return undefined
@@ -48,7 +45,7 @@ const fetchTagNameIn = async (
 const fetchAuthorIn = async (
 	c: ApolloClient,
 	authorSlugIn: string[] | null,
-	locale: string
+	locale: string,
 ): Promise<Array<FragmentType<typeof authorQueryInFrag>> | undefined> => {
 	if (authorSlugIn === null || authorSlugIn.length === 0) {
 		return undefined
@@ -77,7 +74,7 @@ interface DataResult {
 const fetchData = async (
 	c: ApolloClient,
 	searchParams: ReadonlyURLSearchParams,
-	locale: string
+	locale: string,
 ): Promise<DataResult> => {
 	const tagNameIn = getSearchParamValue(searchParams, tagInURLOption)
 	const authorSlugIn = getSearchParamValue(searchParams, authorSlugInOption)
@@ -107,24 +104,17 @@ const fetchData = async (
 		totalPages: result.data?.Micro_posts?.totalPages ?? null,
 	}
 }
-const getRssUrl = (
-	searchparams: ReadonlyURLSearchParams,
-	locale: Locale
-): string => {
-	return canonizeSearchQuery(
-		'/blog/notes/feed.xml?locale=' + locale,
-		searchparams,
-		availableParams
-	).asString()
+const getRssUrl = (searchparams: ReadonlyURLSearchParams, locale: Locale): string => {
+	return canonizeSearchQuery(`/blog/notes/feed.xml?locale=${locale}`, searchparams, availableParams).asString()
 }
 const ClientPage: FunctionComponent<{
 	locale: Locale
 	rootUrl: string
-}> = ({locale, rootUrl}) => {
+}> = ({ locale, rootUrl }) => {
 	const searchparams = useSearchParams()
 	const rssFeedUrl = getRssUrl(searchparams, locale)
 	const c = useApolloClient()
-	const {setPromise, result} = usePromiseHandler<DataResult>()
+	const { setPromise, result } = usePromiseHandler<DataResult>()
 	const url = useRelativeLink()
 	useOnChange(() => {
 		setPromise(fetchData(c, searchparams, locale))
@@ -135,22 +125,14 @@ const ClientPage: FunctionComponent<{
 	const items = result?.items ?? null
 	return (
 		<>
-			<NotesPageClient
-				rootUrl={rootUrl}
-				locale={locale}
-				rssFeedUrl={rssFeedUrl}
-			/>
+			<NotesPageClient rootUrl={rootUrl} locale={locale} rssFeedUrl={rssFeedUrl} />
 			<Suspense>
 				{items === null ? null : (
 					<NotesBlogJsonLd
 						locale={locale}
 						rootUrl={rootUrl}
 						items={items}
-						href={canonizeSearchQuery(
-							'/blog/notes',
-							searchparams,
-							availableParams
-						).asString()}
+						href={canonizeSearchQuery('/blog/notes', searchparams, availableParams).asString()}
 					/>
 				)}
 			</Suspense>

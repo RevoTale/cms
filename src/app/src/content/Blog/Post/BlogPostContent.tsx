@@ -1,8 +1,8 @@
-import {type FragmentType, getFragmentData, graphql} from '@blog/gql'
-import {Button} from '@shadcn/ui/button'
-import type {Locale} from 'next-intl'
-import type {FunctionComponent, ReactNode} from 'react'
-import BlogListItemAuthor, {authorFragment} from '../List/BlogListItemAuthor'
+import { type FragmentType, getFragmentData, graphql } from '@blog/gql'
+import { Button } from '@shadcn/ui/button'
+import type { Locale } from 'next-intl'
+import type { FunctionComponent, ReactNode } from 'react'
+import BlogListItemAuthor, { authorFragment } from '../List/BlogListItemAuthor'
 import PostPublishDate from '../PostPublishDate'
 import BlogPostHeader from './BlogPostHeader'
 import BlogPostImage from './BlogPostImage'
@@ -29,25 +29,17 @@ interface Props {
 	item: FragmentType<typeof postFragment> | null
 	locale: Locale
 }
-const BlogPostContent: FunctionComponent<Props> = ({item, text, locale}) => {
+const BlogPostContent: FunctionComponent<Props> = ({ item, text, locale }) => {
 	const data = getFragmentData(postFragment, item)
 	const tags = data?.tags ?? []
 	return (
 		<article className="max-w-3xl m-auto">
-			{!data || (data.title ?? '') !== '' ? (
-				<BlogPostHeader>{data?.title ?? null}</BlogPostHeader>
-			) : null}
-			{!data || (data.subtitle ?? '') !== '' ? (
-				<BlogPostShortDesc>{data?.subtitle ?? null}</BlogPostShortDesc>
-			) : null}
+			{!data || (data.title ?? '') !== '' ? <BlogPostHeader>{data?.title ?? null}</BlogPostHeader> : null}
+			{!data || (data.subtitle ?? '') !== '' ? <BlogPostShortDesc>{data?.subtitle ?? null}</BlogPostShortDesc> : null}
 			<div className="flex items-center gap-3 font-semibold italic">
 				{!data || data.authors
 					? data?.authors?.map(author => (
-							<BlogListItemAuthor
-								author={author}
-								key={getFragmentData(authorFragment, author).id}
-								locale={locale}
-							/>
+							<BlogListItemAuthor author={author} key={getFragmentData(authorFragment, author).id} locale={locale} />
 						))
 					: null}
 				<div className="text-sm text-muted-foreground">·</div>
@@ -60,11 +52,7 @@ const BlogPostContent: FunctionComponent<Props> = ({item, text, locale}) => {
 					{tags
 						.map(tag => tag.name)
 						.map(tag => (
-							<Button
-								key={tag}
-								size="sm"
-								type="button"
-								variant="secondary">
+							<Button key={tag} size="sm" type="button" variant="secondary">
 								#{tag}
 							</Button>
 						))}

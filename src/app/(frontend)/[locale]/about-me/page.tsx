@@ -1,17 +1,13 @@
-import generateAlternatesMeta from '@/i18n/generateAlternatesMeta'
-import type PagePropsWithLocale from '@/i18n/PagePropsWithLocale'
-import { routing } from '@/i18n/routing'
 import type { Metadata } from 'next'
 import type { Locale } from 'next-intl'
 import type { FunctionComponent } from 'react'
+import generateAlternatesMeta from '@/i18n/generateAlternatesMeta'
+import type PagePropsWithLocale from '@/i18n/PagePropsWithLocale'
+import { routing } from '@/i18n/routing'
 import AboutMeContent from './AboutMeContent'
 
-const generateMetadata = async ({
-	params,
-}: {
-	params: Promise<{locale: Locale}>
-}): Promise<Metadata> => {
-	const {locale} = await params
+const generateMetadata = async ({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> => {
+	const { locale } = await params
 	return {
 		alternates: generateAlternatesMeta('/about-me', locale),
 		description:
@@ -41,8 +37,8 @@ const AboutMePage: FunctionComponent<PagePropsWithLocale> = () => {
 	return <AboutMeContent />
 }
 
-export async function generateStaticParams(): Promise<Array<{locale: Locale}>> {
-	return routing.locales.map(locale => ({locale}))
+export async function generateStaticParams(): Promise<Array<{ locale: Locale }>> {
+	return routing.locales.map(locale => ({ locale }))
 }
 
 export default AboutMePage

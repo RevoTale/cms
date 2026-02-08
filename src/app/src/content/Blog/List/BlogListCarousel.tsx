@@ -1,12 +1,10 @@
 'use client'
-import {Carousel} from '@shadcn/ui/carousel'
+import { Carousel } from '@shadcn/ui/carousel'
 import Autoplay from 'embla-carousel-autoplay'
-import {type FunctionComponent, type ReactNode, useRef} from 'react'
+import { type FunctionComponent, type ReactNode, useRef } from 'react'
 
-const BlogListCarousel: FunctionComponent<{children: ReactNode}> = ({
-	children,
-}) => {
-	const plugin = useRef(Autoplay({delay: 2000, stopOnInteraction: true}))
+const BlogListCarousel: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
+	const plugin = useRef(Autoplay({ delay: 2000, stopOnInteraction: true }))
 
 	return (
 		<Carousel
@@ -17,7 +15,8 @@ const BlogListCarousel: FunctionComponent<{children: ReactNode}> = ({
 				align: 'center',
 				loop: false,
 			}}
-			plugins={[plugin.current]}>
+			plugins={[plugin.current]}
+		>
 			{children}
 		</Carousel>
 	)

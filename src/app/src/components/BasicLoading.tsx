@@ -1,5 +1,5 @@
-import {Spinner} from '@shadcn/ui/spinner'
-import type {FunctionComponent} from 'react'
+import { Spinner } from '@shadcn/ui/spinner'
+import type { FunctionComponent } from 'react'
 
 const BasicLoading: FunctionComponent = () => {
 	return (

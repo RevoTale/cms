@@ -1,7 +1,7 @@
 'use client'
 
-import type {FC} from 'react'
-import {useEffect, useRef} from 'react'
+import type { FC } from 'react'
+import { useEffect, useRef } from 'react'
 import styles from './LoveRain.module.css'
 
 const HEART_WIDTH = 300
@@ -32,8 +32,7 @@ const LoveRain: FC = () => {
 			drop.classList.add(dropClassName)
 
 			const left = Math.floor(Math.random() * HEART_WIDTH)
-			const duration =
-				MIN_ANIMATION_DURATION + Math.random() * ANIMATION_VARIANCE
+			const duration = MIN_ANIMATION_DURATION + Math.random() * ANIMATION_VARIANCE
 
 			drop.style.left = `${left}px`
 			drop.style.animationDuration = `${duration}s`

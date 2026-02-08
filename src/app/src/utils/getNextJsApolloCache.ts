@@ -1,4 +1,4 @@
-import type {DefaultContext} from '@apollo/client'
+import type { DefaultContext } from '@apollo/client'
 
 const getNextJsApolloCache = (time: number): DefaultContext => {
 	return {

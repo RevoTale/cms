@@ -1,10 +1,8 @@
-import type {FunctionComponent} from 'react'
-import type {Organization, WithContext} from 'schema-dts'
+import type { FunctionComponent } from 'react'
+import type { Organization, WithContext } from 'schema-dts'
 import formatUrl from '../../linking/formatUrl'
 import LdJsonScript from './LdJsonScript'
-export const getOrganizationJsonLD = (
-	rootUrl: string
-): WithContext<Organization> => {
+export const getOrganizationJsonLD = (rootUrl: string): WithContext<Organization> => {
 	return {
 		'@context': 'https://schema.org',
 		'@type': 'Organization',
@@ -20,7 +18,7 @@ export const getOrganizationJsonLD = (
 		],
 	}
 }
-const WebsiteJSONLD: FunctionComponent<{rootUrl: string}> = ({rootUrl}) => {
+const WebsiteJSONLD: FunctionComponent<{ rootUrl: string }> = ({ rootUrl }) => {
 	return <LdJsonScript data={getOrganizationJsonLD(rootUrl)} />
 }
 export default WebsiteJSONLD

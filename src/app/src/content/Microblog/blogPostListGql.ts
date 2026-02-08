@@ -1,4 +1,4 @@
-import {graphql} from '@blog/gql'
+import { graphql } from '@blog/gql'
 
 export const blogPostlistQueryFragment = graphql(/* GraphQL */ `
 	fragment MicroBlogListItemQuery on Micro_post {

@@ -1,4 +1,4 @@
-import {type FragmentType, getFragmentData, graphql} from '@blog/gql'
+import { type FragmentType, getFragmentData, graphql } from '@blog/gql'
 import getDomain from '../../../config/getDomain'
 import getImageUrlThumb from './getImageUrlThumb'
 
@@ -12,15 +12,10 @@ const OGImageFragment = graphql(`
 	}
 `)
 const getOGImage = (
-	item: FragmentType<typeof OGImageFragment>
-): {width?: number; height?: number; url: string; alt?: string} => {
-	const {width, url, alt, height} = getFragmentData(OGImageFragment, item)
-	if (
-		typeof url !== 'string' ||
-		url.length === 0 ||
-		typeof width !== 'number' ||
-		typeof height !== 'number'
-	) {
+	item: FragmentType<typeof OGImageFragment>,
+): { width?: number; height?: number; url: string; alt?: string } => {
+	const { width, url, alt, height } = getFragmentData(OGImageFragment, item)
+	if (typeof url !== 'string' || url.length === 0 || typeof width !== 'number' || typeof height !== 'number') {
 		throw new Error('No image url')
 	}
 	return {

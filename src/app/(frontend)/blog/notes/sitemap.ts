@@ -1,7 +1,7 @@
-import { defaultLocale } from '@/i18n/config'
-import generateSitemapLanguages from '@/i18n/generateSitemapLanguages'
 import { graphql } from '@blog/gql'
 import type { MetadataRoute } from 'next'
+import { defaultLocale } from '@/i18n/config'
+import generateSitemapLanguages from '@/i18n/generateSitemapLanguages'
 import { sitemapCache } from '../../../src/cache-config'
 import { getClient } from '../../../src/gql/getClient'
 import getUrl from '../../../src/linking/getUrl'
@@ -49,7 +49,7 @@ const generateIds = (count: number): number[] => {
 	return pageNumbers
 }
 
-const generateSitemaps = async (): Promise<Array<{id: number}>> => {
+const generateSitemaps = async (): Promise<Array<{ id: number }>> => {
 	const result = await getClient().query({
 		query: totalCountQuery,
 		variables: {
@@ -59,23 +59,19 @@ const generateSitemaps = async (): Promise<Array<{id: number}>> => {
 	})
 	const total = result.data?.Tags?.totalPages ?? null
 	if (total !== null) {
-		return generateIds(total).map(index => ({id: index}))
+		return generateIds(total).map(index => ({ id: index }))
 	}
 	return []
 }
 
 export { generateSitemaps }
 
-const sitemap = async ({
-	id,
-}: {
-	id: Promise<string>
-}): Promise<MetadataRoute.Sitemap> => {
+const sitemap = async ({ id }: { id: Promise<string> }): Promise<MetadataRoute.Sitemap> => {
 	const numId = Number(await id)
-	if (isNaN(numId) || numId < 0) {
+	if (Number.isNaN(numId) || numId < 0) {
 		return []
 	}
-	const {data} = await getClient().query({
+	const { data } = await getClient().query({
 		query: tagsQuery,
 		variables: {
 			page: numId + 1,
@@ -90,10 +86,7 @@ const sitemap = async ({
 
 	return data.Tags.docs.filter(Boolean).map(tag => ({
 		url: getUrl(getTagHref(tag), defaultLocale).toString(),
-		lastModified:
-			typeof tag.updatedAt === 'string'
-				? new Date(tag.updatedAt)
-				: new Date(),
+		lastModified: typeof tag.updatedAt === 'string' ? new Date(tag.updatedAt) : new Date(),
 		changeFrequency: 'weekly' as const,
 		alternates: {
 			languages: generateSitemapLanguages(getTagHref(tag)),

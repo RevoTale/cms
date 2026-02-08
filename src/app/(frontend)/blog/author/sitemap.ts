@@ -1,13 +1,13 @@
-import {defaultLocale} from '@/i18n/config'
+import { graphql } from '@blog/gql'
+import type { MetadataRoute } from 'next'
+import { defaultLocale } from '@/i18n/config'
 import generateSitemapLanguages from '@/i18n/generateSitemapLanguages'
-import {graphql} from '@blog/gql'
-
-import type {MetadataRoute} from 'next'
-import {sitemapCache} from '../../../src/cache-config'
+import { sitemapCache } from '../../../src/cache-config'
 import getAuthorHref from '../../../src/content/Blog/getAuthorHref'
-import {getClient} from '../../../src/gql/getClient'
+import { getClient } from '../../../src/gql/getClient'
 import getUrl from '../../../src/linking/getUrl'
 import getNextJsApolloCache from '../../../src/utils/getNextJsApolloCache'
+
 const authorsQuery = graphql(/* GraphQL */ `
 	query sitemap_blog_authors_list($page: Int!) {
 		Authors(limit: 1000, page: $page) {
@@ -33,28 +33,24 @@ const totalCountQuery = graphql(/* GraphQL */ `
 		}
 	}
 `)
-const generateSitemaps = async (): Promise<Array<{id: number}>> => {
+const generateSitemaps = async (): Promise<Array<{ id: number }>> => {
 	const result = await getClient().query({
 		query: totalCountQuery,
 		context: getNextJsApolloCache(sitemapCache),
 	})
 	const total = result.data?.Authors?.totalPages ?? null
 	if (total !== null) {
-		return generateSitemapIds(total).map(index => ({id: index}))
+		return generateSitemapIds(total).map(index => ({ id: index }))
 	}
 	return []
 }
-export {generateSitemaps}
-const sitemap = async ({
-	id,
-}: {
-	id: Promise<number>
-}): Promise<MetadataRoute.Sitemap> => {
+export { generateSitemaps }
+const sitemap = async ({ id }: { id: Promise<number> }): Promise<MetadataRoute.Sitemap> => {
 	const numId = Number(await id)
-	if (isNaN(numId) || numId < 0) {
+	if (Number.isNaN(numId) || numId < 0) {
 		return []
 	}
-	const {data} = await getClient().query({
+	const { data } = await getClient().query({
 		query: authorsQuery,
 		variables: {
 			page: numId + 1,
@@ -71,10 +67,7 @@ const sitemap = async ({
 		changeFrequency: 'weekly',
 		priority: 1,
 		alternates: {
-			languages: generateSitemapLanguages(
-				getAuthorHref(author),
-				defaultLocale
-			),
+			languages: generateSitemapLanguages(getAuthorHref(author), defaultLocale),
 		},
 	}))
 }

@@ -1,12 +1,12 @@
-import {type FunctionComponent, useEffect, useState} from 'react'
+import { type FunctionComponent, useEffect, useState } from 'react'
+
 type ColValue = number | null
 interface Props {
 	value: ColValue
 	onChange: (value: ColValue) => void
 }
-const valueToStr = (value: ColValue): string =>
-	value === null ? '' : value.toString()
-const ColumnsInput: FunctionComponent<Props> = ({value, onChange}) => {
+const valueToStr = (value: ColValue): string => (value === null ? '' : value.toString())
+const ColumnsInput: FunctionComponent<Props> = ({ value, onChange }) => {
 	const [text, setText] = useState(valueToStr(value))
 	useEffect(() => {
 		setText(valueToStr(value))
@@ -16,7 +16,7 @@ const ColumnsInput: FunctionComponent<Props> = ({value, onChange}) => {
 			onChange={e => {
 				setText(e.target.value)
 				const num = Number(e.target.value)
-				onChange(isNaN(num) || num <= 0 ? null : num)
+				onChange(Number.isNaN(num) || num <= 0 ? null : num)
 			}}
 			type="number"
 			value={text}

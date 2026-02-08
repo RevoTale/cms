@@ -249,7 +249,7 @@ declare const messages: {
 	},
 	"BlogBoard": {
 		"title": "Блог",
-			"notes_title": "Переглянути нотатки",
+		"notes_title": "Переглянути нотатки",
 		"desc": "Ділячись IT-пов'язаними речами, новинами, наукою, досвідом та думками.",
 		"explore": "Досліджуйте більше статей ➔",
 		"welcome": "Ми дуже раді, що ви тут! Приємного читання!",
@@ -468,7 +468,7 @@ declare const messages: {
 		"imageLabel": "Зображення",
 		"submit": "Відправити"
 	},
-	"copyButton":{
+	"copyButton": {
 		"copy": "Копіювати",
 		"copied": "Скопійовано!"
 	},

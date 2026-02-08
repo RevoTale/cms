@@ -1,9 +1,11 @@
 'use client'
-import {usePromiseHandler} from '@bladl/react-hooks'
+import { usePromiseHandler } from '@bladl/react-hooks'
 import BadError from '@revotale/ui/BadError'
-import {Alert, AlertTitle} from '@shadcn/ui/alert'
-import {Button, buttonVariants} from '@shadcn/ui/button'
-import {Card, CardContent, CardHeader} from '@shadcn/ui/card'
+import FilesInput from '@revotale/ui/FilesInput'
+import { cn } from '@shadcn/lib/utils'
+import { Alert, AlertTitle } from '@shadcn/ui/alert'
+import { Button, buttonVariants } from '@shadcn/ui/button'
+import { Card, CardContent, CardHeader } from '@shadcn/ui/card'
 import {
 	Dialog,
 	DialogClose,
@@ -13,27 +15,15 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from '@shadcn/ui/dialog'
-import {Input} from '@shadcn/ui/input'
-import {Label} from '@shadcn/ui/label'
-import {Progress} from '@shadcn/ui/progress'
-import {ScrollArea, ScrollBar} from '@shadcn/ui/scroll-area'
-import {
-	Table,
-	TableBody,
-	TableCell,
-	TableHeader,
-	TableRow,
-} from '@shadcn/ui/table'
+import { Input } from '@shadcn/ui/input'
+import { Label } from '@shadcn/ui/label'
+import { Progress } from '@shadcn/ui/progress'
+import { ScrollArea, ScrollBar } from '@shadcn/ui/scroll-area'
+import { Table, TableBody, TableCell, TableHeader, TableRow } from '@shadcn/ui/table'
 import dayjs from 'dayjs'
+import { type FunctionComponent, type ReactNode, useMemo, useState } from 'react'
 
-import FilesInput from '@revotale/ui/FilesInput'
-import {cn} from '@shadcn/lib/utils'
-import {type FunctionComponent, type ReactNode, useMemo, useState} from 'react'
-
-import {
-	checkBrowserSupport,
-	processVideo,
-} from '../../../utils/videoSpeedProcessor'
+import { checkBrowserSupport, processVideo } from '../../../utils/videoSpeedProcessor'
 
 const firstFile = 0
 const defaultMultiplier = 0.5
@@ -61,14 +51,7 @@ const SPEED_15X = 1.5
 const SPEED_2X = 2.0
 const SPEED_4X = 4.0
 
-const speedPresets = [
-	SPEED_010X,
-	SPEED_025X,
-	SPEED_05X,
-	SPEED_15X,
-	SPEED_2X,
-	SPEED_4X,
-] as const
+const speedPresets = [SPEED_010X, SPEED_025X, SPEED_05X, SPEED_15X, SPEED_2X, SPEED_4X] as const
 
 const DurationResize: FunctionComponent<{
 	notice: ReactNode
@@ -101,13 +84,9 @@ const DurationResize: FunctionComponent<{
 }) => {
 	const videoHandler = usePromiseHandler<string>()
 	const [input, setInput] = useState<File | null>(null)
-	const [multiplier, setMultiplier] = useState<string>(
-		defaultMultiplier.toString()
-	)
+	const [multiplier, setMultiplier] = useState<string>(defaultMultiplier.toString())
 	const file = videoHandler.result
-	const [logOutput, setLogOutput] = useState<
-		Array<{time: Date; text: string; id: string}>
-	>([])
+	const [logOutput, setLogOutput] = useState<Array<{ time: Date; text: string; id: string }>>([])
 	const [progress, setProgress] = useState(0)
 
 	const supportInfo = useMemo<{
@@ -130,8 +109,7 @@ const DurationResize: FunctionComponent<{
 	}
 
 	const multiplierNumber = Number(multiplier)
-	const isMultiplierInvalid =
-		multiplierNumber === 0 || Number.isNaN(multiplierNumber)
+	const isMultiplierInvalid = multiplierNumber === 0 || Number.isNaN(multiplierNumber)
 	const handleProcessVideo = (): void => {
 		if (input === null) {
 			return
@@ -148,7 +126,7 @@ const DurationResize: FunctionComponent<{
 					multiplier: multiplierNumber,
 					logger: addLogEntry,
 					onProgress: setProgress,
-				})
+				}),
 			)
 		}
 	}
@@ -174,10 +152,7 @@ const DurationResize: FunctionComponent<{
 					<AlertTitle>
 						{notSupportedText}
 						{supportInfo.missingFeatures.length > 0 && (
-							<div className="text-sm mt-2">
-								Missing:{' '}
-								{supportInfo.missingFeatures.join(', ')}
-							</div>
+							<div className="text-sm mt-2">Missing: {supportInfo.missingFeatures.join(', ')}</div>
 						)}
 					</AlertTitle>
 				</Alert>
@@ -185,32 +160,18 @@ const DurationResize: FunctionComponent<{
 
 			{input && (
 				<div className="w-full max-w-sm p-3 bg-muted/50 rounded-md border">
-					<div className="text-sm font-medium mb-1">
-						{selectedVideoText}
-					</div>
+					<div className="text-sm font-medium mb-1">{selectedVideoText}</div>
 					<div className="text-sm text-muted-foreground">
 						<div className="truncate">
-							<span className="font-mono">
-								{getFileNameWithoutExtension(input.name)}
-							</span>
-							<span className="text-primary font-semibold">
-								{getFileExtension(input.name)}
-							</span>
+							<span className="font-mono">{getFileNameWithoutExtension(input.name)}</span>
+							<span className="text-primary font-semibold">{getFileExtension(input.name)}</span>
 						</div>
-						<div className="text-xs mt-1">
-							Size:{' '}
-							{(input.size / BYTES_PER_MB).toFixed(
-								FILE_SIZE_DECIMAL_PLACES
-							)}{' '}
-							MB
-						</div>
+						<div className="text-xs mt-1">Size: {(input.size / BYTES_PER_MB).toFixed(FILE_SIZE_DECIMAL_PLACES)} MB</div>
 					</div>
 				</div>
 			)}
 
-			{videoHandler.error === null ? null : (
-				<BadError title={videoHandler.error.toString()} />
-			)}
+			{videoHandler.error === null ? null : <BadError title={videoHandler.error.toString()} />}
 
 			<div className="grid w-full max-w-sm items-center gap-1.5">
 				<Label>{labelText}</Label>
@@ -228,24 +189,21 @@ const DurationResize: FunctionComponent<{
 				/>
 			</div>
 
-			<div className="text-sm text-muted-foreground text-center">
-				{orChoosePresetText}
-			</div>
+			<div className="text-sm text-muted-foreground text-center">{orChoosePresetText}</div>
 
 			{/* Speed Preset Buttons */}
 			<div className="flex flex-wrap gap-2 justify-center">
 				{speedPresets.map(preset => (
 					<Button
 						key={preset}
-						variant={
-							multiplierNumber === preset ? 'default' : 'outline'
-						}
+						variant={multiplierNumber === preset ? 'default' : 'outline'}
 						size="sm"
 						disabled={videoHandler.loading}
 						onClick={() => {
 							setMultiplier(preset.toString())
 						}}
-						className="min-w-[3rem]">
+						className="min-w-[3rem]"
+					>
 						{preset}x
 					</Button>
 				))}
@@ -253,20 +211,17 @@ const DurationResize: FunctionComponent<{
 
 			<Button
 				className="w-min"
-				disabled={
-					!input || !supportInfo.isSupported || videoHandler.loading
-				}
+				disabled={!input || !supportInfo.isSupported || videoHandler.loading}
 				onClick={handleProcessVideo}
-				type="button">
+				type="button"
+			>
 				{transform}
 			</Button>
 
 			{videoHandler.loading ? (
 				<div className="w-full max-w-sm">
 					<Progress max={maxPercent} value={progress * maxPercent} />
-					<div className="text-sm text-muted-foreground mt-1">
-						{Math.round(progress * maxPercent)}%
-					</div>
+					<div className="text-sm text-muted-foreground mt-1">{Math.round(progress * maxPercent)}%</div>
 				</div>
 			) : null}
 
@@ -275,9 +230,7 @@ const DurationResize: FunctionComponent<{
 					<CardHeader className="justify-center flex flex-col items-center">
 						<a
 							download={
-								input
-									? `${getFileNameWithoutExtension(input.name)}_x${multiplier}.webm`
-									: 'processed_video.webm'
+								input ? `${getFileNameWithoutExtension(input.name)}_x${multiplier}.webm` : 'processed_video.webm'
 							}
 							href={file}
 							className={cn(
@@ -285,8 +238,9 @@ const DurationResize: FunctionComponent<{
 									variant: 'default',
 									size: 'lg',
 									className: 'w-min',
-								})
-							)}>
+								}),
+							)}
+						>
 							{downloadText}
 						</a>
 					</CardHeader>
@@ -320,11 +274,7 @@ const DurationResize: FunctionComponent<{
 									{logOutput.map(item => (
 										<TableRow key={item.id}>
 											<TableCell>{item.text}</TableCell>
-											<TableCell>
-												{dayjs(item.time).format(
-													'HH:mm:ss'
-												)}
-											</TableCell>
+											<TableCell>{dayjs(item.time).format('HH:mm:ss')}</TableCell>
 										</TableRow>
 									))}
 								</TableBody>

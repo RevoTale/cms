@@ -1,5 +1,5 @@
-import {type FragmentType, getFragmentData, graphql} from '@blog/gql'
-import {type RelativeURL, makeRelativeLink} from 'next-navigation-utils'
+import { type FragmentType, getFragmentData, graphql } from '@blog/gql'
+import { makeRelativeLink, type RelativeURL } from 'next-navigation-utils'
 export const PostFragment = graphql(/* GraphQL */ `
 	fragment GetPostURL on Post {
 		slug
@@ -8,7 +8,7 @@ export const PostFragment = graphql(/* GraphQL */ `
 `)
 
 const getPostHref = (post: FragmentType<typeof PostFragment>): RelativeURL => {
-	const {slug} = getFragmentData(PostFragment, post)
+	const { slug } = getFragmentData(PostFragment, post)
 	return makeRelativeLink(`/blog/article/${slug}`)
 }
 

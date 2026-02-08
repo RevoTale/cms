@@ -1,175 +1,240 @@
 @media (prefers-color-scheme: dark) {
-    .mdxeditor {
-  /* Accent (primary) mapping to shadcn theme tokens */
-  --accentBase: var(--primary);
-  --accentBgSubtle: var(--accent);
-  --accentBg: var(--accent);
-  --accentBgHover: var(--accent);
-  --accentBgActive: var(--accent);
-  --accentLine: var(--border);
-  --accentBorder: var(--primary);
-  --accentBorderHover: var(--primary);
-  --accentSolid: var(--primary);
-  --accentSolidHover: var(--primary);
-  --accentText: var(--primary);
-  --accentTextContrast: var(--primary-foreground);
-  /* Base (surface) mapping to shadcn theme tokens */
-  --baseBase: var(--background);
-  --baseBgSubtle: var(--muted);
-  --baseBg: var(--card);
-  --baseBgHover: var(--accent);
-  --baseBgActive: var(--accent);
-  --baseLine: var(--muted);
-  --baseBorder: var(--border);
-  --baseBorderHover: var(--ring);
-  --baseSolid: var(--card);
-  --baseSolidHover: var(--popover);
-  --baseText: var(--foreground);
-  --baseTextContrast: var(--foreground);
+	.mdxeditor {
+		/* Accent (primary) mapping to shadcn theme tokens */
+		--accentBase: var(--primary);
+		--accentBgSubtle: var(--accent);
+		--accentBg: var(--accent);
+		--accentBgHover: var(--accent);
+		--accentBgActive: var(--accent);
+		--accentLine: var(--border);
+		--accentBorder: var(--primary);
+		--accentBorderHover: var(--primary);
+		--accentSolid: var(--primary);
+		--accentSolidHover: var(--primary);
+		--accentText: var(--primary);
+		--accentTextContrast: var(--primary-foreground);
+		/* Base (surface) mapping to shadcn theme tokens */
+		--baseBase: var(--background);
+		--baseBgSubtle: var(--muted);
+		--baseBg: var(--card);
+		--baseBgHover: var(--accent);
+		--baseBgActive: var(--accent);
+		--baseLine: var(--muted);
+		--baseBorder: var(--border);
+		--baseBorderHover: var(--ring);
+		--baseSolid: var(--card);
+		--baseSolidHover: var(--popover);
+		--baseText: var(--foreground);
+		--baseTextContrast: var(--foreground);
 
-  /* Admonitions mapped to shadcn chart/destructive tokens */
-  --admonitionTipBg: var(--muted);
-  --admonitionTipBorder: var(--chart-2);
+		/* Admonitions mapped to shadcn chart/destructive tokens */
+		--admonitionTipBg: var(--muted);
+		--admonitionTipBorder: var(--chart-2);
 
-  --admonitionInfoBg: var(--muted);
-  --admonitionInfoBorder: var(--chart-3);
+		--admonitionInfoBg: var(--muted);
+		--admonitionInfoBorder: var(--chart-3);
 
-  --admonitionCautionBg: var(--muted);
-  --admonitionCautionBorder: var(--chart-5);
+		--admonitionCautionBg: var(--muted);
+		--admonitionCautionBorder: var(--chart-5);
 
-  --admonitionDangerBg: var(--muted);
-  --admonitionDangerBorder: var(--destructive);
+		--admonitionDangerBg: var(--muted);
+		--admonitionDangerBorder: var(--destructive);
 
-  --admonitionNoteBg: var(--muted);
-  --admonitionNoteBorder: var(--border);
+		--admonitionNoteBg: var(--muted);
+		--admonitionNoteBorder: var(--border);
 
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+		font-family:
+			system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+			"Helvetica Neue", sans-serif;
+		--font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
-  color: var(--foreground);
-  --basePageBg: var(--card);
-  background: var(--card);
-  border: 1px solid var(--accentLine);
-  border-radius: 5px;
-}
-.mdxeditor-root-contenteditable {
-    background: var(--card);
-    color: var(--foreground);
-}
+		color: var(--foreground);
+		--basePageBg: var(--card);
+		background: var(--card);
+		border: 1px solid var(--accentLine);
+		border-radius: 5px;
+	}
+	.mdxeditor-root-contenteditable {
+		background: var(--card);
+		color: var(--foreground);
+	}
 
-/* Inline code (backticks) inside paragraphs, list items, and headings */
-.mdxeditor-root-contenteditable :where(p, li, h1, h2, h3, h4, h5, h6) code {
-  font-family: var(--font-mono);
-  font-size: 0.925em;
-  line-height: 1.2;
-  background: var(--muted);
-  color: var(--foreground);
-  border: 1px solid var(--border);
-  border-radius: 0.375rem; /* 6px */
-  padding: 0.125rem 0.375rem; /* 2px 6px */
-}
+	/* Inline code (backticks) inside paragraphs, list items, and headings */
+	.mdxeditor-root-contenteditable :where(p, li, h1, h2, h3, h4, h5, h6) code {
+		font-family: var(--font-mono);
+		font-size: 0.925em;
+		line-height: 1.2;
+		background: var(--muted);
+		color: var(--foreground);
+		border: 1px solid var(--border);
+		border-radius: 0.375rem; /* 6px */
+		padding: 0.125rem 0.375rem; /* 2px 6px */
+	}
 
-
-
-/* Tweak when inline code is inside a link for better contrast */
-.mdxeditor-root-contenteditable  code,.mdxeditor-root-contenteditable code span {
-  color: var(--foreground);
-  background: var(--background);
-  border-color: color-mix(in oklch, var(--primary) 60%, var(--border));
-}
+	/* Tweak when inline code is inside a link for better contrast */
+	.mdxeditor-root-contenteditable code,
+	.mdxeditor-root-contenteditable code span {
+		color: var(--foreground);
+		background: var(--background);
+		border-color: color-mix(in oklch, var(--primary) 60%, var(--border));
+	}
 }
 
 /* CodeMirror 6 theme (CSS-only) mapped to shadcn tokens */
 @media (prefers-color-scheme: dark) {
-  /* Scope to MDX editor to avoid leaking globally */
-  .mdxeditor {
-    /* Editor surface */
-    --cm-bg: var(--card);
-    --cm-fg: var(--foreground);
-    --cm-border: var(--accentLine);
-    --cm-caret: var(--primary);
-    --cm-selection: color-mix(in oklch, var(--primary) 18%, transparent);
-    --cm-activeLine: color-mix(in oklch, var(--foreground) 8%, transparent);
-    --cm-gutter-fg: var(--muted-foreground, color-mix(in oklch, var(--foreground) 60%, transparent));
-    --cm-gutter-bg: var(--card);
-    --cm-match-bg: color-mix(in oklch, var(--chart-2, var(--primary)) 30%, transparent);
-    --cm-match-border: color-mix(in oklch, var(--chart-2, var(--primary)) 50%, var(--border));
+	/* Scope to MDX editor to avoid leaking globally */
+	.mdxeditor {
+		/* Editor surface */
+		--cm-bg: var(--card);
+		--cm-fg: var(--foreground);
+		--cm-border: var(--accentLine);
+		--cm-caret: var(--primary);
+		--cm-selection: color-mix(in oklch, var(--primary) 18%, transparent);
+		--cm-activeLine: color-mix(in oklch, var(--foreground) 8%, transparent);
+		--cm-gutter-fg: var(--muted-foreground, color-mix(in oklch, var(--foreground) 60%, transparent));
+		--cm-gutter-bg: var(--card);
+		--cm-match-bg: color-mix(in oklch, var(--chart-2, var(--primary)) 30%, transparent);
+		--cm-match-border: color-mix(in oklch, var(--chart-2, var(--primary)) 50%, var(--border));
 
-    /* Syntax palette (cmt-*) */
-    --cmt-keyword: var(--chart-3, var(--primary));
-    --cmt-operator: var(--chart-5, var(--foreground));
-    --cmt-string: var(--chart-2, var(--primary));
-    --cmt-number: var(--chart-4, var(--primary));
-    --cmt-atom: var(--chart-1, var(--primary));
-    --cmt-variable: var(--foreground);
-    --cmt-variable-def: color-mix(in oklch, var(--primary) 85%, var(--foreground));
-    --cmt-type: var(--chart-4, var(--primary));
-    --cmt-property: color-mix(in oklch, var(--primary) 70%, var(--foreground));
-    --cmt-function: var(--primary);
-    --cmt-comment: var(--muted-foreground, color-mix(in oklch, var(--foreground) 50%, transparent));
-    --cmt-regexp: var(--chart-2, var(--primary));
-    --cmt-meta: var(--muted-foreground, color-mix(in oklch, var(--foreground) 60%, transparent));
-    --cmt-link: var(--primary);
-    --cmt-invalid: var(--destructive);
-  }
+		/* Syntax palette (cmt-*) */
+		--cmt-keyword: var(--chart-3, var(--primary));
+		--cmt-operator: var(--chart-5, var(--foreground));
+		--cmt-string: var(--chart-2, var(--primary));
+		--cmt-number: var(--chart-4, var(--primary));
+		--cmt-atom: var(--chart-1, var(--primary));
+		--cmt-variable: var(--foreground);
+		--cmt-variable-def: color-mix(in oklch, var(--primary) 85%, var(--foreground));
+		--cmt-type: var(--chart-4, var(--primary));
+		--cmt-property: color-mix(in oklch, var(--primary) 70%, var(--foreground));
+		--cmt-function: var(--primary);
+		--cmt-comment: var(--muted-foreground, color-mix(in oklch, var(--foreground) 50%, transparent));
+		--cmt-regexp: var(--chart-2, var(--primary));
+		--cmt-meta: var(--muted-foreground, color-mix(in oklch, var(--foreground) 60%, transparent));
+		--cmt-link: var(--primary);
+		--cmt-invalid: var(--destructive);
+	}
 
-  /* Base editor */
-  .mdxeditor .cm-editor {
-    background: var(--cm-bg);
-    color: var(--cm-fg);
-    border: 1px solid var(--cm-border);
-    border-radius: 6px;
-  }
-  .mdxeditor .cm-scroller {
-    font-family: var(--font-mono);
-    background: var(--cm-bg);
-    line-height: 1.55;
-  }
-  .mdxeditor .cm-content { caret-color: var(--cm-caret); }
-  .mdxeditor .cm-cursor, .mdxeditor .cm-dropCursor { border-left-color: var(--cm-caret); }
-  .mdxeditor .cm-activeLine { background: var(--cm-activeLine); }
-  .mdxeditor .cm-selectionBackground, .mdxeditor .cm-selectionLayer .cm-selectionBackground { background: var(--cm-selection) !important; }
+	/* Base editor */
+	.mdxeditor .cm-editor {
+		background: var(--cm-bg);
+		color: var(--cm-fg);
+		border: 1px solid var(--cm-border);
+		border-radius: 6px;
+	}
+	.mdxeditor .cm-scroller {
+		font-family: var(--font-mono);
+		background: var(--cm-bg);
+		line-height: 1.55;
+	}
+	.mdxeditor .cm-content {
+		caret-color: var(--cm-caret);
+	}
+	.mdxeditor .cm-cursor,
+	.mdxeditor .cm-dropCursor {
+		border-left-color: var(--cm-caret);
+	}
+	.mdxeditor .cm-activeLine {
+		background: var(--cm-activeLine);
+	}
+	.mdxeditor .cm-selectionBackground,
+	.mdxeditor .cm-selectionLayer .cm-selectionBackground {
+		background: var(--cm-selection);
+	}
 
-  /* Gutters */
-  .mdxeditor .cm-gutters {
-    background: var(--cm-gutter-bg);
-    color: var(--cm-gutter-fg);
-    border-right: 1px solid var(--border);
-  }
-  .mdxeditor .cm-lineNumbers .cm-gutterElement { color: var(--cm-gutter-fg); }
-  .mdxeditor .cm-foldGutter span { color: var(--cm-gutter-fg); }
+	/* Gutters */
+	.mdxeditor .cm-gutters {
+		background: var(--cm-gutter-bg);
+		color: var(--cm-gutter-fg);
+		border-right: 1px solid var(--border);
+	}
+	.mdxeditor .cm-lineNumbers .cm-gutterElement {
+		color: var(--cm-gutter-fg);
+	}
+	.mdxeditor .cm-foldGutter span {
+		color: var(--cm-gutter-fg);
+	}
 
-  /* Search & selection matches */
-  .mdxeditor .cm-searchMatch { background: var(--cm-match-bg); outline: 1px solid var(--cm-match-border); }
-  .mdxeditor .cm-searchMatch.cm-searchMatch-selected { background: color-mix(in oklch, var(--chart-3, var(--primary)) 35%, transparent); }
-  .mdxeditor .cm-selectionMatch { background: color-mix(in oklch, var(--primary) 12%, transparent); }
+	/* Search & selection matches */
+	.mdxeditor .cm-searchMatch {
+		background: var(--cm-match-bg);
+		outline: 1px solid var(--cm-match-border);
+	}
+	.mdxeditor .cm-searchMatch.cm-searchMatch-selected {
+		background: color-mix(in oklch, var(--chart-3, var(--primary)) 35%, transparent);
+	}
+	.mdxeditor .cm-selectionMatch {
+		background: color-mix(in oklch, var(--primary) 12%, transparent);
+	}
 
-  /* Tooltips (hints, hover, autocomplete) */
-  .mdxeditor .cm-tooltip { background: var(--popover); border: 1px solid var(--border); color: var(--foreground); }
-  .mdxeditor .cm-tooltip .cm-tooltip-arrow:before { border-top-color: var(--border) !important; border-bottom-color: var(--border) !important; }
-  .mdxeditor .cm-tooltip .cm-tooltip-arrow:after { border-top-color: var(--popover) !important; border-bottom-color: var(--popover) !important; }
+	/* Tooltips (hints, hover, autocomplete) */
+	.mdxeditor .cm-tooltip {
+		background: var(--popover);
+		border: 1px solid var(--border);
+		color: var(--foreground);
+	}
+	.mdxeditor .cm-tooltip .cm-tooltip-arrow:before {
+		border-top-color: var(--border);
+		border-bottom-color: var(--border);
+	}
+	.mdxeditor .cm-tooltip .cm-tooltip-arrow:after {
+		border-top-color: var(--popover);
+		border-bottom-color: var(--popover);
+	}
 
-  /* Syntax highlighting using cmt- classes produced by CM6 highlight */
-  .mdxeditor .cm-editor .cmt-keyword { color: var(--cmt-keyword); }
-  .mdxeditor .cm-editor .cmt-operator { color: var(--cmt-operator); }
-  .mdxeditor .cm-editor .cmt-string { color: var(--cmt-string); }
-  .mdxeditor .cm-editor .cmt-number { color: var(--cmt-number); }
-  .mdxeditor .cm-editor .cmt-bool,
-  .mdxeditor .cm-editor .cmt-null,
-  .mdxeditor .cm-editor .cmt-atom { color: var(--cmt-atom); }
-  .mdxeditor .cm-editor .cmt-variableName { color: var(--cmt-variable); }
-  .mdxeditor .cm-editor .cmt-definition.cmt-variableName,
-  .mdxeditor .cm-editor .cmt-local.cmt-variableName { color: var(--cmt-variable-def); }
-  .mdxeditor .cm-editor .cmt-typeName,
-  .mdxeditor .cm-editor .cmt-className { color: var(--cmt-type); }
-  .mdxeditor .cm-editor .cmt-propertyName { color: var(--cmt-property); }
-  .mdxeditor .cm-editor .cmt-function,
-  .mdxeditor .cm-editor .cmt-function.cmt-variableName,
-  .mdxeditor .cm-editor .cmt-function.cmt-propertyName { color: var(--cmt-function); }
-  .mdxeditor .cm-editor .cmt-comment { color: var(--cmt-comment); font-style: italic; }
-  .mdxeditor .cm-editor .cmt-regexp { color: var(--cmt-regexp); }
-  .mdxeditor .cm-editor .cmt-meta { color: var(--cmt-meta); }
-  .mdxeditor .cm-editor .cmt-link, .mdxeditor .cm-editor .cmt-url { color: var(--cmt-link); text-decoration: underline; }
-  .mdxeditor .cm-editor .cmt-invalid { color: var(--cmt-invalid); text-decoration: wavy underline; }
+	/* Syntax highlighting using cmt- classes produced by CM6 highlight */
+	.mdxeditor .cm-editor .cmt-keyword {
+		color: var(--cmt-keyword);
+	}
+	.mdxeditor .cm-editor .cmt-operator {
+		color: var(--cmt-operator);
+	}
+	.mdxeditor .cm-editor .cmt-string {
+		color: var(--cmt-string);
+	}
+	.mdxeditor .cm-editor .cmt-number {
+		color: var(--cmt-number);
+	}
+	.mdxeditor .cm-editor .cmt-bool,
+	.mdxeditor .cm-editor .cmt-null,
+	.mdxeditor .cm-editor .cmt-atom {
+		color: var(--cmt-atom);
+	}
+	.mdxeditor .cm-editor .cmt-variableName {
+		color: var(--cmt-variable);
+	}
+	.mdxeditor .cm-editor .cmt-definition.cmt-variableName,
+	.mdxeditor .cm-editor .cmt-local.cmt-variableName {
+		color: var(--cmt-variable-def);
+	}
+	.mdxeditor .cm-editor .cmt-typeName,
+	.mdxeditor .cm-editor .cmt-className {
+		color: var(--cmt-type);
+	}
+	.mdxeditor .cm-editor .cmt-propertyName {
+		color: var(--cmt-property);
+	}
+	.mdxeditor .cm-editor .cmt-function,
+	.mdxeditor .cm-editor .cmt-function.cmt-variableName,
+	.mdxeditor .cm-editor .cmt-function.cmt-propertyName {
+		color: var(--cmt-function);
+	}
+	.mdxeditor .cm-editor .cmt-comment {
+		color: var(--cmt-comment);
+		font-style: italic;
+	}
+	.mdxeditor .cm-editor .cmt-regexp {
+		color: var(--cmt-regexp);
+	}
+	.mdxeditor .cm-editor .cmt-meta {
+		color: var(--cmt-meta);
+	}
+	.mdxeditor .cm-editor .cmt-link,
+	.mdxeditor .cm-editor .cmt-url {
+		color: var(--cmt-link);
+		text-decoration: underline;
+	}
+	.mdxeditor .cm-editor .cmt-invalid {
+		color: var(--cmt-invalid);
+		text-decoration: wavy underline;
+	}
 }
-

@@ -1,15 +1,15 @@
 'use client'
-import {Alert, AlertTitle} from '@shadcn/ui/alert'
-import {Textarea} from '@shadcn/ui/textarea'
-import {AlertTriangle} from 'lucide-react'
-import type {Locale} from 'next-intl'
+import { Alert, AlertTitle } from '@shadcn/ui/alert'
+import { Textarea } from '@shadcn/ui/textarea'
+import { AlertTriangle } from 'lucide-react'
 import Form from 'next/form'
-import {usePathname, useRouter, useSearchParams} from 'next/navigation'
-import {type FunctionComponent, useCallback, useEffect, useState} from 'react'
-import {URLStringDecoder, URLStringEncoder} from '../../../linking/map/tools'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import type { Locale } from 'next-intl'
+import { type FunctionComponent, useCallback, useEffect, useState } from 'react'
+import { URLStringDecoder, URLStringEncoder } from '../../../linking/map/tools'
 import ActionButtonLink from './ActionButtonLink'
-import CopyButton, {type CopyButtonTextProps} from './CopyButton'
-import PasteButton, {type PasteButtonTextProps} from './PasteButton'
+import CopyButton, { type CopyButtonTextProps } from './CopyButton'
+import PasteButton, { type PasteButtonTextProps } from './PasteButton'
 export type Tool = 'encode' | 'decode'
 interface Props {
 	tool: Tool | null
@@ -69,9 +69,7 @@ const UrlTool: FunctionComponent<Props> = ({
 	}, [syncWithURl])
 
 	return (
-		<Form
-			action={pathname}
-			className="flex flex-col gap-4 max-w-(--breakpoint-sm) w-full">
+		<Form action={pathname} className="flex flex-col gap-4 max-w-(--breakpoint-sm) w-full">
 			<PasteButton onPaste={setText} text={pasteButton} />
 			<Textarea
 				autoFocus
@@ -88,13 +86,15 @@ const UrlTool: FunctionComponent<Props> = ({
 				<ActionButtonLink
 					locale={locale}
 					active={tool === 'encode'}
-					href={`${URLStringEncoder.href}?${inputKey}=${encodeURIComponent(text)}`}>
+					href={`${URLStringEncoder.href}?${inputKey}=${encodeURIComponent(text)}`}
+				>
 					{encodeStr}
 				</ActionButtonLink>
 				<ActionButtonLink
 					locale={locale}
 					active={tool === 'decode'}
-					href={`${URLStringDecoder.href}?${inputKey}=${encodeURIComponent(text)}`}>
+					href={`${URLStringDecoder.href}?${inputKey}=${encodeURIComponent(text)}`}
+				>
 					{decodeStr}
 				</ActionButtonLink>
 			</div>
@@ -106,12 +106,7 @@ const UrlTool: FunctionComponent<Props> = ({
 					<AlertTitle className="text-lg">{sameStr}</AlertTitle>
 				</Alert>
 			) : null}
-			<Textarea
-				placeholder={outputPlaceholder}
-				readOnly
-				rows={7}
-				value={result}
-			/>
+			<Textarea placeholder={outputPlaceholder} readOnly rows={7} value={result} />
 			<CopyButton text={result} t={copyButtonText} />
 		</Form>
 	)

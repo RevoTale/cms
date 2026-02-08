@@ -1,9 +1,9 @@
+import type { Metadata } from 'next'
+import type { Locale } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
+import { makeRelativeLink } from 'next-navigation-utils'
+import type { FunctionComponent } from 'react'
 import generateAlternatesMeta from '@/i18n/generateAlternatesMeta'
-import type {Metadata} from 'next'
-import type {Locale} from 'next-intl'
-import {getTranslations} from 'next-intl/server'
-import {makeRelativeLink} from 'next-navigation-utils'
-import type {FunctionComponent} from 'react'
 import SchemaNavigation from '../../../src/content/SchemaNavigation/SchemaNavigation'
 import getUrl from '../../../src/linking/getUrl'
 import {
@@ -15,12 +15,8 @@ import {
 	VideoDurationChanger,
 } from '../../../src/linking/map/tools'
 
-export const generateMetadata = async ({
-	params,
-}: {
-	params: Promise<{locale: Locale}>
-}): Promise<Metadata> => {
-	const {locale} = await params
+export const generateMetadata = async ({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> => {
+	const { locale } = await params
 	const t = await getTranslations({
 		locale,
 		namespace: 'NavigationMap',
@@ -29,10 +25,7 @@ export const generateMetadata = async ({
 	return {
 		title: t('meta.title'),
 		description: t('meta.description'),
-		alternates: generateAlternatesMeta(
-			makeRelativeLink('/navigation-map'),
-			locale
-		),
+		alternates: generateAlternatesMeta(makeRelativeLink('/navigation-map'), locale),
 
 		openGraph: {
 			type: 'website',
@@ -43,10 +36,8 @@ export const generateMetadata = async ({
 	}
 }
 
-const Page: FunctionComponent<{params: Promise<{locale: Locale}>}> = async ({
-	params,
-}) => {
-	const {locale} = await params
+const Page: FunctionComponent<{ params: Promise<{ locale: Locale }> }> = async ({ params }) => {
+	const { locale } = await params
 	const t = await getTranslations({
 		locale,
 		namespace: 'NavigationMap',
@@ -141,9 +132,7 @@ const Page: FunctionComponent<{params: Promise<{locale: Locale}>}> = async ({
 
 	return (
 		<div className="flex flex-col gap-7 py-7">
-			<h1 className="text-2xl font-semibold text-center">
-				{t('pageTitle')}
-			</h1>
+			<h1 className="text-2xl font-semibold text-center">{t('pageTitle')}</h1>
 			<div className="max-w-full">
 				<SchemaNavigation locale={locale} schema={schema} />
 			</div>

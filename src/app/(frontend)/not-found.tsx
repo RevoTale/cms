@@ -1,9 +1,9 @@
-import {defaultLocale} from '@/i18n/config'
-import {cn} from '@shadcn/lib/utils'
-import {buttonVariants} from '@shadcn/ui/button'
-import type {Metadata} from 'next'
+import { cn } from '@shadcn/lib/utils'
+import { buttonVariants } from '@shadcn/ui/button'
+import type { Metadata } from 'next'
 import Link from 'next/link'
-import type {FunctionComponent} from 'react'
+import type { FunctionComponent } from 'react'
+import { defaultLocale } from '@/i18n/config'
 export const metadata: Metadata = {
 	title: 'Page not found',
 	description: 'The page you are looking for does not exist.',
@@ -22,8 +22,7 @@ const Custom404: FunctionComponent = () => {
 								Something is missing.
 							</p>
 							<p className="mb-4 text-lg font-light text-muted-foreground">
-								Sorry, we can&apos;t find that page. You&apos;ll
-								find lots to explore on the home page.
+								Sorry, we can&apos;t find that page. You&apos;ll find lots to explore on the home page.
 							</p>
 
 							<Link
@@ -32,8 +31,9 @@ const Custom404: FunctionComponent = () => {
 									buttonVariants({
 										variant: 'default',
 										size: 'default',
-									})
-								)}>
+									}),
+								)}
+							>
 								Go to home page.
 							</Link>
 						</div>

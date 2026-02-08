@@ -1,22 +1,18 @@
+import { Skeleton } from '@shadcn/ui/skeleton'
+import type { Metadata } from 'next'
+import type { Locale } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
+import { type FunctionComponent, Suspense } from 'react'
 import generateSitemapLanguages from '@/i18n/generateSitemapLanguages'
 import type PagePropsWithLocale from '@/i18n/PagePropsWithLocale'
-import {Skeleton} from '@shadcn/ui/skeleton'
-import type {Metadata} from 'next'
-import type {Locale} from 'next-intl'
-import {getTranslations} from 'next-intl/server'
-import {type FunctionComponent, Suspense} from 'react'
 import UrlToolJsonLd from '../../../../../src/content/Tools/UrlTool/UrlToolJsonLd'
 import UrlToolTranslated from '../../../../../src/content/Tools/UrlTool/UrlToolTranslated'
 import UtilityTemplate from '../../../../../src/content/Tools/UtilityTemplate'
 import getUrl from '../../../../../src/linking/getUrl'
-import {URLStringDecoder} from '../../../../../src/linking/map/tools'
+import { URLStringDecoder } from '../../../../../src/linking/map/tools'
 
-export const generateMetadata = async ({
-	params,
-}: {
-	params: Promise<{locale: Locale}>
-}): Promise<Metadata> => {
-	const {locale} = await params
+export const generateMetadata = async ({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> => {
+	const { locale } = await params
 	const t = await getTranslations({
 		locale,
 		namespace: 'URLDecoder',
@@ -41,17 +37,14 @@ export const generateMetadata = async ({
 		keywords: [t2('url'), t2('decode'), t2('online')],
 	}
 }
-const UrlEncoder: FunctionComponent<PagePropsWithLocale> = async ({params}) => {
-	const {locale} = await params
+const UrlEncoder: FunctionComponent<PagePropsWithLocale> = async ({ params }) => {
+	const { locale } = await params
 	const t = await getTranslations({
 		locale,
 		namespace: 'ToolsBoard.Breadcrumbs',
 	})
 	return (
-		<UtilityTemplate
-			locale={locale}
-			currentHref={URLStringDecoder.href}
-			title={t('decoder')}>
+		<UtilityTemplate locale={locale} currentHref={URLStringDecoder.href} title={t('decoder')}>
 			<Suspense fallback={<Skeleton className="w-full h-64" />}>
 				<UrlToolTranslated locale={locale} tool="decode" />
 			</Suspense>

@@ -1,17 +1,11 @@
 'use client'
 
 import FilesInput from '@revotale/ui/FilesInput'
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardHeader,
-	CardTitle,
-} from '@shadcn/ui/card'
-import {Label} from '@shadcn/ui/label'
-import {Spinner} from '@shadcn/ui/spinner'
-import {Switch} from '@shadcn/ui/switch'
-import {useTranslations} from 'next-intl'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@shadcn/ui/card'
+import { Label } from '@shadcn/ui/label'
+import { Spinner } from '@shadcn/ui/spinner'
+import { Switch } from '@shadcn/ui/switch'
+import { useTranslations } from 'next-intl'
 import {
 	type FunctionComponent,
 	type RefObject,
@@ -21,7 +15,7 @@ import {
 	useState,
 	useTransition,
 } from 'react'
-import ScreenFillRenderer, {type ImageData} from './ScreenFillRenderer'
+import ScreenFillRenderer, { type ImageData } from './ScreenFillRenderer'
 
 interface ScreenFillGalleryTranslations {
 	title: string
@@ -34,31 +28,24 @@ interface Props {
 	translations: ScreenFillGalleryTranslations
 }
 
-const imageSize = async (
-	url: string
-): Promise<{width: number; height: number}> => {
+const imageSize = async (url: string): Promise<{ width: number; height: number }> => {
 	const img = document.createElement('img')
 
 	// eslint-disable-next-line promise/avoid-new -- required for image loading
-	const promise = new Promise<{width: number; height: number}>(
-		(resolve, reject) => {
-			img.onload = (): void => {
-				const width = img.naturalWidth
-				const height = img.naturalHeight
-				resolve({width, height})
-			}
-			img.onerror = reject
+	const promise = new Promise<{ width: number; height: number }>((resolve, reject) => {
+		img.onload = (): void => {
+			const width = img.naturalWidth
+			const height = img.naturalHeight
+			resolve({ width, height })
 		}
-	)
+		img.onerror = reject
+	})
 
 	img.src = url
 	return await promise
 }
 
-const getImages = async (
-	cacheRef: RefObject<Map<File, string>>,
-	files: File[]
-): Promise<ImageData[]> => {
+const getImages = async (cacheRef: RefObject<Map<File, string>>, files: File[]): Promise<ImageData[]> => {
 	const getFileSrc = (file: File): string => {
 		if (cacheRef.current.has(file)) {
 			const content = cacheRef.current.get(file) ?? null
@@ -80,7 +67,7 @@ const getImages = async (
 					src: file,
 					...size,
 				}
-			})
+			}),
 	)
 }
 type State =
@@ -99,16 +86,13 @@ type State =
 			result: null
 			imagesLoadedText: string
 	  }
-const ScreenFillGalleryBoard: FunctionComponent<Props> = ({translations}) => {
+const ScreenFillGalleryBoard: FunctionComponent<Props> = ({ translations }) => {
 	const t = useTranslations('ScreenFillGallery')
 	const [fullscreen, setFullscreen] = useState(false)
 	const [showControls, setShowControls] = useState(true)
 	const cacheRef = useRef(new Map<File, string>())
 	const [isPending, startTransition] = useTransition()
-	const [{error, result, imagesLoadedText}, doAction] = useActionState<
-		State,
-		File[]
-	>(
+	const [{ error, result, imagesLoadedText }, doAction] = useActionState<State, File[]>(
 		async (_: State, files: File[]) => {
 			try {
 				return {
@@ -122,11 +106,7 @@ const ScreenFillGalleryBoard: FunctionComponent<Props> = ({translations}) => {
 				return {
 					result: null,
 					error:
-						typeof error === 'string'
-							? new Error(error)
-							: error instanceof Error
-								? error
-								: new Error('Unknown error'),
+						typeof error === 'string' ? new Error(error) : error instanceof Error ? error : new Error('Unknown error'),
 					imagesLoadedText: '',
 				}
 			}
@@ -135,7 +115,7 @@ const ScreenFillGalleryBoard: FunctionComponent<Props> = ({translations}) => {
 			error: null,
 			result: null,
 			imagesLoadedText: '',
-		}
+		},
 	)
 
 	const toggleFullscreen = (): void => {
@@ -162,10 +142,7 @@ const ScreenFillGalleryBoard: FunctionComponent<Props> = ({translations}) => {
 
 		document.addEventListener('fullscreenchange', handleFullscreenChange)
 		return (): void => {
-			document.removeEventListener(
-				'fullscreenchange',
-				handleFullscreenChange
-			)
+			document.removeEventListener('fullscreenchange', handleFullscreenChange)
 		}
 	}, [])
 
@@ -175,16 +152,15 @@ const ScreenFillGalleryBoard: FunctionComponent<Props> = ({translations}) => {
 				<Card>
 					<CardHeader>
 						<CardTitle>{translations.title}</CardTitle>
-						<CardDescription>
-							{translations.description}
-						</CardDescription>
+						<CardDescription>{translations.description}</CardDescription>
 					</CardHeader>
 					<CardContent>
 						<form
 							className="flex flex-col items-center gap-4"
 							onSubmit={e => {
 								e.preventDefault()
-							}}>
+							}}
+						>
 							<FilesInput
 								id="images"
 								label={translations.imageLabel}
@@ -201,21 +177,13 @@ const ScreenFillGalleryBoard: FunctionComponent<Props> = ({translations}) => {
 									onCheckedChange={toggleFullscreen}
 									disabled={!result || result.length === 0}
 								/>
-								<Label htmlFor="fullscreen-mode">
-									{translations.fullscreenMode}
-								</Label>
+								<Label htmlFor="fullscreen-mode">{translations.fullscreenMode}</Label>
 								{isPending ? <Spinner /> : null}
 							</div>
-							{imagesLoadedText !== '' && (
-								<div className="text-sm text-muted-foreground">
-									{imagesLoadedText}
-								</div>
-							)}
+							{imagesLoadedText !== '' && <div className="text-sm text-muted-foreground">{imagesLoadedText}</div>}
 						</form>
 						{error !== null && (
-							<div className="mt-4 p-4 bg-destructive/10 text-destructive rounded-md">
-								{error.toString()}
-							</div>
+							<div className="mt-4 p-4 bg-destructive/10 text-destructive rounded-md">{error.toString()}</div>
 						)}
 					</CardContent>
 				</Card>

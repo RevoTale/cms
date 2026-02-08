@@ -1,9 +1,9 @@
 'use client'
 
-import {Badge} from '@shadcn/ui/badge'
-import {Button} from '@shadcn/ui/button'
-import {Card, CardContent, CardHeader, CardTitle} from '@shadcn/ui/card'
-import {Separator} from '@shadcn/ui/separator'
+import { Badge } from '@shadcn/ui/badge'
+import { Button } from '@shadcn/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@shadcn/ui/card'
+import { Separator } from '@shadcn/ui/separator'
 import {
 	ArrowRight,
 	BookOpen,
@@ -20,11 +20,11 @@ import {
 	Zap,
 } from 'lucide-react'
 import Link from 'next/link'
-import type {FunctionComponent} from 'react'
-import {SeaBattleCrumb} from '../../../src/linking/map/tools'
-import {ContactSection} from './components/ContactSection'
-import {GitHubIcon, TechCategory} from './components/Icons'
-import {ProjectCard} from './components/ProjectCard'
+import type { FunctionComponent } from 'react'
+import { SeaBattleCrumb } from '../../../src/linking/map/tools'
+import { ContactSection } from './components/ContactSection'
+import { GitHubIcon, TechCategory } from './components/Icons'
+import { ProjectCard } from './components/ProjectCard'
 
 const AboutMeContent: FunctionComponent = () => {
 	return (
@@ -44,35 +44,24 @@ const AboutMeContent: FunctionComponent = () => {
 						</div>
 
 						<h1 className="mb-4 bg-linear-to-r from-foreground to-foreground/70 bg-clip-text text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
-							Hey, I&apos;m{' '}
-							<span className="text-primary">l-you</span>
+							Hey, I&apos;m <span className="text-primary">l-you</span>
 						</h1>
 
 						<p className="mx-auto mb-6 max-w-2xl text-lg text-muted-foreground md:text-xl">
-							A passionate{' '}
-							<span className="font-semibold text-foreground">
-								Full-Stack Developer
-							</span>{' '}
-							who has been increasing business revenue since 2018.
-							💸
+							A passionate <span className="font-semibold text-foreground">Full-Stack Developer</span> who has been
+							increasing business revenue since 2018. 💸
 						</p>
 
 						<div className="mb-8 flex flex-wrap justify-center gap-2">
-							<Badge
-								variant="secondary"
-								className="gap-1.5 px-3 py-1">
+							<Badge variant="secondary" className="gap-1.5 px-3 py-1">
 								<Zap className="size-3.5" />
 								Open for Communication
 							</Badge>
-							<Badge
-								variant="outline"
-								className="gap-1.5 px-3 py-1">
+							<Badge variant="outline" className="gap-1.5 px-3 py-1">
 								<MapPin className="size-3.5" />
 								127.0.0.1
 							</Badge>
-							<Badge
-								variant="outline"
-								className="gap-1.5 px-3 py-1">
+							<Badge variant="outline" className="gap-1.5 px-3 py-1">
 								<Rocket className="size-3.5" />
 								3,800+ Contributions/Year
 							</Badge>
@@ -85,15 +74,8 @@ const AboutMeContent: FunctionComponent = () => {
 									Get in Touch
 								</Link>
 							</Button>
-							<Button
-								asChild
-								variant="outline"
-								size="lg"
-								className="gap-2">
-								<Link
-									href="https://github.com/l-you"
-									target="_blank"
-									rel="noopener noreferrer">
+							<Button asChild variant="outline" size="lg" className="gap-2">
+								<Link href="https://github.com/l-you" target="_blank" rel="noopener noreferrer">
 									<GitHubIcon className="size-4" />
 									GitHub
 								</Link>
@@ -107,9 +89,7 @@ const AboutMeContent: FunctionComponent = () => {
 			<section className="border-t bg-muted/30 py-16 md:py-20">
 				<div className="container mx-auto px-4">
 					<div className="mx-auto max-w-4xl">
-						<h2 className="mb-12 text-center text-3xl font-bold">
-							About Me
-						</h2>
+						<h2 className="mb-12 text-center text-3xl font-bold">About Me</h2>
 
 						<div className="grid gap-6 md:grid-cols-3">
 							<AboutCard
@@ -136,15 +116,10 @@ const AboutMeContent: FunctionComponent = () => {
 										<BookOpen className="size-6 text-primary" />
 									</div>
 									<div>
-										<h3 className="mb-2 font-semibold">
-											Continuous Learner
-										</h3>
+										<h3 className="mb-2 font-semibold">Continuous Learner</h3>
 										<p className="text-muted-foreground">
-											I love updating existing code with
-											cutting-edge technologies. Learning
-											as much information as possible
-											about this world helps making better
-											the ins and outs of the project. 📚
+											I love updating existing code with cutting-edge technologies. Learning as much information as
+											possible about this world helps making better the ins and outs of the project. 📚
 										</p>
 									</div>
 								</div>
@@ -158,9 +133,7 @@ const AboutMeContent: FunctionComponent = () => {
 			<section className="py-16 md:py-20">
 				<div className="container mx-auto px-4">
 					<div className="mx-auto max-w-5xl">
-						<h2 className="mb-4 text-center text-3xl font-bold">
-							Technologies & Tools
-						</h2>
+						<h2 className="mb-4 text-center text-3xl font-bold">Technologies & Tools</h2>
 						<p className="mx-auto mb-12 max-w-2xl text-center text-muted-foreground">
 							Extensive experience with modern development stack
 						</p>
@@ -171,17 +144,9 @@ const AboutMeContent: FunctionComponent = () => {
 							techs={programmingLanguages}
 						/>
 						<Separator className="my-6" />
-						<TechCategory
-							icon={<Terminal className="size-5" />}
-							title="Frontend Development"
-							techs={frontendTechs}
-						/>
+						<TechCategory icon={<Terminal className="size-5" />} title="Frontend Development" techs={frontendTechs} />
 						<Separator className="my-6" />
-						<TechCategory
-							icon={<Server className="size-5" />}
-							title="Backend Development"
-							techs={backendTechs}
-						/>
+						<TechCategory icon={<Server className="size-5" />} title="Backend Development" techs={backendTechs} />
 						<Separator className="my-6" />
 						<TechCategory
 							icon={<Database className="size-5" />}
@@ -196,9 +161,7 @@ const AboutMeContent: FunctionComponent = () => {
 			<section className="border-t bg-muted/30 py-16 md:py-20">
 				<div className="container mx-auto px-4">
 					<div className="mx-auto max-w-5xl">
-						<h2 className="mb-4 text-center text-3xl font-bold">
-							Featured Projects
-						</h2>
+						<h2 className="mb-4 text-center text-3xl font-bold">Featured Projects</h2>
 						<p className="mx-auto mb-12 max-w-2xl text-center text-muted-foreground">
 							Open-source libraries and tools I&apos;ve built
 						</p>
@@ -235,10 +198,7 @@ const AboutMeContent: FunctionComponent = () => {
 
 						<div className="mt-8 text-center">
 							<Button asChild variant="outline" className="gap-2">
-								<Link
-									href="https://github.com/RevoTale"
-									target="_blank"
-									rel="noopener noreferrer">
+								<Link href="https://github.com/RevoTale" target="_blank" rel="noopener noreferrer">
 									View All Projects
 									<ArrowRight className="size-4" />
 								</Link>
@@ -258,7 +218,7 @@ const AboutCard: FunctionComponent<{
 	icon: React.ReactNode
 	title: string
 	description: string
-}> = ({icon, title, description}) => (
+}> = ({ icon, title, description }) => (
 	<Card className="group transition-all hover:shadow-md">
 		<CardHeader className="pb-3">
 			<div className="mb-2 flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
@@ -274,38 +234,38 @@ const AboutCard: FunctionComponent<{
 
 // Tech Stack Data
 const programmingLanguages = [
-	{name: 'TypeScript', icon: 'typescript'},
-	{name: 'JavaScript', icon: 'javascript'},
-	{name: 'Go', icon: 'go'},
-	{name: 'PHP', icon: 'php'},
-	{name: 'Rust', icon: 'rust'},
-	{name: 'Bash', icon: 'bash'},
+	{ name: 'TypeScript', icon: 'typescript' },
+	{ name: 'JavaScript', icon: 'javascript' },
+	{ name: 'Go', icon: 'go' },
+	{ name: 'PHP', icon: 'php' },
+	{ name: 'Rust', icon: 'rust' },
+	{ name: 'Bash', icon: 'bash' },
 ]
 
 const frontendTechs = [
-	{name: 'React', icon: 'react'},
-	{name: 'Next.js', icon: 'nextjs'},
-	{name: 'Tailwind CSS', icon: 'tailwindcss'},
-	{name: 'HTML5', icon: 'html5'},
-	{name: 'CSS3', icon: 'css3'},
-	{name: 'Sass', icon: 'sass'},
+	{ name: 'React', icon: 'react' },
+	{ name: 'Next.js', icon: 'nextjs' },
+	{ name: 'Tailwind CSS', icon: 'tailwindcss' },
+	{ name: 'HTML5', icon: 'html5' },
+	{ name: 'CSS3', icon: 'css3' },
+	{ name: 'Sass', icon: 'sass' },
 ]
 
 const backendTechs = [
-	{name: 'Node.js', icon: 'nodejs'},
-	{name: 'Symfony', icon: 'symfony'},
-	{name: 'GraphQL', icon: 'graphql'},
-	{name: 'Payload CMS', icon: 'payloadcms'},
-	{name: 'Gin', icon: 'go'},
+	{ name: 'Node.js', icon: 'nodejs' },
+	{ name: 'Symfony', icon: 'symfony' },
+	{ name: 'GraphQL', icon: 'graphql' },
+	{ name: 'Payload CMS', icon: 'payloadcms' },
+	{ name: 'Gin', icon: 'go' },
 ]
 
 const infraTechs = [
-	{name: 'PostgreSQL', icon: 'postgresql'},
-	{name: 'MySQL', icon: 'mysql'},
-	{name: 'Redis', icon: 'redis'},
-	{name: 'MongoDB', icon: 'mongodb'},
-	{name: 'Docker', icon: 'docker'},
-	{name: 'Nginx', icon: 'nginx'},
+	{ name: 'PostgreSQL', icon: 'postgresql' },
+	{ name: 'MySQL', icon: 'mysql' },
+	{ name: 'Redis', icon: 'redis' },
+	{ name: 'MongoDB', icon: 'mongodb' },
+	{ name: 'Docker', icon: 'docker' },
+	{ name: 'Nginx', icon: 'nginx' },
 ]
 
 export default AboutMeContent

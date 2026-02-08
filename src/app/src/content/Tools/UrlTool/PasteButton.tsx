@@ -1,8 +1,8 @@
 'use client'
 import BadError from '@revotale/ui/BadError'
-import {Button} from '@shadcn/ui/button'
+import { Button } from '@shadcn/ui/button'
 import clipboard from 'clipboardy'
-import {type FunctionComponent, useState} from 'react'
+import { type FunctionComponent, useState } from 'react'
 export interface PasteButtonTextProps {
 	paste: string
 	loading: string
@@ -14,7 +14,7 @@ interface Props {
 }
 const PasteButton: FunctionComponent<Props> = ({
 	onPaste,
-	text: {paste: pasteText, loading: loadingText, error: errorText},
+	text: { paste: pasteText, loading: loadingText, error: errorText },
 }) => {
 	const [loading, setLoading] = useState(false)
 	const [error, setError] = useState<string | null>(null)
@@ -37,7 +37,8 @@ const PasteButton: FunctionComponent<Props> = ({
 						})
 				}}
 				type="button"
-				variant="outline">
+				variant="outline"
+			>
 				{loading ? loadingText : pasteText}
 			</Button>
 			{error === null ? null : (

@@ -1,24 +1,16 @@
+import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbSeparator } from '@shadcn/ui/breadcrumb'
+import type { Locale } from 'next-intl'
+import { Fragment, type FunctionComponent } from 'react'
+import type { BreadcrumbList as BreadcrumbListSchema, ListItem, WithContext } from 'schema-dts'
 import NextLink from '@/i18n/LocaleLink'
-import {
-	Breadcrumb,
-	BreadcrumbItem,
-	BreadcrumbList,
-	BreadcrumbSeparator,
-} from '@shadcn/ui/breadcrumb'
-import type {Locale} from 'next-intl'
-import {Fragment, type FunctionComponent} from 'react'
-import type {
-	BreadcrumbList as BreadcrumbListSchema,
-	ListItem,
-	WithContext,
-} from 'schema-dts'
 import formatUrl from '../linking/formatUrl'
+
 interface Props {
-	crumbs: Array<{title: string; href: string}>
+	crumbs: Array<{ title: string; href: string }>
 	title: string
 	currentHref: string
 	home?: boolean
-	homeCrumb: {title: string; href: string}
+	homeCrumb: { title: string; href: string }
 	locale: Locale
 	className?: string
 	rootUrl: string
@@ -33,7 +25,7 @@ const Breadcrumbs: FunctionComponent<Props> = ({
 	rootUrl,
 	className,
 }) => {
-	const crumbs: Array<{title: string; href: string}> = []
+	const crumbs: Array<{ title: string; href: string }> = []
 	if (home) {
 		crumbs.push(homeCrumb)
 	}
@@ -62,21 +54,17 @@ const Breadcrumbs: FunctionComponent<Props> = ({
 								<NextLink
 									locale={locale}
 									className="max-w-44 inline-block whitespace-nowrap overflow-hidden text-ellipsis"
-									href={crumb.href}>
+									href={crumb.href}
+								>
 									{crumb.title}
 								</NextLink>
 							</BreadcrumbItem>
-							{index === crumbs.length - 1 ? null : (
-								<BreadcrumbSeparator />
-							)}
+							{index === crumbs.length - 1 ? null : <BreadcrumbSeparator />}
 						</Fragment>
 					))}
 				</BreadcrumbList>
 			</Breadcrumb>
-			<script
-				dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLd)}}
-				type="application/ld+json"
-			/>
+			<script dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} type="application/ld+json" />
 		</>
 	)
 }

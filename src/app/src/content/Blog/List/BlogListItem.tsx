@@ -1,21 +1,15 @@
+import { type FragmentType, getFragmentData, graphql } from '@blog/gql'
+import { InlineSkeleton } from '@revotale/ui/InlineSkeleton'
+import { cn } from '@shadcn/lib/utils'
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@shadcn/ui/card'
+import { Skeleton } from '@shadcn/ui/skeleton'
+import type { Locale } from 'next-intl'
+import type { FunctionComponent } from 'react'
 import NextLink from '@/i18n/LocaleLink'
-import {type FragmentType, getFragmentData, graphql} from '@blog/gql'
-import {InlineSkeleton} from '@revotale/ui/InlineSkeleton'
-import {cn} from '@shadcn/lib/utils'
-import {
-	Card,
-	CardDescription,
-	CardFooter,
-	CardHeader,
-	CardTitle,
-} from '@shadcn/ui/card'
-import {Skeleton} from '@shadcn/ui/skeleton'
-import type {Locale} from 'next-intl'
-import type {FunctionComponent} from 'react'
 import ContentfulImage from '../../Contentful/ContentfulImage'
 import getPostHref from '../getPostHref'
 import PostPublishDate from '../PostPublishDate'
-import BlogListItemAuthor, {authorFragment} from './BlogListItemAuthor'
+import BlogListItemAuthor, { authorFragment } from './BlogListItemAuthor'
 
 const postItemFragment = graphql(/* GraphQL */ `
 	fragment ContentfulBlogItem on Post {
@@ -43,26 +37,13 @@ interface Props {
 	imageSizes: string
 	locale: Locale
 }
-const BlogListItem: FunctionComponent<Props> = ({
-	post,
-	className,
-	imageSizes,
-	locale,
-}) => {
+const BlogListItem: FunctionComponent<Props> = ({ post, className, imageSizes, locale }) => {
 	const data = getFragmentData(postItemFragment, post)
 
 	return (
-		<Card
-			className={cn(
-				'overflow-hidden flex flex-col py-0 gap-0',
-				className
-			)}>
+		<Card className={cn('overflow-hidden flex flex-col py-0 gap-0', className)}>
 			{data?.featuredImage && post ? (
-				<NextLink
-					locale={locale}
-					className="block"
-					href={getPostHref(data).asString()}
-					title={data.title ?? undefined}>
+				<NextLink locale={locale} className="block" href={getPostHref(data).asString()} title={data.title ?? undefined}>
 					<ContentfulImage
 						className="max-w-full max-h-64 object-contain"
 						image={data.featuredImage}
@@ -74,12 +55,8 @@ const BlogListItem: FunctionComponent<Props> = ({
 			) : null}
 			<CardHeader className="p-3 px-4">
 				{data && post ? (
-					<NextLink
-						locale={locale}
-						href={getPostHref(data).asString()}>
-						<CardTitle className="text-lg line-clamp-3 h-20 font-semibold">
-							{data.title}
-						</CardTitle>
+					<NextLink locale={locale} href={getPostHref(data).asString()}>
+						<CardTitle className="text-lg line-clamp-3 h-20 font-semibold">{data.title}</CardTitle>
 					</NextLink>
 				) : (
 					<CardTitle>
@@ -89,9 +66,7 @@ const BlogListItem: FunctionComponent<Props> = ({
 				)}
 				{data && post ? (
 					<CardDescription className="hover:text-accent-foreground line-clamp-4 h-20">
-						<NextLink
-							locale={locale}
-							href={getPostHref(data).asString()}>
+						<NextLink locale={locale} href={getPostHref(data).asString()}>
 							{data.subtitle}
 						</NextLink>
 					</CardDescription>
@@ -107,18 +82,10 @@ const BlogListItem: FunctionComponent<Props> = ({
 			<CardFooter className="py-0 px-4 mb-3 flex flex-wrap justify-end gap-1">
 				{data === null || data.authors
 					? data?.authors?.map(item => (
-							<BlogListItemAuthor
-								locale={locale}
-								author={item}
-								key={getFragmentData(authorFragment, item).id}
-							/>
+							<BlogListItemAuthor locale={locale} author={item} key={getFragmentData(authorFragment, item).id} />
 						))
 					: null}
-				<PostPublishDate
-					className="ml-auto italic"
-					locale={locale}
-					post={data}
-				/>
+				<PostPublishDate className="ml-auto italic" locale={locale} post={data} />
 			</CardFooter>
 		</Card>
 	)

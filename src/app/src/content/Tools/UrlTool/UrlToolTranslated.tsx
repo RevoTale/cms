@@ -1,13 +1,13 @@
-import type {Locale} from 'next-intl'
-import {getTranslations} from 'next-intl/server'
-import type {FunctionComponent} from 'react'
-import UrlTool, {type Tool} from './UrlToolClient'
+import type { Locale } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
+import type { FunctionComponent } from 'react'
+import UrlTool, { type Tool } from './UrlToolClient'
 
 interface Props {
 	tool: Tool | null
 	locale: Locale
 }
-const UrlToolTranslated: FunctionComponent<Props> = async ({tool, locale}) => {
+const UrlToolTranslated: FunctionComponent<Props> = async ({ tool, locale }) => {
 	const [t, tPaste, tCopy] = await Promise.all([
 		getTranslations({
 			locale,

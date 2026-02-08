@@ -1,14 +1,7 @@
-import {InlineSkeleton} from '@revotale/ui/InlineSkeleton'
-import {
-	Item,
-	ItemActions,
-	ItemContent,
-	ItemDescription,
-	ItemMedia,
-	ItemTitle,
-} from '@shadcn/ui/item'
-import {Skeleton} from '@shadcn/ui/skeleton'
-import type {FunctionComponent} from 'react'
+import { InlineSkeleton } from '@revotale/ui/InlineSkeleton'
+import { Item, ItemActions, ItemContent, ItemDescription, ItemMedia, ItemTitle } from '@shadcn/ui/item'
+import { Skeleton } from '@shadcn/ui/skeleton'
+import type { FunctionComponent } from 'react'
 
 const SearchItemSkeleton: FunctionComponent = () => {
 	return (

@@ -1,13 +1,8 @@
-import {InlineSkeleton} from '@revotale/ui/InlineSkeleton'
-import {
-	Breadcrumb,
-	BreadcrumbItem,
-	BreadcrumbList,
-	BreadcrumbSeparator,
-} from '@shadcn/ui/breadcrumb'
-import {cva} from 'class-variance-authority'
-import {clsx} from 'clsx'
-import {Fragment, type FunctionComponent} from 'react'
+import { InlineSkeleton } from '@revotale/ui/InlineSkeleton'
+import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbSeparator } from '@shadcn/ui/breadcrumb'
+import { cva } from 'class-variance-authority'
+import { clsx } from 'clsx'
+import { Fragment, type FunctionComponent } from 'react'
 
 interface Props {
 	count: number
@@ -25,7 +20,7 @@ const classes = cva('', {
 	},
 })
 const availableCssClassCount = 3
-const BreaadcrumbsSkeleton: FunctionComponent<Props> = ({count, className}) => (
+const BreaadcrumbsSkeleton: FunctionComponent<Props> = ({ count, className }) => (
 	<Breadcrumb className={className}>
 		<BreadcrumbList>
 			{Array(count)
@@ -37,16 +32,13 @@ const BreaadcrumbsSkeleton: FunctionComponent<Props> = ({count, className}) => (
 								className={clsx(
 									'h-5',
 									classes({
-										variant: (index >= 0 &&
-										index <= availableCssClassCount
-											? index.toString()
-											: 'default') as
+										variant: (index >= 0 && index <= availableCssClassCount ? index.toString() : 'default') as
 											| 'default'
 											| '0'
 											| '1'
 											| '2'
 											| '3',
-									})
+									}),
 								)}
 							/>
 						</BreadcrumbItem>

@@ -1,11 +1,11 @@
-import type {FragmentType} from '@blog/gql'
-import {useTranslations, type Locale} from 'next-intl'
-import type {FunctionComponent} from 'react'
-import type {Blog, WithContext} from 'schema-dts'
+import type { FragmentType } from '@blog/gql'
+import { type Locale, useTranslations } from 'next-intl'
+import type { FunctionComponent } from 'react'
+import type { Blog, WithContext } from 'schema-dts'
 import formatUrl from '../../linking/formatUrl'
 import LdJsonScript from './LdJsonScript'
-import {getNoteJsonLD, type noteJsonldFragment} from './NoteJsonLD'
-import {getOrganizationJsonLD} from './OrganizationJsonLd'
+import { getNoteJsonLD, type noteJsonldFragment } from './NoteJsonLD'
+import { getOrganizationJsonLD } from './OrganizationJsonLd'
 
 interface Props {
 	locale: Locale
@@ -14,12 +14,7 @@ interface Props {
 	href: string
 	rootUrl: string
 }
-const NotesBlogJsonLd: FunctionComponent<Props> = ({
-	locale,
-	items,
-	href,
-	rootUrl,
-}) => {
+const NotesBlogJsonLd: FunctionComponent<Props> = ({ locale, items, href, rootUrl }) => {
 	const t = useTranslations('Notes')
 	const [publisher, blogPost] = [
 		getOrganizationJsonLD(rootUrl),

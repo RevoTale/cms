@@ -1,4 +1,4 @@
-import type {Locale} from 'next-intl'
+import type { Locale } from 'next-intl'
 
 interface PagePropsWithLocale {
 	params: Promise<{

@@ -1,5 +1,5 @@
-import {Skeleton} from '@shadcn/ui/skeleton'
-import type {FunctionComponent} from 'react'
+import { Skeleton } from '@shadcn/ui/skeleton'
+import type { FunctionComponent } from 'react'
 
 const ShareButtonsSkeleton: FunctionComponent = () => {
 	return (

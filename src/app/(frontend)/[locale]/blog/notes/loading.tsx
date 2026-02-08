@@ -1,7 +1,7 @@
-import {Separator} from '@radix-ui/react-separator'
+import { Separator } from '@radix-ui/react-separator'
 import BreaadcrumbsSkeleton from '@revotale/ui/BreaadcrumbsSkeleton'
-import {InlineSkeleton} from '@revotale/ui/InlineSkeleton'
-import type {FunctionComponent} from 'react'
+import { InlineSkeleton } from '@revotale/ui/InlineSkeleton'
+import type { FunctionComponent } from 'react'
 import MicroBlogPostListWithDataSkeleton from '../../../../src/content/Microblog/MicroblogPostListWithDataSkeleton'
 
 const Loading: FunctionComponent = () => {

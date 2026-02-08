@@ -1,11 +1,12 @@
-import {type FragmentType, getFragmentData, graphql} from '@blog/gql'
-import type {FunctionComponent} from 'react'
-import type {BlogPosting, WithContext} from 'schema-dts'
+import { type FragmentType, getFragmentData, graphql } from '@blog/gql'
+import type { FunctionComponent } from 'react'
+import type { BlogPosting, WithContext } from 'schema-dts'
 import getDomain from '../../../config/getDomain'
 import getUrl from '../../../linking/getUrl'
-import {getAuthorJsonLD} from '../../LdJson/AuthorJsonLD'
+import { getAuthorJsonLD } from '../../LdJson/AuthorJsonLD'
 import getImageJsonLd from '../../LdJson/getImageJsonLd'
-import {getOrganizationJsonLD} from '../../LdJson/OrganizationJsonLd'
+import { getOrganizationJsonLD } from '../../LdJson/OrganizationJsonLd'
+
 const blogPost = graphql(/* GraphQL */ `
 	fragment SingleBlogPostJsonLD on Post {
 		id
@@ -31,7 +32,7 @@ interface Props {
 	rootUrl: string
 	locale: string
 }
-const BlogPostJsonLD: FunctionComponent<Props> = ({post, locale, rootUrl}) => {
+const BlogPostJsonLD: FunctionComponent<Props> = ({ post, locale, rootUrl }) => {
 	const {
 		featuredImage,
 		title,
@@ -43,10 +44,7 @@ const BlogPostJsonLD: FunctionComponent<Props> = ({post, locale, rootUrl}) => {
 		publishedAt,
 	} = getFragmentData(blogPost, post)
 
-	const author =
-		authors !== undefined && authors !== null && authors.length > 0
-			? authors[0]
-			: null
+	const author = authors !== undefined && authors !== null && authors.length > 0 ? authors[0] : null
 
 	const markup: WithContext<BlogPosting> = {
 		'@type': 'BlogPosting',
@@ -54,25 +52,13 @@ const BlogPostJsonLD: FunctionComponent<Props> = ({post, locale, rootUrl}) => {
 		headline: title ?? undefined,
 		author: author ? getAuthorJsonLD(author, rootUrl, locale) : undefined,
 		description: shortDescription ?? undefined,
-		dateCreated:
-			typeof createdAt === 'string'
-				? new Date(createdAt).toISOString()
-				: undefined,
-		dateModified:
-			typeof updatedAt === 'string'
-				? new Date(updatedAt).toISOString()
-				: undefined,
+		dateCreated: typeof createdAt === 'string' ? new Date(createdAt).toISOString() : undefined,
+		dateModified: typeof updatedAt === 'string' ? new Date(updatedAt).toISOString() : undefined,
 
-		datePublished:
-			typeof publishedAt === 'string'
-				? new Date(publishedAt).toISOString()
-				: undefined,
+		datePublished: typeof publishedAt === 'string' ? new Date(publishedAt).toISOString() : undefined,
 		url: getUrl(`/blog/${slug}`, locale).toString(),
 		publisher: getOrganizationJsonLD(getDomain()),
-		image:
-			featuredImage !== undefined && featuredImage !== null
-				? getImageJsonLd(rootUrl, featuredImage)
-				: undefined,
+		image: featuredImage !== undefined && featuredImage !== null ? getImageJsonLd(rootUrl, featuredImage) : undefined,
 	}
 	return (
 		<script

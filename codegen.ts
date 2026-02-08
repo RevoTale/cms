@@ -63,7 +63,7 @@ const config: CodegenConfig = {
 				},
 			],
 			hooks: {
-				afterOneFileWrite: ['bunx prettier ./src/app/src/gql --write'],
+				afterOneFileWrite: ['bunx biome format ./src/app/src/gql --write'],
 			},
 		},
 	},

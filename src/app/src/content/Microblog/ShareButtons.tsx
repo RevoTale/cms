@@ -1,37 +1,31 @@
+import type { FragmentType } from '@blog/gql'
+import { buttonVariants } from '@shadcn/ui/button'
+import type { Locale } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
+import type { FunctionComponent } from 'react'
 import LocaleLink from '@/i18n/LocaleLink'
-import type {FragmentType} from '@blog/gql'
-import {buttonVariants} from '@shadcn/ui/button'
-import type {Locale} from 'next-intl'
-import {getTranslations} from 'next-intl/server'
-import type {FunctionComponent} from 'react'
 import getUrl from '../../linking/getUrl'
-import getMicropostHref, {type BlogGetMicropostHref} from './getMicroPostHref'
+import getMicropostHref, { type BlogGetMicropostHref } from './getMicroPostHref'
 
 interface Props {
 	post: FragmentType<typeof BlogGetMicropostHref>
 	locale: Locale
 	attachmentScroll?: boolean
 }
-const ShareButtons: FunctionComponent<Props> = async ({
-	post,
-	locale,
-	attachmentScroll = false,
-}) => {
+const ShareButtons: FunctionComponent<Props> = async ({ post, locale, attachmentScroll = false }) => {
 	const postUrl = getUrl(getMicropostHref(post), locale)
 	const encodedUrl = encodeURIComponent(postUrl.toString())
-	const t = await getTranslations({locale, namespace: 'microblog'})
+	const t = await getTranslations({ locale, namespace: 'microblog' })
 
 	return (
 		<div className="flex gap-2">
 			<a
-				className={buttonVariants({variant: 'outline', size: 'sm'})}
+				className={buttonVariants({ variant: 'outline', size: 'sm' })}
 				href={`https://twitter.com/intent/tweet?url=${encodedUrl}`}
 				target="_blank"
-				rel="noopener noreferrer">
-				<svg
-					role="img"
-					viewBox="0 0 24 24"
-					xmlns="http://www.w3.org/2000/svg">
+				rel="noopener noreferrer"
+			>
+				<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 					<title>X</title>
 					<path
 						fill="currentColor"
@@ -40,14 +34,12 @@ const ShareButtons: FunctionComponent<Props> = async ({
 				</svg>
 			</a>
 			<a
-				className={buttonVariants({variant: 'outline', size: 'sm'})}
+				className={buttonVariants({ variant: 'outline', size: 'sm' })}
 				href={`https://t.me/share/url?url=${encodedUrl}`}
 				target="_blank"
-				rel="noopener noreferrer">
-				<svg
-					role="img"
-					viewBox="0 0 24 24"
-					xmlns="http://www.w3.org/2000/svg">
+				rel="noopener noreferrer"
+			>
+				<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 					<title>Telegram</title>
 					<path
 						fill="currentColor"
@@ -62,7 +54,8 @@ const ShareButtons: FunctionComponent<Props> = async ({
 					className={buttonVariants({
 						variant: 'link',
 						size: 'sm',
-					})}>
+					})}
+				>
 					{t('scrollToAttachment')}
 				</LocaleLink>
 			) : null}

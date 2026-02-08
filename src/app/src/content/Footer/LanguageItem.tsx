@@ -1,17 +1,17 @@
 'use client'
+import { cn } from '@shadcn/lib/utils'
+import { buttonVariants } from '@shadcn/ui/button'
+import { useSearchParams } from 'next/navigation'
+import type { Locale } from 'next-intl'
+import type { FunctionComponent } from 'react'
 import LocaleLink from '@/i18n/LocaleLink'
 import usePathname from '@/i18n/usePathname'
-import {cn} from '@shadcn/lib/utils'
-import {buttonVariants} from '@shadcn/ui/button'
-import type {Locale} from 'next-intl'
-import {useSearchParams} from 'next/navigation'
-import type {FunctionComponent} from 'react'
 
 interface Props {
 	name: string
 	locale: Locale
 }
-const LanguageItem: FunctionComponent<Props> = ({name, locale}) => {
+const LanguageItem: FunctionComponent<Props> = ({ name, locale }) => {
 	const params = useSearchParams()
 	const pathname = usePathname()
 	const paramsStr = params.toString()
@@ -23,10 +23,11 @@ const LanguageItem: FunctionComponent<Props> = ({name, locale}) => {
 						variant: 'link',
 						size: 'default',
 						className: 'text-muted-foreground px-0',
-					}) //is workarouind for bug. https://github.com/radix-ui/primitives/issues/3165
+					}), //is workarouind for bug. https://github.com/radix-ui/primitives/issues/3165
 				)}
 				href={`${pathname}${paramsStr === '' ? '' : `?${paramsStr}`}`}
-				locale={locale}>
+				locale={locale}
+			>
 				{name}
 			</LocaleLink>
 		</li>

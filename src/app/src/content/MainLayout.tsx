@@ -1,5 +1,5 @@
-import type {Locale} from 'next-intl'
-import type {FunctionComponent, ReactNode} from 'react'
+import type { Locale } from 'next-intl'
+import type { FunctionComponent, ReactNode } from 'react'
 import Footer from './Footer/Footer'
 import Header from './Header'
 
@@ -8,11 +8,7 @@ interface Props {
 	searchButton?: ReactNode
 	locale: Locale
 }
-const MainLayout: FunctionComponent<Props> = ({
-	children,
-	searchButton,
-	locale,
-}) => (
+const MainLayout: FunctionComponent<Props> = ({ children, searchButton, locale }) => (
 	<>
 		<Header search={searchButton} locale={locale} />
 		<main className="px-3">{children}</main>

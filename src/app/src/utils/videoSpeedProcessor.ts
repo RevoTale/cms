@@ -23,13 +23,7 @@ const COMMON_FPS_50 = 50
 const COMMON_FPS_60 = 60
 const FPS_TOLERANCE = 0.1
 
-const COMMON_FPS_VALUES = [
-	COMMON_FPS_24,
-	COMMON_FPS_25,
-	COMMON_FPS_30,
-	COMMON_FPS_50,
-	COMMON_FPS_60,
-]
+const COMMON_FPS_VALUES = [COMMON_FPS_24, COMMON_FPS_25, COMMON_FPS_30, COMMON_FPS_50, COMMON_FPS_60]
 
 // Function to detect actual video frame rate
 const detectVideoFPS = async (video: HTMLVideoElement): Promise<number> => {
@@ -40,7 +34,7 @@ const detectVideoFPS = async (video: HTMLVideoElement): Promise<number> => {
 		const frameTimes: number[] = []
 
 		const checkFrameRate = (): void => {
-			const {currentTime} = video
+			const { currentTime } = video
 			if (lastTime !== currentTime) {
 				const deltaTime = currentTime - lastTime
 				if (deltaTime > 0) {
@@ -51,18 +45,13 @@ const detectVideoFPS = async (video: HTMLVideoElement): Promise<number> => {
 			}
 
 			// Collect enough samples or timeout after specified time
-			if (
-				frameCount < FPS_DETECTION_SAMPLES &&
-				video.currentTime < FPS_DETECTION_TIMEOUT
-			) {
+			if (frameCount < FPS_DETECTION_SAMPLES && video.currentTime < FPS_DETECTION_TIMEOUT) {
 				requestAnimationFrame(checkFrameRate)
 			} else if (frameTimes.length > MIN_SAMPLE_SIZE) {
 				// Calculate average FPS from frame times
 
 				const avgFrameTime =
-					frameTimes
-						.slice(TRIM_SAMPLES, -TRIM_SAMPLES)
-						.reduce((a, b) => a + b, 0) /
+					frameTimes.slice(TRIM_SAMPLES, -TRIM_SAMPLES).reduce((a, b) => a + b, 0) /
 					(frameTimes.length - MIN_SAMPLE_SIZE)
 				const detectedFPS = Math.round(1 / avgFrameTime)
 				resolve(Math.min(Math.max(detectedFPS, MIN_FPS), MAX_FPS))
@@ -86,8 +75,8 @@ const detectVideoFPS = async (video: HTMLVideoElement): Promise<number> => {
 
 // Function to get video metadata including actual frame rate
 export const getVideoMetadata = async (
-	file: File
-): Promise<{width: number; height: number; fps: number; duration: number}> => {
+	file: File,
+): Promise<{ width: number; height: number; fps: number; duration: number }> => {
 	// eslint-disable-next-line promise/avoid-new -- Required for video metadata
 	return await new Promise((resolve, reject) => {
 		const video = document.createElement('video')
@@ -112,11 +101,8 @@ export const getVideoMetadata = async (
 			} catch {
 				// Fallback to common FPS values
 				const estimatedFPS =
-					COMMON_FPS_VALUES.find(
-						fps =>
-							video.duration > 0 &&
-							Math.abs((video.duration * fps) % 1) < FPS_TOLERANCE
-					) ?? DEFAULT_FPS
+					COMMON_FPS_VALUES.find(fps => video.duration > 0 && Math.abs((video.duration * fps) % 1) < FPS_TOLERANCE) ??
+					DEFAULT_FPS
 
 				resolve({
 					width: video.videoWidth,
@@ -152,10 +138,7 @@ export const processVideo = async ({
 
 	// Get video metadata first
 	const metadata = await getVideoMetadata(file)
-	logger(
-		`Video: ${metadata.width}x${metadata.height}, ${metadata.fps}fps, ${metadata.duration.toFixed(1)}s`,
-		false
-	)
+	logger(`Video: ${metadata.width}x${metadata.height}, ${metadata.fps}fps, ${metadata.duration.toFixed(1)}s`, false)
 
 	// Create video element for processing
 	const video = document.createElement('video')
@@ -190,10 +173,7 @@ export const processVideo = async ({
 	// For 2x speed, we skip every other frame; for 0.5x speed, we duplicate frames
 	const frameStep = multiplier
 
-	logger(
-		`Processing with original FPS: ${outputFPS}, speed multiplier: ${multiplier}x`,
-		false
-	)
+	logger(`Processing with original FPS: ${outputFPS}, speed multiplier: ${multiplier}x`, false)
 
 	// Create a new canvas stream at a fixed rate
 	const stream = new MediaStream()
@@ -232,8 +212,7 @@ export const processVideo = async ({
 
 		mediaRecorder.onstop = (): void => {
 			logger('Processing completed, creating download link...', false)
-			const mimeType =
-				mediaRecorderOptions.mimeType?.split(';')[0] ?? 'video/webm'
+			const mimeType = mediaRecorderOptions.mimeType?.split(';')[0] ?? 'video/webm'
 			const blob = new Blob(chunks, {
 				type: mimeType,
 			})
@@ -249,10 +228,7 @@ export const processVideo = async ({
 		const processNextFrame = (): void => {
 			if (currentVideoTime >= metadata.duration) {
 				// Video processing complete
-				logger(
-					'Video processing finished, stopping recording...',
-					false
-				)
+				logger('Video processing finished, stopping recording...', false)
 
 				// Stop recording after a brief delay
 				setTimeout(() => {
@@ -307,10 +283,7 @@ export const processVideo = async ({
 			video.playbackRate = 1 // Keep normal playback rate
 			video.preservesPitch = true
 
-			logger(
-				`Processing at original FPS: ${outputFPS}, speed multiplier: ${frameStep}x`,
-				false
-			)
+			logger(`Processing at original FPS: ${outputFPS}, speed multiplier: ${frameStep}x`, false)
 
 			// Start recording
 			mediaRecorder.start(RECORDING_CHUNK_SIZE)
@@ -340,7 +313,7 @@ export const checkBrowserSupport = (): {
 	const missingFeatures: string[] = []
 
 	if (typeof window === 'undefined') {
-		return {isSupported: false, missingFeatures: ['Server environment']}
+		return { isSupported: false, missingFeatures: ['Server environment'] }
 	}
 
 	if (!('MediaRecorder' in window)) {

@@ -1,4 +1,4 @@
-import type {FunctionComponent} from 'react'
+import type { FunctionComponent } from 'react'
 import BasicLoading from '../src/components/BasicLoading'
 
 const Loading: FunctionComponent = () => {

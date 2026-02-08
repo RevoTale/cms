@@ -249,7 +249,7 @@ declare const messages: {
 	},
 	"BlogBoard": {
 		"title": "Blog",
-		 "notes_title": "Descubrir notas",
+		"notes_title": "Descubrir notas",
 		"desc": "Compartiendo cosas relacionadas con TI, noticias, ciencia, experiencias y pensamientos.",
 		"explore": "Explora más artículos ➔",
 		"welcome": "Nos alegramos de que estés aquí. ¡Disfrute de la lectura!",
@@ -468,7 +468,7 @@ declare const messages: {
 		"imageLabel": "Imagen",
 		"submit": "Enviar"
 	},
-	"copyButton":{
+	"copyButton": {
 		"copy": "Copiar",
 		"copied": "¡Copiado!"
 	},

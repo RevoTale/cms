@@ -1,6 +1,6 @@
-import {defaultLocale} from '@/i18n/config'
+import type { MetadataRoute } from 'next'
+import { defaultLocale } from '@/i18n/config'
 import generateSitemapLanguages from '@/i18n/generateSitemapLanguages'
-import type {MetadataRoute} from 'next'
 import getUrl from '../src/linking/getUrl'
 import {
 	RandomRecordSelector,

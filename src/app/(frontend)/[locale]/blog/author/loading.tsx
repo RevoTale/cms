@@ -1,9 +1,9 @@
-import {routing} from '@/i18n/routing'
 import BreaadcrumbsSkeleton from '@revotale/ui/BreaadcrumbsSkeleton'
-import {InlineSkeleton} from '@revotale/ui/InlineSkeleton'
-import {cn} from '@shadcn/lib/utils'
-import {buttonVariants} from '@shadcn/ui/button'
-import type {FunctionComponent} from 'react'
+import { InlineSkeleton } from '@revotale/ui/InlineSkeleton'
+import { cn } from '@shadcn/lib/utils'
+import { buttonVariants } from '@shadcn/ui/button'
+import type { FunctionComponent } from 'react'
+import { routing } from '@/i18n/routing'
 import BlogListItemAuthor from '../../../../src/content/Blog/List/BlogListItemAuthor'
 import BlogListWithDataHorizontalSkeleton from '../../../../src/content/Blog/List/BlogListWidthDataHorizontalSkeleton'
 import MicroblogListWithDataHorizontalSkeleton from '../../../../src/content/Microblog/MicroblogListWithDataHorizontalSkeleton'
@@ -13,11 +13,7 @@ const Page: FunctionComponent = () => {
 		<div className="m-auto max-w-3xl">
 			<BreaadcrumbsSkeleton count={3} />
 			<section className="my-3 flex flex-wrap gap-2">
-				<BlogListItemAuthor
-					author={null}
-					className="basis-80"
-					locale={routing.defaultLocale}
-				/>
+				<BlogListItemAuthor author={null} className="basis-80" locale={routing.defaultLocale} />
 				<InlineSkeleton className="text-base text-muted-foreground mt-1 h-7 w-48" />
 			</section>
 			<hr className="my-3" />
@@ -29,7 +25,7 @@ const Page: FunctionComponent = () => {
 							variant: 'link',
 							size: 'default',
 							className: 'text-2xl mb-4 w-48 h-8',
-						})
+						}),
 					)}
 				/>
 				<MicroblogListWithDataHorizontalSkeleton />
@@ -41,7 +37,7 @@ const Page: FunctionComponent = () => {
 							variant: 'link',
 							size: 'default',
 							className: 'text-2xl mb-4 w-48 h-8',
-						})
+						}),
 					)}
 				/>
 				<BlogListWithDataHorizontalSkeleton />

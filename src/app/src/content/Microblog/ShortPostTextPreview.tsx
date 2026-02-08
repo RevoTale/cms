@@ -1,16 +1,17 @@
-import {getFragmentData, graphql, type FragmentType} from '@blog/gql'
-import {cn} from '@shadcn/lib/utils'
-import {buttonVariants} from '@shadcn/ui/button'
+import { type FragmentType, getFragmentData, graphql } from '@blog/gql'
+import { cn } from '@shadcn/lib/utils'
+import { buttonVariants } from '@shadcn/ui/button'
 import Link from 'next/link'
-import type {FunctionComponent, ReactNode} from 'react'
+import type { FunctionComponent, ReactNode } from 'react'
 import getMicropostHref from './getMicroPostHref'
 import {
 	CODE_BLOCK_PLACEHOLDER,
 	IMAGE_PLACEHOLDER,
 	PLACEHOLDER_MAP,
-	TABLE_PLACEHOLDER,
 	type PlaceholderMapTranslationKeys,
+	TABLE_PLACEHOLDER,
 } from './shortTextPlaceholders'
+
 /**
 Input should: be the following:
 --------
@@ -247,15 +248,12 @@ function safeTruncate(text: string, maxLength: number): string {
 		const lastGoodBreak = Math.max(lastSpace, lastNewline)
 
 		// If we found a good break point and it's not too far back (at least 80% of desired length)
-		if (
-			lastGoodBreak > 0 &&
-			lastGoodBreak >= maxLength * lastGoodBreakParam
-		) {
-			return truncated.substring(0, lastGoodBreak).trim() + '...'
+		if (lastGoodBreak > 0 && lastGoodBreak >= maxLength * lastGoodBreakParam) {
+			return `${truncated.substring(0, lastGoodBreak).trim()}...`
 		}
 	}
 
-	return text.substring(0, truncateAt).trim() + '...'
+	return `${text.substring(0, truncateAt).trim()}...`
 }
 export const postItemFragment = graphql(/* GraphQL */ `
 	fragment MicroBlogListItem_toReactTranslate on Micro_post {
@@ -268,7 +266,7 @@ export function toReactTranslate(
 	text: string,
 	post: FragmentType<typeof postItemFragment>,
 	translationKeys: PlaceholderMapTranslationKeys,
-	disableLink: boolean
+	disableLink: boolean,
 ): Array<string | ReactNode> | string {
 	const result: Array<string | ReactNode> = []
 	let nextStart = 0
@@ -277,10 +275,7 @@ export function toReactTranslate(
 	const placeholderKeys = Object.keys(PLACEHOLDER_MAP)
 		.map(key => key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
 		.join('|')
-	const combinedRegex = new RegExp(
-		`\\[([\\w.]+)\\]|(?:${placeholderKeys})`,
-		'g'
-	)
+	const combinedRegex = new RegExp(`\\[([\\w.]+)\\]|(?:${placeholderKeys})`, 'g')
 
 	do {
 		const match = combinedRegex.exec(text)
@@ -307,7 +302,7 @@ export function toReactTranslate(
 							key={`lang-${match.index}`}
 							href={getMicropostHref(data).asString()}
 							id={id}
-						/>
+						/>,
 					)
 				}
 			} else if (PLACEHOLDER_MAP[matchedText] !== undefined) {
@@ -316,25 +311,20 @@ export function toReactTranslate(
 						variant: 'link',
 						size: 'sm',
 					}),
-					'max-w-full px-0 break-words !whitespace-normal !inline'
+					'max-w-full px-0 break-words !whitespace-normal !inline',
 				)
 				if (disableLink) {
 					result.push(
-						<span
-							className={classsName}
-							key={`placeholder-${match.index}`}>
+						<span className={classsName} key={`placeholder-${match.index}`}>
 							{translationKeys[PLACEHOLDER_MAP[matchedText]]}
-						</span>
+						</span>,
 					)
 				} else {
 					// Placeholder text - wrap in Link
 					result.push(
-						<Link
-							className={classsName}
-							key={`placeholder-${match.index}`}
-							href={getMicropostHref(data).asString()}>
+						<Link className={classsName} key={`placeholder-${match.index}`} href={getMicropostHref(data).asString()}>
 							{translationKeys[PLACEHOLDER_MAP[matchedText]]}
-						</Link>
+						</Link>,
 					)
 				}
 			}
@@ -362,22 +352,8 @@ interface Props {
 	translationKeys: PlaceholderMapTranslationKeys
 	disableLink?: boolean
 }
-const ShortPostTextPreview: FunctionComponent<Props> = ({
-	post,
-	charLimit,
-	translationKeys,
-	disableLink = false,
-}) => {
+const ShortPostTextPreview: FunctionComponent<Props> = ({ post, charLimit, translationKeys, disableLink = false }) => {
 	const data = getFragmentData(postItemFragment, post)
-	return (
-		<>
-			{toReactTranslate(
-				markdownToPlainText(data.content ?? '', charLimit),
-				post,
-				translationKeys,
-				disableLink
-			)}
-		</>
-	)
+	return <>{toReactTranslate(markdownToPlainText(data.content ?? '', charLimit), post, translationKeys, disableLink)}</>
 }
 export default ShortPostTextPreview

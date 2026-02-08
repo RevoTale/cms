@@ -1,31 +1,17 @@
+import { type FragmentType, getFragmentData, graphql, makeFragmentData } from '@blog/gql'
+import { cn } from '@shadcn/lib/utils'
+import { ItemActions, ItemContent, ItemDescription, ItemMedia, ItemTitle, itemVariants } from '@shadcn/ui/item'
+import { ExternalLinkIcon } from 'lucide-react'
+import type { Locale } from 'next-intl'
+import { createLinker, makeRelativeLink } from 'next-navigation-utils'
+import type { FunctionComponent } from 'react'
 import LocaleLink from '@/i18n/LocaleLink'
-import {
-	getFragmentData,
-	graphql,
-	makeFragmentData,
-	type FragmentType,
-} from '@blog/gql'
-import {cn} from '@shadcn/lib/utils'
-import {
-	ItemActions,
-	ItemContent,
-	ItemDescription,
-	ItemMedia,
-	ItemTitle,
-	itemVariants,
-} from '@shadcn/ui/item'
-import {ExternalLinkIcon} from 'lucide-react'
-import type {Locale} from 'next-intl'
-import {createLinker, makeRelativeLink} from 'next-navigation-utils'
-import type {FunctionComponent} from 'react'
-import getAuthorHref, {AuthorFragment} from '../Blog/getAuthorHref'
-import {tagInURLOption} from '../Blog/linking'
+import getAuthorHref, { AuthorFragment } from '../Blog/getAuthorHref'
+import { tagInURLOption } from '../Blog/linking'
 import ContentfulImage from '../Contentful/ContentfulImage'
-import getMicropostHref, {
-	BlogGetMicropostHref,
-} from '../Microblog/getMicroPostHref'
+import getMicropostHref, { BlogGetMicropostHref } from '../Microblog/getMicroPostHref'
 import ShortPostTextPreview from '../Microblog/ShortPostTextPreview'
-import type {PlaceholderMapTranslationKeys} from '../Microblog/shortTextPlaceholders'
+import type { PlaceholderMapTranslationKeys } from '../Microblog/shortTextPlaceholders'
 export const SearchItemFragment = graphql(/* GraphQL */ `
 	fragment SearchItem on Search_Doc_Relationship {
 		value {
@@ -68,12 +54,8 @@ interface Props {
 	locale: Locale
 }
 
-const SearchItem: FunctionComponent<Props> = ({
-	item,
-	translationKeys,
-	locale,
-}) => {
-	const {value} = getFragmentData(SearchItemFragment, item)
+const SearchItem: FunctionComponent<Props> = ({ item, translationKeys, locale }) => {
+	const { value } = getFragmentData(SearchItemFragment, item)
 	if (!value) {
 		return null
 	}
@@ -94,9 +76,10 @@ const SearchItem: FunctionComponent<Props> = ({
 							id: value.id,
 							slug: value.micropostSlug,
 						},
-						BlogGetMicropostHref
-					)
-				).asString()}>
+						BlogGetMicropostHref,
+					),
+				).asString()}
+			>
 				{image ? (
 					<ItemMedia variant={'image'}>
 						<ContentfulImage sizes="10rem" image={image} />
@@ -105,12 +88,7 @@ const SearchItem: FunctionComponent<Props> = ({
 				<ItemContent>
 					<ItemTitle>{value.title}</ItemTitle>
 					<ItemDescription>
-						<ShortPostTextPreview
-							post={value}
-							disableLink
-							charLimit={180}
-							translationKeys={translationKeys}
-						/>
+						<ShortPostTextPreview post={value} disableLink charLimit={180} translationKeys={translationKeys} />
 					</ItemDescription>
 				</ItemContent>
 				{linkActions}
@@ -129,9 +107,10 @@ const SearchItem: FunctionComponent<Props> = ({
 							id: value.id,
 							slug: value.authorSlug,
 						},
-						AuthorFragment
-					)
-				).asString()}>
+						AuthorFragment,
+					),
+				).asString()}
+			>
 				{image ? (
 					<ItemMedia variant={'image'}>
 						<ContentfulImage sizes="10rem" image={image} />
@@ -152,11 +131,10 @@ const SearchItem: FunctionComponent<Props> = ({
 				className={cn(
 					itemVariants({
 						size: 'sm',
-					})
+					}),
 				)}
-				href={createLinker(makeRelativeLink('/blog/notes'))
-					.setValue(tagInURLOption, [value.tagName])
-					.asString()}>
+				href={createLinker(makeRelativeLink('/blog/notes')).setValue(tagInURLOption, [value.tagName]).asString()}
+			>
 				<ItemContent>
 					<ItemTitle>Tag: {value.title}</ItemTitle>
 				</ItemContent>

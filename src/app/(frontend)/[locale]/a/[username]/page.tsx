@@ -1,10 +1,10 @@
+import { graphql } from '@blog/gql'
+import { permanentRedirect, RedirectType } from 'next/navigation'
+import type { Locale } from 'next-intl'
+import { type AbsoltuteLinkBuilder, createLinkerUrl } from 'next-navigation-utils'
 import getGqlLocale from '@/i18n/getGqlLocale'
-import {routing} from '@/i18n/routing'
-import {graphql} from '@blog/gql'
-import type {Locale} from 'next-intl'
-import {createLinkerUrl, type AbsoltuteLinkBuilder} from 'next-navigation-utils'
-import {permanentRedirect, RedirectType} from 'next/navigation'
-import {getClient} from '../../../../src/gql/getClient'
+import { routing } from '@/i18n/routing'
+import { getClient } from '../../../../src/gql/getClient'
 import getUrl from '../../../../src/linking/getUrl'
 
 const allAuthorsQuery = graphql(/* GraphQL */ `
@@ -20,20 +20,16 @@ const allAuthorsQuery = graphql(/* GraphQL */ `
 export default async function Profile({
 	params,
 }: {
-	params: Promise<{username: string; locale?: Locale}>
+	params: Promise<{ username: string; locale?: Locale }>
 	searchParams: Promise<Record<string, string | string[] | undefined>>
 }): Promise<void> {
-	const {username, locale} = await params
-	const link: AbsoltuteLinkBuilder = createLinkerUrl(
-		new URL(getUrl(`/blog/author/${username}`, locale ?? null))
-	)
+	const { username, locale } = await params
+	const link: AbsoltuteLinkBuilder = createLinkerUrl(new URL(getUrl(`/blog/author/${username}`, locale ?? null)))
 	permanentRedirect(link.asString(), RedirectType.push)
 }
 
-export async function generateStaticParams(): Promise<
-	Array<{locale: Locale; username: string}>
-> {
-	const params: Array<{locale: Locale; username: string}> = []
+export async function generateStaticParams(): Promise<Array<{ locale: Locale; username: string }>> {
+	const params: Array<{ locale: Locale; username: string }> = []
 
 	for (const locale of routing.locales) {
 		try {
@@ -48,15 +44,12 @@ export async function generateStaticParams(): Promise<
 			const docs = result.data?.Authors?.docs ?? []
 			for (const doc of docs) {
 				if (doc.slug) {
-					params.push({locale, username: doc.slug})
+					params.push({ locale, username: doc.slug })
 				}
 			}
 		} catch (error) {
 			// eslint-disable-next-line no-console -- no need
-			console.error(
-				`Failed to fetch authors for locale ${locale}:`,
-				error
-			)
+			console.error(`Failed to fetch authors for locale ${locale}:`, error)
 		}
 	}
 

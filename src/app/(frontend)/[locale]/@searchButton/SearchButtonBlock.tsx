@@ -1,11 +1,12 @@
-import {buttonVariants} from '@shadcn/ui/button'
-import type {Locale} from 'next-intl'
-import type {FunctionComponent} from 'react'
+import { buttonVariants } from '@shadcn/ui/button'
+import type { Locale } from 'next-intl'
+import type { FunctionComponent } from 'react'
 import SearchLink from '../../../src/content/Search/SearchLink'
+
 interface Props {
 	locale: Locale
 }
-const SearchButtonBlock: FunctionComponent<Props> = ({locale}) => {
+const SearchButtonBlock: FunctionComponent<Props> = ({ locale }) => {
 	const linkClassname = buttonVariants({
 		variant: 'outline',
 	})

@@ -1,35 +1,25 @@
 'use client'
 
-import LocaleLink from '@/i18n/LocaleLink'
-import getGqlLocale from '@/i18n/getGqlLocale'
-import {getFragmentData} from '@blog/gql'
-import {useLazyQuery} from '@apollo/client/react'
+import { useLazyQuery } from '@apollo/client/react'
+import { getFragmentData } from '@blog/gql'
 import BadError from '@revotale/ui/BadError'
-import {buttonVariants} from '@shadcn/ui/button'
-import {
-	Empty,
-	EmptyContent,
-	EmptyDescription,
-	EmptyHeader,
-	EmptyMedia,
-	EmptyTitle,
-} from '@shadcn/ui/empty'
-import {
-	InputGroup,
-	InputGroupAddon,
-	InputGroupInput,
-} from '@shadcn/ui/input-group'
-import {ItemGroup} from '@shadcn/ui/item'
-import {Spinner} from '@shadcn/ui/spinner'
-import {SearchCheckIcon} from 'lucide-react'
-import type {Locale} from 'next-intl'
-import {useLinker, useParamState} from 'next-navigation-utils/client'
-import {stringType} from 'next-navigation-utils/parameters'
-import {useEffect, type FunctionComponent} from 'react'
-import type {PlaceholderMapTranslationKeys} from '../Microblog/shortTextPlaceholders'
-import {SearchQuery, SearchQueryDocFragment} from './gqlDef'
+import { buttonVariants } from '@shadcn/ui/button'
+import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from '@shadcn/ui/empty'
+import { InputGroup, InputGroupAddon, InputGroupInput } from '@shadcn/ui/input-group'
+import { ItemGroup } from '@shadcn/ui/item'
+import { Spinner } from '@shadcn/ui/spinner'
+import { SearchCheckIcon } from 'lucide-react'
+import type { Locale } from 'next-intl'
+import { useLinker, useParamState } from 'next-navigation-utils/client'
+import { stringType } from 'next-navigation-utils/parameters'
+import { type FunctionComponent, useEffect } from 'react'
+import getGqlLocale from '@/i18n/getGqlLocale'
+import LocaleLink from '@/i18n/LocaleLink'
+import type { PlaceholderMapTranslationKeys } from '../Microblog/shortTextPlaceholders'
+import { SearchQuery, SearchQueryDocFragment } from './gqlDef'
 import SearchItem from './SearchItem'
 import SearchItemSkeleton from './SearchItemSkeleton'
+
 interface Props {
 	translationKeys: PlaceholderMapTranslationKeys
 	locale: Locale
@@ -39,17 +29,13 @@ const searchQueryOpt = {
 	...stringType,
 }
 const navOpt = {
-	navigate: {push: false, scroll: false},
+	navigate: { push: false, scroll: false },
 }
-const SearchBarInput: FunctionComponent<Props> = ({
-	translationKeys,
-	locale,
-}) => {
+const SearchBarInput: FunctionComponent<Props> = ({ translationKeys, locale }) => {
 	const [value, setValue] = useParamState(searchQueryOpt, navOpt)
-	const [fetchItems, {data, error, loading, called, previousData}] =
-		useLazyQuery(SearchQuery, {
-			fetchPolicy: 'cache-and-network',
-		})
+	const [fetchItems, { data, error, loading, called, previousData }] = useLazyQuery(SearchQuery, {
+		fetchPolicy: 'cache-and-network',
+	})
 	const items = data?.Searches?.docs ?? previousData?.Searches?.docs ?? null
 	const errorMessage = error?.message ?? null
 	const dialogOpen = value !== null
@@ -97,51 +83,30 @@ const SearchBarInput: FunctionComponent<Props> = ({
 							<SearchCheckIcon />
 						</EmptyMedia>
 						<EmptyTitle>Nothing found</EmptyTitle>
-						<EmptyDescription>
-							Nothing found matching your search criteria.
-						</EmptyDescription>
+						<EmptyDescription>Nothing found matching your search criteria.</EmptyDescription>
 					</EmptyHeader>
 					<EmptyContent>
 						<LocaleLink
 							locale={locale}
-							href={linker()
-								.setValue(searchQueryOpt, null)
-								.asString()}
-							className={buttonVariants({size: 'sm'})}>
+							href={linker().setValue(searchQueryOpt, null).asString()}
+							className={buttonVariants({ size: 'sm' })}
+						>
 							Close
 						</LocaleLink>
 					</EmptyContent>
 				</Empty>
 			) : (
 				<ItemGroup className="gap-1">
-					{loading && items === null ? (
-						<>
-							{Array.from({length: 10}).map((_, i) => (
-								<SearchItemSkeleton key={i} />
-							))}
-						</>
-					) : (
-						<>
-							{items?.map(item => (
+					{loading && items === null
+						? Array.from({ length: 10 }).map((_, i) => <SearchItemSkeleton key={i} />)
+						: items?.map(item => (
 								<SearchItem
 									locale={locale}
-									key={
-										getFragmentData(
-											SearchQueryDocFragment,
-											item
-										).id
-									}
+									key={getFragmentData(SearchQueryDocFragment, item).id}
 									translationKeys={translationKeys}
-									item={
-										getFragmentData(
-											SearchQueryDocFragment,
-											item
-										).doc
-									}
+									item={getFragmentData(SearchQueryDocFragment, item).doc}
 								/>
 							))}
-						</>
-					)}
 				</ItemGroup>
 			)}
 		</div>

@@ -1,9 +1,9 @@
 import BoardList from '@revotale/ui/Board/BoardList'
 import BoardListCrumbItem from '@revotale/ui/Board/BoardListCrumbItem'
-import type {Locale} from 'next-intl'
-import {getTranslations} from 'next-intl/server'
 import Image from 'next/image'
-import type {FunctionComponent} from 'react'
+import type { Locale } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
+import type { FunctionComponent } from 'react'
 import {
 	RandomRecordSelector,
 	ScreenFillGalleryTool,
@@ -14,10 +14,11 @@ import EncodeDecodeImage from '../images/encode-decode.png'
 import RecordRandomizer from '../images/record-randomizer.png'
 import ScreenFillGallery from '../images/screen-fill-gallery.png'
 import VideoSpeedChangeImage from '../images/video-speed-changer.png'
+
 const sizes = '(max-width: 260px) 100vw, 270px'
 const StableToolsList: FunctionComponent<{
 	locale: Locale
-}> = async ({locale}) => {
+}> = async ({ locale }) => {
 	const [t, crumbs] = await Promise.all([
 		getTranslations({
 			locale,
@@ -35,12 +36,7 @@ const StableToolsList: FunctionComponent<{
 				crumb={RandomRecordSelector}
 				description={t('RecordRandomizer')}
 				image={
-					<Image
-						alt={crumbs('RecordRandomizer')}
-						sizes={sizes}
-						className="h-auto w-full"
-						src={RecordRandomizer}
-					/>
+					<Image alt={crumbs('RecordRandomizer')} sizes={sizes} className="h-auto w-full" src={RecordRandomizer} />
 				}
 				title={crumbs('RecordRandomizer')}
 			/>
@@ -49,12 +45,7 @@ const StableToolsList: FunctionComponent<{
 				crumb={URLStringToolCrumb}
 				description={t('URlDecodeEncode')}
 				image={
-					<Image
-						alt={crumbs('URlDecodeEncode')}
-						sizes={sizes}
-						className="h-auto w-full"
-						src={EncodeDecodeImage}
-					/>
+					<Image alt={crumbs('URlDecodeEncode')} sizes={sizes} className="h-auto w-full" src={EncodeDecodeImage} />
 				}
 				title={crumbs('URlDecodeEncode')}
 			/>
@@ -63,24 +54,14 @@ const StableToolsList: FunctionComponent<{
 				crumb={VideoDurationChanger}
 				description={t('VideoSpeedChange')}
 				image={
-					<Image
-						alt={crumbs('VideoSpeedChange')}
-						sizes={sizes}
-						className="h-auto w-full"
-						src={VideoSpeedChangeImage}
-					/>
+					<Image alt={crumbs('VideoSpeedChange')} sizes={sizes} className="h-auto w-full" src={VideoSpeedChangeImage} />
 				}
 				title={crumbs('VideoSpeedChange')}
 			/>
 			<BoardListCrumbItem
 				locale={locale}
 				image={
-					<Image
-						alt={crumbs('ScreenFillGallery')}
-						sizes={sizes}
-						className="h-auto w-full"
-						src={ScreenFillGallery}
-					/>
+					<Image alt={crumbs('ScreenFillGallery')} sizes={sizes} className="h-auto w-full" src={ScreenFillGallery} />
 				}
 				crumb={ScreenFillGalleryTool}
 				description={t('ScreenFillGallery')}

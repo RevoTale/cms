@@ -1,7 +1,8 @@
-import {InlineSkeleton} from '@revotale/ui/InlineSkeleton'
-import {buttonVariants} from '@shadcn/ui/button'
-import {SearchIcon} from 'lucide-react'
-import type {FunctionComponent} from 'react'
+import { InlineSkeleton } from '@revotale/ui/InlineSkeleton'
+import { buttonVariants } from '@shadcn/ui/button'
+import { SearchIcon } from 'lucide-react'
+import type { FunctionComponent } from 'react'
+
 const linkClassname = buttonVariants({
 	variant: 'outline',
 })

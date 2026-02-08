@@ -1,14 +1,10 @@
+import { type FragmentType, getFragmentData } from '@blog/gql'
+import { getQueryParamValue } from 'next-navigation-utils'
+import { cache } from 'react'
 import getGqlLocale from '@/i18n/getGqlLocale'
-import {getFragmentData, type FragmentType} from '@blog/gql'
-import {getQueryParamValue} from 'next-navigation-utils'
-import {cache} from 'react'
-import {staleContentCache} from '../../../../src/cache-config'
-import {
-	authorSlugInOption,
-	pageOption,
-	tagInURLOption,
-} from '../../../../src/content/Blog/linking'
-import type {noteJsonldFragment} from '../../../../src/content/LdJson/NoteJsonLD'
+import { staleContentCache } from '../../../../src/cache-config'
+import { authorSlugInOption, pageOption, tagInURLOption } from '../../../../src/content/Blog/linking'
+import type { noteJsonldFragment } from '../../../../src/content/LdJson/NoteJsonLD'
 import {
 	authorQuery,
 	authorQueryInFrag,
@@ -16,14 +12,14 @@ import {
 	type rssFrag,
 } from '../../../../src/content/Microblog/blogPostListGql'
 import fetchMicroblogPost from '../../../../src/content/Microblog/fetchMicroblogPostList'
-import {Micro_post_post_type_Input} from '../../../../src/gql/graphql'
-import {getClient} from '../../../../src/gql/getClient'
+import { getClient } from '../../../../src/gql/getClient'
+import { Micro_post_post_type_Input } from '../../../../src/gql/graphql'
 import getNextJsApolloCache from '../../../../src/utils/getNextJsApolloCache'
-import {getTagIds, tagFragment} from './microQueries'
+import { getTagIds, tagFragment } from './microQueries'
 
 const fetchTagNameIn = async (
 	tagNameIn: string[] | null,
-	locale: string
+	locale: string,
 ): Promise<Array<FragmentType<typeof tagFragment>> | undefined> => {
 	if (tagNameIn === null || tagNameIn.length === 0) {
 		return undefined
@@ -42,7 +38,7 @@ const fetchTagNameIn = async (
 
 const fetchAuthorIn = async (
 	authorSlugIn: string[] | null,
-	locale: string
+	locale: string,
 ): Promise<Array<FragmentType<typeof authorQueryInFrag>> | undefined> => {
 	if (authorSlugIn === null || authorSlugIn.length === 0) {
 		return undefined
@@ -62,7 +58,7 @@ const fetchAuthorIn = async (
 export const fetchData = cache(
 	async (
 		searchParams: Partial<Record<string, string[] | string>>,
-		locale: string
+		locale: string,
 	): Promise<{
 		items: Array<
 			FragmentType<typeof blogPostlistQueryFragment> &
@@ -75,10 +71,7 @@ export const fetchData = cache(
 		authorIn: Array<FragmentType<typeof authorQueryInFrag>> | undefined
 	}> => {
 		const tagNameIn = getQueryParamValue(searchParams, tagInURLOption)
-		const authorSlugIn = getQueryParamValue(
-			searchParams,
-			authorSlugInOption
-		)
+		const authorSlugIn = getQueryParamValue(searchParams, authorSlugInOption)
 		const page = getQueryParamValue(searchParams, pageOption)
 		const limit = 12
 		const [tagsIn, authorIn] = await Promise.all([
@@ -87,9 +80,7 @@ export const fetchData = cache(
 		])
 
 		const result = await fetchMicroblogPost(getClient(), {
-			authorIn: authorIn?.map(tag =>
-				getFragmentData(authorQueryInFrag, tag)
-			),
+			authorIn: authorIn?.map(tag => getFragmentData(authorQueryInFrag, tag)),
 			limit,
 			tagsIn: tagsIn?.map(tag => getFragmentData(tagFragment, tag)),
 			locale,
@@ -107,5 +98,5 @@ export const fetchData = cache(
 			page,
 			totalPages: result.data?.Micro_posts?.totalPages ?? null,
 		}
-	}
+	},
 )

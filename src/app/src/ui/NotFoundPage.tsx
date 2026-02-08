@@ -1,7 +1,8 @@
-import {cn} from '@shadcn/lib/utils'
-import {buttonVariants} from '@shadcn/ui/button'
+import { cn } from '@shadcn/lib/utils'
+import { buttonVariants } from '@shadcn/ui/button'
 import Link from 'next/link'
-import type {FunctionComponent, ReactNode} from 'react'
+import type { FunctionComponent, ReactNode } from 'react'
+
 interface Props {
 	h1?: ReactNode
 	p1?: string
@@ -9,13 +10,7 @@ interface Props {
 	homeHref?: string
 	homeContent?: ReactNode
 }
-const NotFoundPage: FunctionComponent<Props> = ({
-	homeContent,
-	h1,
-	p1,
-	homeHref,
-	p2,
-}) => (
+const NotFoundPage: FunctionComponent<Props> = ({ homeContent, h1, p1, homeHref, p2 }) => (
 	<section>
 		<div className="py-8 px-4 mx-auto max-w-(--breakpoint-xl) lg:py-16 lg:px-6">
 			<div className="mx-auto max-w-(--breakpoint-sm) text-center">
@@ -25,24 +20,19 @@ const NotFoundPage: FunctionComponent<Props> = ({
 					</h1>
 				)}
 				{p1 === undefined ? null : (
-					<p className="mb-4 text-3xl tracking-tight font-bold text-gray-900 md:text-4xl dark:text-white">
-						{p1}
-					</p>
+					<p className="mb-4 text-3xl tracking-tight font-bold text-gray-900 md:text-4xl dark:text-white">{p1}</p>
 				)}
-				{p2 === undefined ? null : (
-					<p className="mb-4 text-lg font-light text-muted-foreground">
-						{p2}
-					</p>
-				)}
+				{p2 === undefined ? null : <p className="mb-4 text-lg font-light text-muted-foreground">{p2}</p>}
 				{homeHref === undefined ? null : (
 					<Link
 						className={cn(
 							buttonVariants({
 								variant: 'default',
 								size: 'default',
-							})
+							}),
 						)}
-						href={homeHref}>
+						href={homeHref}
+					>
 						{homeContent}
 					</Link>
 				)}

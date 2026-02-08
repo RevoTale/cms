@@ -1,4 +1,4 @@
-import type {BreadcrumbInfo} from '@revotale/ui/Board/BoardListCrumbItem'
+import type { BreadcrumbInfo } from '@revotale/ui/Board/BoardListCrumbItem'
 
 export const ToolsCrumb: BreadcrumbInfo = {
 	href: `/utilities`,

@@ -1,12 +1,11 @@
-import type {FunctionComponent} from 'react'
+import type { FunctionComponent } from 'react'
 import BlogPostList from '../Blog/List/BlogPostList'
 import MicroblogListItemSkeleton from './MicroblogListItemSkeleton'
+
 interface Props {
 	skeletonCount: number
 }
-const MicroBlogPostListWithDataSkeleton: FunctionComponent<Props> = ({
-	skeletonCount,
-}) => {
+const MicroBlogPostListWithDataSkeleton: FunctionComponent<Props> = ({ skeletonCount }) => {
 	return (
 		<BlogPostList>
 			{Array(skeletonCount)

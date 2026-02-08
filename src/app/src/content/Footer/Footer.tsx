@@ -1,21 +1,20 @@
-import type {FunctionComponent} from 'react'
-import {BlogCrumb, SeaBattleCrumb, ToolsCrumb} from '../../linking/map/tools'
-
-import websiteName from '../../config/websiteName'
-
+import { buttonVariants } from '@shadcn/ui/button'
+import { HeartIcon } from 'lucide-react'
+import type { Locale } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
+import type { FunctionComponent } from 'react'
 import LocaleLink from '@/i18n/LocaleLink'
-import {buttonVariants} from '@shadcn/ui/button'
-import {HeartIcon} from 'lucide-react'
-import type {Locale} from 'next-intl'
-import {getTranslations} from 'next-intl/server'
+import websiteName from '../../config/websiteName'
+import { BlogCrumb, SeaBattleCrumb, ToolsCrumb } from '../../linking/map/tools'
 import FooterList from './FooterList'
 import FooterListItem from './FooterListItem'
 import LanguageItem from './LanguageItem'
 import ReachUsOut from './ReachUsOut'
+
 interface Props {
 	locale: Locale
 }
-const Footer: FunctionComponent<Props> = async ({locale}) => {
+const Footer: FunctionComponent<Props> = async ({ locale }) => {
 	const t = await getTranslations({
 		locale,
 		namespace: 'Footer',
@@ -62,14 +61,13 @@ const Footer: FunctionComponent<Props> = async ({locale}) => {
 						variant: 'secondary',
 						size: 'lg',
 					})}
-					href="/navigation-map">
+					href="/navigation-map"
+				>
 					{t('OpenNavMapButton')}
 				</LocaleLink>
 			</div>
 			<div className="mt-3">
-				<small
-					className="text-base p-2 inline-block text-center"
-					id="website_copyright">
+				<small className="text-base p-2 inline-block text-center" id="website_copyright">
 					{t('Rights', {
 						year: currentYear,
 						company: websiteName,
@@ -84,7 +82,8 @@ const Footer: FunctionComponent<Props> = async ({locale}) => {
 								href="https://github.com/RevoTale/lovely-eye"
 								rel="noopener noreferrer"
 								target="_blank"
-								className="underline hover:text-foreground transition-colors">
+								className="underline hover:text-foreground transition-colors"
+							>
 								{chunks}
 							</a>
 						),

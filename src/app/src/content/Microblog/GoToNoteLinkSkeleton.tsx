@@ -1,6 +1,6 @@
-import {cn} from '@shadcn/lib/utils'
-import {buttonVariants} from '@shadcn/ui/button'
-import type {FunctionComponent} from 'react'
+import { cn } from '@shadcn/lib/utils'
+import { buttonVariants } from '@shadcn/ui/button'
+import type { FunctionComponent } from 'react'
 
 const GoToNoteLinkSkeleton: FunctionComponent = () => {
 	return (
@@ -10,7 +10,7 @@ const GoToNoteLinkSkeleton: FunctionComponent = () => {
 					variant: 'outline',
 					size: 'sm',
 					className: 'text-muted-foreground',
-				})
+				}),
 			)}
 		/>
 	)

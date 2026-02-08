@@ -1,5 +1,5 @@
-import type {Metadata} from 'next'
-import type {OpenGraph} from 'next/dist/lib/metadata/types/opengraph-types'
+import type { Metadata } from 'next'
+import type { OpenGraph } from 'next/dist/lib/metadata/types/opengraph-types'
 
 export interface TwitterCardOptions {
 	/**
@@ -65,23 +65,15 @@ const TWITTER_LIMITS = {
 /**
  * Determines the appropriate Twitter card type based on content
  */
-function determineCardType(
-	openGraph?: OpenGraph,
-	options?: TwitterCardOptions
-): 'summary' | 'summary_large_image' {
+function determineCardType(openGraph?: OpenGraph, options?: TwitterCardOptions): 'summary' | 'summary_large_image' {
 	// If force card type is specified, use it (but only allow summary types for safety)
-	if (
-		options?.forceCardType === 'summary' ||
-		options?.forceCardType === 'summary_large_image'
-	) {
+	if (options?.forceCardType === 'summary' || options?.forceCardType === 'summary_large_image') {
 		return options.forceCardType
 	}
 
 	// If there's an image, prefer large image card
 	const images = openGraph?.images
-	const hasImage = Array.isArray(images)
-		? Boolean(images.length)
-		: Boolean(images)
+	const hasImage = Array.isArray(images) ? Boolean(images.length) : Boolean(images)
 	const hasCustomImage = Boolean(options?.customImage?.url)
 
 	if (hasImage || hasCustomImage) {
@@ -95,10 +87,7 @@ function determineCardType(
 /**
  * Extracts the best image from OpenGraph data or custom options
  */
-function getTwitterImage(
-	openGraph?: OpenGraph,
-	options?: TwitterCardOptions
-): string | undefined {
+function getTwitterImage(openGraph?: OpenGraph, options?: TwitterCardOptions): string | undefined {
 	// Prioritize custom image
 	const customImageUrl = options?.customImage?.url
 	if (typeof customImageUrl === 'string' && customImageUrl.length > 0) {
@@ -112,11 +101,7 @@ function getTwitterImage(
 		if (typeof firstImage === 'string') {
 			return firstImage
 		}
-		if (
-			typeof firstImage === 'object' &&
-			'url' in firstImage &&
-			typeof firstImage.url === 'string'
-		) {
+		if (typeof firstImage === 'object' && 'url' in firstImage && typeof firstImage.url === 'string') {
 			return firstImage.url
 		}
 	}
@@ -134,10 +119,7 @@ function formatTwitterHandle(handle: string): string {
 /**
  * Gets the title for Twitter card with fallback logic and validation
  */
-function getTwitterTitle(
-	openGraph?: OpenGraph,
-	options?: TwitterCardOptions
-): string | undefined {
+function getTwitterTitle(openGraph?: OpenGraph, options?: TwitterCardOptions): string | undefined {
 	const title = options?.customTitle ?? openGraph?.title
 	if (typeof title === 'string' && title.length > 0) {
 		return validateTwitterText(title, TWITTER_LIMITS.TITLE_MAX_LENGTH)
@@ -148,16 +130,10 @@ function getTwitterTitle(
 /**
  * Gets the description for Twitter card with fallback logic and validation
  */
-function getTwitterDescription(
-	openGraph?: OpenGraph,
-	options?: TwitterCardOptions
-): string | undefined {
+function getTwitterDescription(openGraph?: OpenGraph, options?: TwitterCardOptions): string | undefined {
 	const description = options?.customDescription ?? openGraph?.description
 	if (typeof description === 'string' && description.length > 0) {
-		return validateTwitterText(
-			description,
-			TWITTER_LIMITS.DESCRIPTION_MAX_LENGTH
-		)
+		return validateTwitterText(description, TWITTER_LIMITS.DESCRIPTION_MAX_LENGTH)
 	}
 	return undefined
 }
@@ -167,33 +143,25 @@ function getTwitterDescription(
  */
 function getTwitterSite(options?: TwitterCardOptions): string | undefined {
 	const defaultSite = options?.defaultSite
-	return typeof defaultSite === 'string' && defaultSite.length > 0
-		? formatTwitterHandle(defaultSite)
-		: undefined
+	return typeof defaultSite === 'string' && defaultSite.length > 0 ? formatTwitterHandle(defaultSite) : undefined
 }
 
 /**
  * Gets creator information with fallback logic
  * Creator should be the actual author's Twitter handle, not the site handle
  */
-function getCreatorInfo(
-	openGraph?: OpenGraph,
-	options?: TwitterCardOptions
-): {handle?: string; name?: string} {
+function getCreatorInfo(_openGraph?: OpenGraph, options?: TwitterCardOptions): { handle?: string; name?: string } {
 	// Start with explicit creator options
 	let creator = options?.creator ?? {}
 
 	// If no creator handle but we have authors, use the first author with a Twitter handle
-	const hasCreatorHandle =
-		typeof creator.handle === 'string' && creator.handle.length > 0
-	const hasAuthors =
-		Array.isArray(options?.authors) && options.authors.length > 0
+	const hasCreatorHandle = typeof creator.handle === 'string' && creator.handle.length > 0
+	const hasAuthors = Array.isArray(options?.authors) && options.authors.length > 0
 
 	if (!hasCreatorHandle && hasAuthors && options.authors) {
 		// Find the first author with a Twitter handle
 		const authorWithHandle = options.authors.find(
-			author =>
-				typeof author.handle === 'string' && author.handle.length > 0
+			author => typeof author.handle === 'string' && author.handle.length > 0,
 		)
 
 		if (authorWithHandle) {
@@ -215,27 +183,20 @@ function getCreatorInfo(
 /**
  * Validates and truncates text to fit Twitter card limits
  */
-function validateTwitterText(
-	text: string,
-	maxLength: number,
-	addEllipsis = true
-): string {
+function validateTwitterText(text: string, maxLength: number, addEllipsis = true): string {
 	if (text.length <= maxLength) {
 		return text
 	}
 
-	const truncated = text.substring(
-		0,
-		maxLength - (addEllipsis ? TWITTER_LIMITS.ELLIPSIS_LENGTH : 0)
-	)
+	const truncated = text.substring(0, maxLength - (addEllipsis ? TWITTER_LIMITS.ELLIPSIS_LENGTH : 0))
 
 	// Try to break at word boundary if possible
 	if (addEllipsis) {
 		const lastSpace = truncated.lastIndexOf(' ')
 		if (lastSpace > maxLength * TWITTER_LIMITS.WORD_BREAK_THRESHOLD) {
-			return truncated.substring(0, lastSpace) + '...'
+			return `${truncated.substring(0, lastSpace)}...`
 		}
-		return truncated + '...'
+		return `${truncated}...`
 	}
 
 	return truncated
@@ -265,10 +226,7 @@ function validateTwitterText(
  * })
  * ```
  */
-export function getTwitterCard(
-	openGraph?: OpenGraph,
-	options?: TwitterCardOptions
-): Metadata['twitter'] {
+export function getTwitterCard(openGraph?: OpenGraph, options?: TwitterCardOptions): Metadata['twitter'] {
 	const cardType = determineCardType(openGraph, options)
 	const imageUrl = getTwitterImage(openGraph, options)
 	const creator = getCreatorInfo(openGraph, options)
@@ -326,7 +284,7 @@ export function getTwitterCardForBlogPost(
 		 * Creator should be the actual author's Twitter handle, not a site default.
 		 */
 		defaultCreator?: string
-	}
+	},
 ): Metadata['twitter'] {
 	const authors = blogOptions?.authors?.map(author => ({
 		name: author.name,
@@ -334,9 +292,7 @@ export function getTwitterCardForBlogPost(
 	}))
 
 	// Find the primary author (first one with a Twitter handle)
-	const primaryAuthor = authors?.find(
-		author => typeof author.handle === 'string' && author.handle.length > 0
-	)
+	const primaryAuthor = authors?.find(author => typeof author.handle === 'string' && author.handle.length > 0)
 
 	return getTwitterCard(openGraph, {
 		defaultSite: blogOptions?.siteName ?? '@RevoTale',
@@ -358,7 +314,7 @@ export function getTwitterCardForMicroPost(
 		}>
 		siteName?: string
 		hasAttachment?: boolean
-	}
+	},
 ): Metadata['twitter'] {
 	const authors = microPostOptions?.authors?.map(author => ({
 		name: author.name,
@@ -366,15 +322,10 @@ export function getTwitterCardForMicroPost(
 	}))
 
 	// Find the primary author (first one with a Twitter handle)
-	const primaryAuthor = authors?.find(
-		author => typeof author.handle === 'string' && author.handle.length > 0
-	)
+	const primaryAuthor = authors?.find(author => typeof author.handle === 'string' && author.handle.length > 0)
 
 	// Force large image card if there's an attachment
-	const forceCardType =
-		microPostOptions?.hasAttachment === true
-			? 'summary_large_image'
-			: undefined
+	const forceCardType = microPostOptions?.hasAttachment === true ? 'summary_large_image' : undefined
 
 	return getTwitterCard(openGraph, {
 		defaultSite: microPostOptions?.siteName ?? '@RevoTale',

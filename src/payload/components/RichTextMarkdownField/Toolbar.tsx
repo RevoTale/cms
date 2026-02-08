@@ -1,20 +1,20 @@
 import {
-  BoldItalicUnderlineToggles,
-  ChangeCodeMirrorLanguage,
-  CodeToggle,
-  ConditionalContents,
-  CreateLink,
-  DiffSourceToggleWrapper,
-  HighlightToggle,
-  InsertCodeBlock,
-  InsertImage,
-  InsertTable,
-  InsertThematicBreak,
-  ListsToggle,
-  Separator,
-  ShowSandpackInfo,
-  StrikeThroughSupSubToggles,
-  UndoRedo,
+	BoldItalicUnderlineToggles,
+	ChangeCodeMirrorLanguage,
+	CodeToggle,
+	ConditionalContents,
+	CreateLink,
+	DiffSourceToggleWrapper,
+	HighlightToggle,
+	InsertCodeBlock,
+	InsertImage,
+	InsertTable,
+	InsertThematicBreak,
+	ListsToggle,
+	Separator,
+	ShowSandpackInfo,
+	StrikeThroughSupSubToggles,
+	UndoRedo,
 } from '@mdxeditor/editor'
 import type React from 'react'
 
@@ -25,49 +25,49 @@ import type React from 'react'
  * @group Toolbar Components
  */
 export const KitchenSinkToolbar: React.FC = () => (
-    <DiffSourceToggleWrapper>
-      <ConditionalContents
-        options={[
-          {
-            when: (editor) => editor?.editorType === 'codeblock',
-            contents: () => <ChangeCodeMirrorLanguage />,
-          },
-          {
-            when: (editor) => editor?.editorType === 'sandpack',
-            contents: () => <ShowSandpackInfo />,
-          },
-          {
-            fallback: () => (
-              <>
-                <UndoRedo />
-                <Separator />
-                <BoldItalicUnderlineToggles />
-                <CodeToggle />
-                <HighlightToggle />
-                <Separator />
-                <StrikeThroughSupSubToggles />
-                <Separator />
-                <ListsToggle />
-                <Separator />
+	<DiffSourceToggleWrapper>
+		<ConditionalContents
+			options={[
+				{
+					when: editor => editor?.editorType === 'codeblock',
+					contents: () => <ChangeCodeMirrorLanguage />,
+				},
+				{
+					when: editor => editor?.editorType === 'sandpack',
+					contents: () => <ShowSandpackInfo />,
+				},
+				{
+					fallback: () => (
+						<>
+							<UndoRedo />
+							<Separator />
+							<BoldItalicUnderlineToggles />
+							<CodeToggle />
+							<HighlightToggle />
+							<Separator />
+							<StrikeThroughSupSubToggles />
+							<Separator />
+							<ListsToggle />
+							<Separator />
 
-                <Separator />
+							<Separator />
 
-                <CreateLink />
-                <InsertImage />
+							<CreateLink />
+							<InsertImage />
 
-                <Separator />
+							<Separator />
 
-                <InsertTable />
-                <InsertThematicBreak />
+							<InsertTable />
+							<InsertThematicBreak />
 
-                <Separator />
-                <InsertCodeBlock />
+							<Separator />
+							<InsertCodeBlock />
 
-                <Separator />
-              </>
-            ),
-          },
-        ]}
-      />
-    </DiffSourceToggleWrapper>
-  )
+							<Separator />
+						</>
+					),
+				},
+			]}
+		/>
+	</DiffSourceToggleWrapper>
+)

@@ -5,25 +5,21 @@ import Breadcrumbs from '@revotale/ui/Breadcrumbs'
 import { InlineSkeleton } from '@revotale/ui/InlineSkeleton'
 import { Badge } from '@shadcn/ui/badge'
 import { Separator } from '@shadcn/ui/separator'
+import { useSearchParams } from 'next/navigation'
 import type { Locale } from 'next-intl'
 import { useTranslations } from 'next-intl'
 import { createLinker } from 'next-navigation-utils'
 import { useSearchParam } from 'next-navigation-utils/client'
-import { useSearchParams } from 'next/navigation'
-import { Suspense, useMemo, type FunctionComponent } from 'react'
+import { type FunctionComponent, Suspense, useMemo } from 'react'
 import PaginationComponent from '../../../../components/PaginationComponent'
-import {
-	authorSlugInOption,
-	pageOption,
-	tagInURLOption,
-} from '../../../../src/content/Blog/linking'
-import MicroblogShortPostListWithData from '../../../../src/content/Microblog/MicroblogShortPostListWithData'
+import { authorSlugInOption, pageOption, tagInURLOption } from '../../../../src/content/Blog/linking'
 import {
 	authorQuery,
 	authorQueryInFrag,
 	blogPostlistQueryFragment,
 	getPosts,
 } from '../../../../src/content/Microblog/blogPostListGql'
+import MicroblogShortPostListWithData from '../../../../src/content/Microblog/MicroblogShortPostListWithData'
 import { Micro_post_post_type_Input } from '../../../../src/gql/graphql'
 import getGqlLocale from '../../../../src/i18n/getGqlLocale'
 import canonizeSearchQuery from '../../../../src/utils/canonizeSearchQuery'
@@ -37,7 +33,7 @@ const pageLimit = 12
 const MicroPageClient: FunctionComponent<{
 	locale: Locale
 	rootUrl: string
-}> = ({locale, rootUrl}) => {
+}> = ({ locale, rootUrl }) => {
 	const tNotes = useTranslations('Notes')
 	const tBreadcrumbs = useTranslations('Breadcrumbs')
 	const tMap = useTranslations('NavigationMap')
@@ -45,7 +41,7 @@ const MicroPageClient: FunctionComponent<{
 	const authorSlugIn = useSearchParam(authorSlugInOption)
 	const currentPage = useSearchParam(pageOption)
 
-	const {data: tagsData, loading: tagsLoading} = useQuery(getTagIds, {
+	const { data: tagsData, loading: tagsLoading } = useQuery(getTagIds, {
 		variables: {
 			tagNames: tagNameIn ?? [],
 			locale: getGqlLocale(locale),
@@ -54,7 +50,7 @@ const MicroPageClient: FunctionComponent<{
 	})
 	const tagsIn = tagsData?.Tags?.docs.filter(Boolean) ?? undefined
 
-	const {data: authorData, loading: authorLoading} = useQuery(authorQuery, {
+	const { data: authorData, loading: authorLoading } = useQuery(authorQuery, {
 		variables: {
 			authorSlugIn,
 			locale: getGqlLocale(locale),
@@ -63,37 +59,26 @@ const MicroPageClient: FunctionComponent<{
 	})
 	const authorIn = authorData?.Authors?.docs.filter(Boolean) ?? undefined
 
-	const waitingForFilters =
-		((tagNameIn?.length ?? 0) > 0 && tagsLoading) ||
-		(authorSlugIn.length > 0 && authorLoading)
-	const {data: postsData, loading: postsLoading} = useQuery(getPosts, {
+	const waitingForFilters = ((tagNameIn?.length ?? 0) > 0 && tagsLoading) || (authorSlugIn.length > 0 && authorLoading)
+	const { data: postsData, loading: postsLoading } = useQuery(getPosts, {
 		variables: {
 			page: currentPage,
 			limit: pageLimit,
 			locale: getGqlLocale(locale),
 			postType: Micro_post_post_type_Input.Short,
 			tagsIn: tagsIn?.map(tag => getFragmentData(tagFragment, tag).id),
-			authorIn: authorIn?.map(
-				author => getFragmentData(authorQueryInFrag, author).id
-			),
+			authorIn: authorIn?.map(author => getFragmentData(authorQueryInFrag, author).id),
 		},
 		skip: waitingForFilters,
 	})
 	const items = postsData?.Micro_posts?.docs.filter(Boolean) ?? null
 	const totalPages = postsData?.Micro_posts?.totalPages ?? null
 
-	const tagNameInValues = tagsIn?.map(
-		item => getFragmentData(tagFragment, item).name
-	)
+	const tagNameInValues = tagsIn?.map(item => getFragmentData(tagFragment, item).name)
 	const searchParams = useSearchParams()
 	const createPageLink = useMemo(() => {
-		const base = canonizeSearchQuery(
-			'/blog/micro',
-			searchParams,
-			availableParams
-		)
-		return (page: number): string =>
-			createLinker(base).setValue(pageOption, page).asString()
+		const base = canonizeSearchQuery('/blog/micro', searchParams, availableParams)
+		return (page: number): string => createLinker(base).setValue(pageOption, page).asString()
 	}, [searchParams])
 
 	const showSkeletons = waitingForFilters || postsLoading
@@ -104,22 +89,16 @@ const MicroPageClient: FunctionComponent<{
 			<Breadcrumbs
 				locale={locale}
 				rootUrl={rootUrl}
-				homeCrumb={{title: tBreadcrumbs('home'), href: '/'}}
+				homeCrumb={{ title: tBreadcrumbs('home'), href: '/' }}
 				title={title}
 				currentHref="/blog/micro"
-				crumbs={[{title: tBreadcrumbs('blog'), href: '/blog'}]}
+				crumbs={[{ title: tBreadcrumbs('blog'), href: '/blog' }]}
 			/>
 			<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-				<h1 className="text-2xl font-semibold text-center sm:text-left">
-					{title}
-				</h1>
+				<h1 className="text-2xl font-semibold text-center sm:text-left">{title}</h1>
 			</div>
 			<Suspense>
-				<AvailableTags
-					usedNames={tagNameInValues ?? []}
-					locale={locale}
-					postType={Micro_post_post_type_Input.Short}
-				/>
+				<AvailableTags usedNames={tagNameInValues ?? []} locale={locale} postType={Micro_post_post_type_Input.Short} />
 			</Suspense>
 			{showSkeletons ? (
 				<div className="flex flex-wrap gap-3 items-center">
@@ -145,13 +124,7 @@ const MicroPageClient: FunctionComponent<{
 						const tt = getFragmentData(tagFragment, tag)
 						return (
 							<Suspense key={tt.id}>
-								<TagDeleteLink
-									locale={locale}
-									tagNameIn={
-										tagNameInValues?.filter(
-											item => item !== tt.name
-										) ?? []
-									}>
+								<TagDeleteLink locale={locale} tagNameIn={tagNameInValues?.filter(item => item !== tt.name) ?? []}>
 									{tt.title}
 								</TagDeleteLink>
 							</Suspense>
@@ -161,25 +134,14 @@ const MicroPageClient: FunctionComponent<{
 			) : null}
 			<Separator className="my-2" />
 			{showSkeletons ? (
-				<MicroblogShortPostListWithData
-					locale={locale}
-					rootUrl={rootUrl}
-					items={null}
-					skeletonCount={10}
-				/>
+				<MicroblogShortPostListWithData locale={locale} rootUrl={rootUrl} items={null} skeletonCount={10} />
 			) : items?.length === 0 ? (
-				<p className="m-auto text-4xl text-center font-bold my-12">
-					{tNotes('no_notes')}
-				</p>
+				<p className="m-auto text-4xl text-center font-bold my-12">{tNotes('no_notes')}</p>
 			) : (
 				<MicroblogShortPostListWithData
 					locale={locale}
 					rootUrl={rootUrl}
-					items={
-						items?.map(item =>
-							getFragmentData(blogPostlistQueryFragment, item)
-						) ?? null
-					}
+					items={items?.map(item => getFragmentData(blogPostlistQueryFragment, item)) ?? null}
 				/>
 			)}
 			<PaginationComponent
@@ -194,6 +156,5 @@ const MicroPageClient: FunctionComponent<{
 		</div>
 	)
 }
- 
 
 export default MicroPageClient

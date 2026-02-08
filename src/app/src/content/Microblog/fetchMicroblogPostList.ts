@@ -1,12 +1,13 @@
+import type { ApolloClient } from '@apollo/client'
+import { type FragmentType, getFragmentData } from '@blog/gql'
+import type { ResultOf } from '@graphql-typed-document-node/core'
+import { cache } from 'react'
 import getGqlLocale from '@/i18n/getGqlLocale'
-import type {ApolloClient} from '@apollo/client'
-import {type FragmentType, getFragmentData} from '@blog/gql'
-import type {ResultOf} from '@graphql-typed-document-node/core'
-import {cache} from 'react'
-import {staleContentCache} from '../../cache-config'
-import {Micro_post_post_type_Input} from '../../gql/graphql'
+import { staleContentCache } from '../../cache-config'
+import { Micro_post_post_type_Input } from '../../gql/graphql'
 import getNextJsApolloCache from '../../utils/getNextJsApolloCache'
-import {authorInFrag, getPosts, tagFrag} from './blogPostListGql'
+import { authorInFrag, getPosts, tagFrag } from './blogPostListGql'
+
 interface Props {
 	authorIn?: Array<FragmentType<typeof authorInFrag>>
 	limit: number
@@ -19,14 +20,7 @@ const emptyTags = 0
 const fetchMicroblogPostList = cache(
 	async (
 		client: ApolloClient,
-		{
-			authorIn,
-			limit,
-			tagsIn,
-			locale,
-			page = 1,
-			postType = Micro_post_post_type_Input.Long,
-		}: Props
+		{ authorIn, limit, tagsIn, locale, page = 1, postType = Micro_post_post_type_Input.Long }: Props,
 	): Promise<ApolloClient.QueryResult<ResultOf<typeof getPosts>>> =>
 		await client.query({
 			query: getPosts,
@@ -49,6 +43,6 @@ const fetchMicroblogPostList = cache(
 							})
 						: undefined,
 			},
-		})
+		}),
 )
 export default fetchMicroblogPostList

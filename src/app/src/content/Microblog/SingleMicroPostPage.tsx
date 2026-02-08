@@ -1,10 +1,10 @@
+import { graphql } from '@blog/gql'
+import { notFound } from 'next/navigation'
+import type { Locale } from 'next-intl'
+import { cache, type FunctionComponent } from 'react'
 import getGqlLocale from '@/i18n/getGqlLocale'
-import {graphql} from '@blog/gql'
-import type {Locale} from 'next-intl'
-import {notFound} from 'next/navigation'
-import {type FunctionComponent, cache} from 'react'
-import {metadataCache} from '../../cache-config'
-import {getClient} from '../../gql/getClient'
+import { metadataCache } from '../../cache-config'
+import { getClient } from '../../gql/getClient'
 import getNextJsApolloCache from '../../utils/getNextJsApolloCache'
 import SingleMicroBlogPostPageData from './SingleMicroPostPageData'
 
@@ -33,22 +33,12 @@ interface Props {
 	priority?: boolean
 	locale: Locale
 }
-const SingleMicroBlogPostPage: FunctionComponent<Props> = async ({
-	slug,
-	priority,
-	locale,
-}) => {
+const SingleMicroBlogPostPage: FunctionComponent<Props> = async ({ slug, priority, locale }) => {
 	const item = await fetchPost(slug, locale)
 	if (item === null) {
 		notFound()
 	}
 
-	return (
-		<SingleMicroBlogPostPageData
-			post={item}
-			locale={locale}
-			priority={priority}
-		/>
-	)
+	return <SingleMicroBlogPostPageData post={item} locale={locale} priority={priority} />
 }
 export default SingleMicroBlogPostPage

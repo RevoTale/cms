@@ -4,38 +4,38 @@ import { redirect } from 'next/navigation'
 import type { User } from '../../payload-types'
 
 export const getMeUser = async (args?: {
-  nullUserRedirect?: string
-  validUserRedirect?: string
+	nullUserRedirect?: string
+	validUserRedirect?: string
 }): Promise<{
-  token: string
-  user: User
+	token: string
+	user: User
 }> => {
-  const { nullUserRedirect, validUserRedirect } = args || {}
-  const cookieStore = await cookies()
-  const token = cookieStore.get('payload-token')?.value ?? ''
+	const { nullUserRedirect, validUserRedirect } = args || {}
+	const cookieStore = await cookies()
+	const token = cookieStore.get('payload-token')?.value ?? ''
 
-  const meUserReq = await fetch(`${process.env.PAYLOAD_PUBLIC_SERVER_URL}/api/users/me`, {
-    headers: {
-      Authorization: `JWT ${token}`,
-    },
-  })
+	const meUserReq = await fetch(`${process.env.PAYLOAD_PUBLIC_SERVER_URL}/api/users/me`, {
+		headers: {
+			Authorization: `JWT ${token}`,
+		},
+	})
 
-  const {
-    user,
-  }: {
-    user: User
-  } = await meUserReq.json()
+	const {
+		user,
+	}: {
+		user: User
+	} = await meUserReq.json()
 
-  if (validUserRedirect && meUserReq.ok && user) {
-    redirect(validUserRedirect)
-  }
+	if (validUserRedirect && meUserReq.ok && user) {
+		redirect(validUserRedirect)
+	}
 
-  if (nullUserRedirect && (!meUserReq.ok || !user)) {
-    redirect(nullUserRedirect)
-  }
+	if (nullUserRedirect && (!meUserReq.ok || !user)) {
+		redirect(nullUserRedirect)
+	}
 
-  return {
-    token,
-    user,
-  }
+	return {
+		token,
+		user,
+	}
 }

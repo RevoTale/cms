@@ -1,6 +1,6 @@
-import {graphql} from '@blog/gql'
+import { graphql } from '@blog/gql'
 import 'server-only'
-import {blogPostlistFragment} from '../../../../src/content/Microblog/MicroblogPostListWithData'
+import { blogPostlistFragment } from '../../../../src/content/Microblog/MicroblogPostListWithData'
 
 // Define tag fragment for type safety
 export const tagFragment = graphql(/* GraphQL */ `
@@ -54,4 +54,4 @@ export const notesListItemFragment = graphql(/* GraphQL */ `
 `)
 
 // Re-export blogPostlistFragment for display component compatibility
-export {blogPostlistFragment}
+export { blogPostlistFragment }

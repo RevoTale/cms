@@ -1,20 +1,17 @@
+import type { Metadata } from 'next'
+import type { Locale } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
+import type { FunctionComponent } from 'react'
 import generateAlternatesMeta from '@/i18n/generateAlternatesMeta'
 import type PagePropsWithLocale from '@/i18n/PagePropsWithLocale'
-import type {Metadata} from 'next'
-import type {Locale} from 'next-intl'
-import {getTranslations} from 'next-intl/server'
-import type {FunctionComponent} from 'react'
 import getDomain from '../../../src/config/getDomain'
 import GamesBoard from '../../../src/content/Boards/GamesBoard'
 import SeaBattleImg from '../../../src/content/Boards/images/sea-battle.png'
 import getImageUrlThumb from '../../../src/content/utils/seo/getImageUrlThumb'
 import getUrl from '../../../src/linking/getUrl'
-const generateMetadata = async ({
-	params,
-}: {
-	params: Promise<{locale: Locale}>
-}): Promise<Metadata> => {
-	const {locale} = await params
+
+const generateMetadata = async ({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> => {
+	const { locale } = await params
 	const t = await getTranslations({
 		locale,
 		namespace: 'Metadata.BrowserGames',
@@ -39,9 +36,9 @@ const generateMetadata = async ({
 		},
 	}
 }
-export {generateMetadata}
-const Page: FunctionComponent<PagePropsWithLocale> = async ({params}) => {
-	const {locale} = await params
+export { generateMetadata }
+const Page: FunctionComponent<PagePropsWithLocale> = async ({ params }) => {
+	const { locale } = await params
 	return <GamesBoard locale={locale} />
 }
 export default Page

@@ -10,7 +10,7 @@ const getImageUrlThumb = (
 	}: {
 		height: number
 		width: number
-	}
+	},
 ): {
 	url: string
 	width: number
@@ -25,7 +25,7 @@ const getImageUrlThumb = (
 				src: url,
 				width: targetWidth,
 			}),
-			null
+			null,
 		).toString(),
 		width: targetWidth,
 		height: targetHeight,

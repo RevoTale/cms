@@ -17,7 +17,7 @@ declare const messages: {
 		"video_label": "Video",
 		"selected_video": "Selected Video:"
 	},
-	"NavigationMap":{
+	"NavigationMap": {
 		"meta": {
 			"title": "Navigation Map",
 			"description": "Explore the RevoTale Navigation Map. Discover our tools, utilities, and projects in a visual format."
@@ -44,7 +44,7 @@ declare const messages: {
 			"personalNotes": "Personal Notes"
 		}
 	},
-	"microblog" :{
+	"microblog": {
 		"placeholder": {
 			"codeBlock": "Open the full note to view code block",
 			"table": "Open the full note to view table",
@@ -55,24 +55,24 @@ declare const messages: {
 		"linkedNotes": "Linked Notes",
 		"by": "by"
 	},
-	"PageMeta":{
-		"notes":{
-			"title":"Notes - Quick Coding, Experience, Open Source, SEO & Science Insights",
-			"description":"Dive into concise notes packed with actionable tips on coding, web-performance, SEO, AI workflows, book takeaways and more—updated regularly on RevoTale. "
+	"PageMeta": {
+		"notes": {
+			"title": "Notes - Quick Coding, Experience, Open Source, SEO & Science Insights",
+			"description": "Dive into concise notes packed with actionable tips on coding, web-performance, SEO, AI workflows, book takeaways and more—updated regularly on RevoTale. "
 		}
 	},
-	"copyButton":{
+	"copyButton": {
 		"copy": "Copy",
 		"copied": "Copied!"
 	},
-	"Project":{
-		"title":"Revotale"
+	"Project": {
+		"title": "Revotale"
 	},
 	"keywords": {
 		"url": "URL",
-		"encode":"Encode",
-		"decode":"Decode",
-		"online":"Online"
+		"encode": "Encode",
+		"decode": "Decode",
+		"online": "Online"
 	},
 	"Metadata": {
 		"Root": {
@@ -163,47 +163,47 @@ declare const messages: {
 		"creator": "RevoTale",
 		"publisher": "RevoTale"
 	},
-	"DurationConverter":{
-		"seo_title":"Video speed up/slow down online",
-		"seo_desc":"Change the speed of the video directly in the browser. Everything is done by your device's CPU/RAM. No data is shared with any server because video processing is done by the power of WASM on your device."
+	"DurationConverter": {
+		"seo_title": "Video speed up/slow down online",
+		"seo_desc": "Change the speed of the video directly in the browser. Everything is done by your device's CPU/RAM. No data is shared with any server because video processing is done by the power of WASM on your device."
 	},
-	"URLEncoder":{
-		"seo_title":"URL Encoder",
-		"seo_desc":"Simple tool to decode or encode URL entities without programming knowledge."
+	"URLEncoder": {
+		"seo_title": "URL Encoder",
+		"seo_desc": "Simple tool to decode or encode URL entities without programming knowledge."
 	},
-	"URLDecoder":{
-		"seo_title":"URL Decoder",
-		"seo_desc":"Simple tool to decode or encode URL entities without programming knowledge."
+	"URLDecoder": {
+		"seo_title": "URL Decoder",
+		"seo_desc": "Simple tool to decode or encode URL entities without programming knowledge."
 	},
-	"Notes":{
-		"title":"Notes",
-		"title_blog":"Blog",
-		"no_notes":"No notes yet :(",
-		"notes_heading":"Notes",
+	"Notes": {
+		"title": "Notes",
+		"title_blog": "Blog",
+		"no_notes": "No notes yet :(",
+		"notes_heading": "Notes",
 		"pagination": {
 			"previous": "Previous",
 			"next": "Next"
 		},
-		"json_ld":{
-			"description":"Explore a collection of notes on various topics, including coding, web performance, SEO, AI workflows, and book takeaways. Each note is designed to provide quick insights and actionable tips for developers and tech enthusiasts.",
-			"name":"Notes"
+		"json_ld": {
+			"description": "Explore a collection of notes on various topics, including coding, web performance, SEO, AI workflows, and book takeaways. Each note is designed to provide quick insights and actionable tips for developers and tech enthusiasts.",
+			"name": "Notes"
 		}
 	},
-	"Blog":{
-		"meta_title":"Blog",
-		"available_tags":"Available tags",
-		"go_to_notes":"View notes",
-		"go_to_micro_tales":"View Micro Tales",
-		"go_to_note":"View note",
-		"go_to_articles":"Articles",
-		 "available_tag":"Available tags:",
-		"meta_description":"Explore the intersection of technology, science, and society with our thought-provoking articles. From the latest in hi-tech and programming breakthroughs to insightful discussions on politics and personal experiences, our blog is a melting pot of ideas designed to inform, inspire, and ignite conversation. Join us on a journey through the fascinating world of innovation and discovery.",
-		"latest_articles":"Read the latest articles"
+	"Blog": {
+		"meta_title": "Blog",
+		"available_tags": "Available tags",
+		"go_to_notes": "View notes",
+		"go_to_micro_tales": "View Micro Tales",
+		"go_to_note": "View note",
+		"go_to_articles": "Articles",
+		"available_tag": "Available tags:",
+		"meta_description": "Explore the intersection of technology, science, and society with our thought-provoking articles. From the latest in hi-tech and programming breakthroughs to insightful discussions on politics and personal experiences, our blog is a melting pot of ideas designed to inform, inspire, and ignite conversation. Join us on a journey through the fascinating world of innovation and discovery.",
+		"latest_articles": "Read the latest articles"
 	},
 	"HistoryOfUkraine": {
 		"extendedInfo": "Extended information",
 		"title": "History of Ukraine",
-		"meta_desc":"Історія України простими короткими тезами. Основні дати покроково. Легко підготуйся до екзамену з Історії України.",
+		"meta_desc": "Історія України простими короткими тезами. Основні дати покроково. Легко підготуйся до екзамену з Історії України.",
 		"table": {
 			"date": "Date",
 			"event": "Event",
@@ -211,9 +211,9 @@ declare const messages: {
 			"importance": "Importance"
 		}
 	},
-	"Articles":{
-		"title":"Articles",
-		"blog_crumb":"Blog"
+	"Articles": {
+		"title": "Articles",
+		"blog_crumb": "Blog"
 	},
 	"RandomRecordSelector": {
 		"title": "Random Record Selector",
@@ -248,7 +248,7 @@ declare const messages: {
 	},
 	"BlogBoard": {
 		"title": "Blog",
-		"notes_title":"Discover notes",
+		"notes_title": "Discover notes",
 		"desc": "Sharing IT related stuff, news, science, experiences and thoughts.",
 		"explore": "Explore more content",
 		"welcome": "We're so glad you're here! Enjoy the reading!",
@@ -256,17 +256,17 @@ declare const messages: {
 		"read_latest_articles": "Read the latest articles",
 		"go_to_blog": "Go to blog"
 	},
-	"RecordRandomizer":{
-		"seo_title":"Record Randomizer",
-		"seo_desc":"Enter the list of records, spin the wheel and get a randomly selected line. Perfect for giveaways, decision making or any situation where a quick random selection is required.",
-		"setting_seo_title":"Record Randomizer settings",
-		"setting_seo_desc":"Record Randomizer settings. Enter the list of records, spin the wheel and get a randomly selected line. Perfect for giveaways, decision making or any situation where a quick random selection is required.",
-		"setting_title":"Randomizer settings",
-		"duration_setting_title":"Duration",
-		"duration_setting_desc":"Time in seconds after which wheel should be stopped",
-		"setting_disable_winner_dialog_title":"Disable winner dialog",
-		"setting_disable_winner_dialog_desc":"Enable this to disable pop up with winner record.",
-		"setting_save":"Save"
+	"RecordRandomizer": {
+		"seo_title": "Record Randomizer",
+		"seo_desc": "Enter the list of records, spin the wheel and get a randomly selected line. Perfect for giveaways, decision making or any situation where a quick random selection is required.",
+		"setting_seo_title": "Record Randomizer settings",
+		"setting_seo_desc": "Record Randomizer settings. Enter the list of records, spin the wheel and get a randomly selected line. Perfect for giveaways, decision making or any situation where a quick random selection is required.",
+		"setting_title": "Randomizer settings",
+		"duration_setting_title": "Duration",
+		"duration_setting_desc": "Time in seconds after which wheel should be stopped",
+		"setting_disable_winner_dialog_title": "Disable winner dialog",
+		"setting_disable_winner_dialog_desc": "Enable this to disable pop up with winner record.",
+		"setting_save": "Save"
 	},
 	"Header": {
 		"GoHome": "Go to the home page",
@@ -283,11 +283,11 @@ declare const messages: {
 			"hi": "Hindi",
 			"es": "Spanish"
 		},
-		"OpenNavMapButton":"Open Website Navigation Map",
-		"PoweredBy":"We care about your privacy. Analytics are powered by <a>Open Source software</a>.",
+		"OpenNavMapButton": "Open Website Navigation Map",
+		"PoweredBy": "We care about your privacy. Analytics are powered by <a>Open Source software</a>.",
 		"Utils": "Services",
-		"sea_battle":"Classic Battleship Game",
-		"notes":"Notes",
+		"sea_battle": "Classic Battleship Game",
+		"notes": "Notes",
 		"sweetheart": "For you, sweetheart",
 		"Blog": "Blog",
 		"LangTitle": "Languages",
@@ -304,23 +304,23 @@ declare const messages: {
 		}
 	},
 	"SeaBattle": {
-		"json_ld":{
-			"name":"Sea Battle Game",
-			"description":"A real-time, two-player Sea Battle game playable in the browser. Create a room, share a link with a friend, place ships, and compete.",
-			"serverName":"Sea Battle Game Room Create"
+		"json_ld": {
+			"name": "Sea Battle Game",
+			"description": "A real-time, two-player Sea Battle game playable in the browser. Create a room, share a link with a friend, place ships, and compete.",
+			"serverName": "Sea Battle Game Room Create"
 		},
-		"howToPlay":{
-			"title":"About Game",
+		"howToPlay": {
+			"title": "About Game",
 
-			"step1":"No signup needed. Open a room and you’re playing",
-			"step2":"Place the standard 10 ships, hit Ready, and take turns firing until all your or enemy ships are sunk.",
-			"step3":"Invite a friend or play against a bot at Easy, Average, Hard, or Hacker level.",
-			"step4":"Real-time chat for in-game communication with your opponent."
+			"step1": "No signup needed. Open a room and you’re playing",
+			"step2": "Place the standard 10 ships, hit Ready, and take turns firing until all your or enemy ships are sunk.",
+			"step3": "Invite a friend or play against a bot at Easy, Average, Hard, or Hacker level.",
+			"step4": "Real-time chat for in-game communication with your opponent."
 		},
 		"unknown_player_generic": "Unknown Player",
 		"unknown_player_my": "Unknown my Player",
 		"unknown_player_enemy": "Unknown enemy Player",
-		"join_telegram":"Join a Sea Battle Game With Me!",
+		"join_telegram": "Join a Sea Battle Game With Me!",
 		"title": "Sea Battle Game",
 		"pageDescription": "Play Sea Battle with your friend in browser online. Message a link to your friend to play together.",
 		"newGameWithFriend": "Start a New Game With Friend",
@@ -349,7 +349,7 @@ declare const messages: {
 			"returnBackToYourTurn": "Return! It's your turn!",
 			"returnBackToReadyToBattle": "Return! Your opponent is ready!"
 		},
-			"room": {
+		"room": {
 			"title": "Sea Battle Room"
 		},
 		"fight": {
@@ -363,7 +363,7 @@ declare const messages: {
 			"you_missed": "You missed! 💦",
 			"enemy_missed": "Enemy missed! 💦",
 			"enemy_hit_your_ship": "Enemy hit your ship! 💥",
-			"waiting":"Waiting for action"
+			"waiting": "Waiting for action"
 		},
 		"shipLocating": {
 			"title": "Sea Battle Ship Locating"
@@ -456,7 +456,7 @@ declare const messages: {
 				"memos": "Memos"
 			},
 			"desc": {
-				"glance":"Gatus is a developer-oriented status page that monitors our services with HTTP, ICMP, TCP, and DNS checks, with alerting, and a public status view so anyone can see when a game or service is down.",
+				"glance": "Gatus is a developer-oriented status page that monitors our services with HTTP, ICMP, TCP, and DNS checks, with alerting, and a public status view so anyone can see when a game or service is down.",
 				"watcharr": "Watcharr is an open source, self-hostable watched list for all your content (movies, tv series, anime, games) with user authentication, modern and clean UI and a very simple setup.",
 				"memos": "Memos is an open-source, lightweight note-taking solution. The pain-less way to create your meaningful notes. Your Notes, Your Way."
 			}

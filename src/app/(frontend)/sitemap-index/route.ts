@@ -5,22 +5,16 @@ import { generateSitemaps as noteTags } from '../blog/notes/sitemap'
 
 const GET = async (): Promise<Response> => {
 	const notesPromise: string[] = await notes().then(notes =>
-		notes.map(id =>
-			getUrl(`/blog/note/sitemap/${id.id}.xml`, null).toString()
-		)
+		notes.map(id => getUrl(`/blog/note/sitemap/${id.id}.xml`, null).toString()),
 	)
 	const authorsPromise: string[] = await authors().then(ids =>
-		ids.map(id =>
-			getUrl(`/blog/author/sitemap/${id.id}.xml`, null).toString()
-		)
+		ids.map(id => getUrl(`/blog/author/sitemap/${id.id}.xml`, null).toString()),
 	)
 	const sitemaps: string[] = [
 		getUrl('/sitemap.xml', null).toString(),
 		...authorsPromise,
 		...notesPromise,
-		...(await noteTags()).map(id =>
-			getUrl(`/blog/notes/sitemap/${id.id}.xml`, null).toString()
-		),
+		...(await noteTags()).map(id => getUrl(`/blog/notes/sitemap/${id.id}.xml`, null).toString()),
 	]
 	const xml = `<?xml version="1.0" encoding="UTF-8"?>
    <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -42,7 +36,7 @@ ${sitemaps
 			}
 			return c
 		})}</loc>
-</sitemap>`
+</sitemap>`,
 	)
 	.join('\n')}
 </sitemapindex>
@@ -56,11 +50,10 @@ ${sitemaps
 	response.headers.set('content-type', 'application/xml')
 	response.headers.set(
 		'Cache-Control',
-		'public, max-age=3600, s-maxage=3600, stale-while-revalidate=9000, stale-if-error=86400'
+		'public, max-age=3600, s-maxage=3600, stale-while-revalidate=9000, stale-if-error=86400',
 	)
 
 	return response
 }
 
 export { GET }
-

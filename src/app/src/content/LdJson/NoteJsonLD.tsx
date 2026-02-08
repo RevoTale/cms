@@ -1,12 +1,12 @@
-import {type FragmentType, getFragmentData, graphql} from '@blog/gql'
-import type {Locale} from 'next-intl'
-import type {FunctionComponent} from 'react'
-import type {BlogPosting, WithContext} from 'schema-dts'
+import { type FragmentType, getFragmentData, graphql } from '@blog/gql'
+import type { Locale } from 'next-intl'
+import type { FunctionComponent } from 'react'
+import type { BlogPosting, WithContext } from 'schema-dts'
 import formatUrl from '../../linking/formatUrl'
 import getMicropostHref from '../Microblog/getMicroPostHref'
-import {getAuthorJsonLD} from './AuthorJsonLD'
-import {getOrganizationJsonLD} from './OrganizationJsonLd'
+import { getAuthorJsonLD } from './AuthorJsonLD'
 import getImageJsonLd from './getImageJsonLd'
+import { getOrganizationJsonLD } from './OrganizationJsonLd'
 export const noteJsonldFragment = graphql(/* GraphQL */ `
 	fragment SingleNoteJsonld on Micro_post {
 		id
@@ -37,13 +37,12 @@ export const noteJsonldFragment = graphql(/* GraphQL */ `
 export const getNoteJsonLD = (
 	note: FragmentType<typeof noteJsonldFragment>,
 	rootUrl: string,
-	locale: string
+	locale: string,
 ): WithContext<BlogPosting> => {
 	const data = getFragmentData(noteJsonldFragment, note)
 	const [url, authors, org] = [
 		formatUrl(rootUrl, getMicropostHref(data), locale).toString(),
-		data.authors?.map(author => getAuthorJsonLD(author, rootUrl, locale)) ??
-			[],
+		data.authors?.map(author => getAuthorJsonLD(author, rootUrl, locale)) ?? [],
 		getOrganizationJsonLD(rootUrl),
 	]
 	const image = data.meta?.image ?? null
@@ -63,10 +62,7 @@ export const getNoteJsonLD = (
 		'@id': url.toString(),
 		headline: data.title ?? data.meta?.title ?? undefined,
 		url: url.toString(),
-		datePublished:
-			typeof data.publishedAt === 'string'
-				? new Date(data.publishedAt).toISOString()
-				: undefined,
+		datePublished: typeof data.publishedAt === 'string' ? new Date(data.publishedAt).toISOString() : undefined,
 		author: authors,
 		publisher: org,
 		description: data.meta?.description ?? undefined,
@@ -76,7 +72,7 @@ export const getNoteJsonLD = (
 		},
 		image: image === null ? undefined : getImageJsonLd(rootUrl, image),
 		inLanguage: locale,
-		...(mentions.length > 0 && {mentions}),
+		...(mentions.length > 0 && { mentions }),
 	}
 	return jsonLd
 }
@@ -84,7 +80,7 @@ const NoteJsonLD: FunctionComponent<{
 	note: FragmentType<typeof noteJsonldFragment>
 	locale: Locale
 	rootUrl: string
-}> = ({note, locale, rootUrl}) => {
+}> = ({ note, locale, rootUrl }) => {
 	const jsonLd = getNoteJsonLD(note, rootUrl, locale)
 	return (
 		<script

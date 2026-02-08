@@ -1,23 +1,19 @@
+import { cn } from '@shadcn/lib/utils'
+import { buttonVariants } from '@shadcn/ui/button'
+import { Skeleton } from '@shadcn/ui/skeleton'
+import type { Metadata } from 'next'
+import type { Locale } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
+import { type FunctionComponent, Suspense } from 'react'
 import generateAlternatesMeta from '@/i18n/generateAlternatesMeta'
 import type PagePropsWithLocale from '@/i18n/PagePropsWithLocale'
-import {cn} from '@shadcn/lib/utils'
-import {buttonVariants} from '@shadcn/ui/button'
-import {Skeleton} from '@shadcn/ui/skeleton'
-import type {Metadata} from 'next'
-import type {Locale} from 'next-intl'
-import {getTranslations} from 'next-intl/server'
-import {type FunctionComponent, Suspense} from 'react'
 import RecordsRandomizer from '../../../../src/content/Randomizer/RecordsRandomizer'
 import UtilityTemplate from '../../../../src/content/Tools/UtilityTemplate'
-import {RandomRecordSelector} from '../../../../src/linking/map/tools'
+import { RandomRecordSelector } from '../../../../src/linking/map/tools'
 import SettingLink from './SettingLink'
 
-export const generateMetadata = async ({
-	params,
-}: {
-	params: Promise<{locale: Locale}>
-}): Promise<Metadata> => {
-	const {locale} = await params
+export const generateMetadata = async ({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> => {
+	const { locale } = await params
 	const t = await getTranslations({
 		locale,
 		namespace: 'RandomRecordSelector',
@@ -33,10 +29,8 @@ export const generateMetadata = async ({
 		},
 	}
 }
-const RandomRecordSelectorPage: FunctionComponent<
-	PagePropsWithLocale
-> = async ({params}) => {
-	const {locale} = await params
+const RandomRecordSelectorPage: FunctionComponent<PagePropsWithLocale> = async ({ params }) => {
+	const { locale } = await params
 	const t = await getTranslations({
 		locale,
 		namespace: 'RandomRecordSelector',
@@ -47,10 +41,7 @@ const RandomRecordSelectorPage: FunctionComponent<
 		namespace: 'Paste',
 	})
 	return (
-		<UtilityTemplate
-			locale={locale}
-			currentHref={RandomRecordSelector.href}
-			title={t('title')}>
+		<UtilityTemplate locale={locale} currentHref={RandomRecordSelector.href} title={t('title')}>
 			<Suspense fallback={<Skeleton className="w-full h-32" />}>
 				<RecordsRandomizer
 					placeholder={t('records')}
@@ -69,8 +60,9 @@ const RandomRecordSelectorPage: FunctionComponent<
 						buttonVariants({
 							variant: 'secondary',
 							size: 'default',
-						})
-					)}>
+						}),
+					)}
+				>
 					{settingsText}
 				</SettingLink>
 			</Suspense>

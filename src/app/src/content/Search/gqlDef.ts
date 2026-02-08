@@ -1,4 +1,4 @@
-import {graphql} from '@blog/gql'
+import { graphql } from '@blog/gql'
 
 export const SearchQueryDocFragment = graphql(/* GraphQL */ `
 	fragment SearchQueryDoc on Search {

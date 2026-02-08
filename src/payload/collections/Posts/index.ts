@@ -1,9 +1,9 @@
 import {
-  MetaDescriptionField,
-  MetaImageField,
-  MetaTitleField,
-  OverviewField,
-  PreviewField,
+	MetaDescriptionField,
+	MetaImageField,
+	MetaTitleField,
+	OverviewField,
+	PreviewField,
 } from '@payloadcms/plugin-seo/fields'
 
 import type { CollectionConfig } from 'payload'
@@ -15,209 +15,209 @@ import { slugField } from '../../fields/slug'
 import { revalidatePost } from './hooks/revalidatePost'
 
 export const Posts: CollectionConfig = {
-  slug: 'posts',
-  access: {
-    create: authenticated,
-    delete: authenticated,
-    read: authenticatedOrPublished,
-    update: authenticated,
-  },
-  admin: {
-    defaultColumns: ['title', 'slug', 'updatedAt'],
-    useAsTitle: 'title',
-  },
+	slug: 'posts',
+	access: {
+		create: authenticated,
+		delete: authenticated,
+		read: authenticatedOrPublished,
+		update: authenticated,
+	},
+	admin: {
+		defaultColumns: ['title', 'slug', 'updatedAt'],
+		useAsTitle: 'title',
+	},
 
-  fields: [
-    AutoTranslate,
-    {
-      name: 'title',
-      type: 'text',
-      required: true,
-      localized: true,
-    },
-    {
-      name: 'subtitle',
-      type: 'text',
-      required: true,
-      localized: true,
-    },
+	fields: [
+		AutoTranslate,
+		{
+			name: 'title',
+			type: 'text',
+			required: true,
+			localized: true,
+		},
+		{
+			name: 'subtitle',
+			type: 'text',
+			required: true,
+			localized: true,
+		},
 
-    {
-      name: 'featuredImage',
-      type: 'upload',
-      relationTo: 'media',
-      required: true,
-      label: 'Featured image',
-      localized: false,
-    },
+		{
+			name: 'featuredImage',
+			type: 'upload',
+			relationTo: 'media',
+			required: true,
+			label: 'Featured image',
+			localized: false,
+		},
 
-    {
-      type: 'tabs',
-      tabs: [
-        {
-          fields: [
-            {
-              name: 'content',
-              type: 'textarea',
-              label: false,
-              required: true,
-              localized: true,
-            },
-          ],
-          label: 'Content',
-        },
-        {
-          fields: [
-            {
-              name: 'relatedPosts',
-              type: 'relationship',
-              localized: false,
-              admin: {
-                position: 'sidebar',
-              },
-              filterOptions: ({ id }) => ({
-                  id: {
-                    not_in: [id],
-                  },
-                }),
-              hasMany: true,
-              relationTo: 'posts',
-            },
-            {
-              name: 'tags',
-              type: 'relationship',
-              admin: {
-                position: 'sidebar',
-              },
-              hasMany: true,
-              relationTo: 'tags',
-              label: 'Tags',
-            },
-          ],
-          label: 'Meta',
-        },
-        {
-          name: 'meta',
-          label: 'SEO',
-          fields: [
-            OverviewField({
-              titlePath: 'meta.title',
-              descriptionPath: 'meta.description',
-              imagePath: 'meta.image',
-            }),
-            MetaTitleField({
-              hasGenerateFn: true,
-            }),
-            MetaImageField({
-              relationTo: 'media',
-            }),
-            {
-              name: 'nofollow',
-              defaultValue: false,
-              type: 'checkbox',
-              required: true,
-              localized: false,
-            },
-            {
-              name: 'noindex',
-              defaultValue: false,
-              type: 'checkbox',
-              required: true,
-              localized: false,
-            },
+		{
+			type: 'tabs',
+			tabs: [
+				{
+					fields: [
+						{
+							name: 'content',
+							type: 'textarea',
+							label: false,
+							required: true,
+							localized: true,
+						},
+					],
+					label: 'Content',
+				},
+				{
+					fields: [
+						{
+							name: 'relatedPosts',
+							type: 'relationship',
+							localized: false,
+							admin: {
+								position: 'sidebar',
+							},
+							filterOptions: ({ id }) => ({
+								id: {
+									not_in: [id],
+								},
+							}),
+							hasMany: true,
+							relationTo: 'posts',
+						},
+						{
+							name: 'tags',
+							type: 'relationship',
+							admin: {
+								position: 'sidebar',
+							},
+							hasMany: true,
+							relationTo: 'tags',
+							label: 'Tags',
+						},
+					],
+					label: 'Meta',
+				},
+				{
+					name: 'meta',
+					label: 'SEO',
+					fields: [
+						OverviewField({
+							titlePath: 'meta.title',
+							descriptionPath: 'meta.description',
+							imagePath: 'meta.image',
+						}),
+						MetaTitleField({
+							hasGenerateFn: true,
+						}),
+						MetaImageField({
+							relationTo: 'media',
+						}),
+						{
+							name: 'nofollow',
+							defaultValue: false,
+							type: 'checkbox',
+							required: true,
+							localized: false,
+						},
+						{
+							name: 'noindex',
+							defaultValue: false,
+							type: 'checkbox',
+							required: true,
+							localized: false,
+						},
 
-            MetaDescriptionField({}),
-            PreviewField({
-              // if the `generateUrl` function is configured
-              hasGenerateFn: true,
+						MetaDescriptionField({}),
+						PreviewField({
+							// if the `generateUrl` function is configured
+							hasGenerateFn: true,
 
-              // field paths to match the target field for data
-              titlePath: 'meta.title',
-              descriptionPath: 'meta.description',
-            }),
-          ],
-        },
-      ],
-    },
-    {
-      name: 'authorSlug',
-      type: 'text', // This makes it queryable in "where" conditions
-      admin: {
-        readOnly: true, // Optional: make it read-only
-      },
-      localized: false,
-    },
-    {
-      name: 'publishedAt',
-      type: 'date',
-      localized: false,
-      admin: {
-        date: {
-          pickerAppearance: 'dayAndTime',
-        },
-        position: 'sidebar',
-      },
-      hooks: {
-        beforeChange: [
-          ({ siblingData, value }) => {
-            if (siblingData._status === 'published' && !value) {
-              return new Date()
-            }
-            return value
-          },
-        ],
-      },
-    },
-    // This field is only used to populate the user data via the `populateAuthors` hook
-    // This is because the `user` collection has access control locked to protect user privacy
-    // GraphQL will also not return mutated user data that differs from the underlying schema
-    {
-      name: 'authors',
-      type: 'relationship',
-      relationTo: 'authors',
-      admin: { position: 'sidebar' },
-      hasMany: true,
-      required: true,
-      localized: false,
-    },
-    slugField('title', {
-      unique: true,
-      required: true,
-      localized: false,
-    }),
-  ],
-  hooks: {
-    afterChange: [revalidatePost],
+							// field paths to match the target field for data
+							titlePath: 'meta.title',
+							descriptionPath: 'meta.description',
+						}),
+					],
+				},
+			],
+		},
+		{
+			name: 'authorSlug',
+			type: 'text', // This makes it queryable in "where" conditions
+			admin: {
+				readOnly: true, // Optional: make it read-only
+			},
+			localized: false,
+		},
+		{
+			name: 'publishedAt',
+			type: 'date',
+			localized: false,
+			admin: {
+				date: {
+					pickerAppearance: 'dayAndTime',
+				},
+				position: 'sidebar',
+			},
+			hooks: {
+				beforeChange: [
+					({ siblingData, value }) => {
+						if (siblingData._status === 'published' && !value) {
+							return new Date()
+						}
+						return value
+					},
+				],
+			},
+		},
+		// This field is only used to populate the user data via the `populateAuthors` hook
+		// This is because the `user` collection has access control locked to protect user privacy
+		// GraphQL will also not return mutated user data that differs from the underlying schema
+		{
+			name: 'authors',
+			type: 'relationship',
+			relationTo: 'authors',
+			admin: { position: 'sidebar' },
+			hasMany: true,
+			required: true,
+			localized: false,
+		},
+		slugField('title', {
+			unique: true,
+			required: true,
+			localized: false,
+		}),
+	],
+	hooks: {
+		afterChange: [revalidatePost],
 
-    beforeChange: [
-      async ({ data, req }) => {
-        if (!data?.authors || data.authors.length === 0) {
-          return data
-        }
+		beforeChange: [
+			async ({ data, req }) => {
+				if (!data?.authors || data.authors.length === 0) {
+					return data
+				}
 
-        const firstAuthor = data.authors[0]
-        const author = await req.payload.findByID({
-          collection: 'authors',
-          id: typeof firstAuthor === 'string' ? firstAuthor : firstAuthor.id,
-        })
+				const firstAuthor = data.authors[0]
+				const author = await req.payload.findByID({
+					collection: 'authors',
+					id: typeof firstAuthor === 'string' ? firstAuthor : firstAuthor.id,
+				})
 
-        if (!author?.slug) {
-          return data
-        }
+				if (!author?.slug) {
+					return data
+				}
 
-        return {
-          ...data,
-          authorSlug: author.slug,
-        }
-      },
-    ],
-  },
-  versions: {
-    drafts: {
-      autosave: {
-        interval: 100, // We set this interval for optimal live preview
-      },
-    },
-    maxPerDoc: 50,
-  },
+				return {
+					...data,
+					authorSlug: author.slug,
+				}
+			},
+		],
+	},
+	versions: {
+		drafts: {
+			autosave: {
+				interval: 100, // We set this interval for optimal live preview
+			},
+		},
+		maxPerDoc: 50,
+	},
 }

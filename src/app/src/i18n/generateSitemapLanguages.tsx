@@ -1,10 +1,10 @@
-import {defaultLocale, locales} from '@/i18n/config'
-import type {RelativeURL} from 'next-navigation-utils'
+import type { RelativeURL } from 'next-navigation-utils'
+import { defaultLocale, locales } from '@/i18n/config'
 import getUrl from '../linking/getUrl'
 
 const generateSitemapLanguages = (
 	path: string | RelativeURL,
-	excludedLocale: string = defaultLocale
+	excludedLocale: string = defaultLocale,
 ): Record<string, string> => {
 	const withoutDefault = locales.filter(locale => locale !== excludedLocale)
 	const localeMap = new Map<(typeof locales)[number], string>()

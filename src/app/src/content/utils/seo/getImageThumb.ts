@@ -1,4 +1,4 @@
-import {type FragmentType, getFragmentData, graphql} from '@blog/gql'
+import { type FragmentType, getFragmentData, graphql } from '@blog/gql'
 import getImageUrlThumb from './getImageUrlThumb'
 
 export const ImageFragment = graphql(`
@@ -11,7 +11,7 @@ export const ImageFragment = graphql(`
 `)
 const getImageThumb = (
 	image: FragmentType<typeof ImageFragment>,
-	rootUrl: string
+	rootUrl: string,
 ): {
 	url: string
 	width: number
@@ -27,6 +27,6 @@ const getImageThumb = (
 
 	// Use cloudflare loader to generate the image URL with a width of 1024
 	// This is useful for Open Graph images
-	return getImageUrlThumb(url, rootUrl, {width, height})
+	return getImageUrlThumb(url, rootUrl, { width, height })
 }
 export default getImageThumb

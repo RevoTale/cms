@@ -1,7 +1,7 @@
-import {useOnce} from '@bladl/react-hooks'
+import { useOnce } from '@bladl/react-hooks'
 import Image from 'next/image'
-import {type FunctionComponent, useCallback, useRef, useState} from 'react'
-import {useDebounceCallback, useResizeObserver} from 'usehooks-ts'
+import { type FunctionComponent, useCallback, useRef, useState } from 'react'
+import { useDebounceCallback, useResizeObserver } from 'usehooks-ts'
 
 export interface InputImage {
 	src: string
@@ -14,10 +14,7 @@ interface EqualizedImage extends InputImage {
 	scaledHeight: number
 }
 const debounceTimeout = 200
-const scaleToUniformDimension = (
-	images: InputImage[],
-	targetDimension: number
-): EqualizedImage[] =>
+const scaleToUniformDimension = (images: InputImage[], targetDimension: number): EqualizedImage[] =>
 	images.map(image => {
 		// Determine the longest side of the image
 		const longestSide = Math.max(image.width, image.height)
@@ -50,21 +47,16 @@ interface ContainerProps {
 	images: InputImage[]
 }
 
-const ImageContainer: FunctionComponent<ContainerProps> = ({images}) => {
+const ImageContainer: FunctionComponent<ContainerProps> = ({ images }) => {
 	const [result, setResult] = useState<ImageData[]>([])
 	const containerRef = useRef<HTMLDivElement>(null)
 	const performImages = useCallback(() => {
 		if (containerRef.current) {
-			const {clientWidth, clientHeight} = containerRef.current
+			const { clientWidth, clientHeight } = containerRef.current
 
 			const result: ImageData[] = []
-			const scaled = scaleToUniformDimension(
-				images,
-				Math.max(clientHeight, clientWidth) / multiplier
-			).sort(
-				(item1, item2) =>
-					item2.scaledHeight / item2.scaledWidth -
-					(item1.scaledHeight - item1.scaledWidth)
+			const scaled = scaleToUniformDimension(images, Math.max(clientHeight, clientWidth) / multiplier).sort(
+				(item1, item2) => item2.scaledHeight / item2.scaledWidth - (item1.scaledHeight - item1.scaledWidth),
 			)
 			for (const item of scaled) {
 				result.push({
@@ -91,14 +83,9 @@ const ImageContainer: FunctionComponent<ContainerProps> = ({images}) => {
 		onResize,
 	})
 	return (
-		<div
-			className="h-screen w-full relative text-center"
-			ref={containerRef}>
-			{result.map(({width, height, src, style}, index) => (
-				<div
-					className="relative inline-block box-border"
-					key={src}
-					style={style}>
+		<div className="h-screen w-full relative text-center" ref={containerRef}>
+			{result.map(({ width, height, src, style }, index) => (
+				<div className="relative inline-block box-border" key={src} style={style}>
 					<Image
 						alt={`image-${index}`}
 						className="w-full object-contain"

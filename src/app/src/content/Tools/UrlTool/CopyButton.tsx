@@ -1,10 +1,10 @@
 'use client'
-import {useOnChange} from '@bladl/react-hooks'
+import { useOnChange } from '@bladl/react-hooks'
 import BadError from '@revotale/ui/BadError'
-import {cn} from '@shadcn/lib/utils'
-import {Button} from '@shadcn/ui/button'
+import { cn } from '@shadcn/lib/utils'
+import { Button } from '@shadcn/ui/button'
 import clipboard from 'clipboardy'
-import {type FunctionComponent, useState} from 'react'
+import { type FunctionComponent, useState } from 'react'
 export interface CopyButtonTextProps {
 	done: string
 	error: string
@@ -16,23 +16,14 @@ interface Props {
 	disabled?: boolean
 	t: CopyButtonTextProps
 }
-const CopyButton: FunctionComponent<Props> = ({
-	text,
-	disabled,
-	className,
-	t,
-}: Props) => {
+const CopyButton: FunctionComponent<Props> = ({ text, disabled, className, t }: Props) => {
 	const [success, setSuccess] = useState(false)
 	const [error, setError] = useState<string | null>(null)
 	useOnChange(() => {
 		setSuccess(false)
 	}, text)
 	return (
-		<div
-			className={cn(
-				'flex justify-center flex-col items-center',
-				className
-			)}>
+		<div className={cn('flex justify-center flex-col items-center', className)}>
 			<Button
 				className="text-base"
 				disabled={disabled}
@@ -48,12 +39,11 @@ const CopyButton: FunctionComponent<Props> = ({
 							setError(e instanceof Error ? e.message : String(e))
 						})
 				}}
-				size="lg">
+				size="lg"
+			>
 				{success ? t.done : t.label}
 			</Button>
-			{error === null ? null : (
-				<BadError title={t.error}>{error}</BadError>
-			)}
+			{error === null ? null : <BadError title={t.error}>{error}</BadError>}
 		</div>
 	)
 }

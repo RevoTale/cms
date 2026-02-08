@@ -468,7 +468,7 @@ declare const messages: {
 		"imageLabel": "Image",
 		"submit": "Soumettre"
 	},
-	"copyButton":{
+	"copyButton": {
 		"copy": "Copier",
 		"copied": "Copié !"
 	},

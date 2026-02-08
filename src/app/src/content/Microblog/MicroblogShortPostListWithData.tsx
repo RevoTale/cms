@@ -1,21 +1,19 @@
 'use client'
+import { type FragmentType, getFragmentData } from '@blog/gql'
+import { InlineSkeleton } from '@revotale/ui/InlineSkeleton'
+import { Card, CardContent, CardHeader } from '@shadcn/ui/card'
+import { Skeleton } from '@shadcn/ui/skeleton'
+import type { Locale } from 'next-intl'
+import type { FunctionComponent } from 'react'
 import NextLink from '@/i18n/LocaleLink'
-import {getFragmentData, type FragmentType} from '@blog/gql'
-import {InlineSkeleton} from '@revotale/ui/InlineSkeleton'
-import {Card, CardContent, CardHeader} from '@shadcn/ui/card'
-import {Skeleton} from '@shadcn/ui/skeleton'
-import type {Locale} from 'next-intl'
-import type {FunctionComponent} from 'react'
-import BlogListItemAuthor, {
-	authorFragment,
-} from '../Blog/List/BlogListItemAuthor'
+import BlogListItemAuthor, { authorFragment } from '../Blog/List/BlogListItemAuthor'
 import ContentfulImage from '../Contentful/ContentfulImage'
 import getMicropostHref from './getMicroPostHref'
 import MicroBlogTag from './MicroBlogTag'
+import { postItemFragment } from './MicroblogListItem'
 import MicroBlogPostText from './MicroPostMarkdown'
-import {postItemFragment} from './MicroblogListItem'
 import PostPublishDate from './PostPublishDate'
-import {tagFrag} from './ss'
+import { tagFrag } from './ss'
 
 interface Props {
 	items: Array<FragmentType<typeof postItemFragment>> | null
@@ -45,10 +43,7 @@ const MicroblogShortPostListWithData: FunctionComponent<Props> = ({
 								<li key={`micro_skeleton_${index}`}>
 									<Card className="rounded-xl border-border/70">
 										<CardHeader className="gap-2 px-3 py-2">
-											<BlogListItemAuthor
-												locale={locale}
-												author={null}
-											/>
+											<BlogListItemAuthor locale={locale} author={null} />
 											<InlineSkeleton className="h-4 w-28 ml-auto" />
 										</CardHeader>
 										<CardContent className="space-y-2 px-3 pb-3 pt-0">
@@ -71,55 +66,32 @@ const MicroblogShortPostListWithData: FunctionComponent<Props> = ({
 											{(data.authors?.length ?? 0) > 0 ? (
 												data.authors?.map(author => (
 													<BlogListItemAuthor
-														key={
-															getFragmentData(
-																authorFragment,
-																author
-															).id
-														}
+														key={getFragmentData(authorFragment, author).id}
 														locale={locale}
 														author={author}
 													/>
 												))
 											) : (
-												<BlogListItemAuthor
-													locale={locale}
-													author={null}
-												/>
+												<BlogListItemAuthor locale={locale} author={null} />
 											)}
-											<PostPublishDate
-												locale={locale}
-												showTime
-												className="ml-auto"
-												post={data}
-											/>
+											<PostPublishDate locale={locale} showTime className="ml-auto" post={data} />
 										</div>
 									</CardHeader>
 									<CardContent className="space-y-2 px-3 pb-3 pt-0">
 										{data.title ? (
 											<NextLink
 												locale={locale}
-												href={getMicropostHref(
-													data
-												).asString()}
-												className="block text-base font-semibold leading-tight">
+												href={getMicropostHref(data).asString()}
+												className="block text-base font-semibold leading-tight"
+											>
 												{data.title}
 											</NextLink>
 										) : null}
 										<div className="[&_.hljs]:text-xs [&_.hljs]:leading-5 [&_a]:break-words [&_figure]:my-2 [&_p]:my-2 [&_pre]:text-xs">
-											<MicroBlogPostText
-												locale={locale}
-												post={data}
-												small
-												rootUrl={rootUrl}
-											/>
+											<MicroBlogPostText locale={locale} post={data} small rootUrl={rootUrl} />
 										</div>
 										{data.attachment ? (
-											<NextLink
-												locale={locale}
-												href={getMicropostHref(
-													data
-												).asString()}>
+											<NextLink locale={locale} href={getMicropostHref(data).asString()}>
 												<ContentfulImage
 													className="max-h-96 w-full rounded-xl object-contain"
 													image={data.attachment}
@@ -130,16 +102,7 @@ const MicroblogShortPostListWithData: FunctionComponent<Props> = ({
 										{(data.tags?.length ?? 0) > 0 ? (
 											<div className="flex flex-wrap gap-2">
 												{data.tags?.map(tag => (
-													<MicroBlogTag
-														key={
-															getFragmentData(
-																tagFrag,
-																tag
-															).id
-														}
-														locale={locale}
-														tag={tag}
-													/>
+													<MicroBlogTag key={getFragmentData(tagFrag, tag).id} locale={locale} tag={tag} />
 												))}
 											</div>
 										) : null}

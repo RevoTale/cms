@@ -1,14 +1,14 @@
+import { graphql } from '@blog/gql'
+import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
+import type { Locale } from 'next-intl'
+import { NextIntlClientProvider } from 'next-intl'
+import { getMessages } from 'next-intl/server'
+import { cache, type FunctionComponent } from 'react'
 import generateAlternatesMeta from '@/i18n/generateAlternatesMeta'
 import getGqlLocale from '@/i18n/getGqlLocale'
 import type PagePropsWithLocale from '@/i18n/PagePropsWithLocale'
 import { routing } from '@/i18n/routing'
-import { graphql } from '@blog/gql'
-import type { Metadata } from 'next'
-import type { Locale } from 'next-intl'
-import { NextIntlClientProvider } from 'next-intl'
-import { getMessages } from 'next-intl/server'
-import { notFound } from 'next/navigation'
-import { cache, type FunctionComponent } from 'react'
 import { metadataCache } from '../../../../../src/cache-config'
 import getAuthorHref from '../../../../../src/content/Blog/getAuthorHref'
 import getMicropostHref from '../../../../../src/content/Microblog/getMicroPostHref'
@@ -70,8 +70,8 @@ const getPostsSeo = cache(async (slug: string, locale: Locale) => {
 	return docs[0] ?? null
 })
 
-export const generateMetadata = async ({params}: Props): Promise<Metadata> => {
-	const {slug, locale} = await params
+export const generateMetadata = async ({ params }: Props): Promise<Metadata> => {
+	const { slug, locale } = await params
 	const post = await getPostsSeo(slug, locale)
 	if (post === null) {
 		notFound()
@@ -109,13 +109,13 @@ export const generateMetadata = async ({params}: Props): Promise<Metadata> => {
 		openGraph,
 	}
 }
-const Page: FunctionComponent<Props> = async ({params}) => {
-	const {slug, locale} = await params
+const Page: FunctionComponent<Props> = async ({ params }) => {
+	const { slug, locale } = await params
 	const messages = pick(
 		await getMessages({
 			locale,
 		}),
-		['copyButton']
+		['copyButton'],
 	)
 	return (
 		<NextIntlClientProvider locale={locale} messages={messages}>
@@ -123,10 +123,8 @@ const Page: FunctionComponent<Props> = async ({params}) => {
 		</NextIntlClientProvider>
 	)
 }
-export async function generateStaticParams(): Promise<
-	Array<{locale: Locale; slug: string}>
-> {
-	const params: Array<{locale: Locale; slug: string}> = []
+export async function generateStaticParams(): Promise<Array<{ locale: Locale; slug: string }>> {
+	const params: Array<{ locale: Locale; slug: string }> = []
 
 	// Generate params for all locales and all posts
 	for (const locale of routing.locales) {
@@ -142,7 +140,7 @@ export async function generateStaticParams(): Promise<
 			const docs = result.data?.Micro_posts?.docs ?? []
 			for (const doc of docs) {
 				if (doc.slug) {
-					params.push({locale, slug: doc.slug})
+					params.push({ locale, slug: doc.slug })
 				}
 			}
 		} catch (error) {

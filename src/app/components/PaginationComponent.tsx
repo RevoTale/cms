@@ -63,21 +63,16 @@ const PaginationComponent: React.FC<PaginationComponentProps> = ({
 						locale={locale}
 						aria-disabled={!prevDisable}
 						className={cn({
-							'text-muted-foreground pointer-events-none':
-								!prevDisable,
+							'text-muted-foreground pointer-events-none': !prevDisable,
 						})}
-						href={
-							prevDisable
-								? createPageLink(Math.max(currentPage - 1, 1))
-								: '#'
-						}>
+						href={prevDisable ? createPageLink(Math.max(currentPage - 1, 1)) : '#'}
+					>
 						{previousLabel}
 					</PaginationPrevious>
 				</PaginationItem>
 				{pageValues.map((pageNum, index) => (
 					<Fragment key={pageNum}>
-						{pageValues[index - 1] !== pageNum - 1 &&
-						pageNum !== 1 ? (
+						{pageValues[index - 1] !== pageNum - 1 && pageNum !== 1 ? (
 							<PaginationItem>
 								<PaginationEllipsis />
 							</PaginationItem>
@@ -87,7 +82,8 @@ const PaginationComponent: React.FC<PaginationComponentProps> = ({
 								locale={locale}
 								scroll={true}
 								href={createPageLink(pageNum)}
-								isActive={pageNum === currentPage}>
+								isActive={pageNum === currentPage}
+							>
 								{pageNum}
 							</PaginationLink>
 						</PaginationItem>
@@ -97,20 +93,11 @@ const PaginationComponent: React.FC<PaginationComponentProps> = ({
 					<PaginationNext
 						locale={locale}
 						className={cn({
-							'text-muted-foreground pointer-events-none':
-								!nextDisable,
+							'text-muted-foreground pointer-events-none': !nextDisable,
 						})}
 						aria-disabled={!nextDisable}
-						href={
-							nextDisable
-								? createPageLink(
-										Math.min(
-											currentPage + 1,
-											totalPages || 1
-										)
-									)
-								: '#'
-						}>
+						href={nextDisable ? createPageLink(Math.min(currentPage + 1, totalPages || 1)) : '#'}
+					>
 						{nextLabel}
 					</PaginationNext>
 				</PaginationItem>

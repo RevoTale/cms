@@ -1,16 +1,9 @@
 'use client'
 
-import {Button} from '@shadcn/ui/button'
+import { Button } from '@shadcn/ui/button'
 import Image from 'next/image'
-import {
-	type FunctionComponent,
-	useCallback,
-	useEffect,
-	useLayoutEffect,
-	useRef,
-	useState,
-} from 'react'
-import {useDebounceCallback, useResizeObserver} from 'usehooks-ts'
+import { type FunctionComponent, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useDebounceCallback, useResizeObserver } from 'usehooks-ts'
 
 export interface ImageData {
 	src: string
@@ -45,7 +38,7 @@ const HALF_DIVISOR = 2
 const arrangeImagesOptimally = (
 	images: ImageData[],
 	containerWidth: number,
-	containerHeight: number
+	containerHeight: number,
 ): PositionedImage[] => {
 	if (images.length === 0) return []
 
@@ -70,11 +63,7 @@ const arrangeImagesOptimally = (
 
 	// Test each sorting strategy
 	for (const sortedImages of sortingStrategies) {
-		const layout = findBestLayoutForImages(
-			sortedImages,
-			containerWidth,
-			containerHeight
-		)
+		const layout = findBestLayoutForImages(sortedImages, containerWidth, containerHeight)
 		const waste = calculateWaste(layout, containerWidth, containerHeight)
 
 		if (waste < bestWaste) {
@@ -87,20 +76,11 @@ const arrangeImagesOptimally = (
 }
 
 // Create an alternating order of wide and narrow images for better packing
-const createAlternatingAspectRatioOrder = (
-	images: ImageData[]
-): ImageData[] => {
-	const sortedByAspectRatio = [...images].sort(
-		(a, b) => b.width / b.height - a.width / a.height
-	)
+const createAlternatingAspectRatioOrder = (images: ImageData[]): ImageData[] => {
+	const sortedByAspectRatio = [...images].sort((a, b) => b.width / b.height - a.width / a.height)
 
-	const wideImages = sortedByAspectRatio.slice(
-		0,
-		Math.ceil(images.length / HALF_DIVISOR)
-	)
-	const narrowImages = sortedByAspectRatio.slice(
-		Math.ceil(images.length / HALF_DIVISOR)
-	)
+	const wideImages = sortedByAspectRatio.slice(0, Math.ceil(images.length / HALF_DIVISOR))
+	const narrowImages = sortedByAspectRatio.slice(Math.ceil(images.length / HALF_DIVISOR))
 
 	const result: ImageData[] = []
 	const maxLength = Math.max(wideImages.length, narrowImages.length)
@@ -119,20 +99,15 @@ const createAlternatingAspectRatioOrder = (
 const findBestLayoutForImages = (
 	images: ImageData[],
 	containerWidth: number,
-	containerHeight: number
+	containerHeight: number,
 ): PositionedImage[] => {
 	// Calculate total aspect ratio sum to determine optimal layout
-	const totalAspectRatio = images.reduce(
-		(sum, img) => sum + img.width / img.height,
-		0
-	)
+	const totalAspectRatio = images.reduce((sum, img) => sum + img.width / img.height, 0)
 
 	// Calculate ideal number of rows based on container aspect ratio and total aspect ratios
 	const containerAspectRatio = containerWidth / containerHeight
 	const averageAspectRatio = totalAspectRatio / images.length
-	const roughRows = Math.ceil(
-		Math.sqrt(images.length / (containerAspectRatio / averageAspectRatio))
-	)
+	const roughRows = Math.ceil(Math.sqrt(images.length / (containerAspectRatio / averageAspectRatio)))
 	const maxRows = Math.max(1, Math.min(images.length, roughRows))
 
 	// Try different numbers of rows to find the best fit
@@ -140,12 +115,7 @@ const findBestLayoutForImages = (
 	let bestWaste = Infinity
 
 	for (let numRows = 1; numRows <= maxRows + EXTRA_ROWS_TO_TEST; numRows++) {
-		const layout = createLayoutWithRows(
-			images,
-			containerWidth,
-			containerHeight,
-			numRows
-		)
+		const layout = createLayoutWithRows(images, containerWidth, containerHeight, numRows)
 		const waste = calculateWaste(layout, containerWidth, containerHeight)
 
 		if (waste < bestWaste) {
@@ -162,7 +132,7 @@ const createLayoutWithRows = (
 	images: ImageData[],
 	containerWidth: number,
 	containerHeight: number,
-	numRows: number
+	numRows: number,
 ): PositionedImage[] => {
 	const result: PositionedImage[] = []
 	const imagesCopy = [...images]
@@ -184,10 +154,7 @@ const createLayoutWithRows = (
 		// Limit scaling to between 0.5x and 2x to avoid extreme differences
 		const minScale = 0.5
 		const maxScale = 2.0
-		const constrainedScaleFactor = Math.max(
-			minScale,
-			Math.min(maxScale, idealScaleFactor)
-		)
+		const constrainedScaleFactor = Math.max(minScale, Math.min(maxScale, idealScaleFactor))
 
 		const scaledWidth = img.width * constrainedScaleFactor
 		const scaledHeight = img.height * constrainedScaleFactor
@@ -208,8 +175,7 @@ const createLayoutWithRows = (
 	let imageIndex = 0
 
 	for (let rowIndex = 0; rowIndex < numRows; rowIndex++) {
-		const imagesInThisRow =
-			baseImagesPerRow + (rowIndex < extraImages ? 1 : 0)
+		const imagesInThisRow = baseImagesPerRow + (rowIndex < extraImages ? 1 : 0)
 		rows.push(scaledImages.slice(imageIndex, imageIndex + imagesInThisRow))
 		imageIndex += imagesInThisRow
 	}
@@ -221,19 +187,14 @@ const createLayoutWithRows = (
 		if (rowImages.length === 0) return
 
 		// Calculate total width needed for this row with scaled images
-		const totalRowWidth = rowImages.reduce(
-			(sum, img) => sum + img.scaledWidth,
-			0
-		)
+		const totalRowWidth = rowImages.reduce((sum, img) => sum + img.scaledWidth, 0)
 
 		// Calculate scale factor to fit the row within container width
 		const rowWidthScaleFactor = containerWidth / totalRowWidth
 
 		// Apply scaling to fit width, which will affect both width and height equally
 		const [firstImage] = rowImages
-		const actualRowHeight = firstImage
-			? firstImage.scaledHeight * rowWidthScaleFactor
-			: 0
+		const actualRowHeight = firstImage ? firstImage.scaledHeight * rowWidthScaleFactor : 0
 
 		// Position images in this row
 		let currentX = 0
@@ -272,20 +233,13 @@ const createLayoutWithRows = (
 }
 
 // Calculate layout waste (unused space)
-const calculateWaste = (
-	layout: PositionedImage[],
-	containerWidth: number,
-	containerHeight: number
-): number => {
+const calculateWaste = (layout: PositionedImage[], containerWidth: number, containerHeight: number): number => {
 	if (layout.length === 0) return Infinity
 
 	const maxY = Math.max(...layout.map(img => img.y + img.displayHeight))
 	const maxX = Math.max(...layout.map(img => img.x + img.displayWidth))
 
-	const usedArea = layout.reduce(
-		(sum, img) => sum + img.displayWidth * img.displayHeight,
-		0
-	)
+	const usedArea = layout.reduce((sum, img) => sum + img.displayWidth * img.displayHeight, 0)
 	const totalArea = containerWidth * containerHeight
 
 	// Penalize layouts that don't use the full width/height
@@ -293,10 +247,7 @@ const calculateWaste = (
 	const heightUtilization = maxY / containerHeight
 
 	return (
-		totalArea -
-		usedArea +
-		(1 - widthUtilization) * UTILIZATION_PENALTY +
-		(1 - heightUtilization) * UTILIZATION_PENALTY
+		totalArea - usedArea + (1 - widthUtilization) * UTILIZATION_PENALTY + (1 - heightUtilization) * UTILIZATION_PENALTY
 	)
 }
 
@@ -306,19 +257,13 @@ const ScreenFillRenderer: FunctionComponent<ScreenFillRendererProps> = ({
 	showControls,
 	onToggleControls,
 }) => {
-	const [positionedImages, setPositionedImages] = useState<PositionedImage[]>(
-		[]
-	)
+	const [positionedImages, setPositionedImages] = useState<PositionedImage[]>([])
 	const containerRef = useRef<HTMLDivElement>(null)
 
 	const calculateLayout = useCallback((): void => {
 		if (containerRef.current && images.length > 0) {
-			const {clientWidth, clientHeight} = containerRef.current
-			const arranged = arrangeImagesOptimally(
-				images,
-				clientWidth,
-				clientHeight
-			)
+			const { clientWidth, clientHeight } = containerRef.current
+			const arranged = arrangeImagesOptimally(images, clientWidth, clientHeight)
 			setPositionedImages(arranged)
 		}
 	}, [images])
@@ -332,10 +277,7 @@ const ScreenFillRenderer: FunctionComponent<ScreenFillRendererProps> = ({
 		calculateLayout()
 	}, [calculateLayout])
 
-	const debouncedCalculateLayout = useDebounceCallback(
-		calculateLayout,
-		debounceTimeout
-	)
+	const debouncedCalculateLayout = useDebounceCallback(calculateLayout, debounceTimeout)
 
 	useResizeObserver<HTMLDivElement>({
 		// @ts-expect-error - usehooks-ts types issue with ref
@@ -373,10 +315,7 @@ const ScreenFillRenderer: FunctionComponent<ScreenFillRendererProps> = ({
 
 		document.addEventListener('fullscreenchange', handleFullscreenChange)
 		return (): void => {
-			document.removeEventListener(
-				'fullscreenchange',
-				handleFullscreenChange
-			)
+			document.removeEventListener('fullscreenchange', handleFullscreenChange)
 		}
 	}, [calculateLayout])
 
@@ -401,7 +340,8 @@ const ScreenFillRenderer: FunctionComponent<ScreenFillRendererProps> = ({
 					bottom: 0,
 					zIndex: 50,
 				}),
-			}}>
+			}}
+		>
 			{/* Controls overlay */}
 			{fullscreen && (
 				<div className="absolute top-0 left-0 right-0 z-20 pointer-events-none">
@@ -412,7 +352,8 @@ const ScreenFillRenderer: FunctionComponent<ScreenFillRendererProps> = ({
 							}}
 							className="bg-black/50 hover:bg-black/70 text-white border-white/20"
 							variant="outline"
-							size="sm">
+							size="sm"
+						>
 							Exit Fullscreen
 						</Button>
 						<Button
@@ -420,12 +361,11 @@ const ScreenFillRenderer: FunctionComponent<ScreenFillRendererProps> = ({
 								onToggleControls()
 							}}
 							className={`bg-black/50 hover:bg-black/70 text-white border-white/20 transition-opacity duration-300 ${
-								showControls
-									? 'opacity-100'
-									: 'opacity-20 hover:opacity-100'
+								showControls ? 'opacity-100' : 'opacity-20 hover:opacity-100'
 							}`}
 							variant="outline"
-							size="sm">
+							size="sm"
+						>
 							{showControls ? 'Hide Controls' : 'Show Controls'}
 						</Button>
 					</div>
@@ -437,14 +377,9 @@ const ScreenFillRenderer: FunctionComponent<ScreenFillRendererProps> = ({
 				className="relative w-full"
 				style={{
 					height:
-						positionedImages.length > 0
-							? Math.max(
-									...positionedImages.map(
-										img => img.y + img.displayHeight
-									)
-								)
-							: '100%',
-				}}>
+						positionedImages.length > 0 ? Math.max(...positionedImages.map(img => img.y + img.displayHeight)) : '100%',
+				}}
+			>
 				{/* Images */}
 				{imagesToRender.map((img, index) => (
 					<div
@@ -455,7 +390,8 @@ const ScreenFillRenderer: FunctionComponent<ScreenFillRendererProps> = ({
 							top: img.y,
 							width: img.displayWidth,
 							height: img.displayHeight,
-						}}>
+						}}
+					>
 						<Image
 							src={img.src}
 							alt={`Gallery image ${index + 1}`}
@@ -472,8 +408,7 @@ const ScreenFillRenderer: FunctionComponent<ScreenFillRendererProps> = ({
 			{/* Instructions for fullscreen mode */}
 			{fullscreen && !showControls && (
 				<div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white text-sm opacity-50 hover:opacity-100 transition-opacity pointer-events-none">
-					Press Space or Enter to toggle controls, Esc to exit
-					fullscreen
+					Press Space or Enter to toggle controls, Esc to exit fullscreen
 				</div>
 			)}
 		</div>

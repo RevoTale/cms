@@ -1,11 +1,11 @@
-import {locales} from '@/i18n/config'
+import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
+import { hasLocale, type Locale } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
+import type { FunctionComponent, ReactNode } from 'react'
+import { locales } from '@/i18n/config'
 import type PagePropsWithLocale from '@/i18n/PagePropsWithLocale'
-import {routing} from '@/i18n/routing'
-import type {Metadata} from 'next'
-import {hasLocale, type Locale} from 'next-intl'
-import {getTranslations} from 'next-intl/server'
-import {notFound} from 'next/navigation'
-import type {FunctionComponent, ReactNode} from 'react'
+import { routing } from '@/i18n/routing'
 import ImageIcon from '../../../../public/android-chrome-512x512.png'
 import Analytics from '../../src/Analytics'
 import getDomain from '../../src/config/getDomain'
@@ -13,14 +13,13 @@ import websiteName from '../../src/config/websiteName'
 import MainLayout from '../../src/content/MainLayout'
 import getImageUrlThumb from '../../src/content/utils/seo/getImageUrlThumb'
 import getUrl from '../../src/linking/getUrl'
+
 interface Props {
 	children: ReactNode
 }
-export const generateMetadata = async ({
-	params,
-}: PagePropsWithLocale): Promise<Metadata> => {
-	const {locale} = await params
-	const t = await getTranslations({locale, namespace: 'Metadata.Root'})
+export const generateMetadata = async ({ params }: PagePropsWithLocale): Promise<Metadata> => {
+	const { locale } = await params
+	const t = await getTranslations({ locale, namespace: 'Metadata.Root' })
 	const metadata: Metadata = {
 		appleWebApp: true,
 		metadataBase: new URL(getUrl('', locale)).toString(),
@@ -109,10 +108,12 @@ export const generateMetadata = async ({
 	return metadata
 }
 
-const Layout: FunctionComponent<
-	Props & PagePropsWithLocale & LayoutProps<'/[locale]'>
-> = async ({children, params, searchButton}) => {
-	const {locale} = await params
+const Layout: FunctionComponent<Props & PagePropsWithLocale & LayoutProps<'/[locale]'>> = async ({
+	children,
+	params,
+	searchButton,
+}) => {
+	const { locale } = await params
 	if (!hasLocale(locales, locale)) {
 		notFound()
 	}
@@ -128,8 +129,8 @@ const Layout: FunctionComponent<
 		</html>
 	)
 }
-export async function generateStaticParams(): Promise<Array<{locale: Locale}>> {
-	return routing.locales.map(locale => ({locale}))
+export async function generateStaticParams(): Promise<Array<{ locale: Locale }>> {
+	return routing.locales.map(locale => ({ locale }))
 }
 // noinspection JSUnusedGlobalSymbols
 export default Layout

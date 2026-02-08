@@ -10,22 +10,22 @@ import '@/global.css'
 import { importMap } from './admin/importMap.js'
 
 interface Args {
-  children: React.ReactNode
+	children: React.ReactNode
 }
 
-const serverFunction: ServerFunctionClient = async function (args) {
-  'use server'
-  return await handleServerFunctions({
-    ...args,
-    config,
-    importMap,
-  })
+const serverFunction: ServerFunctionClient = async args => {
+	'use server'
+	return await handleServerFunctions({
+		...args,
+		config,
+		importMap,
+	})
 }
 
 const Layout = ({ children }: Args) => (
-  <RootLayout config={config} importMap={importMap} serverFunction={serverFunction}>
-    {children}
-  </RootLayout>
+	<RootLayout config={config} importMap={importMap} serverFunction={serverFunction}>
+		{children}
+	</RootLayout>
 )
 
 export default Layout

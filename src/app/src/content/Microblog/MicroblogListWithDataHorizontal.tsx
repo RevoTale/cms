@@ -1,26 +1,16 @@
-import {
-	CarouselContent,
-	CarouselItem,
-	CarouselNext,
-	CarouselPrevious,
-} from '@shadcn/ui/carousel'
-import type {FunctionComponent} from 'react'
-
+import { getFragmentData } from '@blog/gql'
+import { CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@shadcn/ui/carousel'
+import type { Locale } from 'next-intl'
+import type { FunctionComponent } from 'react'
 import getGqlLocale from '@/i18n/getGqlLocale'
-import {getFragmentData} from '@blog/gql'
-import type {Locale} from 'next-intl'
-import {staleContentCache} from '../../cache-config'
-import {getClient} from '../../gql/getClient'
+import { staleContentCache } from '../../cache-config'
+import { getClient } from '../../gql/getClient'
 import getNextJsApolloCache from '../../utils/getNextJsApolloCache'
 import BlogListCarousel from '../Blog/List/BlogListCarousel'
-import MicroblogListItem from './MicroblogListItem'
-import {
-	authorQuery,
-	authorQueryInFrag,
-	blogPostlistQueryFragment,
-} from './blogPostListGql'
+import { authorQuery, authorQueryInFrag, blogPostlistQueryFragment } from './blogPostListGql'
 import fetchMicroblogPost from './fetchMicroblogPostList'
 import getPlaceholderMapTranslation from './getPlaceholderMapTranslation'
+import MicroblogListItem from './MicroblogListItem'
 
 const emptyPostCount = 0
 interface Props {
@@ -50,21 +40,14 @@ const MicroblogListWithDataHorizontal: FunctionComponent<Props> = async ({
 				).data?.Authors?.docs[0] ?? null)
 	const items = (
 		await fetchMicroblogPost(getClient(), {
-			authorIn:
-				result === null
-					? undefined
-					: [getFragmentData(authorQueryInFrag, result)],
+			authorIn: result === null ? undefined : [getFragmentData(authorQueryInFrag, result)],
 			limit,
 			locale,
 		})
 	).data?.Micro_posts?.docs
 
 	if (items?.length === emptyPostCount) {
-		return (
-			<p className="m-auto text-4xl text-center font-bold my-12">
-				No posts yet :(
-			</p>
-		)
+		return <p className="m-auto text-4xl text-center font-bold my-12">No posts yet :(</p>
 	}
 	const translationKeys = await getPlaceholderMapTranslation(locale)
 	return (
@@ -72,15 +55,10 @@ const MicroblogListWithDataHorizontal: FunctionComponent<Props> = async ({
 			<BlogListCarousel>
 				<CarouselContent>
 					{items?.map(item => {
-						const data = getFragmentData(
-							blogPostlistQueryFragment,
-							item
-						)
+						const data = getFragmentData(blogPostlistQueryFragment, item)
 
 						return (
-							<CarouselItem
-								className="basis-64 max-w-full justify-center flex w-full "
-								key={data.id}>
+							<CarouselItem className="basis-64 max-w-full justify-center flex w-full " key={data.id}>
 								<MicroblogListItem
 									translationKeys={translationKeys}
 									imageSizes="(max-width: 178px) 100vw, 178px"

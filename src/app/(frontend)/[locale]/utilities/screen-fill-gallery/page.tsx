@@ -1,22 +1,18 @@
+import { Skeleton } from '@shadcn/ui/skeleton'
+import type { Metadata } from 'next'
+import { type Locale, NextIntlClientProvider } from 'next-intl'
+import { getMessages, getTranslations } from 'next-intl/server'
+import { type FunctionComponent, Suspense } from 'react'
 import generateAlternatesMeta from '@/i18n/generateAlternatesMeta'
 import type PagePropsWithLocale from '@/i18n/PagePropsWithLocale'
-import {Skeleton} from '@shadcn/ui/skeleton'
-import type {Metadata} from 'next'
-import {NextIntlClientProvider, type Locale} from 'next-intl'
-import {getMessages, getTranslations} from 'next-intl/server'
-import {type FunctionComponent, Suspense} from 'react'
 import ScreenFillGalleryBoard from '../../../../src/content/Tools/ScreenFillGallery/ScreenFillGalleryBoard'
 import UtilityTemplate from '../../../../src/content/Tools/UtilityTemplate'
-import {getTwitterCard} from '../../../../src/content/utils/seo/getTwitterCard'
+import { getTwitterCard } from '../../../../src/content/utils/seo/getTwitterCard'
 import getUrl from '../../../../src/linking/getUrl'
-import {ScreenFillGalleryTool} from '../../../../src/linking/map/tools'
+import { ScreenFillGalleryTool } from '../../../../src/linking/map/tools'
 import pick from '../../../../src/utils/pick'
-export const generateMetadata = async ({
-	params,
-}: {
-	params: Promise<{locale: Locale}>
-}): Promise<Metadata> => {
-	const {locale} = await params
+export const generateMetadata = async ({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> => {
+	const { locale } = await params
 	const t = await getTranslations({
 		locale,
 		namespace: 'ScreenFillGallery',
@@ -78,10 +74,8 @@ export const generateMetadata = async ({
 	}
 }
 
-const ScreenFillGallery: FunctionComponent<PagePropsWithLocale> = async ({
-	params,
-}) => {
-	const {locale} = await params
+const ScreenFillGallery: FunctionComponent<PagePropsWithLocale> = async ({ params }) => {
+	const { locale } = await params
 	const t = await getTranslations({
 		locale,
 		namespace: 'ScreenFillGallery',
@@ -90,7 +84,7 @@ const ScreenFillGallery: FunctionComponent<PagePropsWithLocale> = async ({
 		await getMessages({
 			locale,
 		}),
-		['ScreenFillGallery']
+		['ScreenFillGallery'],
 	)
 	const translations = {
 		title: t('title'),
@@ -99,10 +93,7 @@ const ScreenFillGallery: FunctionComponent<PagePropsWithLocale> = async ({
 		fullscreenMode: t('fullscreenMode'),
 	}
 	return (
-		<UtilityTemplate
-			locale={locale}
-			currentHref={ScreenFillGalleryTool.href}
-			title={t('title')}>
+		<UtilityTemplate locale={locale} currentHref={ScreenFillGalleryTool.href} title={t('title')}>
 			<Suspense fallback={<Skeleton className="w-full h-32" />}>
 				<NextIntlClientProvider locale={locale} messages={messages}>
 					<ScreenFillGalleryBoard translations={translations} />

@@ -1,5 +1,4 @@
 'use client'
-import NextLink from '@/i18n/LocaleLink'
 import { useQuery } from '@apollo/client/react'
 import { getFragmentData } from '@blog/gql'
 import Breadcrumbs from '@revotale/ui/Breadcrumbs'
@@ -8,33 +7,30 @@ import { Badge } from '@shadcn/ui/badge'
 import { buttonVariants } from '@shadcn/ui/button'
 import { Separator } from '@shadcn/ui/separator'
 import { RssIcon } from 'lucide-react'
+import { useSearchParams } from 'next/navigation'
 import type { Locale } from 'next-intl'
 import { useTranslations } from 'next-intl'
 import { createLinker } from 'next-navigation-utils'
 import { useSearchParam } from 'next-navigation-utils/client'
-import { useSearchParams } from 'next/navigation'
-import { Suspense, useMemo, type FunctionComponent } from 'react'
+import { type FunctionComponent, Suspense, useMemo } from 'react'
+import NextLink from '@/i18n/LocaleLink'
 import PaginationComponent from '../../../../components/PaginationComponent'
-import {
-	authorSlugInOption,
-	pageOption,
-	tagInURLOption,
-} from '../../../../src/content/Blog/linking'
-import MicroBlogPostListWithData from '../../../../src/content/Microblog/MicroblogPostListWithData'
-import MicroBlogPostListWithDataSkeleton from '../../../../src/content/Microblog/MicroblogPostListWithDataSkeleton'
+import { authorSlugInOption, pageOption, tagInURLOption } from '../../../../src/content/Blog/linking'
 import {
 	authorQuery,
 	authorQueryInFrag,
 	blogPostlistQueryFragment,
 	getPosts,
 } from '../../../../src/content/Microblog/blogPostListGql'
+import MicroBlogPostListWithData from '../../../../src/content/Microblog/MicroblogPostListWithData'
+import MicroBlogPostListWithDataSkeleton from '../../../../src/content/Microblog/MicroblogPostListWithDataSkeleton'
 import { Micro_post_post_type_Input } from '../../../../src/gql/graphql'
 import getGqlLocale from '../../../../src/i18n/getGqlLocale'
 import canonizeSearchQuery from '../../../../src/utils/canonizeSearchQuery'
 import AvailableTags from './AvailableTags'
-import TagDeleteLink from './TagDeleteLink'
 import { availableParams } from './notesParams'
 import { getTagIds, tagFragment } from './notesQueries'
+import TagDeleteLink from './TagDeleteLink'
 
 const pageLimit = 12
 
@@ -42,14 +38,14 @@ const NotesPageClient: FunctionComponent<{
 	locale: Locale
 	rootUrl: string
 	rssFeedUrl: string
-}> = ({locale, rssFeedUrl, rootUrl}) => {
+}> = ({ locale, rssFeedUrl, rootUrl }) => {
 	const t = useTranslations('Notes')
 	const tBreadcrumbs = useTranslations('Breadcrumbs')
 	const tagNameIn = useSearchParam(tagInURLOption)
 	const authorSlugIn = useSearchParam(authorSlugInOption)
 	const currentPage = useSearchParam(pageOption)
 
-	const {data: tagsData, loading: tagsLoading} = useQuery(getTagIds, {
+	const { data: tagsData, loading: tagsLoading } = useQuery(getTagIds, {
 		variables: {
 			tagNames: tagNameIn ?? [],
 			locale: getGqlLocale(locale),
@@ -58,7 +54,7 @@ const NotesPageClient: FunctionComponent<{
 	})
 	const tagsIn = tagsData?.Tags?.docs.filter(Boolean) ?? undefined
 
-	const {data: authorData, loading: authorLoading} = useQuery(authorQuery, {
+	const { data: authorData, loading: authorLoading } = useQuery(authorQuery, {
 		variables: {
 			authorSlugIn,
 			locale: getGqlLocale(locale),
@@ -67,37 +63,26 @@ const NotesPageClient: FunctionComponent<{
 	})
 	const authorIn = authorData?.Authors?.docs.filter(Boolean) ?? undefined
 
-	const waitingForFilters =
-		((tagNameIn?.length ?? 0) > 0 && tagsLoading) ||
-		(authorSlugIn.length > 0 && authorLoading)
-	const {data: postsData, loading: postsLoading} = useQuery(getPosts, {
+	const waitingForFilters = ((tagNameIn?.length ?? 0) > 0 && tagsLoading) || (authorSlugIn.length > 0 && authorLoading)
+	const { data: postsData, loading: postsLoading } = useQuery(getPosts, {
 		variables: {
 			page: currentPage,
 			limit: pageLimit,
 			locale: getGqlLocale(locale),
 			postType: Micro_post_post_type_Input.Long,
 			tagsIn: tagsIn?.map(tag => getFragmentData(tagFragment, tag).id),
-			authorIn: authorIn?.map(
-				author => getFragmentData(authorQueryInFrag, author).id
-			),
+			authorIn: authorIn?.map(author => getFragmentData(authorQueryInFrag, author).id),
 		},
 		skip: waitingForFilters,
 	})
 	const items = postsData?.Micro_posts?.docs.filter(Boolean) ?? null
 	const totalPages = postsData?.Micro_posts?.totalPages ?? null
 
-	const tagNameInValues = tagsIn?.map(
-		item => getFragmentData(tagFragment, item).name
-	)
+	const tagNameInValues = tagsIn?.map(item => getFragmentData(tagFragment, item).name)
 	const searchParams = useSearchParams()
 	const createPageLink = useMemo(() => {
-		const base = canonizeSearchQuery(
-			'/blog/notes',
-			searchParams,
-			availableParams
-		)
-		return (page: number): string =>
-			createLinker(base).setValue(pageOption, page).asString()
+		const base = canonizeSearchQuery('/blog/notes', searchParams, availableParams)
+		return (page: number): string => createLinker(base).setValue(pageOption, page).asString()
 	}, [searchParams])
 
 	const showSkeletons = waitingForFilters || postsLoading
@@ -107,22 +92,16 @@ const NotesPageClient: FunctionComponent<{
 			<Breadcrumbs
 				locale={locale}
 				rootUrl={rootUrl}
-				homeCrumb={{title: tBreadcrumbs('home'), href: '/'}}
+				homeCrumb={{ title: tBreadcrumbs('home'), href: '/' }}
 				title={t('title')}
 				currentHref="/blog/notes"
-				crumbs={[{title: t('title_blog'), href: '/blog'}]}
+				crumbs={[{ title: t('title_blog'), href: '/blog' }]}
 			/>
 			<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-				<h1 className="text-2xl font-semibold text-center sm:text-left">
-					{t('notes_heading')}
-				</h1>
+				<h1 className="text-2xl font-semibold text-center sm:text-left">{t('notes_heading')}</h1>
 			</div>
 			<Suspense>
-				<AvailableTags
-					usedNames={tagNameInValues ?? []}
-					locale={locale}
-					postType={Micro_post_post_type_Input.Long}
-				/>
+				<AvailableTags usedNames={tagNameInValues ?? []} locale={locale} postType={Micro_post_post_type_Input.Long} />
 			</Suspense>
 			{showSkeletons ? (
 				<div className="flex flex-wrap gap-3 items-center">
@@ -148,13 +127,7 @@ const NotesPageClient: FunctionComponent<{
 						const tt = getFragmentData(tagFragment, tag)
 						return (
 							<Suspense key={tt.id}>
-								<TagDeleteLink
-									locale={locale}
-									tagNameIn={
-										tagNameInValues?.filter(
-											i => i !== tt.name
-										) ?? []
-									}>
+								<TagDeleteLink locale={locale} tagNameIn={tagNameInValues?.filter(i => i !== tt.name) ?? []}>
 									{tt.title}
 								</TagDeleteLink>
 							</Suspense>
@@ -166,11 +139,12 @@ const NotesPageClient: FunctionComponent<{
 				<NextLink
 					locale={locale}
 					prefetch={false}
-					className={buttonVariants({variant: 'outline'})}
+					className={buttonVariants({ variant: 'outline' })}
 					href={rssFeedUrl}
 					target="_blank"
 					type="application/rss+xml"
-					rel="noopener noreferrer">
+					rel="noopener noreferrer"
+				>
 					<RssIcon className="mr-2 h-4 w-4" />
 					RSS
 				</NextLink>
@@ -179,17 +153,11 @@ const NotesPageClient: FunctionComponent<{
 			{showSkeletons ? (
 				<MicroBlogPostListWithDataSkeleton skeletonCount={16} />
 			) : items?.length === 0 ? (
-				<p className="m-auto text-4xl text-center font-bold my-12">
-					{t('no_notes')}
-				</p>
+				<p className="m-auto text-4xl text-center font-bold my-12">{t('no_notes')}</p>
 			) : (
 				<MicroBlogPostListWithData
 					locale={locale}
-					items={
-						items?.map(item =>
-							getFragmentData(blogPostlistQueryFragment, item)
-						) ?? null
-					}
+					items={items?.map(item => getFragmentData(blogPostlistQueryFragment, item)) ?? null}
 				/>
 			)}
 			<PaginationComponent

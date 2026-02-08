@@ -1,4 +1,5 @@
 import type { TaskConfig } from 'payload'
+import { locales } from 'src/i18n-config'
 import translateHandler from './translate/translateHandler'
 
 const documentTranslationTask = {
@@ -12,7 +13,10 @@ const documentTranslationTask = {
     },
     {
       name: 'sourceLocale',
-      type: 'text',
+    type: 'select',
+      options:locales.map(locale=>{
+        return  {label: locale, value: locale}
+      }),
       required: true,
     },
     {
@@ -27,7 +31,10 @@ const documentTranslationTask = {
     },
     {
       name: 'targetLocale',
-      type: 'text',
+      type: 'select',
+      options:locales.map(locale=>{
+        return  {label: locale, value: locale}
+      }),
       required: true,
     },
   ],

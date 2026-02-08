@@ -1,0 +1,489 @@
+{
+	"VideoUtility": {
+		"notice": "<b>Notice!</b> This utility uses your CPU and RAM to process the video.<br></br><b>It may impact performance</b> of the video processing.",
+		"loading": "Loading utilities. Please wait...",
+		"label": "Speed multiplier",
+		"placeholder": "Speed multiplier",
+		"transform": "Transform video",
+		"download": "Download result",
+		"not_support": "Your browser does not support the video tag.",
+		"view_logs": "View debug logs",
+		"log_title": "Logs",
+		"close": "Close",
+		"or_choose_preset": "or choose a preset:",
+		"video_label": "Video",
+		"selected_video": "Selected Video:"
+	},
+	"NavigationMap":{
+		"meta": {
+			"title": "Navigation Map",
+			"description": "Explore the RevoTale Navigation Map. Discover our tools, utilities, and projects in a visual format."
+		},
+		"pageTitle": "RevoTale Navigation Map",
+		"navigation": {
+			"revotale": "RevoTale",
+			"utilities": "Utilities",
+			"recordsRandomizer": "Records Randomizer",
+			"urlEncoderDecoder": "URL Encoder/Decoder",
+			"encode": "Encode",
+			"decode": "Decode",
+			"screenFillGallery": "Screen Fill Gallery",
+			"videoDurationChanger": "Video Duration Changer",
+			"browserGames": "Browser Games",
+			"battleShipGame": "Battle Ship Game",
+			"blog": "Blog",
+			"articles": "Articles",
+			"notes": "Notes",
+			"microTales": "Micro Tales",
+			"selfHostedServices": "Self-Hosted Services",
+			"tv": "TV",
+			"dashboard": "Dashboard",
+			"personalNotes": "Personal Notes"
+		}
+	},
+	"microblog" :{
+		"placeholder": {
+			"codeBlock": "Open the full note to view code block",
+			"table": "Open the full note to view table",
+			"image": "Open the full note to view image"
+		},
+		"scrollToAttachment": "Scroll to the attachment",
+		"outgoingLinks": "Outgoing Links",
+		"linkedNotes": "Linked Notes",
+		"by": "by"
+	},
+	"PageMeta":{
+		"notes":{
+			"title":"Notes - Quick Coding, Experience, Open Source, SEO & Science Insights",
+			"description":"Dive into concise notes packed with actionable tips on coding, web-performance, SEO, AI workflows, book takeaways and more—updated regularly on RevoTale. "
+		}
+	},
+	"copyButton":{
+		"copy": "Copy",
+		"copied": "Copied!"
+	},
+	"Project":{
+		"title":"Revotale"
+	},
+	"keywords": {
+		"url": "URL",
+		"encode":"Encode",
+		"decode":"Decode",
+		"online":"Online"
+	},
+	"Metadata": {
+		"Root": {
+			"title": "RevoTale",
+			"desc": "We are a software company that specializes in building web applications. Elegant solutions for demanding tasks.",
+			"openGraphDesc": "RevoTale is a software company that specializes in building web applications. Our desire is to create eloquent solutions using the most appropriate and powerful technologies.",
+			"classification": "Software Company"
+		},
+		"Utils": {
+			"title": "Utilities",
+			"desc": "Simple utilities to catch you when you need them."
+		},
+		"BrowserGames": {
+			"title": "Browser Games",
+			"desc": "Play online browser games without downloads. Lightweight games that work on any device directly in your browser."
+		}
+	},
+	"Copy": {
+		"text": "Copy",
+		"done": "Copied! ✅",
+		"error": "Error while writing to clipboard"
+	},
+	"Paste": {
+		"loading": "Processing clipboard...",
+		"text": "Paste from clipboard",
+		"error": "Error while reading a clipboard"
+	},
+	"UrlCoder": {
+		"title": "URL Decode/Encode",
+		"metaDesc": "URL encoder/decoder that makes you happy. Serialize your string to URL format and vice versa.",
+		"encode": "Encode",
+		"decode": "Decode",
+		"inputPlace": "Type text here",
+		"outputPlace": "Result will there",
+		"same": "Result seems to be the same as an input! \uD83E\uDDD0"
+	},
+	"ToolsBoard": {
+		"Utilities": "Utilities",
+		"UtilitiesDesc": "Tools that simplify the daily life of the average person.",
+		"Breadcrumbs": {
+			"Utils": "Utilities",
+			"URlDecodeEncode": "URL Encoder/Decoder",
+			"VideoSpeedChange": "Video Speed Changer",
+			"RecordRandomizer": "Record Randomizer",
+			"ImageCollectionTools": "Image collection renderer",
+			"ScreenFillGallery": "Screen Fill Gallery",
+			"encoder": "URL Encoder",
+			"decoder": "URL Decoder"
+		},
+		"Desc": {
+			"URlDecodeEncode": "Simple tool to decode or encode URL entities without programming knowledge.",
+			"VideoSpeedChange": "Change the speed of the video directly in the browser. Everything is done by your device's CPU/RAM. No data is shared with any server because video processing is done by the power of WASM on your device.",
+			"RecordRandomizer": "Enter the list of records, spin the wheel and get a randomly selected line. Perfect for giveaways, decision making or any situation where a quick random selection is required.",
+			"ImageCollectionTools": "Fill every inch with the media you want. Display any number of images on a single screen.",
+			"ScreenFillGallery": "Upload images and fill your entire screen equally while preserving aspect ratios. Perfect for creating immersive photo galleries."
+		},
+		"LearnMore": "Learn more ➔"
+	},
+	"ImageCollectionRenderer": {
+		"title": "Image Collection Renderer",
+		"seo_desc": "Render your image collection comfortably. Every inch of space is filled",
+		"seo_title": "Image Collection Renderer"
+	},
+	"Breadcrumbs": {
+		"blog": "Blog",
+		"home": "Home",
+		"utils": "Utilities"
+	},
+	"ScreenFillGallery": {
+		"title": "Screen Fill Gallery",
+		"description": "Upload images and fill your entire screen with them while preserving aspect ratios. Perfect for creating immersive photo galleries.",
+		"seo_desc": "Fill your screen equally with images while preserving aspect ratios. Create beautiful, space-efficient photo galleries.",
+		"seo_title": "Screen Fill Gallery - Equal Image Distribution",
+		"imageLabel": "Select Images",
+		"fullscreenMode": "Fullscreen Mode",
+		"imagesLoaded": "{count} images loaded",
+		"keyword1": "screen fill gallery",
+		"keyword2": "image gallery",
+		"keyword3": "photo viewer",
+		"keyword4": "aspect ratio",
+		"keyword5": "fullscreen images",
+		"keyword6": "image collection",
+		"keyword7": "photo display",
+		"keyword8": "responsive images",
+		"applicationName": "RevoTale Tools",
+		"category": "Technology",
+		"classification": "Utility Tool",
+		"creator": "RevoTale",
+		"publisher": "RevoTale"
+	},
+	"DurationConverter":{
+		"seo_title":"Video speed up/slow down online",
+		"seo_desc":"Change the speed of the video directly in the browser. Everything is done by your device's CPU/RAM. No data is shared with any server because video processing is done by the power of WASM on your device."
+	},
+	"URLEncoder":{
+		"seo_title":"URL Encoder",
+		"seo_desc":"Simple tool to decode or encode URL entities without programming knowledge."
+	},
+	"URLDecoder":{
+		"seo_title":"URL Decoder",
+		"seo_desc":"Simple tool to decode or encode URL entities without programming knowledge."
+	},
+	"Notes":{
+		"title":"Notes",
+		"title_blog":"Blog",
+		"no_notes":"No notes yet :(",
+		"notes_heading":"Notes",
+		"pagination": {
+			"previous": "Previous",
+			"next": "Next"
+		},
+		"json_ld":{
+			"description":"Explore a collection of notes on various topics, including coding, web performance, SEO, AI workflows, and book takeaways. Each note is designed to provide quick insights and actionable tips for developers and tech enthusiasts.",
+			"name":"Notes"
+		}
+	},
+	"Blog":{
+		"meta_title":"Blog",
+		"available_tags":"Available tags",
+		"go_to_notes":"View notes",
+		"go_to_micro_tales":"View Micro Tales",
+		"go_to_note":"View note",
+		"go_to_articles":"Articles",
+		 "available_tag":"Available tags:",
+		"meta_description":"Explore the intersection of technology, science, and society with our thought-provoking articles. From the latest in hi-tech and programming breakthroughs to insightful discussions on politics and personal experiences, our blog is a melting pot of ideas designed to inform, inspire, and ignite conversation. Join us on a journey through the fascinating world of innovation and discovery.",
+		"latest_articles":"Read the latest articles"
+	},
+	"HistoryOfUkraine": {
+		"extendedInfo": "Extended information",
+		"title": "History of Ukraine",
+		"meta_desc":"Історія України простими короткими тезами. Основні дати покроково. Легко підготуйся до екзамену з Історії України.",
+		"table": {
+			"date": "Date",
+			"event": "Event",
+			"details": "Details",
+			"importance": "Importance"
+		}
+	},
+	"Articles":{
+		"title":"Articles",
+		"blog_crumb":"Blog"
+	},
+	"RandomRecordSelector": {
+		"title": "Random Record Selector",
+		"settings": "Settings",
+		"meta_desc": "Enter the list of records, spin the wheel and get a randomly selected line. Perfect for giveaways, decision making or any situation where a quick random selection is required.",
+		"records": "Records"
+	},
+	"ExpToolsBoard": {
+		"desc": "They are very buggy, under active development or do not work. ¯\\_(ツ)_/¯",
+
+		"title": "Experimental tools"
+	},
+	"OpenSource": {
+		"desc": "Sharing the code with the open source community to help the world move forward faster.",
+		"title": "Open Source",
+		"items": {
+			"desc": {
+				"obsidian_folder_by_tag_dist": "Automatically sort your Obsidian Vault notes between folders based on tags. This forces you to keep your tag and folder structure consistent. Create a directory structure, place your tags, and your notes are automatically organised between folders.",
+				"google_recaptcha": "Invisible Google reCAPTCHA integration into any React application <important>without sacrificing UX or Page Speed Score.</important>",
+				"lovely_eye": "Privacy-first, open-source analytics with a simple dashboard that you can self-host.",
+				"php_time": "Library for dealing with problems with the built-in PHP DateTime classes. Deals loosely with types and provides a straightforward approach to the relationship between time, interval and timezone objects.",
+				"nextjs_scroll_restorer": "Scroll restoration for Next.js built from scratch. Created for production use as a replacement for the native 'scrollRestoration' in the Next.js config, which is very buggy."
+			},
+			"title": {
+				"obsidian_folder_by_tag_dist": "Obsidian Folder By Tags Distributor Plugin",
+				"google_recaptcha": "Google reCAPTCHA V3 for React",
+				"lovely_eye": "Lovely Eye",
+				"php_time": "PHP Time",
+				"nextjs_scroll_restorer": "Scroll restoration for Next.js"
+			}
+		}
+	},
+	"BlogBoard": {
+		"title": "Blog",
+		"notes_title":"Discover notes",
+		"desc": "Sharing IT related stuff, news, science, experiences and thoughts.",
+		"explore": "Explore more content",
+		"welcome": "We're so glad you're here! Enjoy the reading!",
+		"discover_notes": "Discover notes",
+		"read_latest_articles": "Read the latest articles",
+		"go_to_blog": "Go to blog"
+	},
+	"RecordRandomizer":{
+		"seo_title":"Record Randomizer",
+		"seo_desc":"Enter the list of records, spin the wheel and get a randomly selected line. Perfect for giveaways, decision making or any situation where a quick random selection is required.",
+		"setting_seo_title":"Record Randomizer settings",
+		"setting_seo_desc":"Record Randomizer settings. Enter the list of records, spin the wheel and get a randomly selected line. Perfect for giveaways, decision making or any situation where a quick random selection is required.",
+		"setting_title":"Randomizer settings",
+		"duration_setting_title":"Duration",
+		"duration_setting_desc":"Time in seconds after which wheel should be stopped",
+		"setting_disable_winner_dialog_title":"Disable winner dialog",
+		"setting_disable_winner_dialog_desc":"Enable this to disable pop up with winner record.",
+		"setting_save":"Save"
+	},
+	"Header": {
+		"GoHome": "Go to the home page",
+		"Search": "Search"
+	},
+	"Footer": {
+		"Lang": {
+			"en": "English",
+			"uk": "Ukrainian",
+			"de": "German",
+			"fr": "French",
+			"ja": "Japanese",
+			"ru": "Russia",
+			"hi": "Hindi",
+			"es": "Spanish"
+		},
+		"OpenNavMapButton":"Open Website Navigation Map",
+		"PoweredBy":"We care about your privacy. Analytics are powered by <a>Open Source software</a>.",
+		"Utils": "Services",
+		"sea_battle":"Classic Battleship Game",
+		"notes":"Notes",
+		"sweetheart": "For you, sweetheart",
+		"Blog": "Blog",
+		"LangTitle": "Languages",
+		"Rights": "© {year} {company}. All rights reserved.",
+		"Nav": "Navigation",
+		"TwitterAlt": "Follow us on Twitter",
+		"GithubAlt": "Rate us on GitHub",
+		"ReachOutTitle": "Reach out to us"
+	},
+	"LoveRain": {
+		"meta": {
+			"title": "Love Rain For the Sweetheart",
+			"description": "A heart-shaped neon animation with endless falling drops rendered in the browser."
+		}
+	},
+	"SeaBattle": {
+		"json_ld":{
+			"name":"Sea Battle Game",
+			"description":"A real-time, two-player Sea Battle game playable in the browser. Create a room, share a link with a friend, place ships, and compete.",
+			"serverName":"Sea Battle Game Room Create"
+		},
+		"howToPlay":{
+			"title":"About Game",
+
+			"step1":"No signup needed. Open a room and you’re playing",
+			"step2":"Place the standard 10 ships, hit Ready, and take turns firing until all your or enemy ships are sunk.",
+			"step3":"Invite a friend or play against a bot at Easy, Average, Hard, or Hacker level.",
+			"step4":"Real-time chat for in-game communication with your opponent."
+		},
+		"unknown_player_generic": "Unknown Player",
+		"unknown_player_my": "Unknown my Player",
+		"unknown_player_enemy": "Unknown enemy Player",
+		"join_telegram":"Join a Sea Battle Game With Me!",
+		"title": "Sea Battle Game",
+		"pageDescription": "Play Sea Battle with your friend in browser online. Message a link to your friend to play together.",
+		"newGameWithFriend": "Start a New Game With Friend",
+		"newGameVsBot": "🤖 Play vs Bot",
+		"or": "OR",
+		"loading": "Loading...",
+		"redirecting": "Redirecting to a room...",
+		"inviteFriend": "Invite friends",
+		"inviteFriendDesc": "Share a link with your friends to play together",
+		"CopyLink": "Copy link",
+		"facebook_icon": "Facebook",
+		"whatsapp_icon": "WhatsApp",
+		"telegram_icon": "Telegram",
+		"players": {
+			"title": "Players"
+		},
+		"chat": {
+			"button": "Chat",
+			"dialogTitle": "Room chat",
+			"placeholder": "Type your message",
+			"send": "Send",
+			"empty": "No messages yet",
+			"newBadge": "New messages",
+			"returnBackToShipLocating": "Return to ship placement",
+			"returnBackButtonSingle": "Return to game",
+			"returnBackToYourTurn": "Return! It's your turn!",
+			"returnBackToReadyToBattle": "Return! Your opponent is ready!"
+		},
+			"room": {
+			"title": "Sea Battle Room"
+		},
+		"fight": {
+			"title": "Sea Battle Fight",
+			"view_battle": "View the battlefield",
+			"enemy": "Enemy field",
+			"your": "Your field",
+			"yourTurn": "Your turn! 💪️",
+			"enemyTurn": "Enemy turn 😈",
+			"you_hit": "You hit the ship! 💥",
+			"you_missed": "You missed! 💦",
+			"enemy_missed": "Enemy missed! 💦",
+			"enemy_hit_your_ship": "Enemy hit your ship! 💥",
+			"waiting":"Waiting for action"
+		},
+		"shipLocating": {
+			"title": "Sea Battle Ship Locating"
+		},
+		"exit": "Exit room",
+		"ready": "Ready 💪",
+		"not_ready": "Not ready 🥥",
+		"result": {
+			"won": "You won🎉!",
+			"lost": "You lost the battle...😔",
+			"again": "Play again!"
+		},
+		"enter_name": "Enter new username",
+		"update_username": "Change username",
+		"waiting_for_player": "Waiting for a player...",
+		"waiting_for_another_p": "Waiting for other players to start",
+		"start_battle": "Start a battle!",
+		"starting_game": "Starting a game...",
+		"place_ship_title": "Place your ships",
+		"place_ship_desc": "Just drag and drop them. You can rotate ship by clicking on it!",
+		"randomize": "Randomize ships",
+		"invalid_ships": "Invalid ship placement at column #{x}, row #{y}",
+		"locating": {
+			"start": "Save and start a battle",
+			"waiting": "Waiting for another player to place ships..."
+		},
+		"addBot": {
+			"emojiLabel": "robot",
+			"button": "Add a Bot",
+			"title": "Add Bot Player",
+			"skillLabel": "Bot Skill Level",
+			"cancel": "Cancel",
+			"loading": "Adding Bot...",
+			"confirm": "Add Bot"
+		},
+		"botSkill": {
+			"easy": "Easy",
+			"easyDesc": "Good for beginners",
+			"average": "Average",
+			"averageDesc": "Balanced gameplay",
+			"hard": "Hard",
+			"hardDesc": "Challenging opponent",
+			"hacker": "Hacker",
+			"hackerDesc": "Ultimate challenge"
+		},
+		"auth": {
+			"cookiesDisabled": {
+				"title": "Cookies are disabled",
+				"description": "<bold>Warning!</bold> When you reload the page, you will be logged out because cookies are disabled in your browser. Please enable cookies to keep your session active after a page reload."
+			},
+			"openInSystemBrowser": {
+				"title": "Better Experience Available",
+				"description": "For a better gaming experience, please open this application in your system browser.",
+				"closeMessage": "Close this message",
+				"openButton": "Open in System Browser",
+				"openGameButton": "Open Game in System Browser"
+			}
+		}
+	},
+	"SeaBattleJoinLink": {
+		"meta": {
+			"title": "Join Sea Battle Game",
+			"description": "Join a Sea Battle game via invite link. Play with your friends in real-time!",
+			"ogTitle": "Join the Sea Battle!",
+			"ogDescription": "Click the link and play Sea Battle with your friend in real-time!",
+			"ogImageAlt": "Sea Battle Game"
+		},
+		"card": {
+			"title": "Joining the Battle...",
+			"errorTitle": "Error",
+			"noCodeTitle": "No Invite Code",
+			"noCodeDescription": "Please use a valid invite link to join a game.",
+			"backToLobby": "Back to Lobby"
+		}
+	},
+	"GamesBoard": {
+		"title": "Browser Games",
+		"desc": "We develop a games for browser to play online!",
+		"sea_battle_desc": "Tired of messaging boring text to your friend? Message him an invite link to join sea battle against you! No app download required. Lightweight game in browser for any device!",
+		"sea_battle": "Battleship by Link"
+	},
+	"SelfHostList": {
+		"title": "Self Hosted Services",
+		"githubLink": "Open on GitHub",
+		"desc": "Self-hosting open-source projects for personal use. My thanks to the authors and contributors of those projects! ❤️",
+		"items": {
+			"title": {
+				"watcharr": "Watcharr",
+				"glance": "Gatus",
+				"memos": "Memos"
+			},
+			"desc": {
+				"glance":"Gatus is a developer-oriented status page that monitors our services with HTTP, ICMP, TCP, and DNS checks, with alerting, and a public status view so anyone can see when a game or service is down.",
+				"watcharr": "Watcharr is an open source, self-hostable watched list for all your content (movies, tv series, anime, games) with user authentication, modern and clean UI and a very simple setup.",
+				"memos": "Memos is an open-source, lightweight note-taking solution. The pain-less way to create your meaningful notes. Your Notes, Your Way."
+			}
+		}
+	},
+	"NotFound": {
+		"title": "Something is missing.",
+		"message": "Sorry, we can't find that page. You'll find lots to explore on the home page.",
+		"goHome": "Go to home page."
+	},
+	"Error": {
+		"title": "Unexpected error!"
+	},
+	"ImageCollection": {
+		"imageLabel": "Image",
+		"submit": "Submit"
+	},
+	"RssFeed": {
+		"title": "RevoTale Notes",
+		"description": "Latest notes and micro posts from RevoTale",
+		"generator": "RevoTale RSS Generator",
+		"authorName": "RevoTale",
+		"authorEmail": "contact@revotale.com",
+		"unknownAuthor": "Unknown",
+		"untitledNote": "Untitled Note",
+		"internalServerError": "Internal Server Error"
+	},
+	"RandomizerWheel": {
+		"restart_wheel": "Restart the wheel",
+		"close": "Close",
+		"winner_announcement": "We have a winner! 🎉"
+	}
+}

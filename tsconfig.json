@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
+    "allowArbitraryExtensions": true,
     "esModuleInterop": true,
     "target": "es2024",
     "lib": [
@@ -31,6 +32,24 @@
       ],
       "@payload-config": [
         "./src/payload.config.ts"
+      ],
+      "@/i18n/*": [
+        "./src/app/src/i18n/*"
+      ],
+      "@/icons/*": [
+        "./src/app/src/icons/*"
+      ],
+      "@revotale/ui/*": [
+        "./src/app/src/ui/*"
+      ],
+      "@blog/gql": [
+        "./src/app/src/gql"
+      ],
+      "@sea-battle/*": [
+        "./src/app/src/sea-battle/components/*"
+      ],
+      "@sea-battle/gql": [
+        "./src/app/src/sea-battle/gql"
       ],
       "react": [
         "./node_modules/@types/react"

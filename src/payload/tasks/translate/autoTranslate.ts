@@ -1,5 +1,4 @@
 /* eslint-disable no-param-reassign -- Translation traversal mutates accumulator objects while walking nested field trees. */
-/* eslint-disable complexity, @typescript-eslint/no-dynamic-delete, max-depth, @typescript-eslint/max-params -- The translator handles heterogeneous Payload field structures in a single recursive pass. */
 import OpenAI from 'openai'
 import type {
   BasePayload,
@@ -65,6 +64,7 @@ const translateFn = async (
   context: Record<string, unknown>,
   maxLen: number | undefined,
   sourceLocale: string,
+// eslint-disable-next-line @typescript-eslint/max-params -- no time
 ): Promise<string> => {
   const key = process.env.OPENAI_API_KEY
   const message = {
@@ -157,6 +157,7 @@ const autoTranslate = async ({
           for (const tab of field.tabs) {
             if ('name' in tab && tab.name === key) {
               const subObj = obj[key as keyof DataFromCollectionSlug<typeof collection>]
+              // eslint-disable-next-line max-depth -- no time
               if (typeof subObj === 'object' && !Array.isArray(subObj) && subObj !== null) {
                 data[key] = data[key] ?? {}
                 tasks.push(
@@ -173,6 +174,7 @@ const autoTranslate = async ({
       for (const fieldName of Object.keys(targetData)) {
         if (typeof targetData[fieldName] === 'object' && targetData[fieldName] !== null) {
           if (Object.keys(targetData[fieldName]).length === 0) {
+            // eslint-disable-next-line @typescript-eslint/no-dynamic-delete -- no time
             delete targetData[fieldName]
           } else {
             clearEmpty(targetData[fieldName] as Record<string, unknown>)

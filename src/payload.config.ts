@@ -121,16 +121,33 @@ HARD RULES
 
   return response.output_text
 }
+const publicWebsiteURL = process.env.APP_URL ?? process.env.PAYLOAD_PUBLIC_SERVER_URL ?? ''
 const generateURL: GenerateURL<Post> = ({ doc }) => doc.slug
-    ? `${process.env.PAYLOAD_PUBLIC_SERVER_URL ?? ''}/blog/${doc.slug}`
-    : (process.env.PAYLOAD_PUBLIC_SERVER_URL ?? '')
+    ? `${publicWebsiteURL}/blog/${doc.slug}`
+    : publicWebsiteURL
 const sss: GenerateFileURL = ({ filename, prefix = '' }) => `https://cms.s3.revotale.com/${prefix}/${filename}`
 
-const serverURl: string | undefined = process.env.PAYLOAD_PUBLIC_SERVER_URL ?? undefined
+const toURLOrigin = (value: string | undefined): string | undefined => {
+  if (!value) {
+    return undefined
+  }
+
+  try {
+    return new URL(value).origin
+  } catch {
+    return undefined
+  }
+}
 
 const enableCron = process.env.ENABLE_CRON === '1'
-const serverDomain = serverURl ? new URL(serverURl).hostname : undefined
-const hostnameWithProtocol = serverDomain ? `https://${serverDomain}` : undefined
+const serverURL = toURLOrigin(process.env.PAYLOAD_PUBLIC_SERVER_URL)
+const allowedOrigins = Array.from(
+  new Set(
+    [toURLOrigin(process.env.APP_URL), serverURL].filter(
+      (origin): origin is string => origin !== undefined && origin.length > 0,
+    ),
+  ),
+)
 const DEFAULT_API_DEPTH = 1
 const DEFAULT_API_MAX_DEPTH = 2
 const DEFAULT_GRAPHQL_MAX_COMPLEXITY = 600
@@ -349,10 +366,10 @@ export default buildConfig({
     prodMigrations: migrations,
   }),
   maxDepth: payloadMaxDepth,
-  serverURL: hostnameWithProtocol,
+  serverURL,
   collections: [Posts, Media, Users, Tags, Authors, AICallLogs, MicroPosts, MicroPostExternalLink],
-  cors: hostnameWithProtocol ? [hostnameWithProtocol] : undefined,
-  csrf: hostnameWithProtocol ? [hostnameWithProtocol] : undefined,
+  cors: allowedOrigins.length > 0 ? allowedOrigins : undefined,
+  csrf: allowedOrigins.length > 0 ? allowedOrigins : undefined,
   globals: [],
 
   jobs: {

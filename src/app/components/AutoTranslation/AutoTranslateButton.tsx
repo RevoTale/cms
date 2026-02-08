@@ -1,14 +1,12 @@
 'use client'
-import { Button, useConfig, useDocumentInfo } from '@payloadcms/ui'
+import { Button, useDocumentInfo } from '@payloadcms/ui'
 import type { TypedLocale } from 'payload'
 import { type FunctionComponent, useState } from 'react'
+import { defaultLocale, locales } from 'src/i18n-config'
 import autoTranslateTask, { type Context } from './autoTranslate'
 
 const AutoTranslateButton: FunctionComponent = () => {
   const { id, collectionSlug } = useDocumentInfo()
-  const {
-    config: { localization },
-  } = useConfig()
 
   const [pendingLocale, setPendingLocale] = useState<string | null>(null)
   const [results, setResults] = useState<
@@ -19,22 +17,21 @@ const AutoTranslateButton: FunctionComponent = () => {
     }>
   >([])
   // id will be undefined on the create form
-  if (!id || !collectionSlug || !localization) {
+  if (!id || !collectionSlug) {
     return null
   }
-  const sourceLocale = localization.defaultLocale
-  const locales = localization.locales
-    .map((locale) => locale.code)
+  const sourceLocale = defaultLocale
+  const allLocales = locales
     .filter((locale) => locale !== sourceLocale)
-  const handleSubmit = async (locales: string[]) => {
+  const handleSubmit = async (locales: TypedLocale[]) => {
     for (const targetLocale of locales) {
       try {
         setPendingLocale(targetLocale)
         const result = await autoTranslateTask({
           docId: id.toString(),
           collection: collectionSlug,
-          targetLocale: targetLocale as TypedLocale,
-          sourceLocale: sourceLocale as TypedLocale,
+          targetLocale,
+          sourceLocale,
         })
         setPendingLocale(null)
         if (result.ok) {
@@ -59,7 +56,7 @@ const AutoTranslateButton: FunctionComponent = () => {
       <Button
         className="my-1"
         onClick={() => {
-          void handleSubmit(locales)
+          void handleSubmit(allLocales)
         }}
         disabled={pendingLocale !== null}
         type="submit"
@@ -69,7 +66,7 @@ const AutoTranslateButton: FunctionComponent = () => {
           : `Translating to ${pendingLocale}...`}
       </Button>
       <div className="flex  gap-2 max-w-full flex-wrap ">
-        {locales.map((locale) => (
+        {allLocales.map((locale) => (
             <Button
               className="my-1 flex"
               key={locale}

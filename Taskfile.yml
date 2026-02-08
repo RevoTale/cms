@@ -2,12 +2,14 @@ version: "3"
 
 tasks:
   codegen:
-    desc: Run CMS generators (types/importmap/schema/db-schema)
+    desc: Run CMS + frontend generators (Payload + Next + GraphQL types)
     cmds:
       - bun run p:cli generate:types
       - bun run p:cli generate:importmap
       - bunx cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts bunx --bun payload-graphql --disable-transpile generate:schema
       - bun run p:cli generate:db-schema
+      - bunx next typegen
+      - bunx graphql-codegen --config codegen.ts
 
   codegen:check:
     desc: Run codegen and fail if it changes the working tree

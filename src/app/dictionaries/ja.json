@@ -1,0 +1,487 @@
+{
+	"VideoUtility": {
+		"notice": "<b>ご注意！</b> このユーティリティは、ビデオ処理にCPUとRAMを使用します。<br></br><b>パフォーマンスやビデオ処理に影響を与える可能性があります</b>。",
+		"loading": "ユーティリティを読み込んでいます。お待ちください...",
+		"label": "速度倍率",
+		"placeholder": "速度倍率",
+		"transform": "ビデオを変換する",
+		"download": "結果をダウンロード",
+		"not_support": "お使いのブラウザはvideoタグをサポートしていません。",
+		"view_logs": "デバッグログを表示",
+		"log_title": "ログ",
+		"close": "閉じる",
+		"or_choose_preset": "またはプリセットを選択：",
+		"video_label": "ビデオ",
+		"selected_video": "選択したビデオ："
+	},
+	"microblog": {
+		"placeholder": {
+			"codeBlock": "コードブロックを表示するには完全なメモを開いてください",
+			"table": "表を表示するには完全なメモを開いてください",
+			"image": "画像を表示するには完全なメモを開いてください"
+		},
+		"scrollToAttachment": "添付ファイルまでスクロール",
+		"outgoingLinks": "外部リンク",
+		"linkedNotes": "リンクされたノート",
+		"by": "作成者"
+	},
+	"NavigationMap": {
+		"meta": {
+			"title": "ナビゲーションマップ",
+			"description": "RevoTaleナビゲーションマップをご覧ください。ツール、ユーティリティ、プロジェクトを視覚的な形式で発見してください。"
+		},
+		"pageTitle": "RevoTaleナビゲーションマップ",
+		"navigation": {
+			"revotale": "RevoTale",
+			"utilities": "ユーティリティ",
+			"recordsRandomizer": "レコードランダマイザー",
+			"urlEncoderDecoder": "URLエンコーダー/デコーダー",
+			"encode": "エンコード",
+			"decode": "デコード",
+			"screenFillGallery": "全画面ギャラリー",
+			"videoDurationChanger": "動画速度変更ツール",
+			"browserGames": "ブラウザゲーム",
+			"battleShipGame": "戦艦ゲーム",
+			"blog": "ブログ",
+			"articles": "記事",
+			"notes": "ノート",
+			"microTales": "マイクロテイルズ",
+			"selfHostedServices": "セルフホストサービス",
+			"tv": "テレビ",
+			"dashboard": "ダッシュボード",
+			"personalNotes": "個人ノート"
+		}
+	},
+	"PageMeta": {
+		"notes": {
+			"title": "技術メモ - クイックコーディング、経験、オープンソース、SEOおよび科学的な洞察",
+			"description": "コーディング、ウェブパフォーマンス、SEO、AIワークフロー、書籍の要点など、実用的なヒントが詰まった簡潔なメモをRevoTaleで定期的に更新しています。"
+		}
+	},
+	"LoveRain": {
+		"meta": {
+			"title": "Love Rain ― 大切な人のために",
+			"description": "ハート型のネオンアニメーションで、終わりなく降り続ける雫をブラウザー上で描画します。"
+		}
+	},
+	"Project": {
+		"title": "Revotale"
+	},
+	"keywords": {
+		"url": "URL",
+		"encode": "エンコード",
+		"decode": "デコード",
+		"online": "オンライン"
+	},
+	"Metadata": {
+		"Root": {
+			"title": "要求の厳しいタスクに対するエレガントなソリューション。",
+			"desc": "私たちの願いは、最も適切で強力な技術を使用して優雅なソリューションを作り出すことです。",
+			"openGraphDesc": "RevoTaleはウェブアプリケーションの構築を専門とするソフトウェア会社です。",
+			"classification": "ソフトウェア会社"
+		},
+		"Utils": {
+			"title": "ユーティリティ",
+			"desc": "必要なときにあなたをサポートするシンプルなユーティリティ。"
+		},
+		"BrowserGames": {
+			"title": "ブラウザゲーム",
+			"desc": "ダウンロード不要でオンラインブラウザゲームをプレイできます。どのデバイスでもブラウザで直接動作する軽量ゲーム。"
+		}
+	},
+	"Copy": {
+		"text": "コピー",
+		"done": "コピーしました！ ✅",
+		"error": "クリップボードへの書き込み中にエラーが発生しました"
+	},
+	"Paste": {
+		"loading": "クリップボードを処理中...",
+		"text": "クリップボードから貼り付け",
+		"error": "クリップボードの読み取り中にエラーが発生しました"
+	},
+	"UrlCoder": {
+		"title": "URLデコード/エンコード",
+		"metaDesc": "あなたを幸せにするURLエンコーダー/デコーダー。文字列をURL形式にシリアライズ、またはその逆を行います。",
+		"encode": "エンコード",
+		"decode": "デコード",
+		"inputPlace": "ここにテキストを入力",
+		"outputPlace": "結果はこちらに表示されます",
+		"same": "結果が入力と同じようです！ 🤔"
+	},
+	"ToolsBoard": {
+		"Utilities": "ユーティリティ",
+		"UtilitiesDesc": "一般の人々の日常生活を簡素化するツール。",
+		"Breadcrumbs": {
+			"Utils": "ユーティリティ",
+			"URlDecodeEncode": "URLエンコーダー/デコーダー",
+			"VideoSpeedChange": "ビデオ速度チェンジャー",
+			"RecordRandomizer": "レコードランダマイザー",
+			"ImageCollectionTools": "画像コレクションレンダラー",
+			"ScreenFillGallery": "スクリーンフィルギャラリー",
+			"encoder": "URLエンコーダー",
+			"decoder": "URLデコーダー"
+		},
+		"Desc": {
+			"URlDecodeEncode": "プログラミング知識なしでURLエンティティをデコードまたはエンコードするシンプルなツール。",
+			"VideoSpeedChange": "ブラウザ内で直接ビデオの速度を変更します。すべてはお使いのデバイスのCPU/RAMによって行われます。ビデオ処理はデバイス上のWASMの力で行われるため、サーバーとデータは共有されません。",
+			"RecordRandomizer": "レコードのリストを入力し、ホイールを回してランダムに選ばれた行を取得します。ギブアウェイ、意思決定、または迅速なランダム選択が必要なあらゆる状況に最適です。",
+			"ImageCollectionTools": "あなたが望むメディアで隅々まで満たします。1つの画面に任意の数の画像を表示します。",
+			"ScreenFillGallery": "画像をアップロードして、アスペクト比を保ったまま画面全体を均等に埋めます。没入感のあるフォトギャラリーの作成に最適です。"
+		},
+		"LearnMore": "詳細を見る ➔"
+	},
+	"Breadcrumbs": {
+		"blog": "ブログ",
+		"home": "ホーム",
+		"utils": "ユーティリティ"
+	},
+	"ImageCollectionRenderer": {
+		"title": "画像コレクションレンダラー",
+		"seo_desc": "快適に画像コレクションをレンダリングします。スペースの隅々まで埋め尽くされています",
+		"seo_title": "画像コレクションレンダラー"
+	},
+	"ScreenFillGallery": {
+		"title": "スクリーンフィルギャラリー",
+		"description": "画像をアップロードして、アスペクト比を保ったまま画面全体を埋めます。没入感のあるフォトギャラリーの作成に最適です。",
+		"seo_desc": "アスペクト比を保ったまま画面を均等に画像で埋めます。美しくスペース効率の良いフォトギャラリーを作成します。",
+		"seo_title": "スクリーンフィルギャラリー - 均等な画像配置",
+		"imageLabel": "画像を選択",
+		"fullscreenMode": "フルスクリーンモード",
+		"imagesLoaded": "{count}枚の画像が読み込まれました",
+		"keyword1": "スクリーンフィルギャラリー",
+		"keyword2": "画像ギャラリー",
+		"keyword3": "写真ビューア",
+		"keyword4": "アスペクト比",
+		"keyword5": "フルスクリーン画像",
+		"keyword6": "画像コレクション",
+		"keyword7": "写真表示",
+		"keyword8": "レスポンシブ画像",
+		"applicationName": "RevoTaleツール",
+		"category": "テクノロジー",
+		"classification": "ユーティリティツール",
+		"creator": "RevoTale",
+		"publisher": "RevoTale"
+	},
+	"DurationConverter": {
+		"seo_title": "オンラインでビデオの速度を上げる/下げる",
+		"seo_desc": "ブラウザ内で直接ビデオの速度を変更します。すべてはお使いのデバイスのCPU/RAMによって行われます。ビデオ処理はデバイス上のWASMの力で行われるため、サーバーとデータは共有されません。"
+	},
+	"URLEncoder": {
+		"seo_title": "URLエンコーダー",
+		"seo_desc": "プログラミング知識なしでURLエンティティをデコードまたはエンコードするシンプルなツール。"
+	},
+	"URLDecoder": {
+		"seo_title": "URLデコーダー",
+		"seo_desc": "プログラミング知識なしでURLエンティティをデコードまたはエンコードするシンプルなツール。"
+	},
+	"Notes": {
+		"title": "ノート",
+		"title_blog": "ブログ",
+		"no_notes": "まだノートはありません :(",
+		"notes_heading": "ノート",
+		"pagination": {
+			"previous": "前",
+			"next": "次"
+		},
+		"json_ld": {
+			"description": "コーディング、ウェブパフォーマンス、SEO、AIワークフロー、書籍の要点など、さまざまなトピックに関するノートのコレクションをご覧ください。各ノートは、開発者や技術愛好家に素早い洞察と実行可能なヒントを提供するために設計されています。",
+			"name": "ノート"
+		}
+	},
+	"Blog": {
+		"meta_title": "ブログ",
+		"available_tags": "利用可能なタグ",
+		"go_to_notes": "ノート",
+		"go_to_micro_tales": "マイクロテイルズを見る",
+		"go_to_note": "ノートを見る",
+		"go_to_articles": "記事",
+		"available_tag": "利用可能なタグ：",
+		"meta_description": "私たちの思考を刺激する記事で、テクノロジー、科学、社会の交差点を探ります。最新のハイテク技術やプログラミングのブレークスルーから、政治や個人的経験に関する洞察力のある議論まで、私たちのブログは、情報提供、インスピレーション、そして会話を促進するためのアイデアのるつぼです。革新と発見の魅力的な世界を通じた旅に参加してください。",
+		"latest_articles": "最新の記事を読む"
+	},
+	"HistoryOfUkraine": {
+		"extendedInfo": "詳細情報",
+		"title": "ウクライナの歴史",
+		"meta_desc": "シンプルな短い命題でウクライナの歴史を理解。主要な日付のステップバイステップ。ウクライナの歴史試験に簡単に備えましょう。",
+		"table": {
+			"date": "日付",
+			"event": "イベント",
+			"details": "詳細",
+			"importance": "重要性"
+		}
+	},
+	"Articles": {
+		"title": "記事",
+		"blog_crumb": "ブログ"
+	},
+	"RandomRecordSelector": {
+		"title": "ランダムレコードセレクター",
+		"settings": "設定",
+		"meta_desc": "レコードのリストを入力し、ホイールを回してランダムに選ばれた行を取得します。ギブアウェイ、意思決定、または迅速なランダム選択が必要なあらゆる状況に最適です。",
+		"records": "レコード"
+	},
+	"ExpToolsBoard": {
+		"desc": "非常にバグが多く、開発中、または動作しません。¯\\_(ツ)_/¯",
+		"title": "実験的なツール"
+	},
+	"OpenSource": {
+		"desc": "オープンソースコミュニティとコードを共有して、世界の進歩を加速させます。",
+		"title": "オープンソース",
+		"items": {
+			"desc": {
+				"obsidian_folder_by_tag_dist": "タグに基づいてObsidian Vaultのノートを自動的にフォルダー間でソートします。これにより、タグとフォルダーの構造を一貫して保つことが求められます。ディレクトリ構造を作成し、タグを配置すると、ノートが自動的にフォルダー間で整理されます。",
+				"google_recaptcha": "UXやページ速度スコアを犠牲にすることなく、任意のReactアプリケーションにインビジブルなGoogle reCAPTCHAを統合します。",
+				"lovely_eye": "プライバシー重視のオープンソース分析。シンプルなダッシュボードで自己ホストできます。",
+				"php_time": "組み込みのPHP DateTimeクラスに関する問題を扱うためのライブラリ。型をゆるく扱い、時間、間隔、タイムゾーンオブジェクト間の関係に対する直接的なアプローチを提供します。",
+				"nextjs_scroll_restorer": "ゼロから構築されたNext.jsのためのスクロール復元。非常にバグが多いNext.jsの設定にあるネイティブの'scrollRestoration'の代替として、プロダクション用途向けに作成されました。"
+			},
+			"title": {
+				"obsidian_folder_by_tag_dist": "Obsidianタグによるフォルダ配布プラグイン",
+				"google_recaptcha": "React用Google reCAPTCHA V3",
+				"lovely_eye": "Lovely Eye",
+				"php_time": "PHP Time",
+				"nextjs_scroll_restorer": "Next.jsのためのスクロール復元"
+			}
+		}
+	},
+	"BlogBoard": {
+		"title": "ブログ",
+		"notes_title": "ノートを見る",
+		"desc": "IT関連の情報、ニュース、科学、経験、そして考えを共有します。",
+		"explore": "さらに記事を探索する ➔",
+		"welcome": "来てくれて本当に嬉しい！読書を楽しんでください！",
+		"discover_notes": "ノートを見る",
+		"read_latest_articles": "最新の記事を読む",
+		"go_to_blog": "ブログへ行く"
+	},
+	"RecordRandomizer": {
+		"seo_title": "レコードランダマイザー",
+		"seo_desc": "レコードのリストを入力し、ホイールを回してランダムに選ばれた行を取得します。ギブアウェイ、意思決定、または迅速なランダム選択が必要なあらゆる状況に最適です。",
+		"setting_seo_title": "レコードランダマイザーの設定",
+		"setting_seo_desc": "レコードランダマイザーの設定。レコードのリストを入力し、ホイールを回してランダムに選ばれた行を取得します。ギブアウェイ、意思決定、または迅速なランダム選択が必要なあらゆる状況に最適です。",
+		"setting_title": "ランダマイザー設定",
+		"duration_setting_title": "期間",
+		"duration_setting_desc": "ホイールが停止するまでの秒数",
+		"setting_disable_winner_dialog_title": "当選者ダイアログを無効にする",
+		"setting_disable_winner_dialog_desc": "これを有効にすると、当選レコードのポップアップが無効になります。",
+		"setting_save": "保存"
+	},
+	"Header": {
+		"GoHome": "ホームページに移動",
+		"Search": "検索"
+	},
+	"Footer": {
+		"Lang": {
+			"en": "英語",
+			"uk": "ウクライナ語",
+			"de": "ドイツ語",
+			"fr": "フランス語",
+			"ja": "日本語",
+			"ru": "ロシア語",
+			"hi": "ヒンディー語",
+			"es": "スペイン語"
+		},
+		"PoweredBy": "私たちはあなたのプライバシーを大切にします。分析は<a>オープンソースソフトウェア</a>によって提供されています。",
+		"OpenNavMapButton": "ナビゲーションマップを開く",
+		"Utils": "ユーティリティ",
+		"sea_battle": "クラシック海戦ゲーム",
+		"notes": "ノート",
+		"sweetheart": "あなたへ、心の君へ",
+		"Blog": "ブログ",
+		"LangTitle": "言語",
+		"Rights": "© {year} {company}。全ての権利を保有します。",
+		"Nav": "ナビゲーション",
+		"TwitterAlt": "Twitterでフォローしてください",
+		"GithubAlt": "GitHubで評価してください",
+		"ReachOutTitle": "お問い合わせ"
+	},
+	"SeaBattle": {
+		"json_ld": {
+			"name": "海戦ゲーム",
+			"description": "ブラウザで遊べるリアルタイムの2人用海戦ゲーム。ルームを作成し、友達とリンクを共有して、船を配置し、競い合いましょう。",
+			"serverName": "海戦ゲームルーム作成"
+		},
+		"howToPlay": {
+			"title": "ゲームについて",
+			"step1": "登録は不要です。ルームを開くだけですぐにプレイできます。",
+			"step2": "標準の10隻を配置し、「準備完了」を押して、どちらかの艦隊が沈むまで交互に攻撃します。",
+			"step3": "友だちを招待するか、Easy / Average / Hard / Hacker のボットと対戦できます。",
+			"step4": "対戦相手とコミュニケーションできるリアルタイムチャット付き。"
+		},
+		"unknown_player_generic": "不明なプレイヤー",
+		"unknown_player_my": "自分のプレイヤー不明",
+		"unknown_player_enemy": "敵プレイヤー不明",
+		"join_telegram": "私と一緒に海戦ゲームに参加しましょう！",
+		"title": "海戦",
+		"pageDescription": "ブラウザでオンライン友達と海戦をプレイ。一緒にプレイするには友達にリンクを送信してください。",
+		"newGameWithFriend": "友達と新しいゲームを始める",
+		"newGameVsBot": "🤖 ボットと対戦",
+		"or": "または",
+		"loading": "読み込み中...",
+		"redirecting": "ルームにリダイレクトしています...",
+		"inviteFriend": "友達を招待する",
+		"inviteFriendDesc": "一緒に遊ぶために友達とリンクを共有しましょう",
+		"CopyLink": "リンクをコピー",
+		"facebook_icon": "Facebook",
+		"whatsapp_icon": "WhatsApp",
+		"telegram_icon": "Telegram",
+		"players": {
+			"title": "プレイヤー"
+		},
+		"chat": {
+			"button": "チャット",
+			"dialogTitle": "ルームチャット",
+			"placeholder": "メッセージを入力してください",
+			"send": "送信",
+			"empty": "まだメッセージがありません",
+			"newBadge": "新着メッセージ",
+			"returnBackToShipLocating": "船の配置に戻ってください",
+			"returnBackButtonSingle": "戻る",
+			"returnBackToYourTurn": "戻ってください！あなたのターンです！",
+			"returnBackToReadyToBattle": "戻ってください！相手は準備完了です！"
+		},
+		"room": {
+			"title": "海戦ルーム"
+		},
+		"fight": {
+			"title": "海戦バトル",
+			"view_battle": "戦場を見る",
+			"enemy": "敵のフィールド",
+			"your": "自分のフィールド",
+			"yourTurn": "あなたの番です！💪",
+			"enemyTurn": "敵の番です 😈",
+			"you_hit": "船に命中しました！💥",
+			"you_missed": "外れました！💦",
+			"enemy_missed": "敵が外しました！💦",
+			"enemy_hit_your_ship": "敵があなたの船に命中しました！💥",
+			"waiting": "アクションを待機中"
+		},
+		"shipLocating": {
+			"title": "海戦の船の配置"
+		},
+		"exit": "ルームを退出する",
+		"ready": "準備完了 💪",
+		"not_ready": "未準備 🥥",
+		"result": {
+			"won": "あなたの勝ちです🎉！",
+			"lost": "戦いに敗れました...😔",
+			"again": "もう一度プレイ！"
+		},
+		"enter_name": "新しいユーザー名を入力",
+		"update_username": "ユーザー名を変更する",
+		"waiting_for_player": "プレイヤーを待っています...",
+		"waiting_for_another_p": "他のプレイヤーが開始するのを待っています",
+		"start_battle": "戦いを始める！",
+		"starting_game": "ゲームを開始しています...",
+		"place_ship_title": "船を配置する",
+		"place_ship_desc": "ドラッグ＆ドロップするだけです。クリックして船を回転できます！",
+		"randomize": "船をランダムに配置",
+		"invalid_ships": "列#{x}、行#{y}での無効な船の配置",
+		"locating": {
+			"start": "保存して戦いを始める",
+			"waiting": "他のプレイヤーが船を配置するのを待っています..."
+		},
+		"addBot": {
+			"emojiLabel": "ロボット",
+			"button": "ボットを追加",
+			"title": "ボットプレイヤーを追加",
+			"skillLabel": "ボットのスキルレベル",
+			"cancel": "キャンセル",
+			"loading": "ボットを追加中...",
+			"confirm": "ボットを追加"
+		},
+		"botSkill": {
+			"easy": "簡単",
+			"easyDesc": "初心者向け",
+			"average": "普通",
+			"averageDesc": "バランスの取れたプレイ",
+			"hard": "難しい",
+			"hardDesc": "手強い相手",
+			"hacker": "ハッカー",
+			"hackerDesc": "究極のチャレンジ"
+		},
+		"auth": {
+			"cookiesDisabled": {
+				"title": "Cookieが無効です",
+				"description": "<bold>警告！</bold> ページをリロードすると、ブラウザでCookieが無効になっているためログアウトされます。ページリロード後もセッションを維持するには、Cookieを有効にしてください。"
+			},
+			"openInSystemBrowser": {
+				"title": "より良い体験が利用可能です",
+				"description": "より良いゲーム体験のために、このアプリケーションをシステムブラウザで開いてください。",
+				"closeMessage": "このメッセージを閉じる",
+				"openButton": "システムブラウザで開く",
+				"openGameButton": "システムブラウザでゲームを開く"
+			}
+		}
+	},
+	"SeaBattleJoinLink": {
+		"meta": {
+			"title": "海戦ゲームに参加",
+			"description": "招待リンクから海戦ゲームに参加しましょう。友達とリアルタイムで対戦！",
+			"ogTitle": "海戦に参加しよう！",
+			"ogDescription": "リンクをクリックして友達とリアルタイムで海戦をプレイしよう！",
+			"ogImageAlt": "海戦ゲーム"
+		},
+		"card": {
+			"title": "バトルに参加中...",
+			"errorTitle": "エラー",
+			"noCodeTitle": "招待コードがありません",
+			"noCodeDescription": "ゲームに参加するには有効な招待リンクを使用してください。",
+			"backToLobby": "ロビーに戻る"
+		}
+	},
+	"GamesBoard": {
+		"title": "ブラウザゲーム",
+		"desc": "私たちはオンラインで遊べるブラウザ向けゲームを開発しています！",
+		"sea_battle_desc": "友達に退屈なテキストを送るのにうんざりですか？ あなたに対する海戦に参加する招待リンクを彼に送ってください！ アプリのダウンロードは不要です。どのデバイスでも使える軽量なブラウザゲーム！",
+		"sea_battle": "リンクで遊ぶ海戦ゲーム"
+	},
+	"SelfHostList": {
+		"title": "セルフホスト型サービス",
+		"githubLink": "GitHubで開く",
+		"desc": "個人利用のためにオープンソースプロジェクトをセルフホストしています。これらのプロジェクトの作者とコントリビューターの皆様に感謝します！ ❤️",
+		"items": {
+			"title": {
+				"watcharr": "Watcharr",
+				"glance": "Gatus",
+				"memos": "Memos"
+			},
+			"desc": {
+				"glance": "Gatusは、HTTP、ICMP、TCP、DNSのチェックで私たちのサービスを監視し、アラートも備えた開発者向けステータスページです。公開ステータスで、ゲームやサービスが停止したときに誰でも状況を確認できます。",
+				"watcharr": "Watcharrは、ユーザー認証、モダンでクリーンなUI、そして非常に簡単なセットアップを備えた、あらゆるコンテンツ（映画、テレビシリーズ、アニメ、ゲーム）のためのオープンソースでセルフホスト可能なウォッチリストです。",
+				"memos": "Memosは、オープンソースで軽量なメモ作成ソリューションです。意味のあるメモを作成するためのストレスのない方法。あなたのメモ、あなたのやり方。"
+			}
+		}
+	},
+	"NotFound": {
+		"title": "何かが見つかりません。",
+		"message": "申し訳ありませんが、そのページは見つかりません。ホームページでは多くの探索ができます。",
+		"goHome": "ホームページに移動する。"
+	},
+	"Error": {
+		"title": "予期せぬエラーが発生しました！"
+	},
+	"ImageCollection": {
+		"imageLabel": "画像",
+		"submit": "送信"
+	},
+	"copyButton": {
+		"copy": "コピー",
+		"copied": "コピーしました！"
+	},
+	"RandomizerWheel": {
+		"restart_wheel": "ホイールを再起動",
+		"close": "閉じる",
+		"winner_announcement": "勝者が決まりました！ 🎉"
+	},
+	"RssFeed": {
+		"title": "RevoTaleノート",
+		"description": "RevoTaleの最新のノートとマイクロ投稿",
+		"generator": "RevoTale RSSジェネレーター",
+		"authorName": "RevoTale",
+		"authorEmail": "contact@revotale.com",
+		"unknownAuthor": "不明",
+		"untitledNote": "無題のノート",
+		"internalServerError": "内部サーバーエラー"
+	}
+}

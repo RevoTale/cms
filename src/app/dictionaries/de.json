@@ -1,0 +1,487 @@
+{
+	"VideoUtility": {
+		"notice": "<b>Hinweis!</b> Dieses Tool nutzt Ihre CPU und Ihren Arbeitsspeicher, um das Video zu verarbeiten.<br></br><b>Dies kann die Leistung und die Videobearbeitung beeinträchtigen.</b>",
+		"loading": "Lade Hilfsprogramme. Bitte warten...",
+		"label": "Geschwindigkeitsmultiplikator",
+		"placeholder": "Geschwindigkeitsmultiplikator",
+		"transform": "Video umwandeln",
+		"download": "Ergebnis herunterladen",
+		"not_support": "Ihr Browser unterstützt das Video-Tag nicht.",
+		"view_logs": "Debug-Protokolle anzeigen",
+		"log_title": "Protokolle",
+		"close": "Schließen",
+		"or_choose_preset": "oder wählen Sie eine Voreinstellung:",
+		"video_label": "Video",
+		"selected_video": "Ausgewähltes Video:"
+	},
+	"microblog": {
+		"placeholder": {
+			"codeBlock": "Öffnen Sie die vollständige Notiz, um den Codeblock zu sehen",
+			"table": "Öffnen Sie die vollständige Notiz, um die Tabelle zu sehen",
+			"image": "Öffnen Sie die vollständige Notiz, um das Bild zu sehen"
+		},
+		"scrollToAttachment": "Zum Anhang scrollen",
+		"outgoingLinks": "Ausgehende Links",
+		"linkedNotes": "Verlinkte Notizen",
+		"by": "von"
+	},
+	"NavigationMap": {
+		"meta": {
+			"title": "Seitennavigation",
+			"description": "Entdecken Sie die RevoTale Seitennavigation. Finden Sie unsere Tools, Hilfsprogramme und Projekte in einer übersichtlichen Darstellung."
+		},
+		"pageTitle": "RevoTale Seitennavigation",
+		"navigation": {
+			"revotale": "RevoTale",
+			"utilities": "Hilfsprogramme",
+			"recordsRandomizer": "Datensatz-Zufallsgenerator",
+			"urlEncoderDecoder": "URL-Encoder/Decoder",
+			"encode": "Codieren",
+			"decode": "Decodieren",
+			"screenFillGallery": "Vollbild-Galerie",
+			"videoDurationChanger": "Video-Geschwindigkeits-Editor",
+			"browserGames": "Browser-Spiele",
+			"battleShipGame": "Schiffe versenken",
+			"blog": "Blog",
+			"articles": "Artikel",
+			"notes": "Notizen",
+			"microTales": "Mikrogeschichten",
+			"selfHostedServices": "Selbst gehostete Dienste",
+			"tv": "Fernsehen",
+			"dashboard": "Dashboard",
+			"personalNotes": "Persönliche Notizen"
+		}
+	},
+	"LoveRain": {
+		"meta": {
+			"title": "Love Rain für dein Herzblatt",
+			"description": "Eine herzförmige Neonanimation mit endlos fallenden Tropfen, direkt im Browser gerendert."
+		}
+	},
+	"PageMeta": {
+		"notes": {
+			"title": "Notizen - Kodierung, Erfahrung, Open Source, SEO & wissenschaftliche Erkenntnisse",
+			"description": "Tauchen Sie ein in prägnante Notizen, vollgepackt mit umsetzbaren Tipps zu Kodierung, Webperformance, SEO, KI-Workflows, Buchzusammenfassungen und mehr - regelmäßig aktualisiert auf RevoTale."
+		}
+	},
+	"Project": {
+		"title": "Revotale"
+	},
+	"keywords": {
+		"url": "URL",
+		"encode": "Kodieren",
+		"decode": "Dekodieren",
+		"online": "Online"
+	},
+	"Metadata": {
+		"Root": {
+			"title": "Elegante Lösungen für anspruchsvolle Aufgaben.",
+			"desc": "Unser Wunsch ist es, ausdrucksstarke Lösungen mit den passendsten und leistungsstärksten Technologien zu schaffen.",
+			"openGraphDesc": "RevoTale ist ein Softwareunternehmen, das sich auf die Entwicklung von Webanwendungen spezialisiert hat.",
+			"classification": "Softwareunternehmen"
+		},
+		"Utils": {
+			"title": "Dienstprogramme",
+			"desc": "Einfache Dienstprogramme, die Ihnen zur Verfügung stehen, wenn Sie sie brauchen."
+		},
+		"BrowserGames": {
+			"title": "Browserspiele",
+			"desc": "Spielen Sie Online-Browserspiele ohne Downloads. Leichtgewichtige Spiele, die auf jedem Gerät direkt in Ihrem Browser funktionieren."
+		}
+	},
+	"Copy": {
+		"text": "Kopieren",
+		"done": "Kopiert! ✅",
+		"error": "Fehler beim Schreiben in die Zwischenablage"
+	},
+	"Paste": {
+		"loading": "Verarbeite Zwischenablage...",
+		"text": "Aus Zwischenablage einfügen",
+		"error": "Fehler beim Lesen der Zwischenablage"
+	},
+	"UrlCoder": {
+		"title": "URL Dekodieren/Kodieren",
+		"metaDesc": "URL-Encoder/Decoder, der Freude bereitet. Serialisieren Sie Ihre Zeichenfolge ins URL-Format und umgekehrt.",
+		"encode": "Kodieren",
+		"decode": "Dekodieren",
+		"inputPlace": "Geben Sie hier Text ein",
+		"outputPlace": "Ergebnis wird hier angezeigt",
+		"same": "Das Ergebnis scheint identisch mit der Eingabe zu sein! \uD83E\uDDD0"
+	},
+	"ToolsBoard": {
+		"Utilities": "Dienstprogramme",
+		"UtilitiesDesc": "Werkzeuge, die das tägliche Leben des Durchschnittsmenschen vereinfachen.",
+		"Breadcrumbs": {
+			"Utils": "Dienstprogramme",
+			"URlDecodeEncode": "URL Encoder/Decoder",
+			"VideoSpeedChange": "Video-Geschwindigkeitsänderer",
+			"RecordRandomizer": "Datensatz-Zufallsgenerator",
+			"ImageCollectionTools": "Bildsammlungs-Renderer",
+			"ScreenFillGallery": "Bildschirmfüllende Galerie",
+			"encoder": "URL Encoder",
+			"decoder": "URL Decoder"
+		},
+		"Desc": {
+			"URlDecodeEncode": "Einfaches Tool zum Dekodieren oder Kodieren von URL-Entitäten ohne Programmierkenntnisse.",
+			"VideoSpeedChange": "Ändern Sie die Geschwindigkeit des Videos direkt im Browser. Alles wird von der CPU/RAM Ihres Geräts erledigt. Es werden keine Daten mit einem Server geteilt, da die Videobearbeitung durch die Leistung von WASM auf Ihrem Gerät erfolgt.",
+			"RecordRandomizer": "Geben Sie die Liste der Datensätze ein, drehen Sie das Rad und erhalten Sie eine zufällig ausgewählte Zeile. Perfekt für Gewinnspiele, Entscheidungsfindung oder jede Situation, in der eine schnelle zufällige Auswahl erforderlich ist.",
+			"ImageCollectionTools": "Füllen Sie jeden Zentimeter mit den Medien, die Sie möchten. Zeigen Sie beliebig viele Bilder auf einem einzigen Bildschirm an.",
+			"ScreenFillGallery": "Laden Sie Bilder hoch und füllen Sie Ihren gesamten Bildschirm gleichmäßig aus, während Sie die Seitenverhältnisse beibehalten. Perfekt für die Erstellung immersiver Fotogalerien."
+		},
+		"LearnMore": "Mehr erfahren ➔"
+	},
+	"Breadcrumbs": {
+		"blog": "Blog",
+		"home": "Startseite",
+		"utils": "Dienstprogramme"
+	},
+	"ImageCollectionRenderer": {
+		"title": "Bildsammlungs-Renderer",
+		"seo_desc": "Rendern Sie Ihre Bildsammlung komfortabel. Jeder Zentimeter Raum ist ausgefüllt",
+		"seo_title": "Bildsammlungs-Renderer"
+	},
+	"ScreenFillGallery": {
+		"title": "Bildschirmfüllende Galerie",
+		"description": "Laden Sie Bilder hoch und füllen Sie Ihren gesamten Bildschirm damit, wobei die Seitenverhältnisse beibehalten werden. Perfekt für immersive Fotogalerien.",
+		"seo_desc": "Füllen Sie Ihren Bildschirm gleichmäßig mit Bildern, wobei die Seitenverhältnisse beibehalten werden. Erstellen Sie schöne, platzsparende Fotogalerien.",
+		"seo_title": "Bildschirmfüllende Galerie - Gleichmäßige Bildverteilung",
+		"imageLabel": "Bilder auswählen",
+		"fullscreenMode": "Vollbildmodus",
+		"imagesLoaded": "{count} Bilder geladen",
+		"keyword1": "bildschirmfüllende galerie",
+		"keyword2": "bildergalerie",
+		"keyword3": "foto-viewer",
+		"keyword4": "seitenverhältnis",
+		"keyword5": "vollbildbilder",
+		"keyword6": "bildersammlung",
+		"keyword7": "fotoanzeige",
+		"keyword8": "responsive bilder",
+		"applicationName": "RevoTale Werkzeuge",
+		"category": "Technologie",
+		"classification": "Dienstprogramm",
+		"creator": "RevoTale",
+		"publisher": "RevoTale"
+	},
+	"DurationConverter": {
+		"seo_title": "Video beschleunigen/verlangsamen online",
+		"seo_desc": "Ändern Sie die Geschwindigkeit des Videos direkt im Browser. Alles wird von der CPU/RAM Ihres Geräts erledigt. Es werden keine Daten mit einem Server geteilt, da die Videobearbeitung durch die Leistung von WASM auf Ihrem Gerät erfolgt."
+	},
+	"URLEncoder": {
+		"seo_title": "URL Encoder",
+		"seo_desc": "Einfaches Tool zum Dekodieren oder Kodieren von URL-Entitäten ohne Programmierkenntnisse."
+	},
+	"URLDecoder": {
+		"seo_title": "URL Decoder",
+		"seo_desc": "Einfaches Tool zum Dekodieren oder Kodieren von URL-Entitäten ohne Programmierkenntnisse."
+	},
+	"Notes": {
+		"title": "Notizen",
+		"title_blog": "Blog",
+		"no_notes": "Noch keine Notizen :(",
+		"notes_heading": "Notizen",
+		"pagination": {
+			"previous": "Vorherige",
+			"next": "Nächste"
+		},
+		"json_ld": {
+			"description": "Entdecken Sie eine Sammlung von Notizen zu verschiedenen Themen, einschließlich Kodierung, Webperformance, SEO, KI-Workflows und Buchzusammenfassungen. Jede Notiz bietet schnelle Einblicke und umsetzbare Tipps für Entwickler und Technikbegeisterte.",
+			"name": "Notizen"
+		}
+	},
+	"Blog": {
+		"meta_title": "Blog",
+		"available_tags": "Verfügbare Tags",
+		"go_to_notes": "Notizen",
+		"go_to_micro_tales": "Mikrogeschichten",
+		"go_to_note": "Notiz anzeigen",
+		"go_to_articles": "Artikel",
+		"available_tag": "Verfügbare Tags:",
+		"meta_description": "Entdecken Sie die Schnittstelle zwischen Technologie, Wissenschaft und Gesellschaft mit unseren zum Nachdenken anregenden Artikeln. Von den neuesten Entwicklungen in der Hi-Tech und Programmierung bis hin zu aufschlussreichen Diskussionen über Politik und persönliche Erfahrungen ist unser Blog ein Schmelztiegel der Ideen, der informieren, inspirieren und Gespräche entfachen soll. Begleiten Sie uns auf einer Reise durch die faszinierende Welt der Innovation und Entdeckung.",
+		"latest_articles": "Lesen Sie die neuesten Artikel"
+	},
+	"HistoryOfUkraine": {
+		"extendedInfo": "Erweiterte Informationen",
+		"title": "Geschichte der Ukraine",
+		"meta_desc": "Die Geschichte der Ukraine in einfachen kurzen Thesen. Grundlegende Daten Schritt für Schritt. Bereiten Sie sich leicht auf die ukrainische Geschichtsprüfung vor.",
+		"table": {
+			"date": "Datum",
+			"event": "Ereignis",
+			"details": "Details",
+			"importance": "Bedeutung"
+		}
+	},
+	"Articles": {
+		"title": "Artikel",
+		"blog_crumb": "Blog"
+	},
+	"RandomRecordSelector": {
+		"title": "Zufälliger Datensatz-Auswähler",
+		"settings": "Einstellungen",
+		"records": "Datensätze",
+		"meta_desc": "Geben Sie die Liste der Datensätze ein, drehen Sie das Rad und erhalten Sie eine zufällig ausgewählte Zeile. Perfekt für Gewinnspiele, Entscheidungsfindung oder jede Situation, in der eine schnelle zufällige Auswahl erforderlich ist."
+	},
+	"ExpToolsBoard": {
+		"desc": "Sie sind sehr fehlerhaft, in aktiver Entwicklung oder funktionieren nicht. ¯\\_(ツ)_/¯",
+		"title": "Experimentelle Werkzeuge"
+	},
+	"OpenSource": {
+		"desc": "Teilen des Codes mit der Open-Source-Community, um der Welt zu helfen, schneller voranzukommen.",
+		"title": "Open Source",
+		"items": {
+			"desc": {
+				"obsidian_folder_by_tag_dist": "Sortieren Sie Ihre Obsidian Vault Notizen automatisch zwischen Ordnern basierend auf Tags. Dies zwingt Sie dazu, Ihre Tag- und Ordnerstruktur konsistent zu halten. Erstellen Sie eine Verzeichnisstruktur, platzieren Sie Ihre Tags, und Ihre Notizen werden automatisch zwischen Ordnern organisiert.",
+				"google_recaptcha": "Unsichtbare Google reCAPTCHA-Integration in jede React-Anwendung <important>ohne Einbußen bei der UX oder der Page Speed Score.</important>",
+				"lovely_eye": "Datenschutzfreundliche Open-Source-Analytics mit einem einfachen Dashboard zum Selbsthosten.",
+				"php_time": "Bibliothek zur Bewältigung von Problemen mit den eingebauten PHP DateTime-Klassen. Geht locker mit Typen um und bietet einen einfachen Ansatz zur Beziehung zwischen Zeit-, Intervall- und Zeitzonenobjekten.",
+				"nextjs_scroll_restorer": "Scroll-Wiederherstellung für Next.js von Grund auf neu erstellt. Für den Produktionseinsatz als Ersatz für die native 'scrollRestoration' in der Next.js-Konfiguration entwickelt, die sehr fehlerhaft ist."
+			},
+			"title": {
+				"obsidian_folder_by_tag_dist": "Obsidian Ordner-nach-Tag-Verteiler Plugin",
+				"google_recaptcha": "Google reCAPTCHA V3 für React",
+				"lovely_eye": "Lovely Eye",
+				"php_time": "PHP Zeit",
+				"nextjs_scroll_restorer": "Scroll-Wiederherstellung für Next.js"
+			}
+		}
+	},
+	"BlogBoard": {
+		"title": "Blog",
+		 "notes_title": "Notizen entdecken",
+		"desc": "Teilen von IT-bezogenen Dingen, Neuigkeiten, Wissenschaft, Erfahrungen und Gedanken.",
+		"explore": "Mehr Artikel entdecken ➔",
+		"welcome": "Wir freuen uns, dass Sie hier sind! Viel Spaß beim Lesen!",
+		"discover_notes": "Notizen entdecken",
+		"read_latest_articles": "Neueste Artikel lesen",
+		"go_to_blog": "Zum Blog gehen"
+	},
+	"RecordRandomizer": {
+		"seo_title": "Datensatz-Zufallsgenerator",
+		"seo_desc": "Geben Sie die Liste der Datensätze ein, drehen Sie das Rad und erhalten Sie eine zufällig ausgewählte Zeile. Perfekt für Gewinnspiele, Entscheidungsfindung oder jede Situation, in der eine schnelle zufällige Auswahl erforderlich ist.",
+		"setting_seo_title": "Datensatz-Zufallsgenerator Einstellungen",
+		"setting_seo_desc": "Datensatz-Zufallsgenerator Einstellungen. Geben Sie die Liste der Datensätze ein, drehen Sie das Rad und erhalten Sie eine zufällig ausgewählte Zeile. Perfekt für Gewinnspiele, Entscheidungsfindung oder jede Situation, in der eine schnelle zufällige Auswahl erforderlich ist.",
+		"setting_title": "Randomizer Einstellungen",
+		"duration_setting_title": "Dauer",
+		"duration_setting_desc": "Zeit in Sekunden, nach der das Rad angehalten werden soll",
+		"setting_disable_winner_dialog_title": "Gewinner-Dialog deaktivieren",
+		"setting_disable_winner_dialog_desc": "Aktivieren Sie dies, um das Popup mit dem Gewinner-Datensatz zu deaktivieren.",
+		"setting_save": "Speichern"
+	},
+	"Header": {
+		"GoHome": "Zur Startseite gehen",
+		"Search": "Suche"
+	},
+	"Footer": {
+		"Lang": {
+			"en": "Englisch",
+			"uk": "Ukrainisch",
+			"de": "Deutsch",
+			"fr": "Französisch",
+			"ja": "Japanisch",
+			"ru": "Russisch",
+			"hi": "Hindi",
+			"es": "Spanisch"
+		},
+		"sweetheart": "Für dich, Herzchen",
+		"PoweredBy": "Wir achten auf Ihre Privatsphäre. Analytics werden von <a>Open Source Software</a> betrieben.",
+		"OpenNavMapButton": "Seitennavigation öffnen",
+		"Utils": "Dienstprogramme",
+		"sea_battle": "Klassisches Seeschlacht-Spiel",
+		"notes": "Notizen",
+		"Blog": "Blog",
+		"LangTitle": "Sprachen",
+		"Rights": "© {year} {company}. Alle Rechte vorbehalten.",
+		"Nav": "Navigation",
+		"TwitterAlt": "Folgen Sie uns auf Twitter",
+		"GithubAlt": "Bewerten Sie uns auf GitHub",
+		"ReachOutTitle": "Kontaktieren Sie uns"
+	},
+	"SeaBattle": {
+		"json_ld": {
+			"name": "Seeschlacht-Spiel",
+			"description": "Ein Echtzeit-Seeschlacht-Spiel für zwei Spieler, spielbar im Browser. Erstellen Sie einen Raum, teilen Sie einen Link mit einem Freund, platzieren Sie Schiffe und treten Sie gegeneinander an.",
+			"serverName": "Seeschlacht-Spielraum erstellen"
+		},
+		"howToPlay": {
+			"title": "Über das Spiel",
+			"step1": "Keine Anmeldung nötig. Öffne einen Raum und du spielst sofort.",
+			"step2": "Platziere die 10 Standard-Schiffe, klicke auf Bereit und feuert abwechselnd, bis alle deine oder gegnerischen Schiffe versenkt sind.",
+			"step3": "Lade einen Freund ein oder spiele gegen einen Bot auf Einfach, Mittel, Schwer oder Hacker.",
+			"step4": "Echtzeit-Chat für die Kommunikation mit deinem Gegner im Spiel."
+		},
+		"unknown_player_generic": "Unbekannter Spieler",
+		"unknown_player_my": "Mein Spieler unbekannt",
+		"unknown_player_enemy": "Gegnerischer Spieler unbekannt",
+		"join_telegram": "Spiele mit mir eine Seeschlacht!",
+		"title": "Schlacht auf See",
+		"pageDescription": "Spiele Seeschlacht mit deinem Freund im Browser online. Schicke einen Link an deinen Freund, um zusammen zu spielen.",
+		"newGameWithFriend": "Starte ein neues Spiel mit einem Freund",
+		"newGameVsBot": "🤖 Gegen Bot spielen",
+		"or": "ODER",
+		"loading": "Lädt...",
+		"redirecting": "Weiterleitung zu einem Raum...",
+		"inviteFriend": "Freunde einladen",
+		"inviteFriendDesc": "Teile einen Link mit deinen Freunden, um zusammen zu spielen",
+		"CopyLink": "Link kopieren",
+		"facebook_icon": "Facebook",
+		"whatsapp_icon": "WhatsApp",
+		"telegram_icon": "Telegram",
+		"players": {
+			"title": "Spieler"
+		},
+		"chat": {
+			"button": "Chat",
+			"dialogTitle": "Raum-Chat",
+			"placeholder": "Gib deine Nachricht ein",
+			"send": "Senden",
+			"empty": "Noch keine Nachrichten",
+			"newBadge": "Neue Nachrichten",
+			"returnBackToShipLocating": "Zurück zur Schiffsplatzierung",
+			"returnBackButtonSingle": "Zurück",
+			"returnBackToYourTurn": "Zurück! Du bist am Zug!",
+			"returnBackToReadyToBattle": "Zurück! Dein Gegner ist bereit!"
+		},
+		"room": {
+			"title": "Seeschlacht-Raum"
+		},
+		"fight": {
+			"title": "Seeschlacht-Kampf",
+			"view_battle": "Schlachtfeld ansehen",
+			"enemy": "Gegnerisches Feld",
+			"your": "Dein Feld",
+			"yourTurn": "Dein Zug! 💪",
+			"enemyTurn": "Zug des Gegners 😈",
+			"you_hit": "Du hast das Schiff getroffen! 💥",
+			"you_missed": "Du hast verfehlt! 💦",
+			"enemy_missed": "Gegner hat verfehlt! 💦",
+			"enemy_hit_your_ship": "Gegner hat dein Schiff getroffen! 💥",
+			"waiting": "Warten auf Aktion"
+		},
+		"shipLocating": {
+			"title": "Seeschlacht-Schiffsplatzierung"
+		},
+		"exit": "Raum verlassen",
+		"ready": "Bereit 💪",
+		"not_ready": "Nicht bereit 🥥",
+		"result": {
+			"won": "Du hast gewonnen🎉!",
+			"lost": "Du hast die Schlacht verloren...😔",
+			"again": "Noch einmal spielen!"
+		},
+		"enter_name": "Gib einen neuen Benutzernamen ein",
+		"update_username": "Benutzernamen ändern",
+		"waiting_for_player": "Warte auf einen Spieler...",
+		"waiting_for_another_p": "Warte auf andere Spieler, um zu starten",
+		"start_battle": "Beginne eine Schlacht!",
+		"starting_game": "Spiel startet...",
+		"place_ship_title": "Platziere deine Schiffe",
+		"place_ship_desc": "Einfach ziehen und ablegen. Du kannst ein Schiff durch Klicken drehen!",
+		"randomize": "Schiffe zufällig anordnen",
+		"invalid_ships": "Ungültige Schiffplatzierung in Spalte #{x}, Reihe #{y}",
+		"locating": {
+			"start": "Speichern und Schlacht beginnen",
+			"waiting": "Warte darauf, dass ein anderer Spieler Schiffe platziert..."
+		},
+		"addBot": {
+			"emojiLabel": "Roboter",
+			"button": "Bot hinzufügen",
+			"title": "Bot-Spieler hinzufügen",
+			"skillLabel": "Bot-Schwierigkeitsgrad",
+			"cancel": "Abbrechen",
+			"loading": "Bot wird hinzugefügt...",
+			"confirm": "Bot hinzufügen"
+		},
+		"botSkill": {
+			"easy": "Einfach",
+			"easyDesc": "Gut für Anfänger",
+			"average": "Mittel",
+			"averageDesc": "Ausgewogenes Spiel",
+			"hard": "Schwer",
+			"hardDesc": "Herausfordernder Gegner",
+			"hacker": "Hacker",
+			"hackerDesc": "Ultimative Herausforderung"
+		},
+		"auth": {
+			"cookiesDisabled": {
+				"title": "Cookies sind deaktiviert",
+				"description": "<bold>Warnung!</bold> Wenn Sie die Seite neu laden, werden Sie abgemeldet, da Cookies in Ihrem Browser deaktiviert sind. Bitte aktivieren Sie Cookies, um Ihre Sitzung nach einem Neuladen der Seite aktiv zu halten."
+			},
+			"openInSystemBrowser": {
+				"title": "Bessere Erfahrung verfügbar",
+				"description": "Für ein besseres Spielerlebnis öffnen Sie diese Anwendung bitte in Ihrem System-Browser.",
+				"closeMessage": "Diese Nachricht schließen",
+				"openButton": "Im System-Browser öffnen",
+				"openGameButton": "Spiel im System-Browser öffnen"
+			}
+		}
+	},
+	"SeaBattleJoinLink": {
+		"meta": {
+			"title": "Seeschlacht-Spiel beitreten",
+			"description": "Trete einem Seeschlacht-Spiel über einen Einladungslink bei. Spiele in Echtzeit mit deinen Freunden!",
+			"ogTitle": "Tritt der Seeschlacht bei!",
+			"ogDescription": "Klicke auf den Link und spiele Seeschlacht in Echtzeit mit deinem Freund!",
+			"ogImageAlt": "Seeschlacht-Spiel"
+		},
+		"card": {
+			"title": "Trete der Schlacht bei...",
+			"errorTitle": "Fehler",
+			"noCodeTitle": "Kein Einladungscode",
+			"noCodeDescription": "Bitte verwende einen gültigen Einladungslink, um einem Spiel beizutreten.",
+			"backToLobby": "Zurück zur Lobby"
+		}
+	},
+	"GamesBoard": {
+		"title": "Browserspiele",
+		"desc": "Wir entwickeln Spiele für den Browser, um online zu spielen!",
+		"sea_battle_desc": "Müde davon, langweilige Texte an deinen Freund zu senden? Schicke ihm einen Einladungslink, um im Seegefecht gegen dich anzutreten! Kein App-Download erforderlich. Leichtgewichtiges Spiel im Browser für jedes Gerät!",
+		"sea_battle": "Seegefecht-Spiel per Link"
+	},
+	"SelfHostList": {
+		"title": "Selbst gehostete Dienste",
+		"githubLink": "Auf GitHub öffnen",
+		"desc": "Eigene Hosting von Open-Source-Projekten für den persönlichen Gebrauch. Mein Dank geht an die Autoren und Mitwirkenden dieser Projekte! ❤️",
+		"items": {
+			"title": {
+				"watcharr": "Watcharr",
+				"glance": "Gatus",
+				"memos": "Memos"
+			},
+			"desc": {
+				"glance": "Gatus ist eine entwicklerorientierte Statusseite, die unsere Dienste mit HTTP-, ICMP-, TCP- und DNS-Prüfungen überwacht, mit Alarmierung, und einer öffentlichen Statusansicht, damit jeder sieht, wenn ein Spiel oder Dienst ausfällt.",
+				"watcharr": "Watcharr ist eine Open-Source, selbst hostbare Beobachtungsliste für all deine Inhalte (Filme, TV-Serien, Anime, Spiele) mit Benutzer-Authentifizierung, einer modernen und übersichtlichen Benutzeroberfläche und einer sehr einfachen Einrichtung.",
+				"memos": "Memos ist eine Open-Source, leichte Lösung für Notizen. Der schmerzfreie Weg, deine sinnvollen Notizen zu erstellen. Deine Notizen, dein Weg."
+			}
+		}
+	},
+	"NotFound": {
+		"title": "Etwas fehlt.",
+		"message": "Entschuldigung, wir können diese Seite nicht finden. Auf der Startseite gibt es viel zu entdecken.",
+		"goHome": "Zur Startseite gehen."
+	},
+	"Error": {
+		"title": "Unerwarteter Fehler!"
+	},
+	"ImageCollection": {
+		"imageLabel": "Bild",
+		"submit": "Absenden"
+	},
+	"copyButton":{
+		"copy": "Kopieren",
+		"copied": "Kopiert!"
+	},
+	"RandomizerWheel": {
+		"restart_wheel": "Rad neu starten",
+		"close": "Schließen",
+		"winner_announcement": "Wir haben einen Gewinner! 🎉"
+	},
+	"RssFeed": {
+		"title": "RevoTale Notizen",
+		"description": "Neueste Notizen und Mikro-Posts von RevoTale",
+		"generator": "RevoTale RSS Generator",
+		"authorName": "RevoTale",
+		"authorEmail": "contact@revotale.com",
+		"unknownAuthor": "Unbekannt",
+		"untitledNote": "Unbenannte Notiz",
+		"internalServerError": "Interner Serverfehler"
+	}
+}

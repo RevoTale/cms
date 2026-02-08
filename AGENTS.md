@@ -1,11 +1,14 @@
 # AGENTS.md
 
 ## Overview
-CMS application used to manage site content, assets, and related APIs consumed by the public web app.
+Unified Next.js runtime that serves both the public website and Payload CMS/admin APIs.
 
 ## Folder Structure
-- `src/`: CMS source code and configuration.
-- `public/`: Static assets served by the CMS.
+- `src/app/(frontend)/`: Public website routes (localized).
+- `src/app/(payload)/`: Payload admin and generated API routes.
+- `src/app/src/`: Shared public-website UI/data/i18n logic migrated from legacy `app`.
+- `src/payload/`: Payload collections, hooks, tasks, and plugins.
+- `public/`: Static assets served by the unified runtime.
 - `Dockerfile` / `dev.Dockerfile`: Build and dev images.
 
 ## Core Behaviors & Patterns

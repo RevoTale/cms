@@ -1,0 +1,28 @@
+.social {
+	padding: 1.5em;
+	margin: 0;
+	display: flex;
+	gap: 2em;
+	list-style: none;
+	align-items: center;
+}
+
+.social li {
+	box-sizing: border-box;
+	line-height: 0;
+}
+
+.social a {
+	color: var(--button-primary-bg);
+	display: inline-block;
+}
+
+.social a:hover {
+	color: var(--button-primary-bg-hover);
+}
+
+.social svg,
+.social img {
+	height: 2.5em;
+	width: 2.5em;
+}

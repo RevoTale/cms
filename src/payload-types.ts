@@ -895,10 +895,10 @@ export interface PayloadQueryPresetsSelect<T extends boolean = true> {
 export interface TaskTranslateDocument {
   input: {
     postID: string;
-    sourceLocale: string;
+    sourceLocale: 'en-US' | 'uk-UA' | 'de-DE' | 'hi-IN' | 'ja-JP' | 'ru-RU' | 'fr-FR' | 'es-ES';
     collection: string;
     userId?: string | null;
-    targetLocale: string;
+    targetLocale: 'en-US' | 'uk-UA' | 'de-DE' | 'hi-IN' | 'ja-JP' | 'ru-RU' | 'fr-FR' | 'es-ES';
   };
   output?: unknown;
 }

@@ -6,6 +6,7 @@
 	"type": "module",
 	"scripts": {
 		"build": "NODE_ENV=production bun --bun --disable-transpile next build --experimental-build-mode=compile",
+    "build:gen": "NODE_ENV=production bun --bun --disable-transpile next build --experimental-build-mode=generate",
 		"dev": "next dev",
 		"p:cli": "bunx cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts bunx --bun payload --disable-transpile",
 		"start": "next start"

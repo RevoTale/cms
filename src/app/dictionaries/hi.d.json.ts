@@ -468,7 +468,7 @@ declare const messages: {
 		"imageLabel": "छवि",
 		"submit": "जमा करें"
 	},
-	"copyButton":{
+	"copyButton": {
 		"copy": "कॉपी करें",
 		"copied": "कॉपी किया गया!"
 	},

@@ -40,16 +40,52 @@
 	"assist": { "actions": { "source": { "organizeImports": "on" } } },
 	"linter": {
 		"enabled": true,
+		"domains": {
+			"react": "recommended",
+			"next": "recommended",
+			"tailwind": "recommended",
+			"project": "recommended"
+		},
 		"rules": {
-			"recommended": true
+			"recommended": true,
+			"a11y": {
+				"recommended": true
+			},
+			"complexity": {
+				"recommended": true
+			},
+			"correctness": {
+				"recommended": true
+			},
+			"nursery": {
+				"recommended": true
+			},
+			"performance": {
+				"recommended": true
+			},
+			"security": {
+				"recommended": true
+			},
+			"style": {
+				"recommended": true
+			},
+			"suspicious": {
+				"recommended": true
+			}
 		}
 	},
 	"css": {
+		"linter": {
+			"enabled": true
+		},
 		"parser": {
 			"tailwindDirectives": true
 		}
 	},
 	"javascript": {
+		"linter": {
+			"enabled": true
+		},
 		"formatter": {
 			"quoteStyle": "single",
 			"jsxQuoteStyle": "double",

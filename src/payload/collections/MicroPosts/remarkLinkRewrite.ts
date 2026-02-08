@@ -43,12 +43,13 @@ export const replaceAsync = async (
 	const re = new RegExp(regex.source, flags)
 
 	const matches: Array<{ match: string; groups: string[]; index: number; length: number }> = []
-	let m: RegExpExecArray | null
-	while ((m = re.exec(str)) !== null) {
+	let m = re.exec(str)
+	while (m !== null) {
 		const groups = m.slice(1)
 		matches.push({ match: m[0], groups, index: m.index, length: m[0].length })
 		// Avoid zero-length match infinite loop
 		if (m.index === re.lastIndex) re.lastIndex += 1
+		m = re.exec(str)
 	}
 
 	const replacements = await Promise.all(matches.map(async it => await asyncFn(it.match, ...it.groups)))

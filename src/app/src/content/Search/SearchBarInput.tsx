@@ -98,7 +98,9 @@ const SearchBarInput: FunctionComponent<Props> = ({ translationKeys, locale }) =
 			) : (
 				<ItemGroup className="gap-1">
 					{loading && items === null
-						? Array.from({ length: 10 }).map((_, i) => <SearchItemSkeleton key={i} />)
+						? Array.from({ length: 10 }, (_, index) => `search-skeleton-${index + 1}`).map(key => (
+								<SearchItemSkeleton key={key} />
+							))
 						: items?.map(item => (
 								<SearchItem
 									locale={locale}

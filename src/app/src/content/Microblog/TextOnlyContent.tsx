@@ -113,6 +113,7 @@ const TextOnlyContent: FunctionComponent<Props> = ({ markdown, locale }) => {
 							<code className={classN}>
 								<span
 									className=""
+									/* biome-ignore lint/security/noDangerouslySetInnerHtml: highlight.js output is trusted escaped markup */
 									dangerouslySetInnerHTML={{
 										__html: highlightedCode,
 									}}
@@ -132,6 +133,7 @@ const TextOnlyContent: FunctionComponent<Props> = ({ markdown, locale }) => {
 						<code className={inlineClassName}>{children}</code>
 					) : (
 						<code
+							/* biome-ignore lint/security/noDangerouslySetInnerHtml: highlight.js output is trusted escaped markup */
 							dangerouslySetInnerHTML={{
 								__html: highlightedCode,
 							}}

@@ -49,7 +49,7 @@ const Breadcrumbs: FunctionComponent<Props> = ({
 			<Breadcrumb className={className}>
 				<BreadcrumbList>
 					{crumbs.map((crumb, index) => (
-						<Fragment key={index}>
+						<Fragment key={`${crumb.href}:${crumb.title}`}>
 							<BreadcrumbItem>
 								<NextLink
 									locale={locale}
@@ -64,7 +64,7 @@ const Breadcrumbs: FunctionComponent<Props> = ({
 					))}
 				</BreadcrumbList>
 			</Breadcrumb>
-			<script dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} type="application/ld+json" />
+			<script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
 		</>
 	)
 }

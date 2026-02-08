@@ -13,7 +13,7 @@ import {
 const canonizeSearchQuery = (
 	pathname: string,
 	searchParams: Record<string, string | string[]> | ReadonlyURLSearchParams,
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any -- idk how to fix
+	/* biome-ignore lint/suspicious/noExplicitAny: mixed parameter coders from next-navigation-utils require heterogeneous value types */
 	availableParams: Array<ParameterOptions<any>>,
 ): RelativeURL => {
 	const link = availableParams.reduce<RelativeLinkBuilder | Linker<RelativeURL>>(

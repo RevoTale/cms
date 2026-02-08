@@ -212,14 +212,15 @@ function safeTruncate(text: string, maxLength: number): string {
 	}> = []
 
 	placeholders.forEach(placeholder => {
-		let index = 0
-		while ((index = text.indexOf(placeholder, index)) !== -1) {
+		let index = text.indexOf(placeholder)
+		while (index !== -1) {
 			placeholderPositions.push({
 				start: index,
 				end: index + placeholder.length,
 				placeholder,
 			})
 			index += placeholder.length
+			index = text.indexOf(placeholder, index)
 		}
 	})
 
@@ -277,64 +278,59 @@ export function toReactTranslate(
 		.join('|')
 	const combinedRegex = new RegExp(`\\[([\\w.]+)\\]|(?:${placeholderKeys})`, 'g')
 
-	do {
-		const match = combinedRegex.exec(text)
+	let match = combinedRegex.exec(text)
+	while (match !== null) {
+		const before = text.substring(nextStart, match.index)
 
-		if (match) {
-			const before = text.substring(nextStart, match.index)
+		if (before) {
+			result.push(before)
+		}
+		const [matchedText, id] = match
 
-			if (before) {
-				result.push(before)
-			}
-			const [matchedText, id] = match
-
-			// Check if it's a language tag or placeholder
-			if (undefined !== id) {
-				if (!disableLink) {
-					// Language tag
-					result.push(
-						<Link
-							className={buttonVariants({
-								variant: 'link',
-								size: 'sm',
-								className: 'max-w-full px-0 whitespace-normal',
-							})}
-							key={`lang-${match.index}`}
-							href={getMicropostHref(data).asString()}
-							id={id}
-						/>,
-					)
-				}
-			} else if (PLACEHOLDER_MAP[matchedText] !== undefined) {
-				const classsName = cn(
-					buttonVariants({
-						variant: 'link',
-						size: 'sm',
-					}),
-					'max-w-full px-0 break-words !whitespace-normal !inline',
+		// Check if it's a language tag or placeholder
+		if (undefined !== id) {
+			if (!disableLink) {
+				// Language tag
+				result.push(
+					<Link
+						className={buttonVariants({
+							variant: 'link',
+							size: 'sm',
+							className: 'max-w-full px-0 whitespace-normal',
+						})}
+						key={`lang-${match.index}`}
+						href={getMicropostHref(data).asString()}
+						id={id}
+					/>,
 				)
-				if (disableLink) {
-					result.push(
-						<span className={classsName} key={`placeholder-${match.index}`}>
-							{translationKeys[PLACEHOLDER_MAP[matchedText]]}
-						</span>,
-					)
-				} else {
-					// Placeholder text - wrap in Link
-					result.push(
-						<Link className={classsName} key={`placeholder-${match.index}`} href={getMicropostHref(data).asString()}>
-							{translationKeys[PLACEHOLDER_MAP[matchedText]]}
-						</Link>,
-					)
-				}
 			}
+		} else if (PLACEHOLDER_MAP[matchedText] !== undefined) {
+			const classsName = cn(
+				buttonVariants({
+					variant: 'link',
+					size: 'sm',
+				}),
+				'max-w-full px-0 break-words !whitespace-normal !inline',
+			)
+			if (disableLink) {
+				result.push(
+					<span className={classsName} key={`placeholder-${match.index}`}>
+						{translationKeys[PLACEHOLDER_MAP[matchedText]]}
+					</span>,
+				)
+			} else {
+				// Placeholder text - wrap in Link
+				result.push(
+					<Link className={classsName} key={`placeholder-${match.index}`} href={getMicropostHref(data).asString()}>
+						{translationKeys[PLACEHOLDER_MAP[matchedText]]}
+					</Link>,
+				)
+			}
+		}
 
-			nextStart = match.index + match[0].length
-		}
-		if (!match) {
-			break
-		}
-	} while (true)
+		nextStart = match.index + match[0].length
+		match = combinedRegex.exec(text)
+	}
 
 	if (nextStart < text.length) {
 		const after = text.substring(nextStart)

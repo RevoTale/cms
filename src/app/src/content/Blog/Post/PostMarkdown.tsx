@@ -150,6 +150,7 @@ const PostMarkdown: FunctionComponent<Props> = ({ markdown, translateLinks = {},
 							<code className={classN}>
 								<span
 									className=""
+									/* biome-ignore lint/security/noDangerouslySetInnerHtml: highlight.js output is trusted escaped markup */
 									dangerouslySetInnerHTML={{
 										__html: highlightedCode,
 									}}
@@ -169,6 +170,7 @@ const PostMarkdown: FunctionComponent<Props> = ({ markdown, translateLinks = {},
 						<code className={inlineClassName}>{children}</code>
 					) : (
 						<code
+							/* biome-ignore lint/security/noDangerouslySetInnerHtml: highlight.js output is trusted escaped markup */
 							dangerouslySetInnerHTML={{
 								__html: highlightedCode,
 							}}

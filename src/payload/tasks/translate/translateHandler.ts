@@ -5,7 +5,7 @@ function hasKey<T extends object>(obj: T, key: keyof T | string): key is keyof T
 	return key in obj
 }
 
-const translateHandler: TaskHandler<'translateDocument'> = async ({ input, job, req }) => {
+const translateHandler: TaskHandler<'translateDocument'> = async ({ input, req }) => {
 	const { localization } = req.payload.config
 	if (!localization) {
 		throw new Error('Localization is not enabled')

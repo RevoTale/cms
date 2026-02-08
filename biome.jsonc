@@ -41,34 +41,7 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true,
-			"a11y": {
-				"noStaticElementInteractions": "off",
-				"noSvgWithoutTitle": "off",
-				"useKeyWithClickEvents": "off",
-				"useMediaCaption": "off"
-			},
-			"complexity": {
-				"noCommaOperator": "off",
-				"noUselessFragments": "off"
-			},
-			"correctness": {
-				"noConstantCondition": "off",
-				"noUnusedFunctionParameters": "off"
-			},
-			"performance": {
-				"noAccumulatingSpread": "off",
-				"noImgElement": "off"
-			},
-			"security": {
-				"noDangerouslySetInnerHtml": "off"
-			},
-			"suspicious": {
-				"noArrayIndexKey": "off",
-				"noAssignInExpressions": "off",
-				"noExplicitAny": "off",
-				"noShadowRestrictedNames": "off"
-			}
+			"recommended": true
 		}
 	},
 	"css": {

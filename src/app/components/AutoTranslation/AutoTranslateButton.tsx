@@ -74,8 +74,8 @@ const AutoTranslateButton: FunctionComponent = () => {
 				))}
 			</div>
 			<div>
-				{results.map((result, index) => (
-					<div key={index} className="flex gap-2">
+				{results.map(result => (
+					<div key={result.locale} className="flex gap-2">
 						<div>{result.locale}: </div>
 						{result.error ? (
 							<div style={{ color: 'red' }}>

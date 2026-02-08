@@ -82,13 +82,6 @@ const NoteJsonLD: FunctionComponent<{
 	rootUrl: string
 }> = ({ note, locale, rootUrl }) => {
 	const jsonLd = getNoteJsonLD(note, rootUrl, locale)
-	return (
-		<script
-			type="application/ld+json"
-			dangerouslySetInnerHTML={{
-				__html: JSON.stringify(jsonLd),
-			}}
-		/>
-	)
+	return <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
 }
 export default NoteJsonLD

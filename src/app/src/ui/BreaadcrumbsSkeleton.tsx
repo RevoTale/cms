@@ -23,10 +23,9 @@ const availableCssClassCount = 3
 const BreaadcrumbsSkeleton: FunctionComponent<Props> = ({ count, className }) => (
 	<Breadcrumb className={className}>
 		<BreadcrumbList>
-			{Array(count)
-				.fill(null)
-				.map((_, index) => (
-					<Fragment key={index}>
+			{Array.from({ length: count }, (_, index) => ({ key: `crumb-skeleton-${index + 1}`, index })).map(
+				({ key, index }) => (
+					<Fragment key={key}>
 						<BreadcrumbItem>
 							<InlineSkeleton
 								className={clsx(
@@ -44,7 +43,8 @@ const BreaadcrumbsSkeleton: FunctionComponent<Props> = ({ count, className }) =>
 						</BreadcrumbItem>
 						{index === count - 1 ? null : <BreadcrumbSeparator />}
 					</Fragment>
-				))}
+				),
+			)}
 		</BreadcrumbList>
 	</Breadcrumb>
 )

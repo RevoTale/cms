@@ -60,13 +60,6 @@ const BlogPostJsonLD: FunctionComponent<Props> = ({ post, locale, rootUrl }) => 
 		publisher: getOrganizationJsonLD(getDomain()),
 		image: featuredImage !== undefined && featuredImage !== null ? getImageJsonLd(rootUrl, featuredImage) : undefined,
 	}
-	return (
-		<script
-			dangerouslySetInnerHTML={{
-				__html: JSON.stringify(markup),
-			}}
-			type="application/ld+json"
-		/>
-	)
+	return <script type="application/ld+json">{JSON.stringify(markup)}</script>
 }
 export default BlogPostJsonLD

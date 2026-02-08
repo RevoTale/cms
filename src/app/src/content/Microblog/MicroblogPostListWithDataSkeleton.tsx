@@ -6,17 +6,16 @@ interface Props {
 	skeletonCount: number
 }
 const MicroBlogPostListWithDataSkeleton: FunctionComponent<Props> = ({ skeletonCount }) => {
+	const skeletonKeys = Array.from({ length: skeletonCount }, (_, index) => `microblog-skeleton-${index + 1}`)
 	return (
 		<BlogPostList>
-			{Array(skeletonCount)
-				.fill(null)
-				.map((_, i) => {
-					return (
-						<li className="basis-64" key={`index_${i}`}>
-							<MicroblogListItemSkeleton className="max-w-64" />
-						</li>
-					)
-				})}
+			{skeletonKeys.map(key => {
+				return (
+					<li className="basis-64" key={key}>
+						<MicroblogListItemSkeleton className="max-w-64" />
+					</li>
+				)
+			})}
 		</BlogPostList>
 	)
 }

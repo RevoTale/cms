@@ -5,11 +5,9 @@ import type { FunctionComponent } from 'react'
 const Text: FunctionComponent<{ count: number }> = ({ count }) => (
 	<>
 		<InlineSkeleton className="h-4 w-full mt-5" />
-		{Array(count)
-			.fill(null)
-			.map((_, index) => (
-				<InlineSkeleton className={clsx('h-4', 'w-full', count - 1 === index ? 'w-4/6' : undefined)} key={index} />
-			))}
+		{Array.from({ length: count }, (_, index) => `line-${index + 1}`).map((lineKey, index) => (
+			<InlineSkeleton className={clsx('h-4', 'w-full', count - 1 === index ? 'w-4/6' : undefined)} key={lineKey} />
+		))}
 	</>
 )
 const PostMarkdownSkeleton: FunctionComponent = () => (

@@ -19,6 +19,10 @@ interface Props {
 }
 const noPostsThreshold = 0
 const skeletonCountDefault = 8
+
+const getSkeletonKeys = (count: number): string[] =>
+	Array.from({ length: count }, (_, index) => `micro-skeleton-${index + 1}`)
+
 const MicroBlogPostListWithData: FunctionComponent<Props> = ({
 	items,
 	skeletonCount = skeletonCountDefault,
@@ -26,16 +30,15 @@ const MicroBlogPostListWithData: FunctionComponent<Props> = ({
 }) => {
 	const t = useTranslations('microblog')
 	const tKeys = useMemo(() => {
-		return Object.keys(PLACEHOLDER_MAP).reduce<PlaceholderMapTranslationKeys>((acc, key) => {
+		const translatedKeys = {} as PlaceholderMapTranslationKeys
+		Object.keys(PLACEHOLDER_MAP).forEach(key => {
 			const mapKey = PLACEHOLDER_MAP[key]
 			if (mapKey === undefined) {
 				throw new Error(`No mapping found for key: ${key}`)
 			}
-			return {
-				...acc,
-				[key]: t(mapKey),
-			}
-		}, {})
+			translatedKeys[key] = t(mapKey)
+		})
+		return translatedKeys
 	}, [t])
 	if (items?.length === noPostsThreshold) {
 		return <p className="m-auto text-4xl text-center font-bold my-12">No notes yet :(</p>
@@ -44,21 +47,19 @@ const MicroBlogPostListWithData: FunctionComponent<Props> = ({
 	return (
 		<BlogPostList>
 			{items === null
-				? Array(skeletonCount)
-						.fill(null)
-						.map((_, i) => {
-							return (
-								<li className="basis-64" key={`index_${i}`}>
-									<BlogListItem
-										translationKeys={null}
-										className="max-w-64"
-										imageSizes={imageSizes}
-										locale={locale}
-										post={null}
-									/>
-								</li>
-							)
-						})
+				? getSkeletonKeys(skeletonCount).map(key => {
+						return (
+							<li className="basis-64" key={key}>
+								<BlogListItem
+									translationKeys={null}
+									className="max-w-64"
+									imageSizes={imageSizes}
+									locale={locale}
+									post={null}
+								/>
+							</li>
+						)
+					})
 				: items.map(item => {
 						const data = getFragmentData(blogPostlistFragment, item)
 						return (

@@ -31,14 +31,7 @@ const UrlToolJsonLd: FunctionComponent<Props> = async ({ locale }) => {
 		dateCreated: '2024',
 		isAccessibleForFree: true,
 	}
-	return (
-		<script
-			type="application/ld+json"
-			dangerouslySetInnerHTML={{
-				__html: JSON.stringify(json),
-			}}
-		/>
-	)
+	return <script type="application/ld+json">{JSON.stringify(json)}</script>
 }
 
 export default UrlToolJsonLd

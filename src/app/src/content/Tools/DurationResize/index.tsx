@@ -221,7 +221,9 @@ const DurationResize: FunctionComponent<{
 			{videoHandler.loading ? (
 				<div className="w-full max-w-sm">
 					<Progress max={maxPercent} value={progress * maxPercent} />
-					<div className="text-sm text-muted-foreground mt-1">{Math.round(progress * maxPercent)}%</div>
+					<div className="text-sm text-muted-foreground mt-1">
+						{loadingText} {Math.round(progress * maxPercent)}%
+					</div>
 				</div>
 			) : null}
 
@@ -247,6 +249,7 @@ const DurationResize: FunctionComponent<{
 					<CardContent>
 						<video className="w-full max-w-3xl" controls>
 							<source src={file} type="video/webm" />
+							<track default kind="captions" label="No spoken content" src="data:text/vtt,WEBVTT" srcLang="en" />
 							{notSupportedText}
 						</video>
 					</CardContent>

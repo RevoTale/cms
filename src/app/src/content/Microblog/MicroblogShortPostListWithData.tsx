@@ -36,26 +36,24 @@ const MicroblogShortPostListWithData: FunctionComponent<Props> = ({
 	return (
 		<ul className="mx-auto flex w-full max-w-2xl flex-col gap-3">
 			{items === null
-				? Array(skeletonCount)
-						.fill(null)
-						.map((_, index) => {
-							return (
-								<li key={`micro_skeleton_${index}`}>
-									<Card className="rounded-xl border-border/70">
-										<CardHeader className="gap-2 px-3 py-2">
-											<BlogListItemAuthor locale={locale} author={null} />
-											<InlineSkeleton className="h-4 w-28 ml-auto" />
-										</CardHeader>
-										<CardContent className="space-y-2 px-3 pb-3 pt-0">
-											<InlineSkeleton className="h-4 w-full" />
-											<InlineSkeleton className="h-4 w-5/6" />
-											<InlineSkeleton className="h-4 w-2/3" />
-											<Skeleton className="h-36 w-full" />
-										</CardContent>
-									</Card>
-								</li>
-							)
-						})
+				? Array.from({ length: skeletonCount }, (_, index) => `micro-skeleton-${index + 1}`).map(key => {
+						return (
+							<li key={key}>
+								<Card className="rounded-xl border-border/70">
+									<CardHeader className="gap-2 px-3 py-2">
+										<BlogListItemAuthor locale={locale} author={null} />
+										<InlineSkeleton className="h-4 w-28 ml-auto" />
+									</CardHeader>
+									<CardContent className="space-y-2 px-3 pb-3 pt-0">
+										<InlineSkeleton className="h-4 w-full" />
+										<InlineSkeleton className="h-4 w-5/6" />
+										<InlineSkeleton className="h-4 w-2/3" />
+										<Skeleton className="h-36 w-full" />
+									</CardContent>
+								</Card>
+							</li>
+						)
+					})
 				: items.map(item => {
 						const data = getFragmentData(postItemFragment, item)
 						return (

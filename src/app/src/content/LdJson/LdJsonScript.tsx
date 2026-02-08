@@ -5,14 +5,7 @@ interface Props<T extends Thing> {
 	data: WithContext<T>
 }
 const LdJsonScript: FunctionComponent<Props<Thing>> = ({ data }) => {
-	return (
-		<script
-			type="application/ld+json"
-			dangerouslySetInnerHTML={{
-				__html: JSON.stringify(data),
-			}}
-		/>
-	)
+	return <script type="application/ld+json">{JSON.stringify(data)}</script>
 }
 
 export default LdJsonScript

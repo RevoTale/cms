@@ -90,7 +90,6 @@ const ImageContainer: FunctionComponent<ContainerProps> = ({ images }) => {
 						alt={`image-${index}`}
 						className="w-full object-contain"
 						height={height}
-						key={index}
 						src={src}
 						unoptimized
 						width={width}

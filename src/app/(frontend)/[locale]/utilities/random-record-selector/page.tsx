@@ -53,7 +53,7 @@ const RandomRecordSelectorPage: FunctionComponent<PagePropsWithLocale> = async (
 				/>
 			</Suspense>
 
-			<Suspense fallback={<></>}>
+			<Suspense fallback={null}>
 				<SettingLink
 					locale={locale}
 					className={cn(

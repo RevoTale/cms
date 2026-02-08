@@ -29,7 +29,9 @@ const AvailableTags: FunctionComponent<Props> = ({ usedNames, locale, postType }
 			<span className="text-base font-medium">{t('available_tags')} </span>
 			<Suspense>
 				{loading
-					? Array.from({ length: 6 }).map((_, index) => <MicroBlogTagSkeleton key={`tag_skeleton_${index}`} />)
+					? Array.from({ length: 6 }, (_, index) => `tag_skeleton_${index + 1}`).map(key => (
+							<MicroBlogTagSkeleton key={key} />
+						))
 					: tags.map(item => {
 							const used = usedNames.some(i => i === item.name)
 							if (used) {

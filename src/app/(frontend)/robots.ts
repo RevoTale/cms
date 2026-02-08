@@ -1,7 +1,6 @@
 import type {MetadataRoute} from 'next'
 import getUrl from '../src/linking/getUrl'
 
-export const dynamic = 'force-static'
 
 export default function robots(): MetadataRoute.Robots {
 	return {

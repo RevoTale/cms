@@ -30,7 +30,6 @@ const postsQuery = graphql(/* GraphQL */ `
 		}
 	}
 `)
-export const dynamic = 'force-static'
 
 const generateIds = (count: number): number[] => {
 	const pageNumbers = []

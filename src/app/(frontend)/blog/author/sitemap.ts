@@ -18,7 +18,6 @@ const authorsQuery = graphql(/* GraphQL */ `
 		}
 	}
 `)
-export const dynamic = 'force-static'
 
 const generateSitemapIds = (count: number): number[] => {
 	const pageNumbers: number[] = []

@@ -1,14 +1,13 @@
-import {defaultLocale} from '@/i18n/config'
+import { defaultLocale } from '@/i18n/config'
 import generateSitemapLanguages from '@/i18n/generateSitemapLanguages'
-import {graphql} from '@blog/gql'
-import type {MetadataRoute} from 'next'
-import {sitemapCache} from '../../../src/cache-config'
-import {getClient} from '../../../src/gql/getClient'
+import { graphql } from '@blog/gql'
+import type { MetadataRoute } from 'next'
+import { sitemapCache } from '../../../src/cache-config'
+import { getClient } from '../../../src/gql/getClient'
 import getUrl from '../../../src/linking/getUrl'
 import getNextJsApolloCache from '../../../src/utils/getNextJsApolloCache'
 
 const SITEMAP_PAGE_LIMIT = 50
-export const dynamic = 'force-static'
 
 const tagsQuery = graphql(/* GraphQL */ `
 	query sitemap_blog_tags_list($page: Int!, $limit: Int!) {
@@ -65,7 +64,7 @@ const generateSitemaps = async (): Promise<Array<{id: number}>> => {
 	return []
 }
 
-export {generateSitemaps}
+export { generateSitemaps }
 
 const sitemap = async ({
 	id,

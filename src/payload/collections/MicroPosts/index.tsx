@@ -33,7 +33,7 @@ const getPostTypeFromContent = (content: unknown): 'short' | 'long' => {
       return 'short'
     }
 
-    const localizedValues = Object.values(content as Record<string, unknown>)
+    const localizedValues = Object.values(content)
     const hasLongVariant = localizedValues.some(
       (localizedValue) =>
         typeof localizedValue === 'string' && localizedValue.length >= SHORT_POST_MAX,

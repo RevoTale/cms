@@ -10,7 +10,6 @@ import {
 	URLStringToolCrumb,
 	VideoDurationChanger,
 } from '../src/linking/map/tools'
-export const dynamic = 'force-static'
 
 export default function sitemap(): MetadataRoute.Sitemap {
 	return [

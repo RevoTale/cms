@@ -1,8 +1,7 @@
 import getUrl from '../../src/linking/getUrl'
-import {generateSitemaps as authors} from '../blog/author/sitemap'
-import {generateSitemaps as notes} from '../blog/note/sitemap'
-import {generateSitemaps as noteTags} from '../blog/notes/sitemap'
-export const dynamic = 'force-static'
+import { generateSitemaps as authors } from '../blog/author/sitemap'
+import { generateSitemaps as notes } from '../blog/note/sitemap'
+import { generateSitemaps as noteTags } from '../blog/notes/sitemap'
 
 const GET = async (): Promise<Response> => {
 	const notesPromise: string[] = await notes().then(notes =>
@@ -63,4 +62,5 @@ ${sitemaps
 	return response
 }
 
-export {GET}
+export { GET }
+

@@ -195,11 +195,37 @@ The seed script will also create a demo user for demonstration purposes only:
 
 ## Production
 
-To run Payload in production, you need to build and start the Admin panel. To do so, follow these steps:
+This project supports Next.js experimental build modes so you can choose between a single-image build or a portable two-phase build.
 
-1. Invoke the `next build` script by running `bun run build` or `npm run build` in your project root. This creates a `.next` directory with a production-ready admin bundle.
-1. Finally run `bun run start` or `npm run start` to run Node in production and serve Payload from the `.build` directory.
-1. When you're ready to go live, see [Deployment](#deployment) for more details.
+### Build modes
+
+- `bun run build:compile`: `next build --experimental-build-mode=compile`. Produces portable intermediate output without static pre-generation.
+- `bun run build:generate`: `next build --experimental-build-mode=generate`. Finalizes static generation and environment-specific optimizations from a prior compile.
+- `bun run build:generate-env`: `next build --experimental-build-mode=generate-env`. Same phase as `generate`, but optimized for deployment-time environment injection.
+- `bun run build:default`: regular single-step `next build`.
+
+### Two-phase flow (`compile -> deploy -> generate`)
+
+1. Run `bun run build:compile` in CI or a builder image.
+1. Deploy the compiled artifact/image to the target environment.
+1. Run `bun run build:generate` in the target environment (with final environment variables).
+1. Start the app with `bun run start`.
+
+If environment variables must be baked into client bundles, set them before the `build:generate` step in the deployment environment.
+
+### Docker multi-stage targets
+
+- `runner` (default): runs both `compile` and `generate` in the builder stage and copies final standalone output to a slim runtime image.
+- `runner-generate`: ships compile output and runs `generate` at runtime via container entrypoint for environment-specific finalization after deploy. The standalone `server.js` starts only after `generate` succeeds.
+
+Example builds:
+
+```bash
+docker build -f Dockerfile --target runner -t cms:latest .
+docker build -f Dockerfile --target runner-generate -t cms:portable .
+```
+
+When using `runner-generate`, the runtime image must include production dependencies (including `next`) plus runtime tooling (Bun/Node) to execute `generate`. This image is intentionally larger than `runner`.
 
 ### Deploying to Payload Cloud
 
@@ -214,7 +240,7 @@ Coming soon.
 Before deploying your app, you need to:
 
 1. Ensure your app builds and serves in production. See [Production](#production) for more details.
-2. Serve it from a
+2. Serve it from a Node.js 20.9+ runtime with all required environment variables configured.
 
 You can also deploy your app manually, check out the [deployment documentation](https://payloadcms.com/docs/beta/production/deployment) for full details.
 

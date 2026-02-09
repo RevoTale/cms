@@ -24,6 +24,10 @@ const AvailableTags: FunctionComponent<Props> = ({ usedNames, locale, postType }
 	})
 	const t = useTranslations('Blog')
 	const tags = data?.availableTagsByMicroPostType ?? []
+	const shouldHide = !loading && tags.length === 0
+	if (shouldHide) {
+		return null
+	}
 	return (
 		<div className="flex flex-wrap gap-3 items-center ">
 			<span className="text-base font-medium">{t('available_tags')} </span>

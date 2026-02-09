@@ -1,6 +1,22 @@
 version: "3"
 
 tasks:
+  build:
+    desc: Build Next.js with compile mode (default)
+    cmds:
+      - task: build:compile
+  build:compile:
+    desc: Build Next.js with experimental compile mode
+    cmds:
+      - NODE_ENV=production bun --bun --disable-transpile next build --experimental-build-mode=compile
+  build:generate:
+    desc: Build Next.js with experimental generate mode
+    cmds:
+      - NODE_ENV=production bun --bun --disable-transpile next build --experimental-build-mode=generate
+  build:default:
+    desc: Build Next.js with default mode
+    cmds:
+      - NODE_ENV=production bun --bun --disable-transpile next build
   codegen:
     desc: Run CMS + frontend generators (Payload + Next + GraphQL types)
     cmds:
@@ -38,7 +54,7 @@ tasks:
     cmds:
       - bunx biome check .
   typegen:
-    desc: Generate NExtjs type (needed for the build validation)
+    desc: Generate Next.js type metadata (needed for build validation)
     cmds:
       - bunx next typegen
   typecheck:

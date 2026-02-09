@@ -1,27 +1,22 @@
 # AGENTS.md
 
-## Overview
-Unified Next.js runtime that serves both the public website and Payload CMS/admin APIs.
+## Dev environment tips
+- Run package-level commands from `cms/`.
+- Install deps with `bun install --frozen-lockfile --linker=isolated`.
+- Use Taskfile for routine commands: `task build:compile`, `task build:generate`, `task validate`, `task codegen:check`.
+- Keep Payload CLI reuse in `package.json` via `bun run p:cli <command>` instead of inlining long `PAYLOAD_CONFIG_PATH` commands in Taskfile.
+- Docker production build uses standalone runtime output only; switch build mode with `--build-arg NEXT_BUILD_MODE=<compile|default|generate>`.
 
-## Folder Structure
-- `src/app/(frontend)/`: Public website routes (localized).
-- `src/app/(payload)/`: Payload admin and generated API routes.
-- `src/app/src/`: Shared public-website UI/data/i18n logic migrated from legacy `app`.
-- `src/payload/`: Payload collections, hooks, tasks, and plugins.
-- `public/`: Static assets served by the unified runtime.
-- `Dockerfile` / `dev.Dockerfile`: Build and dev images.
+## Testing instructions
+- CI plans live in `cms/.github/workflows/test.yml` and `cms/.github/workflows/release.yml`.
+- Before merge, run `task validate` and `task codegen:check` from `cms/`.
+- If generated artifacts drift, run `task codegen` and then rerun `task validate`.
+- For container-level verification, run `docker build -f Dockerfile --target runner .` (optionally with `--build-arg NEXT_BUILD_MODE=...`).
+- Keep all checks green before committing.
 
-## Core Behaviors & Patterns
-- Preserve API compatibility with the public app.
-- Prefer explicit configuration changes over implicit defaults.
-- Keep server behavior aligned with existing CMS conventions.
-
-## Conventions
-- Maintain existing linting and formatting conventions.
-- Avoid renaming routes, fields, or schema keys without a clear request.
-- Keep environment variable usage consistent with current patterns.
-
-## Working Agreements
-- Scope changes to the request; avoid unrelated refactors.
-- Keep edits minimal and consistent with existing style.
-- Summarize edits with exact file paths.
+## PR instructions
+- Scope edits to the request and avoid unrelated refactors.
+- Preserve API/schema compatibility for `src/app/(frontend)` and `src/app/(payload)` unless explicitly requested.
+- For image publishing changes, keep `.github/workflows/manual-compile-image.yml` behavior intact: manual dispatch, `build_mode` input, auto tags `latest` + latest git tag.
+- Manual image workflow builds/pushes only; VPS deployment is manual.
+- Summaries must include exact file paths changed and any assumptions/questions.

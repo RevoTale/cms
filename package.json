@@ -5,12 +5,6 @@
 	"license": "MIT",
 	"type": "module",
 	"scripts": {
-		"build": "bun run build:compile",
-		"build:compile": "NODE_ENV=production bun --bun --disable-transpile next build --experimental-build-mode=compile",
-		"build:generate": "NODE_ENV=production bun --bun --disable-transpile next build --experimental-build-mode=generate",
-		"build:generate-env": "NODE_ENV=production bun --bun --disable-transpile next build --experimental-build-mode=generate-env",
-		"build:default": "NODE_ENV=production bun --bun --disable-transpile next build",
-		"build:gen": "bun run build:generate",
 		"dev": "next dev",
 		"p:cli": "bunx cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts bunx --bun payload --disable-transpile",
 		"start": "next start"

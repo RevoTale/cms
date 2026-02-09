@@ -36,7 +36,10 @@ tasks:
     desc: Lint sources
     cmds:
       - bunx biome check .
-
+  typegen:
+    desc: Generate NExtjs type (needed for the build validation)
+    cmds:
+      - bunx next typegen
   typecheck:
     desc: Run TypeScript typecheck
     cmds:

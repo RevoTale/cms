@@ -1,7 +1,7 @@
-import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres'
+import { type MigrateDownArgs, type MigrateUpArgs, sql } from '@payloadcms/db-postgres'
 
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
-  await db.execute(sql`
+	await db.execute(sql`
    ALTER TABLE "payload_jobs_stats" DISABLE ROW LEVEL SECURITY;
   DROP TABLE "payload_jobs_stats" CASCADE;
   DROP INDEX "payload_jobs_workflow_slug_idx";
@@ -11,7 +11,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
 }
 
 export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
-  await db.execute(sql`
+	await db.execute(sql`
    CREATE TYPE "public"."enum_payload_jobs_workflow_slug" AS ENUM('localizeRemainedDocuments');
   CREATE TABLE "payload_jobs_stats" (
   	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,

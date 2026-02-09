@@ -1,7 +1,7 @@
-import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres'
+import { type MigrateDownArgs, type MigrateUpArgs, sql } from '@payloadcms/db-postgres'
 
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
-  await db.execute(sql`
+	await db.execute(sql`
    ALTER TABLE "payload_locked_documents_rels" DROP CONSTRAINT "payload_locked_documents_rels_payload_kv_fk";
   
   ALTER TABLE "payload_locked_documents_rels" DROP CONSTRAINT "payload_locked_documents_rels_payload_jobs_fk";
@@ -13,7 +13,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
 }
 
 export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
-  await db.execute(sql`
+	await db.execute(sql`
    ALTER TABLE "payload_locked_documents_rels" ADD COLUMN "payload_kv_id" uuid;
   ALTER TABLE "payload_locked_documents_rels" ADD COLUMN "payload_jobs_id" uuid;
   ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_payload_kv_fk" FOREIGN KEY ("payload_kv_id") REFERENCES "public"."payload_kv"("id") ON DELETE cascade ON UPDATE no action;

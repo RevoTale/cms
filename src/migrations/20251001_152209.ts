@@ -1,7 +1,7 @@
-import { type MigrateUpArgs, type MigrateDownArgs, sql } from '@payloadcms/db-postgres'
+import { type MigrateDownArgs, type MigrateUpArgs, sql } from '@payloadcms/db-postgres'
 
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
-  await db.execute(sql`
+	await db.execute(sql`
    DROP INDEX "payload_locked_documents_rels_micro_post_internal_links__idx";
   DROP INDEX "payload_locked_documents_rels_micro_post_external_links__idx";
   ALTER TABLE "micro_posts" ADD COLUMN "slug" varchar;
@@ -13,7 +13,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
 }
 
 export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
-  await db.execute(sql`
+	await db.execute(sql`
    DROP INDEX "micro_posts_slug_idx";
   DROP INDEX "_micro_posts_v_version_version_slug_idx";
   DROP INDEX "payload_locked_documents_rels_micro_post_internal_links_id_idx";

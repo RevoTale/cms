@@ -1,7 +1,7 @@
-import { MigrateDownArgs, MigrateUpArgs, sql } from '@payloadcms/db-postgres'
+import { type MigrateDownArgs, type MigrateUpArgs, sql } from '@payloadcms/db-postgres'
 
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
-  await db.execute(sql`
+	await db.execute(sql`
     ALTER TABLE IF EXISTS "micro_post_internal_links" DISABLE ROW LEVEL SECURITY;
     ALTER TABLE IF EXISTS "micro_post_internal_links_locales" DISABLE ROW LEVEL SECURITY;
     DROP TABLE IF EXISTS "micro_post_internal_links" CASCADE;
@@ -12,7 +12,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
 }
 
 export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
-  await db.execute(sql`
+	await db.execute(sql`
    CREATE TABLE "micro_post_internal_links" (
   	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
   	"source_note_id" uuid NOT NULL,

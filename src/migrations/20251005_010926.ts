@@ -1,7 +1,7 @@
-import { type MigrateUpArgs, type MigrateDownArgs, sql } from '@payloadcms/db-postgres'
+import { type MigrateDownArgs, type MigrateUpArgs, sql } from '@payloadcms/db-postgres'
 
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
-  await db.execute(sql`
+	await db.execute(sql`
    CREATE TYPE "public"."enum_micro_posts_cron_translation_locales_queued" AS ENUM('en-US', 'uk-UA', 'de-DE', 'hi-IN', 'ja-JP', 'ru-RU', 'fr-FR', 'es-ES');
   CREATE TYPE "public"."enum__micro_posts_v_version_cron_translation_locales_queued" AS ENUM('en-US', 'uk-UA', 'de-DE', 'hi-IN', 'ja-JP', 'ru-RU', 'fr-FR', 'es-ES');
   CREATE TABLE "micro_posts_cron_translation_locales_queued" (
@@ -27,7 +27,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
 }
 
 export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
-  await db.execute(sql`
+	await db.execute(sql`
    DROP TABLE "micro_posts_cron_translation_locales_queued" CASCADE;
   DROP TABLE "_micro_posts_v_version_cron_translation_locales_queued" CASCADE;
   DROP TYPE "public"."enum_micro_posts_cron_translation_locales_queued";

@@ -9,7 +9,7 @@ const normalizeSrc = src => {
 	return `/url/${src}`
 }
 
-export default function cloudflareLoader({src, width}) {
+export default function cloudflareLoader({ src, width }) {
 	// Encode spaces in the source URL
 	const encodedSrc = src.replace(/ /g, '%20')
 	return `/cdn/image/${width}${normalizeSrc(encodedSrc)}`

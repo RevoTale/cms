@@ -9,27 +9,13 @@
 		"ignoreUnknown": true,
 		"includes": [
 			"**",
-			"!**/.next",
-			"!**/node_modules",
 			"!next-env.d.ts",
-			"!next.config.ts",
-			"!imageLoader.js",
-			"!codegen.ts",
-			"!global.ts",
 			"!**/importMap.js",
 			"!src/payload-generated-schema.ts",
 			"!src/payload-types.ts",
-			"!src/app/src/gql",
-			"!src/app/dictionaries/**/*.d.json.ts",
-			"!src/migrations",
-			"!postcss.config.js",
 			"!**/@shadcn/ui",
-			"!**/build",
-			"!**/dist",
-			"!**/docs",
-			"!**/temp",
-			"!tsconfig.json",
-			"!tsconfig.tsbuildinfo"
+			"!src/app/src/gql",
+			"!src/migrations"
 		]
 	},
 	"formatter": {

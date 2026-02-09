@@ -1,8 +1,8 @@
 import { type MigrateDownArgs, type MigrateUpArgs, sql } from '@payloadcms/db-postgres'
 
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
-  //GPT 5 helped to fix this!
-  await db.execute(sql`
+	//GPT 5 helped to fix this!
+	await db.execute(sql`
    CREATE TYPE "public"."enum_payload_jobs_workflow_slug" AS ENUM('localizeRemainedDocuments');
   ALTER TABLE "payload_jobs_log" ALTER COLUMN "task_slug" SET DATA TYPE text;
   -- Remap legacy values to align with the new enum before casting
@@ -28,7 +28,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
 }
 
 export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
-  await db.execute(sql`
+	await db.execute(sql`
    ALTER TABLE "payload_jobs_log" ALTER COLUMN "task_slug" SET DATA TYPE text;
   -- Remap values to align with the older enum before casting
   UPDATE "payload_jobs_log" SET "task_slug" = 'translatePost' WHERE "task_slug" = 'translateDocument';

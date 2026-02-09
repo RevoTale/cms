@@ -1,7 +1,7 @@
-import { type MigrateUpArgs, type MigrateDownArgs, sql } from '@payloadcms/db-postgres'
+import { type MigrateDownArgs, type MigrateUpArgs, sql } from '@payloadcms/db-postgres'
 
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
-  await db.execute(sql`
+	await db.execute(sql`
    CREATE TYPE "public"."_locales" AS ENUM('en-US', 'uk-UA', 'de-DE', 'hi-IN', 'ja-JP', 'ru-RU', 'fr-FR', 'es-ES');
   CREATE TYPE "public"."enum_posts_status" AS ENUM('draft', 'published');
   CREATE TYPE "public"."enum__posts_v_version_status" AS ENUM('draft', 'published');
@@ -482,7 +482,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
 }
 
 export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
-  await db.execute(sql`
+	await db.execute(sql`
    DROP TABLE "posts" CASCADE;
   DROP TABLE "posts_locales" CASCADE;
   DROP TABLE "posts_rels" CASCADE;

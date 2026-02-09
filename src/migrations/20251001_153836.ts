@@ -1,7 +1,7 @@
-import { type MigrateUpArgs, type MigrateDownArgs, sql } from '@payloadcms/db-postgres'
+import { type MigrateDownArgs, type MigrateUpArgs, sql } from '@payloadcms/db-postgres'
 
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
-  await db.execute(sql`
+	await db.execute(sql`
    DROP INDEX "payload_locked_documents_rels_micro_post_internal_links_id_idx";
   DROP INDEX "payload_locked_documents_rels_micro_post_external_links_id_idx";
   CREATE INDEX "payload_locked_documents_rels_micro_post_internal_links__idx" ON "payload_locked_documents_rels" USING btree ("micro_post_internal_links_id");
@@ -9,7 +9,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
 }
 
 export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
-  await db.execute(sql`
+	await db.execute(sql`
    DROP INDEX "payload_locked_documents_rels_micro_post_internal_links__idx";
   DROP INDEX "payload_locked_documents_rels_micro_post_external_links__idx";
   CREATE INDEX "payload_locked_documents_rels_micro_post_internal_links_id_idx" ON "payload_locked_documents_rels" USING btree ("micro_post_internal_links_id");

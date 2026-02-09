@@ -1,24 +1,23 @@
 import * as addPlugin from '@graphql-codegen/add'
-import type {CodegenConfig} from '@graphql-codegen/cli'
-import {preset} from '@graphql-codegen/client-preset'
+import type { CodegenConfig } from '@graphql-codegen/cli'
+import { preset } from '@graphql-codegen/client-preset'
 import * as dotenv from 'dotenv'
+
 dotenv.config({
 	path: './.env.local',
 })
 
 const originalBuildGeneratesSection = preset.buildGeneratesSection
-preset.buildGeneratesSection = async (
-	...args: Parameters<typeof originalBuildGeneratesSection>
-) => {
+preset.buildGeneratesSection = async (...args: Parameters<typeof originalBuildGeneratesSection>) => {
 	const result = originalBuildGeneratesSection(...args)
 
 	if (!Array.isArray(result)) return await result
 
-	result.forEach(({pluginMap, plugins}) => {
+	result.forEach(({ pluginMap, plugins }) => {
 		if ('fragment-masking' in pluginMap) {
 			// eslint-disable-next-line no-param-reassign -- modifying existing object
 			pluginMap.add = addPlugin
-			plugins.push({add: {content: '/* eslint-disable */'}})
+			plugins.push({ add: { content: '/* eslint-disable */' } })
 		}
 	})
 
@@ -48,7 +47,7 @@ const config: CodegenConfig = {
 			],
 			preset: 'client',
 			presetConfig: {
-				fragmentMasking: {unmaskFunctionName: 'getFragmentData'},
+				fragmentMasking: { unmaskFunctionName: 'getFragmentData' },
 			},
 			schema: [
 				{

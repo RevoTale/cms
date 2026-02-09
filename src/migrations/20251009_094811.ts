@@ -1,13 +1,13 @@
-import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres'
+import { type MigrateDownArgs, type MigrateUpArgs, sql } from '@payloadcms/db-postgres'
 
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
-  await db.execute(sql`
+	await db.execute(sql`
    DROP TABLE "search_locales" CASCADE;
   ALTER TABLE "search" ADD COLUMN "title" varchar;`)
 }
 
 export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
-  await db.execute(sql`
+	await db.execute(sql`
    CREATE TABLE "search_locales" (
   	"title" varchar,
   	"id" serial PRIMARY KEY NOT NULL,

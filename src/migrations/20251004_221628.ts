@@ -1,7 +1,7 @@
-import { type MigrateUpArgs, type MigrateDownArgs, sql } from '@payloadcms/db-postgres'
+import { type MigrateDownArgs, type MigrateUpArgs, sql } from '@payloadcms/db-postgres'
 
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
-  await db.execute(sql`
+	await db.execute(sql`
    CREATE TYPE "public"."enum_payload_jobs_log_task_slug" AS ENUM('inline', 'translatePost');
   CREATE TYPE "public"."enum_payload_jobs_log_state" AS ENUM('failed', 'succeeded');
   CREATE TYPE "public"."enum_payload_jobs_task_slug" AS ENUM('inline', 'translatePost');
@@ -52,7 +52,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
 }
 
 export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
-  await db.execute(sql`
+	await db.execute(sql`
    ALTER TABLE "payload_jobs_log" DISABLE ROW LEVEL SECURITY;
   ALTER TABLE "payload_jobs" DISABLE ROW LEVEL SECURITY;
   DROP TABLE "payload_jobs_log" CASCADE;

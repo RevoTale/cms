@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.4.0](https://github.com/RevoTale/cms/compare/v0.3.0...v0.4.0) (2026-02-09)
+
+
+### Features
+
+* finally, working prod build with the static prerendering ([68d069b](https://github.com/RevoTale/cms/commit/68d069bca9c2671af8ac1583c7cabf4e35c95e33))
+* replace the eslint with biome and fix the regarding isues ([36cb7b8](https://github.com/RevoTale/cms/commit/36cb7b817c4b5dc2670c10cfe3dd0b1c6c25aa7c))
+* unify public web and cms in one next runtime ([f7653c1](https://github.com/RevoTale/cms/commit/f7653c1681897b4800237a35be5aec1c8d8edda4))
+
+
+### Bug Fixes
+
+* build time force-static cause dfails ([0d67367](https://github.com/RevoTale/cms/commit/0d67367a3a6ae105e333d23665d3eaf1bb3406cc))
+* failing CI due to missing typegen ([8dbdf1c](https://github.com/RevoTale/cms/commit/8dbdf1c845cc0b66d0876d673d8e225ea69d87fe))
+* fix biome after codegen ([5796ef8](https://github.com/RevoTale/cms/commit/5796ef8014d09a534d271e4688350f2093769b8e))
+
 ## [0.3.0](https://github.com/RevoTale/cms/compare/v0.2.1...v0.3.0) (2026-02-07)
 
 

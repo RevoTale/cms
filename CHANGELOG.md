@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.4.1](https://github.com/RevoTale/cms/compare/v0.4.0...v0.4.1) (2026-02-09)
+
+
+### Bug Fixes
+
+* agents.md relative paths ([a754e27](https://github.com/RevoTale/cms/commit/a754e27d76898ac9a5d42b960f19ca079edfc15c))
+* hide no available tags ([90cfbfa](https://github.com/RevoTale/cms/commit/90cfbfa0e8ae6b0356ce73eb1f4ed8822aaebad3))
+
 ## [0.4.0](https://github.com/RevoTale/cms/compare/v0.3.0...v0.4.0) (2026-02-09)
 
 

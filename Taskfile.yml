@@ -10,6 +10,7 @@ tasks:
       - bun run p:cli generate:db-schema
       - bunx next typegen
       - bunx graphql-codegen --config codegen.ts
+      - task: fix
 
   codegen:check:
     desc: Run codegen and fail if it changes the working tree

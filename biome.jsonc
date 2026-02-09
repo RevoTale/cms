@@ -15,7 +15,8 @@
 			"!src/payload-types.ts",
 			"!**/@shadcn/ui",
 			"!src/app/src/gql",
-			"!src/migrations"
+			"!src/migrations",
+			"!src/**/*.d.json.ts"
 		]
 	},
 	"formatter": {

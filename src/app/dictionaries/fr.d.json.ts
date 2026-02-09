@@ -2,490 +2,490 @@
 // See: https://next-intl.dev/docs/workflows/typescript#messages-arguments
 
 declare const messages: {
-	VideoUtility: {
-		notice: '<b>Attention !</b> Cet outil utilise votre CPU et votre RAM pour traiter la vidéo.<br></br><b>Cela peut affecter les performances</b> et le traitement vidéo.'
-		loading: 'Chargement des utilitaires. Veuillez patienter...'
-		label: 'Multiplicateur de vitesse'
-		placeholder: 'Multiplicateur de vitesse'
-		transform: 'Transformer la vidéo'
-		download: 'Télécharger le résultat'
-		not_support: 'Votre navigateur ne prend pas en charge la balise vidéo.'
-		view_logs: 'Afficher les journaux de débogage'
-		log_title: 'Journaux'
-		close: 'Fermer'
-		or_choose_preset: 'ou choisissez un préréglage :'
-		video_label: 'Vidéo'
-		selected_video: 'Vidéo sélectionnée :'
-	}
-	microblog: {
-		placeholder: {
-			codeBlock: 'Ouvrir la note complète pour voir le bloc de code'
-			table: 'Ouvrir la note complète pour voir le tableau'
-			image: "Ouvrir la note complète pour voir l'image"
+	"VideoUtility": {
+		"notice": "<b>Attention !</b> Cet outil utilise votre CPU et votre RAM pour traiter la vidéo.<br></br><b>Cela peut affecter les performances</b> et le traitement vidéo.",
+		"loading": "Chargement des utilitaires. Veuillez patienter...",
+		"label": "Multiplicateur de vitesse",
+		"placeholder": "Multiplicateur de vitesse",
+		"transform": "Transformer la vidéo",
+		"download": "Télécharger le résultat",
+		"not_support": "Votre navigateur ne prend pas en charge la balise vidéo.",
+		"view_logs": "Afficher les journaux de débogage",
+		"log_title": "Journaux",
+		"close": "Fermer",
+		"or_choose_preset": "ou choisissez un préréglage :",
+		"video_label": "Vidéo",
+		"selected_video": "Vidéo sélectionnée :"
+	},
+	"microblog": {
+		"placeholder": {
+			"codeBlock": "Ouvrir la note complète pour voir le bloc de code",
+			"table": "Ouvrir la note complète pour voir le tableau",
+			"image": "Ouvrir la note complète pour voir l'image"
+		},
+		"scrollToAttachment": "Faire défiler vers la pièce jointe",
+		"outgoingLinks": "Liens sortants",
+		"linkedNotes": "Notes liées",
+		"by": "par"
+	},
+	"NavigationMap": {
+		"meta": {
+			"title": "Carte de Navigation",
+			"description": "Explorez la Carte de Navigation de RevoTale. Découvrez nos outils, utilitaires et projets dans un format visuel."
+		},
+		"pageTitle": "Carte de Navigation de RevoTale",
+		"navigation": {
+			"revotale": "RevoTale",
+			"utilities": "Utilitaires",
+			"recordsRandomizer": "Sélecteur Aléatoire d'Enregistrements",
+			"urlEncoderDecoder": "Encodeur/Décodeur d'URL",
+			"encode": "Encoder",
+			"decode": "Décoder",
+			"screenFillGallery": "Galerie Plein Écran",
+			"videoDurationChanger": "Modificateur de Vitesse Vidéo",
+			"browserGames": "Jeux Navigateur",
+			"battleShipGame": "Jeu de Bataille Navale",
+			"blog": "Blog",
+			"articles": "Articles",
+			"notes": "Notes",
+			"microTales": "Micro-récits",
+			"selfHostedServices": "Services Auto-Hébergés",
+			"tv": "TV",
+			"dashboard": "Tableau de Bord",
+			"personalNotes": "Notes Personnelles"
 		}
-		scrollToAttachment: 'Faire défiler vers la pièce jointe'
-		outgoingLinks: 'Liens sortants'
-		linkedNotes: 'Notes liées'
-		by: 'par'
-	}
-	NavigationMap: {
-		meta: {
-			title: 'Carte de Navigation'
-			description: 'Explorez la Carte de Navigation de RevoTale. Découvrez nos outils, utilitaires et projets dans un format visuel.'
+	},
+	"PageMeta": {
+		"notes": {
+			"title": "Tech - Codage, Expérience, Open Source, SEO & Aperçus Scientifiques",
+			"description": "Plongez dans des notes concises remplies de conseils pratiques sur le codage, la performance web, le SEO, les workflows IA, les résumés de livres et plus - mises à jour régulièrement sur RevoTale."
 		}
-		pageTitle: 'Carte de Navigation de RevoTale'
-		navigation: {
-			revotale: 'RevoTale'
-			utilities: 'Utilitaires'
-			recordsRandomizer: "Sélecteur Aléatoire d'Enregistrements"
-			urlEncoderDecoder: "Encodeur/Décodeur d'URL"
-			encode: 'Encoder'
-			decode: 'Décoder'
-			screenFillGallery: 'Galerie Plein Écran'
-			videoDurationChanger: 'Modificateur de Vitesse Vidéo'
-			browserGames: 'Jeux Navigateur'
-			battleShipGame: 'Jeu de Bataille Navale'
-			blog: 'Blog'
-			articles: 'Articles'
-			notes: 'Notes'
-			microTales: 'Micro-récits'
-			selfHostedServices: 'Services Auto-Hébergés'
-			tv: 'TV'
-			dashboard: 'Tableau de Bord'
-			personalNotes: 'Notes Personnelles'
+	},
+	"LoveRain": {
+		"meta": {
+			"title": "Love Rain pour ton âme sœur",
+			"description": "Une animation néon en forme de cœur où des gouttes tombent à l'infini, rendue dans le navigateur."
 		}
-	}
-	PageMeta: {
-		notes: {
-			title: 'Tech - Codage, Expérience, Open Source, SEO & Aperçus Scientifiques'
-			description: 'Plongez dans des notes concises remplies de conseils pratiques sur le codage, la performance web, le SEO, les workflows IA, les résumés de livres et plus - mises à jour régulièrement sur RevoTale.'
+	},
+	"Project": {
+		"title": "Revotale"
+	},
+	"keywords": {
+		"url": "URL",
+		"encode": "Encoder",
+		"decode": "Décoder",
+		"online": "En ligne"
+	},
+	"Metadata": {
+		"Root": {
+			"title": "Des solutions élégantes pour des tâches exigeantes.",
+			"desc": "Notre souhait est de créer des solutions éloquentes en utilisant les technologies les plus appropriées et puissantes.",
+			"openGraphDesc": "RevoTale est une entreprise de logiciels spécialisée dans le développement d'applications web.",
+			"classification": "Entreprise de Logiciels"
+		},
+		"Utils": {
+			"title": "Utilitaires",
+			"desc": "Des utilitaires simples pour vous aider quand vous en avez besoin."
+		},
+		"BrowserGames": {
+			"title": "Jeux Navigateur",
+			"desc": "Jouez à des jeux de navigateur en ligne sans téléchargements. Jeux légers qui fonctionnent sur n'importe quel appareil directement dans votre navigateur."
 		}
-	}
-	LoveRain: {
-		meta: {
-			title: 'Love Rain pour ton âme sœur'
-			description: "Une animation néon en forme de cœur où des gouttes tombent à l'infini, rendue dans le navigateur."
+	},
+	"Copy": {
+		"text": "Copier",
+		"done": "Copié ! ✅",
+		"error": "Erreur lors de l'écriture dans le presse-papiers"
+	},
+	"Paste": {
+		"loading": "Traitement du presse-papiers...",
+		"text": "Coller depuis le presse-papiers",
+		"error": "Erreur lors de la lecture du presse-papiers"
+	},
+	"UrlCoder": {
+		"title": "Décoder/Encoder une URL",
+		"metaDesc": "Encodeur/décodeur d'URL qui vous rend heureux. Sérialisez votre chaîne au format URL et vice versa.",
+		"encode": "Encoder",
+		"decode": "Décoder",
+		"inputPlace": "Tapez le texte ici",
+		"outputPlace": "Le résultat sera ici",
+		"same": "Le résultat semble être le même que l'entrée ! 🤔"
+	},
+	"ToolsBoard": {
+		"Utilities": "Utilitaires",
+		"UtilitiesDesc": "Des outils qui simplifient la vie quotidienne de la personne moyenne.",
+		"Breadcrumbs": {
+			"Utils": "Utilitaires",
+			"URlDecodeEncode": "Encodeur/Décodeur d'URL",
+			"VideoSpeedChange": "Changeur de vitesse vidéo",
+			"RecordRandomizer": "Randomiseur de records",
+			"ImageCollectionTools": "Rendu de collection d'images",
+			"ScreenFillGallery": "Galerie Plein Écran",
+			"encoder": "Encodeur d'URL",
+			"decoder": "Décodeur d'URL"
+		},
+		"Desc": {
+			"URlDecodeEncode": "Outil simple pour décoder ou encoder des entités URL sans connaissances en programmation.",
+			"VideoSpeedChange": "Changez la vitesse de la vidéo directement dans le navigateur. Tout est fait par le CPU/RAM de votre appareil. Aucune donnée n'est partagée avec un serveur car le traitement vidéo est effectué grâce à la puissance de WASM sur votre appareil.",
+			"RecordRandomizer": "Entrez la liste des enregistrements, faites tourner la roue et obtenez une ligne sélectionnée au hasard. Parfait pour les cadeaux, la prise de décision ou toute situation nécessitant une sélection aléatoire rapide.",
+			"ImageCollectionTools": "Remplissez chaque centimètre avec les médias que vous voulez. Affichez un nombre quelconque d'images sur un seul écran.",
+			"ScreenFillGallery": "Téléchargez des images et remplissez tout votre écran avec elles de manière uniforme tout en préservant les proportions. Parfait pour créer des galeries de photos immersives."
+		},
+		"LearnMore": "En savoir plus ➔"
+	},
+	"Breadcrumbs": {
+		"blog": "Blog",
+		"home": "Accueil",
+		"utils": "Utilitaires"
+	},
+	"ImageCollectionRenderer": {
+		"title": "Rendu de collection d'images",
+		"seo_desc": "Rendez votre collection d'images avec confort. Chaque centimètre d'espace est rempli",
+		"seo_title": "Rendu de collection d'images"
+	},
+	"ScreenFillGallery": {
+		"title": "Galerie Plein Écran",
+		"description": "Téléchargez des images et remplissez tout votre écran avec elles en préservant les proportions. Parfait pour créer des galeries de photos immersives.",
+		"seo_desc": "Remplissez votre écran de manière uniforme avec des images en préservant les proportions. Créez de belles galeries de photos optimisées pour l'espace.",
+		"seo_title": "Galerie Plein Écran - Distribution Uniforme d'Images",
+		"imageLabel": "Sélectionner des Images",
+		"fullscreenMode": "Mode Plein Écran",
+		"imagesLoaded": "{count} images chargées",
+		"keyword1": "galerie plein écran",
+		"keyword2": "galerie d'images",
+		"keyword3": "visionneuse de photos",
+		"keyword4": "rapport d'aspect",
+		"keyword5": "images plein écran",
+		"keyword6": "collection d'images",
+		"keyword7": "affichage de photos",
+		"keyword8": "images responsives",
+		"applicationName": "Outils RevoTale",
+		"category": "Technologie",
+		"classification": "Outil Utilitaire",
+		"creator": "RevoTale",
+		"publisher": "RevoTale"
+	},
+	"DurationConverter": {
+		"seo_title": "Accélérer/ralentir une vidéo en ligne",
+		"seo_desc": "Changez la vitesse de la vidéo directement dans le navigateur. Tout est fait par le CPU/RAM de votre appareil. Aucune donnée n'est partagée avec un serveur car le traitement vidéo est effectué grâce à la puissance de WASM sur votre appareil."
+	},
+	"URLEncoder": {
+		"seo_title": "Encodeur d'URL",
+		"seo_desc": "Outil simple pour décoder ou encoder des entités URL sans connaissances en programmation."
+	},
+	"URLDecoder": {
+		"seo_title": "Décodeur d'URL",
+		"seo_desc": "Outil simple pour décoder ou encoder des entités URL sans connaissances en programmation."
+	},
+	"Notes": {
+		"title": "Notes",
+		"title_blog": "Blog",
+		"no_notes": "Pas encore de notes :(",
+		"notes_heading": "Notes",
+		"pagination": {
+			"previous": "Précédent",
+			"next": "Suivant"
+		},
+		"json_ld": {
+			"description": "Explorez une collection de notes sur divers sujets, notamment le codage, la performance web, le SEO, les workflows IA et les résumés de livres. Chaque note est conçue pour fournir des aperçus rapides et des conseils pratiques pour les développeurs et les passionnés de technologie.",
+			"name": "Notes"
 		}
-	}
-	Project: {
-		title: 'Revotale'
-	}
-	keywords: {
-		url: 'URL'
-		encode: 'Encoder'
-		decode: 'Décoder'
-		online: 'En ligne'
-	}
-	Metadata: {
-		Root: {
-			title: 'Des solutions élégantes pour des tâches exigeantes.'
-			desc: 'Notre souhait est de créer des solutions éloquentes en utilisant les technologies les plus appropriées et puissantes.'
-			openGraphDesc: "RevoTale est une entreprise de logiciels spécialisée dans le développement d'applications web."
-			classification: 'Entreprise de Logiciels'
+	},
+	"Blog": {
+		"meta_title": "Blog",
+		"available_tags": "Tags disponibles",
+		"go_to_notes": "Notes",
+		"go_to_micro_tales": "Voir les micro-récits",
+		"go_to_note": "Voir la note",
+		"go_to_articles": "Articles",
+		"available_tag": "Tags disponibles :",
+		"meta_description": "Explorez l'intersection de la technologie, de la science et de la société avec nos articles stimulants. Des dernières nouveautés en high-tech et percées en programmation aux discussions perspicaces sur la politique et les expériences personnelles, notre blog est un creuset d'idées conçu pour informer, inspirer et susciter la conversation. Rejoignez-nous dans un voyage à travers le monde fascinant de l'innovation et de la découverte.",
+		"latest_articles": "Lire les derniers articles"
+	},
+	"HistoryOfUkraine": {
+		"extendedInfo": "Informations étendues",
+		"title": "Histoire de l'Ukraine",
+		"meta_desc": "L'histoire de l'Ukraine en thèses courtes et simples. Dates clés étape par étape. Préparez-vous facilement à l'examen d'Histoire de l'Ukraine.",
+		"table": {
+			"date": "Date",
+			"event": "Événement",
+			"details": "Détails",
+			"importance": "Importance"
 		}
-		Utils: {
-			title: 'Utilitaires'
-			desc: 'Des utilitaires simples pour vous aider quand vous en avez besoin.'
-		}
-		BrowserGames: {
-			title: 'Jeux Navigateur'
-			desc: "Jouez à des jeux de navigateur en ligne sans téléchargements. Jeux légers qui fonctionnent sur n'importe quel appareil directement dans votre navigateur."
-		}
-	}
-	Copy: {
-		text: 'Copier'
-		done: 'Copié ! ✅'
-		error: "Erreur lors de l'écriture dans le presse-papiers"
-	}
-	Paste: {
-		loading: 'Traitement du presse-papiers...'
-		text: 'Coller depuis le presse-papiers'
-		error: 'Erreur lors de la lecture du presse-papiers'
-	}
-	UrlCoder: {
-		title: 'Décoder/Encoder une URL'
-		metaDesc: "Encodeur/décodeur d'URL qui vous rend heureux. Sérialisez votre chaîne au format URL et vice versa."
-		encode: 'Encoder'
-		decode: 'Décoder'
-		inputPlace: 'Tapez le texte ici'
-		outputPlace: 'Le résultat sera ici'
-		same: "Le résultat semble être le même que l'entrée ! 🤔"
-	}
-	ToolsBoard: {
-		Utilities: 'Utilitaires'
-		UtilitiesDesc: 'Des outils qui simplifient la vie quotidienne de la personne moyenne.'
-		Breadcrumbs: {
-			Utils: 'Utilitaires'
-			URlDecodeEncode: "Encodeur/Décodeur d'URL"
-			VideoSpeedChange: 'Changeur de vitesse vidéo'
-			RecordRandomizer: 'Randomiseur de records'
-			ImageCollectionTools: "Rendu de collection d'images"
-			ScreenFillGallery: 'Galerie Plein Écran'
-			encoder: "Encodeur d'URL"
-			decoder: "Décodeur d'URL"
-		}
-		Desc: {
-			URlDecodeEncode: 'Outil simple pour décoder ou encoder des entités URL sans connaissances en programmation.'
-			VideoSpeedChange: "Changez la vitesse de la vidéo directement dans le navigateur. Tout est fait par le CPU/RAM de votre appareil. Aucune donnée n'est partagée avec un serveur car le traitement vidéo est effectué grâce à la puissance de WASM sur votre appareil."
-			RecordRandomizer: 'Entrez la liste des enregistrements, faites tourner la roue et obtenez une ligne sélectionnée au hasard. Parfait pour les cadeaux, la prise de décision ou toute situation nécessitant une sélection aléatoire rapide.'
-			ImageCollectionTools: "Remplissez chaque centimètre avec les médias que vous voulez. Affichez un nombre quelconque d'images sur un seul écran."
-			ScreenFillGallery: 'Téléchargez des images et remplissez tout votre écran avec elles de manière uniforme tout en préservant les proportions. Parfait pour créer des galeries de photos immersives.'
-		}
-		LearnMore: 'En savoir plus ➔'
-	}
-	Breadcrumbs: {
-		blog: 'Blog'
-		home: 'Accueil'
-		utils: 'Utilitaires'
-	}
-	ImageCollectionRenderer: {
-		title: "Rendu de collection d'images"
-		seo_desc: "Rendez votre collection d'images avec confort. Chaque centimètre d'espace est rempli"
-		seo_title: "Rendu de collection d'images"
-	}
-	ScreenFillGallery: {
-		title: 'Galerie Plein Écran'
-		description: 'Téléchargez des images et remplissez tout votre écran avec elles en préservant les proportions. Parfait pour créer des galeries de photos immersives.'
-		seo_desc: "Remplissez votre écran de manière uniforme avec des images en préservant les proportions. Créez de belles galeries de photos optimisées pour l'espace."
-		seo_title: "Galerie Plein Écran - Distribution Uniforme d'Images"
-		imageLabel: 'Sélectionner des Images'
-		fullscreenMode: 'Mode Plein Écran'
-		imagesLoaded: '{count} images chargées'
-		keyword1: 'galerie plein écran'
-		keyword2: "galerie d'images"
-		keyword3: 'visionneuse de photos'
-		keyword4: "rapport d'aspect"
-		keyword5: 'images plein écran'
-		keyword6: "collection d'images"
-		keyword7: 'affichage de photos'
-		keyword8: 'images responsives'
-		applicationName: 'Outils RevoTale'
-		category: 'Technologie'
-		classification: 'Outil Utilitaire'
-		creator: 'RevoTale'
-		publisher: 'RevoTale'
-	}
-	DurationConverter: {
-		seo_title: 'Accélérer/ralentir une vidéo en ligne'
-		seo_desc: "Changez la vitesse de la vidéo directement dans le navigateur. Tout est fait par le CPU/RAM de votre appareil. Aucune donnée n'est partagée avec un serveur car le traitement vidéo est effectué grâce à la puissance de WASM sur votre appareil."
-	}
-	URLEncoder: {
-		seo_title: "Encodeur d'URL"
-		seo_desc: 'Outil simple pour décoder ou encoder des entités URL sans connaissances en programmation.'
-	}
-	URLDecoder: {
-		seo_title: "Décodeur d'URL"
-		seo_desc: 'Outil simple pour décoder ou encoder des entités URL sans connaissances en programmation.'
-	}
-	Notes: {
-		title: 'Notes'
-		title_blog: 'Blog'
-		no_notes: 'Pas encore de notes :('
-		notes_heading: 'Notes'
-		pagination: {
-			previous: 'Précédent'
-			next: 'Suivant'
-		}
-		json_ld: {
-			description: 'Explorez une collection de notes sur divers sujets, notamment le codage, la performance web, le SEO, les workflows IA et les résumés de livres. Chaque note est conçue pour fournir des aperçus rapides et des conseils pratiques pour les développeurs et les passionnés de technologie.'
-			name: 'Notes'
-		}
-	}
-	Blog: {
-		meta_title: 'Blog'
-		available_tags: 'Tags disponibles'
-		go_to_notes: 'Notes'
-		go_to_micro_tales: 'Voir les micro-récits'
-		go_to_note: 'Voir la note'
-		go_to_articles: 'Articles'
-		available_tag: 'Tags disponibles :'
-		meta_description: "Explorez l'intersection de la technologie, de la science et de la société avec nos articles stimulants. Des dernières nouveautés en high-tech et percées en programmation aux discussions perspicaces sur la politique et les expériences personnelles, notre blog est un creuset d'idées conçu pour informer, inspirer et susciter la conversation. Rejoignez-nous dans un voyage à travers le monde fascinant de l'innovation et de la découverte."
-		latest_articles: 'Lire les derniers articles'
-	}
-	HistoryOfUkraine: {
-		extendedInfo: 'Informations étendues'
-		title: "Histoire de l'Ukraine"
-		meta_desc: "L'histoire de l'Ukraine en thèses courtes et simples. Dates clés étape par étape. Préparez-vous facilement à l'examen d'Histoire de l'Ukraine."
-		table: {
-			date: 'Date'
-			event: 'Événement'
-			details: 'Détails'
-			importance: 'Importance'
-		}
-	}
-	Articles: {
-		title: 'Articles'
-		blog_crumb: 'Blog'
-	}
-	RandomRecordSelector: {
-		title: 'Sélecteur de record aléatoire'
-		settings: 'Paramètres'
-		meta_desc: 'Entrez la liste des enregistrements, faites tourner la roue et obtenez une ligne sélectionnée au hasard. Parfait pour les cadeaux, la prise de décision ou toute situation nécessitant une sélection aléatoire rapide.'
-		records: 'Enregistrements'
-	}
-	ExpToolsBoard: {
-		desc: 'Ils sont très bogués, en développement actif ou ne fonctionnent pas. ¯\\_(ツ)_/¯'
-		title: 'Outils expérimentaux'
-	}
-	OpenSource: {
-		desc: 'Partager le code avec la communauté open source pour aider le monde à avancer plus rapidement.'
-		title: 'Open Source'
-		items: {
-			desc: {
-				obsidian_folder_by_tag_dist: 'Triez automatiquement vos notes Obsidian Vault entre les dossiers en fonction des tags. Cela vous oblige à maintenir une structure de tags et de dossiers cohérente. Créez une structure de répertoires, placez vos tags, et vos notes sont automatiquement organisées entre les dossiers.'
-				google_recaptcha: "Intégration invisible de Google reCAPTCHA dans toute application React <important>sans sacrifier l'UX ou le score de vitesse de page.</important>"
-				lovely_eye: 'Analytique open source axée sur la confidentialité, avec un tableau de bord simple que vous pouvez auto-héberger.'
-				php_time: "Bibliothèque pour traiter les problèmes avec les classes PHP DateTime intégrées. Traite librement les types et fournit une approche directe de la relation entre les objets de temps, d'intervalle et de fuseau horaire."
-				nextjs_scroll_restorer: "Restauration du défilement pour Next.js construite à partir de zéro. Créé pour une utilisation en production comme remplacement du 'scrollRestoration' natif dans la configuration de Next.js, qui est très bogué."
-			}
-			title: {
-				obsidian_folder_by_tag_dist: 'Plugin distributeur de dossiers par tags pour Obsidian'
-				google_recaptcha: 'Google reCAPTCHA V3 pour React'
-				lovely_eye: 'Lovely Eye'
-				php_time: 'PHP Time'
-				nextjs_scroll_restorer: 'Restauration du défilement pour Next.js'
-			}
-		}
-	}
-	BlogBoard: {
-		title: 'Blog'
-		notes_title: 'Découvrir les notes'
-		desc: "Partager des choses liées à l'informatique, des nouvelles, de la science, des expériences et des pensées."
-		explore: "Explorer plus d'articles ➔"
-		welcome: 'Nous sommes ravis que vous soyez ici ! Bonne lecture !'
-		discover_notes: 'Découvrir les notes'
-		read_latest_articles: 'Lire les derniers articles'
-		go_to_blog: 'Aller au blog'
-	}
-	RecordRandomizer: {
-		seo_title: "Randomiseur d'enregistrements"
-		seo_desc: 'Entrez la liste des enregistrements, faites tourner la roue et obtenez une ligne sélectionnée au hasard. Parfait pour les cadeaux, la prise de décision ou toute situation nécessitant une sélection aléatoire rapide.'
-		setting_seo_title: "Paramètres du randomiseur d'enregistrements"
-		setting_seo_desc: "Paramètres du randomiseur d'enregistrements. Entrez la liste des enregistrements, faites tourner la roue et obtenez une ligne sélectionnée au hasard. Parfait pour les cadeaux, la prise de décision ou toute situation nécessitant une sélection aléatoire rapide."
-		setting_title: 'Paramètres du randomiseur'
-		duration_setting_title: 'Durée'
-		duration_setting_desc: "Temps en secondes après lequel la roue doit s'arrêter"
-		setting_disable_winner_dialog_title: 'Désactiver la boîte de dialogue du gagnant'
-		setting_disable_winner_dialog_desc: "Activez cette option pour désactiver la fenêtre contextuelle avec l'enregistrement gagnant."
-		setting_save: 'Enregistrer'
-	}
-	Header: {
-		GoHome: "Aller à la page d'accueil"
-		Search: 'Rechercher'
-	}
-	Footer: {
-		Lang: {
-			en: 'Anglais'
-			uk: 'Ukrainien'
-			de: 'Allemand'
-			fr: 'Français'
-			ja: 'Japonais'
-			ru: 'Russe'
-			hi: 'Hindi'
-			es: 'Espagnol'
-		}
-		PoweredBy: 'Nous nous soucions de votre vie privée. Les analyses sont alimentées par des <a>logiciels open source</a>.'
-		OpenNavMapButton: 'Ouvrir la Carte de Navigation'
-		Utils: 'Utilitaires'
-		sea_battle: 'Jeu de Bataille Navale Classique'
-		notes: 'Notes'
-		sweetheart: 'Pour toi, mon petit cœur'
-		Blog: 'Blog'
-		LangTitle: 'Langues'
-		Rights: '© {year} {company}. Tous droits réservés.'
-		Nav: 'Navigation'
-		TwitterAlt: 'Suivez-nous sur Twitter'
-		GithubAlt: 'Évaluez-nous sur GitHub'
-		ReachOutTitle: 'Contactez-nous'
-	}
-	SeaBattle: {
-		json_ld: {
-			name: 'Jeu de Bataille Navale'
-			description: 'Un jeu de Bataille Navale en temps réel à deux joueurs, jouable dans le navigateur. Créez une salle, partagez un lien avec un ami, placez des navires et affrontez-vous.'
-			serverName: 'Créer une Salle de Jeu de Bataille Navale'
-		}
-		howToPlay: {
-			title: 'À propos du jeu'
-			step1: "Pas d'inscription nécessaire. Ouvrez une salle et vous jouez immédiatement."
-			step2: "Placez les 10 navires standards, appuyez sur Prêt et tirez chacun votre tour jusqu'à ce que toute la flotte ennemie ou la vôtre soit coulée."
-			step3: 'Invitez un ami ou jouez contre un bot en niveau Facile, Moyen, Difficile ou Hacker.'
-			step4: 'Chat en temps réel pour communiquer avec votre adversaire pendant la partie.'
-		}
-		unknown_player_generic: 'Joueur inconnu'
-		unknown_player_my: 'Mon joueur inconnu'
-		unknown_player_enemy: 'Joueur ennemi inconnu'
-		join_telegram: 'Rejoignez-moi pour une partie de Bataille Navale !'
-		title: 'Bataille Navale'
-		pageDescription: 'Jouez à la Bataille Navale avec votre ami dans le navigateur en ligne. Envoyez un lien à votre ami pour jouer ensemble.'
-		newGameWithFriend: 'Commencer une nouvelle partie avec un ami'
-		newGameVsBot: '🤖 Jouer contre Bot'
-		or: 'OU'
-		loading: 'Chargement...'
-		redirecting: 'Redirection vers une salle...'
-		inviteFriend: 'Inviter des amis'
-		inviteFriendDesc: 'Partagez un lien avec vos amis pour jouer ensemble'
-		CopyLink: 'Copier le lien'
-		facebook_icon: 'Facebook'
-		whatsapp_icon: 'WhatsApp'
-		telegram_icon: 'Telegram'
-		players: {
-			title: 'Joueurs'
-		}
-		chat: {
-			button: 'Discussion'
-			dialogTitle: 'Discussion de la salle'
-			placeholder: 'Saisissez votre message'
-			send: 'Envoyer'
-			empty: 'Aucun message pour le moment'
-			newBadge: 'Nouveaux messages'
-			returnBackToShipLocating: 'Revenez au placement des navires'
-			returnBackButtonSingle: 'Revenir'
-			returnBackToYourTurn: "Revenez ! C'est votre tour !"
-			returnBackToReadyToBattle: 'Revenez ! Votre adversaire est prêt !'
-		}
-		room: {
-			title: 'Salle de Bataille Navale'
-		}
-		fight: {
-			title: 'Combat de Bataille Navale'
-			view_battle: 'Voir le champ de bataille'
-			enemy: 'Champ ennemi'
-			your: 'Votre champ'
-			yourTurn: 'À votre tour ! 💪'
-			enemyTurn: "Tour de l'ennemi 😈"
-			you_hit: 'Vous avez touché le navire ! 💥'
-			you_missed: 'Vous avez raté ! 💦'
-			enemy_missed: "L'ennemi a raté ! 💦"
-			enemy_hit_your_ship: "L'ennemi a touché votre navire ! 💥"
-			waiting: "En attente d'action"
-		}
-		shipLocating: {
-			title: 'Localisation des navires de Bataille Navale'
-		}
-		exit: 'Quitter la salle'
-		ready: 'Prêt 💪'
-		not_ready: 'Pas prêt 🥥'
-		result: {
-			won: 'Vous avez gagné🎉 !'
-			lost: 'Vous avez perdu la bataille...😔'
-			again: 'Rejouer !'
-		}
-		enter_name: "Entrez un nouveau nom d'utilisateur"
-		update_username: "Changer le nom d'utilisateur"
-		waiting_for_player: "En attente d'un joueur..."
-		waiting_for_another_p: "En attente d'autres joueurs pour commencer"
-		start_battle: 'Commencer une bataille !'
-		starting_game: 'Démarrage du jeu...'
-		place_ship_title: 'Placez vos navires'
-		place_ship_desc: 'Glissez-déposez simplement. Vous pouvez faire pivoter un navire en cliquant dessus !'
-		randomize: 'Positionner aléatoirement les navires'
-		invalid_ships: 'Placement de navire invalide à la colonne #{x}, rangée #{y}'
-		locating: {
-			start: 'Enregistrer et commencer une bataille'
-			waiting: "En attente que l'autre joueur place ses navires..."
-		}
-		addBot: {
-			emojiLabel: 'robot'
-			button: 'Ajouter un Bot'
-			title: 'Ajouter un joueur Bot'
-			skillLabel: 'Niveau du Bot'
-			cancel: 'Annuler'
-			loading: 'Ajout du Bot...'
-			confirm: 'Ajouter le Bot'
-		}
-		botSkill: {
-			easy: 'Facile'
-			easyDesc: 'Bon pour les débutants'
-			average: 'Moyen'
-			averageDesc: 'Jeu équilibré'
-			hard: 'Difficile'
-			hardDesc: 'Adversaire difficile'
-			hacker: 'Hacker'
-			hackerDesc: 'Défi ultime'
-		}
-		auth: {
-			cookiesDisabled: {
-				title: 'Les cookies sont désactivés'
-				description: '<bold>Attention !</bold> Lorsque vous rechargez la page, vous serez déconnecté car les cookies sont désactivés dans votre navigateur. Veuillez activer les cookies pour garder votre session active après un rechargement de page.'
-			}
-			openInSystemBrowser: {
-				title: 'Meilleure expérience disponible'
-				description: 'Pour une meilleure expérience de jeu, veuillez ouvrir cette application dans votre navigateur système.'
-				closeMessage: 'Fermer ce message'
-				openButton: 'Ouvrir dans le navigateur système'
-				openGameButton: 'Ouvrir le jeu dans le navigateur système'
+	},
+	"Articles": {
+		"title": "Articles",
+		"blog_crumb": "Blog"
+	},
+	"RandomRecordSelector": {
+		"title": "Sélecteur de record aléatoire",
+		"settings": "Paramètres",
+		"meta_desc": "Entrez la liste des enregistrements, faites tourner la roue et obtenez une ligne sélectionnée au hasard. Parfait pour les cadeaux, la prise de décision ou toute situation nécessitant une sélection aléatoire rapide.",
+		"records": "Enregistrements"
+	},
+	"ExpToolsBoard": {
+		"desc": "Ils sont très bogués, en développement actif ou ne fonctionnent pas. ¯\\_(ツ)_/¯",
+		"title": "Outils expérimentaux"
+	},
+	"OpenSource": {
+		"desc": "Partager le code avec la communauté open source pour aider le monde à avancer plus rapidement.",
+		"title": "Open Source",
+		"items": {
+			"desc": {
+				"obsidian_folder_by_tag_dist": "Triez automatiquement vos notes Obsidian Vault entre les dossiers en fonction des tags. Cela vous oblige à maintenir une structure de tags et de dossiers cohérente. Créez une structure de répertoires, placez vos tags, et vos notes sont automatiquement organisées entre les dossiers.",
+				"google_recaptcha": "Intégration invisible de Google reCAPTCHA dans toute application React <important>sans sacrifier l'UX ou le score de vitesse de page.</important>",
+				"lovely_eye": "Analytique open source axée sur la confidentialité, avec un tableau de bord simple que vous pouvez auto-héberger.",
+				"php_time": "Bibliothèque pour traiter les problèmes avec les classes PHP DateTime intégrées. Traite librement les types et fournit une approche directe de la relation entre les objets de temps, d'intervalle et de fuseau horaire.",
+				"nextjs_scroll_restorer": "Restauration du défilement pour Next.js construite à partir de zéro. Créé pour une utilisation en production comme remplacement du 'scrollRestoration' natif dans la configuration de Next.js, qui est très bogué."
+			},
+			"title": {
+				"obsidian_folder_by_tag_dist": "Plugin distributeur de dossiers par tags pour Obsidian",
+				"google_recaptcha": "Google reCAPTCHA V3 pour React",
+				"lovely_eye": "Lovely Eye",
+				"php_time": "PHP Time",
+				"nextjs_scroll_restorer": "Restauration du défilement pour Next.js"
 			}
 		}
-	}
-	SeaBattleJoinLink: {
-		meta: {
-			title: 'Rejoindre la Bataille Navale'
-			description: "Rejoignez une partie de Bataille Navale via un lien d'invitation. Jouez avec vos amis en temps réel !"
-			ogTitle: 'Rejoignez la Bataille Navale !'
-			ogDescription: 'Cliquez sur le lien et jouez à la Bataille Navale avec votre ami en temps réel !'
-			ogImageAlt: 'Jeu de Bataille Navale'
-		}
-		card: {
-			title: 'Rejoindre la bataille...'
-			errorTitle: 'Erreur'
-			noCodeTitle: "Pas de code d'invitation"
-			noCodeDescription: "Veuillez utiliser un lien d'invitation valide pour rejoindre une partie."
-			backToLobby: 'Retour au lobby'
-		}
-	}
-	GamesBoard: {
-		title: 'Jeux Navigateur'
-		desc: 'Nous développons des jeux pour navigateur à jouer en ligne !'
-		sea_battle_desc: "Marre d'envoyer des textes ennuyeux à votre ami ? Envoyez-lui un lien d'invitation pour rejoindre une bataille navale contre vous ! Aucun téléchargement d'application requis. Jeu léger dans le navigateur pour n'importe quel appareil !"
-		sea_battle: 'Jeu de Bataille Navale par Lien'
-	}
-	SelfHostList: {
-		title: 'Services auto-hébergés'
-		githubLink: 'Ouvrir sur GitHub'
-		desc: 'Auto-hébergement de projets open source à usage personnel. Merci aux auteurs et contributeurs de ces projets ! ❤️'
-		items: {
-			title: {
-				watcharr: 'Watcharr'
-				glance: 'Gatus'
-				memos: 'Memos'
+	},
+	"BlogBoard": {
+		"title": "Blog",
+		"notes_title": "Découvrir les notes",
+		"desc": "Partager des choses liées à l'informatique, des nouvelles, de la science, des expériences et des pensées.",
+		"explore": "Explorer plus d'articles ➔",
+		"welcome": "Nous sommes ravis que vous soyez ici ! Bonne lecture !",
+		"discover_notes": "Découvrir les notes",
+		"read_latest_articles": "Lire les derniers articles",
+		"go_to_blog": "Aller au blog"
+	},
+	"RecordRandomizer": {
+		"seo_title": "Randomiseur d'enregistrements",
+		"seo_desc": "Entrez la liste des enregistrements, faites tourner la roue et obtenez une ligne sélectionnée au hasard. Parfait pour les cadeaux, la prise de décision ou toute situation nécessitant une sélection aléatoire rapide.",
+		"setting_seo_title": "Paramètres du randomiseur d'enregistrements",
+		"setting_seo_desc": "Paramètres du randomiseur d'enregistrements. Entrez la liste des enregistrements, faites tourner la roue et obtenez une ligne sélectionnée au hasard. Parfait pour les cadeaux, la prise de décision ou toute situation nécessitant une sélection aléatoire rapide.",
+		"setting_title": "Paramètres du randomiseur",
+		"duration_setting_title": "Durée",
+		"duration_setting_desc": "Temps en secondes après lequel la roue doit s'arrêter",
+		"setting_disable_winner_dialog_title": "Désactiver la boîte de dialogue du gagnant",
+		"setting_disable_winner_dialog_desc": "Activez cette option pour désactiver la fenêtre contextuelle avec l'enregistrement gagnant.",
+		"setting_save": "Enregistrer"
+	},
+	"Header": {
+		"GoHome": "Aller à la page d'accueil",
+		"Search": "Rechercher"
+	},
+	"Footer": {
+		"Lang": {
+			"en": "Anglais",
+			"uk": "Ukrainien",
+			"de": "Allemand",
+			"fr": "Français",
+			"ja": "Japonais",
+			"ru": "Russe",
+			"hi": "Hindi",
+			"es": "Espagnol"
+		},
+		"PoweredBy": "Nous nous soucions de votre vie privée. Les analyses sont alimentées par des <a>logiciels open source</a>.",
+		"OpenNavMapButton": "Ouvrir la Carte de Navigation",
+		"Utils": "Utilitaires",
+		"sea_battle": "Jeu de Bataille Navale Classique",
+		"notes": "Notes",
+		"sweetheart": "Pour toi, mon petit cœur",
+		"Blog": "Blog",
+		"LangTitle": "Langues",
+		"Rights": "© {year} {company}. Tous droits réservés.",
+		"Nav": "Navigation",
+		"TwitterAlt": "Suivez-nous sur Twitter",
+		"GithubAlt": "Évaluez-nous sur GitHub",
+		"ReachOutTitle": "Contactez-nous"
+	},
+	"SeaBattle": {
+		"json_ld": {
+			"name": "Jeu de Bataille Navale",
+			"description": "Un jeu de Bataille Navale en temps réel à deux joueurs, jouable dans le navigateur. Créez une salle, partagez un lien avec un ami, placez des navires et affrontez-vous.",
+			"serverName": "Créer une Salle de Jeu de Bataille Navale"
+		},
+		"howToPlay": {
+			"title": "À propos du jeu",
+			"step1": "Pas d'inscription nécessaire. Ouvrez une salle et vous jouez immédiatement.",
+			"step2": "Placez les 10 navires standards, appuyez sur Prêt et tirez chacun votre tour jusqu'à ce que toute la flotte ennemie ou la vôtre soit coulée.",
+			"step3": "Invitez un ami ou jouez contre un bot en niveau Facile, Moyen, Difficile ou Hacker.",
+			"step4": "Chat en temps réel pour communiquer avec votre adversaire pendant la partie."
+		},
+		"unknown_player_generic": "Joueur inconnu",
+		"unknown_player_my": "Mon joueur inconnu",
+		"unknown_player_enemy": "Joueur ennemi inconnu",
+		"join_telegram": "Rejoignez-moi pour une partie de Bataille Navale !",
+		"title": "Bataille Navale",
+		"pageDescription": "Jouez à la Bataille Navale avec votre ami dans le navigateur en ligne. Envoyez un lien à votre ami pour jouer ensemble.",
+		"newGameWithFriend": "Commencer une nouvelle partie avec un ami",
+		"newGameVsBot": "🤖 Jouer contre Bot",
+		"or": "OU",
+		"loading": "Chargement...",
+		"redirecting": "Redirection vers une salle...",
+		"inviteFriend": "Inviter des amis",
+		"inviteFriendDesc": "Partagez un lien avec vos amis pour jouer ensemble",
+		"CopyLink": "Copier le lien",
+		"facebook_icon": "Facebook",
+		"whatsapp_icon": "WhatsApp",
+		"telegram_icon": "Telegram",
+		"players": {
+			"title": "Joueurs"
+		},
+		"chat": {
+			"button": "Discussion",
+			"dialogTitle": "Discussion de la salle",
+			"placeholder": "Saisissez votre message",
+			"send": "Envoyer",
+			"empty": "Aucun message pour le moment",
+			"newBadge": "Nouveaux messages",
+			"returnBackToShipLocating": "Revenez au placement des navires",
+			"returnBackButtonSingle": "Revenir",
+			"returnBackToYourTurn": "Revenez ! C'est votre tour !",
+			"returnBackToReadyToBattle": "Revenez ! Votre adversaire est prêt !"
+		},
+		"room": {
+			"title": "Salle de Bataille Navale"
+		},
+		"fight": {
+			"title": "Combat de Bataille Navale",
+			"view_battle": "Voir le champ de bataille",
+			"enemy": "Champ ennemi",
+			"your": "Votre champ",
+			"yourTurn": "À votre tour ! 💪",
+			"enemyTurn": "Tour de l'ennemi 😈",
+			"you_hit": "Vous avez touché le navire ! 💥",
+			"you_missed": "Vous avez raté ! 💦",
+			"enemy_missed": "L'ennemi a raté ! 💦",
+			"enemy_hit_your_ship": "L'ennemi a touché votre navire ! 💥",
+			"waiting": "En attente d'action"
+		},
+		"shipLocating": {
+			"title": "Localisation des navires de Bataille Navale"
+		},
+		"exit": "Quitter la salle",
+		"ready": "Prêt 💪",
+		"not_ready": "Pas prêt 🥥",
+		"result": {
+			"won": "Vous avez gagné🎉 !",
+			"lost": "Vous avez perdu la bataille...😔",
+			"again": "Rejouer !"
+		},
+		"enter_name": "Entrez un nouveau nom d'utilisateur",
+		"update_username": "Changer le nom d'utilisateur",
+		"waiting_for_player": "En attente d'un joueur...",
+		"waiting_for_another_p": "En attente d'autres joueurs pour commencer",
+		"start_battle": "Commencer une bataille !",
+		"starting_game": "Démarrage du jeu...",
+		"place_ship_title": "Placez vos navires",
+		"place_ship_desc": "Glissez-déposez simplement. Vous pouvez faire pivoter un navire en cliquant dessus !",
+		"randomize": "Positionner aléatoirement les navires",
+		"invalid_ships": "Placement de navire invalide à la colonne #{x}, rangée #{y}",
+		"locating": {
+			"start": "Enregistrer et commencer une bataille",
+			"waiting": "En attente que l'autre joueur place ses navires..."
+		},
+		"addBot": {
+			"emojiLabel": "robot",
+			"button": "Ajouter un Bot",
+			"title": "Ajouter un joueur Bot",
+			"skillLabel": "Niveau du Bot",
+			"cancel": "Annuler",
+			"loading": "Ajout du Bot...",
+			"confirm": "Ajouter le Bot"
+		},
+		"botSkill": {
+			"easy": "Facile",
+			"easyDesc": "Bon pour les débutants",
+			"average": "Moyen",
+			"averageDesc": "Jeu équilibré",
+			"hard": "Difficile",
+			"hardDesc": "Adversaire difficile",
+			"hacker": "Hacker",
+			"hackerDesc": "Défi ultime"
+		},
+		"auth": {
+			"cookiesDisabled": {
+				"title": "Les cookies sont désactivés",
+				"description": "<bold>Attention !</bold> Lorsque vous rechargez la page, vous serez déconnecté car les cookies sont désactivés dans votre navigateur. Veuillez activer les cookies pour garder votre session active après un rechargement de page."
+			},
+			"openInSystemBrowser": {
+				"title": "Meilleure expérience disponible",
+				"description": "Pour une meilleure expérience de jeu, veuillez ouvrir cette application dans votre navigateur système.",
+				"closeMessage": "Fermer ce message",
+				"openButton": "Ouvrir dans le navigateur système",
+				"openGameButton": "Ouvrir le jeu dans le navigateur système"
 			}
-			desc: {
-				glance: 'Gatus est une page de statut orientée développeurs qui surveille nos services avec des vérifications HTTP, ICMP, TCP et DNS, avec alertes, et une vue de statut publique pour que tout le monde puisse voir lorsqu’un jeu ou un service est en panne.'
-				watcharr: 'Watcharr est une liste de suivi open source, auto-hébergeable, pour tous vos contenus (films, séries TV, anime, jeux) avec authentification utilisateur, une interface moderne et épurée, et une configuration très simple.'
-				memos: 'Memos est une solution open source et légère pour prendre des notes. Le moyen sans douleur de créer vos notes pertinentes. Vos notes, à votre façon.'
+		}
+	},
+	"SeaBattleJoinLink": {
+		"meta": {
+			"title": "Rejoindre la Bataille Navale",
+			"description": "Rejoignez une partie de Bataille Navale via un lien d'invitation. Jouez avec vos amis en temps réel !",
+			"ogTitle": "Rejoignez la Bataille Navale !",
+			"ogDescription": "Cliquez sur le lien et jouez à la Bataille Navale avec votre ami en temps réel !",
+			"ogImageAlt": "Jeu de Bataille Navale"
+		},
+		"card": {
+			"title": "Rejoindre la bataille...",
+			"errorTitle": "Erreur",
+			"noCodeTitle": "Pas de code d'invitation",
+			"noCodeDescription": "Veuillez utiliser un lien d'invitation valide pour rejoindre une partie.",
+			"backToLobby": "Retour au lobby"
+		}
+	},
+	"GamesBoard": {
+		"title": "Jeux Navigateur",
+		"desc": "Nous développons des jeux pour navigateur à jouer en ligne !",
+		"sea_battle_desc": "Marre d'envoyer des textes ennuyeux à votre ami ? Envoyez-lui un lien d'invitation pour rejoindre une bataille navale contre vous ! Aucun téléchargement d'application requis. Jeu léger dans le navigateur pour n'importe quel appareil !",
+		"sea_battle": "Jeu de Bataille Navale par Lien"
+	},
+	"SelfHostList": {
+		"title": "Services auto-hébergés",
+		"githubLink": "Ouvrir sur GitHub",
+		"desc": "Auto-hébergement de projets open source à usage personnel. Merci aux auteurs et contributeurs de ces projets ! ❤️",
+		"items": {
+			"title": {
+				"watcharr": "Watcharr",
+				"glance": "Gatus",
+				"memos": "Memos"
+			},
+			"desc": {
+				"glance": "Gatus est une page de statut orientée développeurs qui surveille nos services avec des vérifications HTTP, ICMP, TCP et DNS, avec alertes, et une vue de statut publique pour que tout le monde puisse voir lorsqu’un jeu ou un service est en panne.",
+				"watcharr": "Watcharr est une liste de suivi open source, auto-hébergeable, pour tous vos contenus (films, séries TV, anime, jeux) avec authentification utilisateur, une interface moderne et épurée, et une configuration très simple.",
+				"memos": "Memos est une solution open source et légère pour prendre des notes. Le moyen sans douleur de créer vos notes pertinentes. Vos notes, à votre façon."
 			}
 		}
+	},
+	"NotFound": {
+		"title": "Quelque chose manque.",
+		"message": "Désolé, nous ne pouvons pas trouver cette page. Vous trouverez beaucoup à explorer sur la page d'accueil.",
+		"goHome": "Aller à la page d'accueil."
+	},
+	"Error": {
+		"title": "Erreur inattendue !"
+	},
+	"ImageCollection": {
+		"imageLabel": "Image",
+		"submit": "Soumettre"
+	},
+	"copyButton": {
+		"copy": "Copier",
+		"copied": "Copié !"
+	},
+	"RandomizerWheel": {
+		"restart_wheel": "Redémarrer la roue",
+		"close": "Fermer",
+		"winner_announcement": "Nous avons un gagnant ! 🎉"
+	},
+	"RssFeed": {
+		"title": "Notes RevoTale",
+		"description": "Dernières notes et micro-posts de RevoTale",
+		"generator": "Générateur RSS RevoTale",
+		"authorName": "RevoTale",
+		"authorEmail": "contact@revotale.com",
+		"unknownAuthor": "Inconnu",
+		"untitledNote": "Note sans titre",
+		"internalServerError": "Erreur interne du serveur"
 	}
-	NotFound: {
-		title: 'Quelque chose manque.'
-		message: "Désolé, nous ne pouvons pas trouver cette page. Vous trouverez beaucoup à explorer sur la page d'accueil."
-		goHome: "Aller à la page d'accueil."
-	}
-	Error: {
-		title: 'Erreur inattendue !'
-	}
-	ImageCollection: {
-		imageLabel: 'Image'
-		submit: 'Soumettre'
-	}
-	copyButton: {
-		copy: 'Copier'
-		copied: 'Copié !'
-	}
-	RandomizerWheel: {
-		restart_wheel: 'Redémarrer la roue'
-		close: 'Fermer'
-		winner_announcement: 'Nous avons un gagnant ! 🎉'
-	}
-	RssFeed: {
-		title: 'Notes RevoTale'
-		description: 'Dernières notes et micro-posts de RevoTale'
-		generator: 'Générateur RSS RevoTale'
-		authorName: 'RevoTale'
-		authorEmail: 'contact@revotale.com'
-		unknownAuthor: 'Inconnu'
-		untitledNote: 'Note sans titre'
-		internalServerError: 'Erreur interne du serveur'
-	}
-}
-export default messages
+};
+export default messages;

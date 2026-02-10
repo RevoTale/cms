@@ -7,12 +7,12 @@ import { fileURLToPath } from 'node:url'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import type { GenerateFileURL } from '@payloadcms/plugin-cloud-storage/types'
 import { seoPlugin } from '@payloadcms/plugin-seo'
-import type { GenerateDescription, GenerateURL } from '@payloadcms/plugin-seo/types'
+import type { GenerateDescription } from '@payloadcms/plugin-seo/types'
 import { s3Storage } from '@payloadcms/storage-s3'
 import OpenAI from 'openai'
 import type { PayloadRequest, TypedLocale } from 'payload'
 import { buildConfig } from 'payload'
-import type { MicroPost, Post, Tag } from 'src/payload-types'
+import type { MicroPost, Tag } from 'src/payload-types'
 import { locales } from './i18n-config'
 import { migrations } from './migrations'
 import AICallLogs from './payload/collections/AICallLog'
@@ -20,7 +20,6 @@ import Authors from './payload/collections/Authors'
 import { Media } from './payload/collections/Media'
 import MicroPostExternalLink from './payload/collections/MicroPostExternalLink'
 import { MicroPosts } from './payload/collections/MicroPosts'
-import { Posts } from './payload/collections/Posts'
 import Tags from './payload/collections/Tags'
 import Users from './payload/collections/Users'
 import { seed } from './payload/endpoints/seed'
@@ -36,7 +35,7 @@ const client = key
 			apiKey: key, // This is the default and can be omitted
 		})
 	: null
-const generateTitle: GenerateDescription<Post | MicroPost> = async ({ doc }) => {
+const generateTitle: GenerateDescription<MicroPost> = async ({ doc }) => {
 	if (client === null) {
 		throw new Error('OpenAI client is not initialized')
 	}
@@ -77,7 +76,7 @@ HARD RULES
 
 	return response.output_text
 }
-const generateDescription: GenerateDescription<Post | MicroPost> = async ({ doc }) => {
+const generateDescription: GenerateDescription<MicroPost> = async ({ doc }) => {
 	if (client === null) {
 		throw new Error('OpenAI client is not initialized')
 	}
@@ -121,8 +120,7 @@ HARD RULES
 	return response.output_text
 }
 const publicWebsiteURL = process.env.APP_URL ?? process.env.PAYLOAD_PUBLIC_SERVER_URL ?? ''
-const generateURL: GenerateURL<Post> = ({ doc }) =>
-	doc.slug ? `${publicWebsiteURL}/blog/${doc.slug}` : publicWebsiteURL
+
 const sss: GenerateFileURL = ({ filename, prefix = '' }) => `${publicWebsiteURL}/cdn/image/s3/828/${prefix}/${filename}`
 
 const toURLOrigin = (value: string | undefined): string | undefined => {
@@ -366,7 +364,7 @@ export default buildConfig({
 	}),
 	maxDepth: payloadMaxDepth,
 	serverURL,
-	collections: [Posts, Media, Users, Tags, Authors, AICallLogs, MicroPosts, MicroPostExternalLink],
+	collections: [Media, Users, Tags, Authors, AICallLogs, MicroPosts, MicroPostExternalLink],
 	cors: allowedOrigins.length > 0 ? allowedOrigins : undefined,
 	csrf: allowedOrigins.length > 0 ? allowedOrigins : undefined,
 	globals: [],
@@ -400,7 +398,6 @@ export default buildConfig({
 		seoPlugin({
 			generateTitle,
 			generateDescription,
-			generateURL,
 		}),
 		createSearchPlugin(),
 	],

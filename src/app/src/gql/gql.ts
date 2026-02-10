@@ -31,16 +31,8 @@ type Documents = {
     "\n\tquery sitemap_blog_post_list_total_dfsdf {\n\t\tMicro_posts(limit: 1000) {\n\t\t\ttotalPages\n\t\t}\n\t}\n": typeof types.sitemap_blog_post_list_total_dfsdfDocument,
     "\n\tquery sitemap_blog_tags_list($page: Int!, $limit: Int!) {\n\t\tTags(limit: $limit, page: $page) {\n\t\t\tdocs {\n\t\t\t\tid\n\t\t\t\tname\n\t\t\t\tcreatedAt\n\t\t\t\tupdatedAt\n\t\t\t}\n\t\t}\n\t}\n": typeof types.sitemap_blog_tags_listDocument,
     "\n\tquery sitemap_blog_tags_list_total($limit: Int!) {\n\t\tTags(limit: $limit) {\n\t\t\ttotalPages\n\t\t}\n\t}\n": typeof types.sitemap_blog_tags_list_totalDocument,
-    "\n\tfragment ContentfulBlogItem on Post {\n\t\t...PostPublishDate_BlogPost\n\t\tauthors {\n\t\t\t...BlogListAuthor\n\t\t\t...GetAuthorURL\n\t\t}\n\t\tfeaturedImage {\n\t\t\t...ContentfulImage\n\t\t}\n\t\ttags {\n\t\t\tname\n\t\t}\n\t\tslug\n\t\ttitle\n\t\tsubtitle\n\t\t...GetPostURL\n\t}\n": typeof types.ContentfulBlogItemFragmentDoc,
     "\n\tfragment BlogListAuthor on Author {\n\t\tid\n\t\tavatar {\n\t\t\t...ContentfulImage\n\t\t}\n\t\tname\n\t\tslug\n\t\tbio\n\t\t...GetAuthorURL\n\t}\n": typeof types.BlogListAuthorFragmentDoc,
-    "\n\tfragment SingleBlogPostBreadCrumb on Post {\n\t\tid\n\t\tauthors {\n\t\t\tname\n\t\t\tslug\n\t\t\t...GetAuthorURL\n\t\t}\n\t\ttitle\n\t\t...GetPostURL\n\t}\n": typeof types.SingleBlogPostBreadCrumbFragmentDoc,
-    "\n\tfragment SingleBlogPostContent on Post {\n\t\tid\n\t\tslug\n\t\ttitle\n\t\t...PostPublishDate_BlogPost\n\t\tauthors {\n\t\t\t...BlogListAuthor\n\t\t}\n\t\tsubtitle\n\t\ttags {\n\t\t\tname\n\t\t}\n\t\t...BlogPost_featuredImageFrag\n\t}\n": typeof types.SingleBlogPostContentFragmentDoc,
-    "\n\tfragment BlogPost_featuredImageFrag on Post {\n\t\tid\n\t\tfeaturedImage {\n\t\t\t...ContentfulImage\n\t\t\tcaption\n\t\t}\n\t}\n": typeof types.BlogPost_featuredImageFragFragmentDoc,
-    "\n\tfragment SingleBlogPostJsonLD on Post {\n\t\tid\n\t\tslug\n\t\ttitle\n\t\tsubtitle\n\t\tauthors {\n\t\t\tname\n\t\t\tslug\n\t\t\t...GetAuthorURL\n\t\t\t...SingleAuthorJsonLd\n\t\t}\n\t\tcreatedAt\n\t\tupdatedAt\n\t\tpublishedAt\n\t\tfeaturedImage {\n\t\t\t...ImageJsonLd\n\t\t}\n\t}\n": typeof types.SingleBlogPostJsonLDFragmentDoc,
-    "\n\tfragment BlogPostText_Text on Post {\n\t\tid\n\t\tcontent\n\t}\n": typeof types.BlogPostText_TextFragmentDoc,
-    "\n\tfragment PostPublishDate_BlogPost on Post {\n\t\tid\n\t\tpublishedAt\n\t\tslug\n\t\t...GetPostURL\n\t}\n": typeof types.PostPublishDate_BlogPostFragmentDoc,
     "\n\tfragment GetAuthorURL on Author {\n\t\tslug\n\t\tid\n\t}\n": typeof types.GetAuthorURLFragmentDoc,
-    "\n\tfragment GetPostURL on Post {\n\t\tslug\n\t\tid\n\t}\n": typeof types.GetPostURLFragmentDoc,
     "\n\tfragment ContentfulImage on Media {\n\t\tid\n\t\talt\n\t\tdescription\n\t\turl\n\t\twidth\n\t\theight\n\t}\n": typeof types.ContentfulImageFragmentDoc,
     "\n\tfragment SingleAuthorJsonLd on Author {\n\t\tname\n\t\tslug\n\t\tavatar {\n\t\t\t...ImageJsonLd\n\t\t}\n\t\t...GetAuthorURL\n\t\tbio\n\t\tid\n\t}\n": typeof types.SingleAuthorJsonLdFragmentDoc,
     "\n\tfragment SingleNoteJsonld on Micro_post {\n\t\tid\n\t\tauthors {\n\t\t\t...SingleAuthorJsonLd\n\t\t}\n\t\tmeta {\n\t\t\ttitle\n\t\t\tdescription\n\t\t\timage {\n\t\t\t\t...ImageJsonLd\n\t\t\t}\n\t\t}\n\t\ttitle\n\t\tpublishedAt\n\t\tlinkedMicroPosts {\n\t\t\tid\n\t\t\t...Blog_getMicropostHref\n\t\t}\n\t\texternalLinks {\n\t\t\tid\n\t\t\ttitle\n\t\t\ttarget_url\n\t\t}\n\t\t...Blog_getMicropostHref\n\t}\n": typeof types.SingleNoteJsonldFragmentDoc,
@@ -88,16 +80,8 @@ const documents: Documents = {
     "\n\tquery sitemap_blog_post_list_total_dfsdf {\n\t\tMicro_posts(limit: 1000) {\n\t\t\ttotalPages\n\t\t}\n\t}\n": types.sitemap_blog_post_list_total_dfsdfDocument,
     "\n\tquery sitemap_blog_tags_list($page: Int!, $limit: Int!) {\n\t\tTags(limit: $limit, page: $page) {\n\t\t\tdocs {\n\t\t\t\tid\n\t\t\t\tname\n\t\t\t\tcreatedAt\n\t\t\t\tupdatedAt\n\t\t\t}\n\t\t}\n\t}\n": types.sitemap_blog_tags_listDocument,
     "\n\tquery sitemap_blog_tags_list_total($limit: Int!) {\n\t\tTags(limit: $limit) {\n\t\t\ttotalPages\n\t\t}\n\t}\n": types.sitemap_blog_tags_list_totalDocument,
-    "\n\tfragment ContentfulBlogItem on Post {\n\t\t...PostPublishDate_BlogPost\n\t\tauthors {\n\t\t\t...BlogListAuthor\n\t\t\t...GetAuthorURL\n\t\t}\n\t\tfeaturedImage {\n\t\t\t...ContentfulImage\n\t\t}\n\t\ttags {\n\t\t\tname\n\t\t}\n\t\tslug\n\t\ttitle\n\t\tsubtitle\n\t\t...GetPostURL\n\t}\n": types.ContentfulBlogItemFragmentDoc,
     "\n\tfragment BlogListAuthor on Author {\n\t\tid\n\t\tavatar {\n\t\t\t...ContentfulImage\n\t\t}\n\t\tname\n\t\tslug\n\t\tbio\n\t\t...GetAuthorURL\n\t}\n": types.BlogListAuthorFragmentDoc,
-    "\n\tfragment SingleBlogPostBreadCrumb on Post {\n\t\tid\n\t\tauthors {\n\t\t\tname\n\t\t\tslug\n\t\t\t...GetAuthorURL\n\t\t}\n\t\ttitle\n\t\t...GetPostURL\n\t}\n": types.SingleBlogPostBreadCrumbFragmentDoc,
-    "\n\tfragment SingleBlogPostContent on Post {\n\t\tid\n\t\tslug\n\t\ttitle\n\t\t...PostPublishDate_BlogPost\n\t\tauthors {\n\t\t\t...BlogListAuthor\n\t\t}\n\t\tsubtitle\n\t\ttags {\n\t\t\tname\n\t\t}\n\t\t...BlogPost_featuredImageFrag\n\t}\n": types.SingleBlogPostContentFragmentDoc,
-    "\n\tfragment BlogPost_featuredImageFrag on Post {\n\t\tid\n\t\tfeaturedImage {\n\t\t\t...ContentfulImage\n\t\t\tcaption\n\t\t}\n\t}\n": types.BlogPost_featuredImageFragFragmentDoc,
-    "\n\tfragment SingleBlogPostJsonLD on Post {\n\t\tid\n\t\tslug\n\t\ttitle\n\t\tsubtitle\n\t\tauthors {\n\t\t\tname\n\t\t\tslug\n\t\t\t...GetAuthorURL\n\t\t\t...SingleAuthorJsonLd\n\t\t}\n\t\tcreatedAt\n\t\tupdatedAt\n\t\tpublishedAt\n\t\tfeaturedImage {\n\t\t\t...ImageJsonLd\n\t\t}\n\t}\n": types.SingleBlogPostJsonLDFragmentDoc,
-    "\n\tfragment BlogPostText_Text on Post {\n\t\tid\n\t\tcontent\n\t}\n": types.BlogPostText_TextFragmentDoc,
-    "\n\tfragment PostPublishDate_BlogPost on Post {\n\t\tid\n\t\tpublishedAt\n\t\tslug\n\t\t...GetPostURL\n\t}\n": types.PostPublishDate_BlogPostFragmentDoc,
     "\n\tfragment GetAuthorURL on Author {\n\t\tslug\n\t\tid\n\t}\n": types.GetAuthorURLFragmentDoc,
-    "\n\tfragment GetPostURL on Post {\n\t\tslug\n\t\tid\n\t}\n": types.GetPostURLFragmentDoc,
     "\n\tfragment ContentfulImage on Media {\n\t\tid\n\t\talt\n\t\tdescription\n\t\turl\n\t\twidth\n\t\theight\n\t}\n": types.ContentfulImageFragmentDoc,
     "\n\tfragment SingleAuthorJsonLd on Author {\n\t\tname\n\t\tslug\n\t\tavatar {\n\t\t\t...ImageJsonLd\n\t\t}\n\t\t...GetAuthorURL\n\t\tbio\n\t\tid\n\t}\n": types.SingleAuthorJsonLdFragmentDoc,
     "\n\tfragment SingleNoteJsonld on Micro_post {\n\t\tid\n\t\tauthors {\n\t\t\t...SingleAuthorJsonLd\n\t\t}\n\t\tmeta {\n\t\t\ttitle\n\t\t\tdescription\n\t\t\timage {\n\t\t\t\t...ImageJsonLd\n\t\t\t}\n\t\t}\n\t\ttitle\n\t\tpublishedAt\n\t\tlinkedMicroPosts {\n\t\t\tid\n\t\t\t...Blog_getMicropostHref\n\t\t}\n\t\texternalLinks {\n\t\t\tid\n\t\t\ttitle\n\t\t\ttarget_url\n\t\t}\n\t\t...Blog_getMicropostHref\n\t}\n": types.SingleNoteJsonldFragmentDoc,
@@ -213,43 +197,11 @@ export function graphql(source: "\n\tquery sitemap_blog_tags_list_total($limit: 
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n\tfragment ContentfulBlogItem on Post {\n\t\t...PostPublishDate_BlogPost\n\t\tauthors {\n\t\t\t...BlogListAuthor\n\t\t\t...GetAuthorURL\n\t\t}\n\t\tfeaturedImage {\n\t\t\t...ContentfulImage\n\t\t}\n\t\ttags {\n\t\t\tname\n\t\t}\n\t\tslug\n\t\ttitle\n\t\tsubtitle\n\t\t...GetPostURL\n\t}\n"): (typeof documents)["\n\tfragment ContentfulBlogItem on Post {\n\t\t...PostPublishDate_BlogPost\n\t\tauthors {\n\t\t\t...BlogListAuthor\n\t\t\t...GetAuthorURL\n\t\t}\n\t\tfeaturedImage {\n\t\t\t...ContentfulImage\n\t\t}\n\t\ttags {\n\t\t\tname\n\t\t}\n\t\tslug\n\t\ttitle\n\t\tsubtitle\n\t\t...GetPostURL\n\t}\n"];
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
 export function graphql(source: "\n\tfragment BlogListAuthor on Author {\n\t\tid\n\t\tavatar {\n\t\t\t...ContentfulImage\n\t\t}\n\t\tname\n\t\tslug\n\t\tbio\n\t\t...GetAuthorURL\n\t}\n"): (typeof documents)["\n\tfragment BlogListAuthor on Author {\n\t\tid\n\t\tavatar {\n\t\t\t...ContentfulImage\n\t\t}\n\t\tname\n\t\tslug\n\t\tbio\n\t\t...GetAuthorURL\n\t}\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n\tfragment SingleBlogPostBreadCrumb on Post {\n\t\tid\n\t\tauthors {\n\t\t\tname\n\t\t\tslug\n\t\t\t...GetAuthorURL\n\t\t}\n\t\ttitle\n\t\t...GetPostURL\n\t}\n"): (typeof documents)["\n\tfragment SingleBlogPostBreadCrumb on Post {\n\t\tid\n\t\tauthors {\n\t\t\tname\n\t\t\tslug\n\t\t\t...GetAuthorURL\n\t\t}\n\t\ttitle\n\t\t...GetPostURL\n\t}\n"];
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(source: "\n\tfragment SingleBlogPostContent on Post {\n\t\tid\n\t\tslug\n\t\ttitle\n\t\t...PostPublishDate_BlogPost\n\t\tauthors {\n\t\t\t...BlogListAuthor\n\t\t}\n\t\tsubtitle\n\t\ttags {\n\t\t\tname\n\t\t}\n\t\t...BlogPost_featuredImageFrag\n\t}\n"): (typeof documents)["\n\tfragment SingleBlogPostContent on Post {\n\t\tid\n\t\tslug\n\t\ttitle\n\t\t...PostPublishDate_BlogPost\n\t\tauthors {\n\t\t\t...BlogListAuthor\n\t\t}\n\t\tsubtitle\n\t\ttags {\n\t\t\tname\n\t\t}\n\t\t...BlogPost_featuredImageFrag\n\t}\n"];
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(source: "\n\tfragment BlogPost_featuredImageFrag on Post {\n\t\tid\n\t\tfeaturedImage {\n\t\t\t...ContentfulImage\n\t\t\tcaption\n\t\t}\n\t}\n"): (typeof documents)["\n\tfragment BlogPost_featuredImageFrag on Post {\n\t\tid\n\t\tfeaturedImage {\n\t\t\t...ContentfulImage\n\t\t\tcaption\n\t\t}\n\t}\n"];
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(source: "\n\tfragment SingleBlogPostJsonLD on Post {\n\t\tid\n\t\tslug\n\t\ttitle\n\t\tsubtitle\n\t\tauthors {\n\t\t\tname\n\t\t\tslug\n\t\t\t...GetAuthorURL\n\t\t\t...SingleAuthorJsonLd\n\t\t}\n\t\tcreatedAt\n\t\tupdatedAt\n\t\tpublishedAt\n\t\tfeaturedImage {\n\t\t\t...ImageJsonLd\n\t\t}\n\t}\n"): (typeof documents)["\n\tfragment SingleBlogPostJsonLD on Post {\n\t\tid\n\t\tslug\n\t\ttitle\n\t\tsubtitle\n\t\tauthors {\n\t\t\tname\n\t\t\tslug\n\t\t\t...GetAuthorURL\n\t\t\t...SingleAuthorJsonLd\n\t\t}\n\t\tcreatedAt\n\t\tupdatedAt\n\t\tpublishedAt\n\t\tfeaturedImage {\n\t\t\t...ImageJsonLd\n\t\t}\n\t}\n"];
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(source: "\n\tfragment BlogPostText_Text on Post {\n\t\tid\n\t\tcontent\n\t}\n"): (typeof documents)["\n\tfragment BlogPostText_Text on Post {\n\t\tid\n\t\tcontent\n\t}\n"];
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(source: "\n\tfragment PostPublishDate_BlogPost on Post {\n\t\tid\n\t\tpublishedAt\n\t\tslug\n\t\t...GetPostURL\n\t}\n"): (typeof documents)["\n\tfragment PostPublishDate_BlogPost on Post {\n\t\tid\n\t\tpublishedAt\n\t\tslug\n\t\t...GetPostURL\n\t}\n"];
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
 export function graphql(source: "\n\tfragment GetAuthorURL on Author {\n\t\tslug\n\t\tid\n\t}\n"): (typeof documents)["\n\tfragment GetAuthorURL on Author {\n\t\tslug\n\t\tid\n\t}\n"];
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(source: "\n\tfragment GetPostURL on Post {\n\t\tslug\n\t\tid\n\t}\n"): (typeof documents)["\n\tfragment GetPostURL on Post {\n\t\tslug\n\t\tid\n\t}\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

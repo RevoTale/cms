@@ -67,7 +67,6 @@ export interface Config {
   };
   blocks: {};
   collections: {
-    posts: Post;
     media: Media;
     users: User;
     tags: Tag;
@@ -89,7 +88,6 @@ export interface Config {
     };
   };
   collectionsSelect: {
-    posts: PostsSelect<false> | PostsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
@@ -149,36 +147,6 @@ export interface UserAuthOperations {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts".
- */
-export interface Post {
-  id: string;
-  title: string;
-  subtitle: string;
-  featuredImage: string | Media;
-  content: string;
-  relatedPosts?: (string | Post)[] | null;
-  tags?: (string | Tag)[] | null;
-  meta: {
-    title?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (string | null) | Media;
-    nofollow: boolean;
-    noindex: boolean;
-    description?: string | null;
-  };
-  authorSlug?: string | null;
-  publishedAt?: string | null;
-  authors: (string | Author)[];
-  slug: string;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
 export interface Media {
@@ -198,6 +166,32 @@ export interface Media {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users".
+ */
+export interface User {
+  id: string;
+  name?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  sessions?:
+    | {
+        id: string;
+        createdAt?: string | null;
+        expiresAt: string;
+      }[]
+    | null;
+  password?: string | null;
+  collection: 'users';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -228,6 +222,10 @@ export interface MicroPost {
   cronTranslationLocalesQueued?:
     | ('en-US' | 'uk-UA' | 'de-DE' | 'hi-IN' | 'ja-JP' | 'ru-RU' | 'fr-FR' | 'es-ES')[]
     | null;
+  /**
+   * If enabled, title/content length validation is skipped.
+   */
+  autoTranslated?: boolean | null;
   attachment?: (string | null) | Media;
   post_type: 'short' | 'long';
   content: string;
@@ -284,32 +282,6 @@ export interface Author {
   user: string | User;
   updatedAt: string;
   createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users".
- */
-export interface User {
-  id: string;
-  name?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  sessions?:
-    | {
-        id: string;
-        createdAt?: string | null;
-        expiresAt: string;
-      }[]
-    | null;
-  password?: string | null;
-  collection: 'users';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -473,10 +445,6 @@ export interface PayloadLockedDocument {
   id: string;
   document?:
     | ({
-        relationTo: 'posts';
-        value: string | Post;
-      } | null)
-    | ({
         relationTo: 'media';
         value: string | Media;
       } | null)
@@ -601,34 +569,6 @@ export interface PayloadQueryPreset {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts_select".
- */
-export interface PostsSelect<T extends boolean = true> {
-  title?: T;
-  subtitle?: T;
-  featuredImage?: T;
-  content?: T;
-  relatedPosts?: T;
-  tags?: T;
-  meta?:
-    | T
-    | {
-        title?: T;
-        image?: T;
-        nofollow?: T;
-        noindex?: T;
-        description?: T;
-      };
-  authorSlug?: T;
-  publishedAt?: T;
-  authors?: T;
-  slug?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  _status?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
@@ -720,6 +660,7 @@ export interface AiCallLogsSelect<T extends boolean = true> {
 export interface MicroPostsSelect<T extends boolean = true> {
   title?: T;
   cronTranslationLocalesQueued?: T;
+  autoTranslated?: T;
   attachment?: T;
   post_type?: T;
   content?: T;

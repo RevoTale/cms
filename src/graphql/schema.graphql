@@ -1,38 +1,4 @@
 type Query {
-	Post(
-		id: String!
-		draft: Boolean
-		fallbackLocale: FallbackLocaleInputType
-		locale: LocaleInputType
-		select: Boolean
-		trash: Boolean
-	): Post
-	Posts(
-		draft: Boolean
-		where: Post_where
-		fallbackLocale: FallbackLocaleInputType
-		locale: LocaleInputType
-		limit: Int
-		page: Int
-		pagination: Boolean
-		select: Boolean
-		sort: String
-		trash: Boolean
-	): Posts
-	countPosts(draft: Boolean, trash: Boolean, where: Post_where, locale: LocaleInputType): countPosts
-	docAccessPost(id: String!): postsDocAccess
-	versionPost(id: String, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, trash: Boolean): PostVersion
-	versionsPosts(
-		where: versionsPost_where
-		fallbackLocale: FallbackLocaleInputType
-		locale: LocaleInputType
-		limit: Int
-		page: Int
-		pagination: Boolean
-		select: Boolean
-		sort: String
-		trash: Boolean
-	): versionsPosts
 	Media(
 		id: String!
 		draft: Boolean
@@ -367,24 +333,6 @@ type Query {
 	availableTagsByMicroPostType(locale: LocaleInputType, postType: String): [Tag!]!
 }
 
-type Post {
-	id: String!
-	title: String
-	subtitle: String
-	featuredImage(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Media
-	content: String
-	relatedPosts(draft: Boolean, locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Post!]
-	tags(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Tag!]
-	meta: Post_Meta
-	authorSlug: String
-	publishedAt: DateTime
-	authors(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Author!]
-	slug: String
-	updatedAt: DateTime
-	createdAt: DateTime
-	_status: Post__status
-}
-
 type Media {
 	id: String!
 	alt: String
@@ -409,17 +357,6 @@ A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `dat
 """
 scalar DateTime
 
-enum LocaleInputType {
-	en_US
-	uk_UA
-	de_DE
-	hi_IN
-	ja_JP
-	ru_RU
-	fr_FR
-	es_ES
-}
-
 enum FallbackLocaleInputType {
 	en_US
 	uk_UA
@@ -432,43 +369,7 @@ enum FallbackLocaleInputType {
 	none
 }
 
-type Tag {
-	id: String!
-	title: String
-	micro_posts(count: Boolean, limit: Int, page: Int, sort: String, where: Micro_post_where): Tag_Micro_posts
-	name: String!
-	updatedAt: DateTime
-	createdAt: DateTime
-}
-
-type Tag_Micro_posts {
-	docs: [Micro_post!]!
-	hasNextPage: Boolean!
-	totalDocs: Int
-}
-
-type Micro_post {
-	id: String!
-	title: String
-	cronTranslationLocalesQueued: [Micro_post_cronTranslationLocalesQueued!]
-	attachment(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Media
-	post_type: Micro_post_post_type
-	content: String
-	slug: String
-	tags(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Tag!]
-	meta: Micro_post_Meta
-	linkedMicroPosts(draft: Boolean, locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Micro_post!]
-	externalLinks(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Micro_post_external_link!]
-	social: Micro_post_Social
-	publishedAt: DateTime
-	authors(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Author!]
-	authorSlug: String
-	updatedAt: DateTime
-	createdAt: DateTime
-	_status: Micro_post__status
-}
-
-enum Micro_post_cronTranslationLocalesQueued {
+enum LocaleInputType {
 	en_US
 	uk_UA
 	de_DE
@@ -477,1559 +378,6 @@ enum Micro_post_cronTranslationLocalesQueued {
 	ru_RU
 	fr_FR
 	es_ES
-}
-
-enum Micro_post_post_type {
-	short
-	long
-}
-
-type Micro_post_Meta {
-	title: String
-	image(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Media
-	description: String
-}
-
-type Micro_post_external_link {
-	id: String!
-	title: String
-	target_url: String!
-	updatedAt: DateTime
-	createdAt: DateTime
-}
-
-type Micro_post_Social {
-	x: Micro_post_Social_X
-}
-
-type Micro_post_Social_X {
-	autoPost: Boolean
-	autoPosted: Boolean
-	autoPostedAt: DateTime
-}
-
-type Author {
-	id: String!
-	name: String
-	slug: String!
-	twitter: Author_Twitter
-	bio: String
-	avatar(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Media
-	user(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): User!
-	updatedAt: DateTime
-	createdAt: DateTime
-}
-
-type Author_Twitter {
-	apiKey: String
-}
-
-type User {
-	id: String!
-	name: String
-	updatedAt: DateTime
-	createdAt: DateTime
-	email: EmailAddress!
-	resetPasswordToken: String
-	resetPasswordExpiration: DateTime
-	salt: String
-	hash: String
-	loginAttempts: Float
-	lockUntil: DateTime
-	sessions: [User_Sessions!]
-}
-
-"""
-A field whose value conforms to the standard internet email address format as specified in HTML Spec: https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address.
-"""
-scalar EmailAddress @specifiedBy(url: "https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address")
-
-type User_Sessions {
-	id: String
-	createdAt: DateTime
-	expiresAt: DateTime
-}
-
-enum Micro_post__status {
-	draft
-	published
-}
-
-input Micro_post_where {
-	title: Micro_post_title_operator
-	cronTranslationLocalesQueued: Micro_post_cronTranslationLocalesQueued_operator
-	attachment: Micro_post_attachment_operator
-	post_type: Micro_post_post_type_operator
-	content: Micro_post_content_operator
-	slug: Micro_post_slug_operator
-	tags: Micro_post_tags_operator
-	meta__title: Micro_post_meta__title_operator
-	meta__image: Micro_post_meta__image_operator
-	meta__description: Micro_post_meta__description_operator
-	linkedMicroPosts: Micro_post_linkedMicroPosts_operator
-	externalLinks: Micro_post_externalLinks_operator
-	social__x__autoPost: Micro_post_social__x__autoPost_operator
-	social__x__autoPosted: Micro_post_social__x__autoPosted_operator
-	social__x__autoPostedAt: Micro_post_social__x__autoPostedAt_operator
-	publishedAt: Micro_post_publishedAt_operator
-	authors: Micro_post_authors_operator
-	authorSlug: Micro_post_authorSlug_operator
-	updatedAt: Micro_post_updatedAt_operator
-	createdAt: Micro_post_createdAt_operator
-	_status: Micro_post__status_operator
-	id: Micro_post_id_operator
-	AND: [Micro_post_where_and]
-	OR: [Micro_post_where_or]
-}
-
-input Micro_post_title_operator {
-	equals: String
-	not_equals: String
-	like: String
-	contains: String
-	in: [String]
-	not_in: [String]
-	all: [String]
-	exists: Boolean
-}
-
-input Micro_post_cronTranslationLocalesQueued_operator {
-	equals: Micro_post_cronTranslationLocalesQueued_Input
-	not_equals: Micro_post_cronTranslationLocalesQueued_Input
-	in: [Micro_post_cronTranslationLocalesQueued_Input]
-	not_in: [Micro_post_cronTranslationLocalesQueued_Input]
-	all: [Micro_post_cronTranslationLocalesQueued_Input]
-	exists: Boolean
-}
-
-enum Micro_post_cronTranslationLocalesQueued_Input {
-	en_US
-	uk_UA
-	de_DE
-	hi_IN
-	ja_JP
-	ru_RU
-	fr_FR
-	es_ES
-}
-
-input Micro_post_attachment_operator {
-	equals: JSON
-	not_equals: JSON
-	in: [JSON]
-	not_in: [JSON]
-	all: [JSON]
-	exists: Boolean
-}
-
-"""
-The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
-"""
-scalar JSON @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
-
-input Micro_post_post_type_operator {
-	equals: Micro_post_post_type_Input
-	not_equals: Micro_post_post_type_Input
-	in: [Micro_post_post_type_Input]
-	not_in: [Micro_post_post_type_Input]
-	all: [Micro_post_post_type_Input]
-}
-
-enum Micro_post_post_type_Input {
-	short
-	long
-}
-
-input Micro_post_content_operator {
-	equals: String
-	not_equals: String
-	like: String
-	contains: String
-}
-
-input Micro_post_slug_operator {
-	equals: String
-	not_equals: String
-	like: String
-	contains: String
-	in: [String]
-	not_in: [String]
-	all: [String]
-}
-
-input Micro_post_tags_operator {
-	equals: JSON
-	not_equals: JSON
-	in: [JSON]
-	not_in: [JSON]
-	all: [JSON]
-	exists: Boolean
-}
-
-input Micro_post_meta__title_operator {
-	equals: String
-	not_equals: String
-	like: String
-	contains: String
-	in: [String]
-	not_in: [String]
-	all: [String]
-	exists: Boolean
-}
-
-input Micro_post_meta__image_operator {
-	equals: JSON
-	not_equals: JSON
-	in: [JSON]
-	not_in: [JSON]
-	all: [JSON]
-	exists: Boolean
-}
-
-input Micro_post_meta__description_operator {
-	equals: String
-	not_equals: String
-	like: String
-	contains: String
-	exists: Boolean
-}
-
-input Micro_post_linkedMicroPosts_operator {
-	equals: JSON
-	not_equals: JSON
-	in: [JSON]
-	not_in: [JSON]
-	all: [JSON]
-	exists: Boolean
-}
-
-input Micro_post_externalLinks_operator {
-	equals: JSON
-	not_equals: JSON
-	in: [JSON]
-	not_in: [JSON]
-	all: [JSON]
-	exists: Boolean
-}
-
-input Micro_post_social__x__autoPost_operator {
-	equals: Boolean
-	not_equals: Boolean
-	exists: Boolean
-}
-
-input Micro_post_social__x__autoPosted_operator {
-	equals: Boolean
-	not_equals: Boolean
-	exists: Boolean
-}
-
-input Micro_post_social__x__autoPostedAt_operator {
-	equals: DateTime
-	not_equals: DateTime
-	greater_than_equal: DateTime
-	greater_than: DateTime
-	less_than_equal: DateTime
-	less_than: DateTime
-	like: DateTime
-	exists: Boolean
-}
-
-input Micro_post_publishedAt_operator {
-	equals: DateTime
-	not_equals: DateTime
-	greater_than_equal: DateTime
-	greater_than: DateTime
-	less_than_equal: DateTime
-	less_than: DateTime
-	like: DateTime
-	exists: Boolean
-}
-
-input Micro_post_authors_operator {
-	equals: JSON
-	not_equals: JSON
-	in: [JSON]
-	not_in: [JSON]
-	all: [JSON]
-}
-
-input Micro_post_authorSlug_operator {
-	equals: String
-	not_equals: String
-	like: String
-	contains: String
-	in: [String]
-	not_in: [String]
-	all: [String]
-	exists: Boolean
-}
-
-input Micro_post_updatedAt_operator {
-	equals: DateTime
-	not_equals: DateTime
-	greater_than_equal: DateTime
-	greater_than: DateTime
-	less_than_equal: DateTime
-	less_than: DateTime
-	like: DateTime
-	exists: Boolean
-}
-
-input Micro_post_createdAt_operator {
-	equals: DateTime
-	not_equals: DateTime
-	greater_than_equal: DateTime
-	greater_than: DateTime
-	less_than_equal: DateTime
-	less_than: DateTime
-	like: DateTime
-	exists: Boolean
-}
-
-input Micro_post__status_operator {
-	equals: Micro_post__status_Input
-	not_equals: Micro_post__status_Input
-	in: [Micro_post__status_Input]
-	not_in: [Micro_post__status_Input]
-	all: [Micro_post__status_Input]
-	exists: Boolean
-}
-
-enum Micro_post__status_Input {
-	draft
-	published
-}
-
-input Micro_post_id_operator {
-	equals: String
-	not_equals: String
-	like: String
-	contains: String
-	in: [String]
-	not_in: [String]
-	all: [String]
-	exists: Boolean
-}
-
-input Micro_post_where_and {
-	title: Micro_post_title_operator
-	cronTranslationLocalesQueued: Micro_post_cronTranslationLocalesQueued_operator
-	attachment: Micro_post_attachment_operator
-	post_type: Micro_post_post_type_operator
-	content: Micro_post_content_operator
-	slug: Micro_post_slug_operator
-	tags: Micro_post_tags_operator
-	meta__title: Micro_post_meta__title_operator
-	meta__image: Micro_post_meta__image_operator
-	meta__description: Micro_post_meta__description_operator
-	linkedMicroPosts: Micro_post_linkedMicroPosts_operator
-	externalLinks: Micro_post_externalLinks_operator
-	social__x__autoPost: Micro_post_social__x__autoPost_operator
-	social__x__autoPosted: Micro_post_social__x__autoPosted_operator
-	social__x__autoPostedAt: Micro_post_social__x__autoPostedAt_operator
-	publishedAt: Micro_post_publishedAt_operator
-	authors: Micro_post_authors_operator
-	authorSlug: Micro_post_authorSlug_operator
-	updatedAt: Micro_post_updatedAt_operator
-	createdAt: Micro_post_createdAt_operator
-	_status: Micro_post__status_operator
-	id: Micro_post_id_operator
-	AND: [Micro_post_where_and]
-	OR: [Micro_post_where_or]
-}
-
-input Micro_post_where_or {
-	title: Micro_post_title_operator
-	cronTranslationLocalesQueued: Micro_post_cronTranslationLocalesQueued_operator
-	attachment: Micro_post_attachment_operator
-	post_type: Micro_post_post_type_operator
-	content: Micro_post_content_operator
-	slug: Micro_post_slug_operator
-	tags: Micro_post_tags_operator
-	meta__title: Micro_post_meta__title_operator
-	meta__image: Micro_post_meta__image_operator
-	meta__description: Micro_post_meta__description_operator
-	linkedMicroPosts: Micro_post_linkedMicroPosts_operator
-	externalLinks: Micro_post_externalLinks_operator
-	social__x__autoPost: Micro_post_social__x__autoPost_operator
-	social__x__autoPosted: Micro_post_social__x__autoPosted_operator
-	social__x__autoPostedAt: Micro_post_social__x__autoPostedAt_operator
-	publishedAt: Micro_post_publishedAt_operator
-	authors: Micro_post_authors_operator
-	authorSlug: Micro_post_authorSlug_operator
-	updatedAt: Micro_post_updatedAt_operator
-	createdAt: Micro_post_createdAt_operator
-	_status: Micro_post__status_operator
-	id: Micro_post_id_operator
-	AND: [Micro_post_where_and]
-	OR: [Micro_post_where_or]
-}
-
-type Post_Meta {
-	title: String
-	image(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Media
-	nofollow: Boolean
-	noindex: Boolean
-	description: String
-}
-
-enum Post__status {
-	draft
-	published
-}
-
-type Posts {
-	docs: [Post!]!
-	hasNextPage: Boolean!
-	hasPrevPage: Boolean!
-	limit: Int!
-	nextPage: Int
-	offset: Int
-	page: Int!
-	pagingCounter: Int!
-	prevPage: Int
-	totalDocs: Int!
-	totalPages: Int!
-}
-
-input Post_where {
-	title: Post_title_operator
-	subtitle: Post_subtitle_operator
-	featuredImage: Post_featuredImage_operator
-	content: Post_content_operator
-	relatedPosts: Post_relatedPosts_operator
-	tags: Post_tags_operator
-	meta__title: Post_meta__title_operator
-	meta__image: Post_meta__image_operator
-	meta__nofollow: Post_meta__nofollow_operator
-	meta__noindex: Post_meta__noindex_operator
-	meta__description: Post_meta__description_operator
-	authorSlug: Post_authorSlug_operator
-	publishedAt: Post_publishedAt_operator
-	authors: Post_authors_operator
-	slug: Post_slug_operator
-	updatedAt: Post_updatedAt_operator
-	createdAt: Post_createdAt_operator
-	_status: Post__status_operator
-	id: Post_id_operator
-	AND: [Post_where_and]
-	OR: [Post_where_or]
-}
-
-input Post_title_operator {
-	equals: String
-	not_equals: String
-	like: String
-	contains: String
-	in: [String]
-	not_in: [String]
-	all: [String]
-}
-
-input Post_subtitle_operator {
-	equals: String
-	not_equals: String
-	like: String
-	contains: String
-	in: [String]
-	not_in: [String]
-	all: [String]
-}
-
-input Post_featuredImage_operator {
-	equals: JSON
-	not_equals: JSON
-	in: [JSON]
-	not_in: [JSON]
-	all: [JSON]
-}
-
-input Post_content_operator {
-	equals: String
-	not_equals: String
-	like: String
-	contains: String
-}
-
-input Post_relatedPosts_operator {
-	equals: JSON
-	not_equals: JSON
-	in: [JSON]
-	not_in: [JSON]
-	all: [JSON]
-	exists: Boolean
-}
-
-input Post_tags_operator {
-	equals: JSON
-	not_equals: JSON
-	in: [JSON]
-	not_in: [JSON]
-	all: [JSON]
-	exists: Boolean
-}
-
-input Post_meta__title_operator {
-	equals: String
-	not_equals: String
-	like: String
-	contains: String
-	in: [String]
-	not_in: [String]
-	all: [String]
-	exists: Boolean
-}
-
-input Post_meta__image_operator {
-	equals: JSON
-	not_equals: JSON
-	in: [JSON]
-	not_in: [JSON]
-	all: [JSON]
-	exists: Boolean
-}
-
-input Post_meta__nofollow_operator {
-	equals: Boolean
-	not_equals: Boolean
-}
-
-input Post_meta__noindex_operator {
-	equals: Boolean
-	not_equals: Boolean
-}
-
-input Post_meta__description_operator {
-	equals: String
-	not_equals: String
-	like: String
-	contains: String
-	exists: Boolean
-}
-
-input Post_authorSlug_operator {
-	equals: String
-	not_equals: String
-	like: String
-	contains: String
-	in: [String]
-	not_in: [String]
-	all: [String]
-	exists: Boolean
-}
-
-input Post_publishedAt_operator {
-	equals: DateTime
-	not_equals: DateTime
-	greater_than_equal: DateTime
-	greater_than: DateTime
-	less_than_equal: DateTime
-	less_than: DateTime
-	like: DateTime
-	exists: Boolean
-}
-
-input Post_authors_operator {
-	equals: JSON
-	not_equals: JSON
-	in: [JSON]
-	not_in: [JSON]
-	all: [JSON]
-}
-
-input Post_slug_operator {
-	equals: String
-	not_equals: String
-	like: String
-	contains: String
-	in: [String]
-	not_in: [String]
-	all: [String]
-}
-
-input Post_updatedAt_operator {
-	equals: DateTime
-	not_equals: DateTime
-	greater_than_equal: DateTime
-	greater_than: DateTime
-	less_than_equal: DateTime
-	less_than: DateTime
-	like: DateTime
-	exists: Boolean
-}
-
-input Post_createdAt_operator {
-	equals: DateTime
-	not_equals: DateTime
-	greater_than_equal: DateTime
-	greater_than: DateTime
-	less_than_equal: DateTime
-	less_than: DateTime
-	like: DateTime
-	exists: Boolean
-}
-
-input Post__status_operator {
-	equals: Post__status_Input
-	not_equals: Post__status_Input
-	in: [Post__status_Input]
-	not_in: [Post__status_Input]
-	all: [Post__status_Input]
-	exists: Boolean
-}
-
-enum Post__status_Input {
-	draft
-	published
-}
-
-input Post_id_operator {
-	equals: String
-	not_equals: String
-	like: String
-	contains: String
-	in: [String]
-	not_in: [String]
-	all: [String]
-	exists: Boolean
-}
-
-input Post_where_and {
-	title: Post_title_operator
-	subtitle: Post_subtitle_operator
-	featuredImage: Post_featuredImage_operator
-	content: Post_content_operator
-	relatedPosts: Post_relatedPosts_operator
-	tags: Post_tags_operator
-	meta__title: Post_meta__title_operator
-	meta__image: Post_meta__image_operator
-	meta__nofollow: Post_meta__nofollow_operator
-	meta__noindex: Post_meta__noindex_operator
-	meta__description: Post_meta__description_operator
-	authorSlug: Post_authorSlug_operator
-	publishedAt: Post_publishedAt_operator
-	authors: Post_authors_operator
-	slug: Post_slug_operator
-	updatedAt: Post_updatedAt_operator
-	createdAt: Post_createdAt_operator
-	_status: Post__status_operator
-	id: Post_id_operator
-	AND: [Post_where_and]
-	OR: [Post_where_or]
-}
-
-input Post_where_or {
-	title: Post_title_operator
-	subtitle: Post_subtitle_operator
-	featuredImage: Post_featuredImage_operator
-	content: Post_content_operator
-	relatedPosts: Post_relatedPosts_operator
-	tags: Post_tags_operator
-	meta__title: Post_meta__title_operator
-	meta__image: Post_meta__image_operator
-	meta__nofollow: Post_meta__nofollow_operator
-	meta__noindex: Post_meta__noindex_operator
-	meta__description: Post_meta__description_operator
-	authorSlug: Post_authorSlug_operator
-	publishedAt: Post_publishedAt_operator
-	authors: Post_authors_operator
-	slug: Post_slug_operator
-	updatedAt: Post_updatedAt_operator
-	createdAt: Post_createdAt_operator
-	_status: Post__status_operator
-	id: Post_id_operator
-	AND: [Post_where_and]
-	OR: [Post_where_or]
-}
-
-type countPosts {
-	totalDocs: Int
-}
-
-type postsDocAccess {
-	fields: PostsDocAccessFields
-	create: PostsCreateDocAccess
-	read: PostsReadDocAccess
-	update: PostsUpdateDocAccess
-	delete: PostsDeleteDocAccess
-	readVersions: PostsReadVersionsDocAccess
-}
-
-type PostsDocAccessFields {
-	title: PostsDocAccessFields_title
-	subtitle: PostsDocAccessFields_subtitle
-	featuredImage: PostsDocAccessFields_featuredImage
-	content: PostsDocAccessFields_content
-	relatedPosts: PostsDocAccessFields_relatedPosts
-	tags: PostsDocAccessFields_tags
-	meta: PostsDocAccessFields_meta
-	authorSlug: PostsDocAccessFields_authorSlug
-	publishedAt: PostsDocAccessFields_publishedAt
-	authors: PostsDocAccessFields_authors
-	slug: PostsDocAccessFields_slug
-	updatedAt: PostsDocAccessFields_updatedAt
-	createdAt: PostsDocAccessFields_createdAt
-	_status: PostsDocAccessFields__status
-}
-
-type PostsDocAccessFields_title {
-	create: PostsDocAccessFields_title_Create
-	read: PostsDocAccessFields_title_Read
-	update: PostsDocAccessFields_title_Update
-	delete: PostsDocAccessFields_title_Delete
-}
-
-type PostsDocAccessFields_title_Create {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_title_Read {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_title_Update {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_title_Delete {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_subtitle {
-	create: PostsDocAccessFields_subtitle_Create
-	read: PostsDocAccessFields_subtitle_Read
-	update: PostsDocAccessFields_subtitle_Update
-	delete: PostsDocAccessFields_subtitle_Delete
-}
-
-type PostsDocAccessFields_subtitle_Create {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_subtitle_Read {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_subtitle_Update {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_subtitle_Delete {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_featuredImage {
-	create: PostsDocAccessFields_featuredImage_Create
-	read: PostsDocAccessFields_featuredImage_Read
-	update: PostsDocAccessFields_featuredImage_Update
-	delete: PostsDocAccessFields_featuredImage_Delete
-}
-
-type PostsDocAccessFields_featuredImage_Create {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_featuredImage_Read {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_featuredImage_Update {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_featuredImage_Delete {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_content {
-	create: PostsDocAccessFields_content_Create
-	read: PostsDocAccessFields_content_Read
-	update: PostsDocAccessFields_content_Update
-	delete: PostsDocAccessFields_content_Delete
-}
-
-type PostsDocAccessFields_content_Create {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_content_Read {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_content_Update {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_content_Delete {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_relatedPosts {
-	create: PostsDocAccessFields_relatedPosts_Create
-	read: PostsDocAccessFields_relatedPosts_Read
-	update: PostsDocAccessFields_relatedPosts_Update
-	delete: PostsDocAccessFields_relatedPosts_Delete
-}
-
-type PostsDocAccessFields_relatedPosts_Create {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_relatedPosts_Read {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_relatedPosts_Update {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_relatedPosts_Delete {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_tags {
-	create: PostsDocAccessFields_tags_Create
-	read: PostsDocAccessFields_tags_Read
-	update: PostsDocAccessFields_tags_Update
-	delete: PostsDocAccessFields_tags_Delete
-}
-
-type PostsDocAccessFields_tags_Create {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_tags_Read {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_tags_Update {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_tags_Delete {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_meta {
-	title: PostsDocAccessFields_meta_title
-	image: PostsDocAccessFields_meta_image
-	nofollow: PostsDocAccessFields_meta_nofollow
-	noindex: PostsDocAccessFields_meta_noindex
-	description: PostsDocAccessFields_meta_description
-}
-
-type PostsDocAccessFields_meta_title {
-	create: PostsDocAccessFields_meta_title_Create
-	read: PostsDocAccessFields_meta_title_Read
-	update: PostsDocAccessFields_meta_title_Update
-	delete: PostsDocAccessFields_meta_title_Delete
-}
-
-type PostsDocAccessFields_meta_title_Create {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_meta_title_Read {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_meta_title_Update {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_meta_title_Delete {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_meta_image {
-	create: PostsDocAccessFields_meta_image_Create
-	read: PostsDocAccessFields_meta_image_Read
-	update: PostsDocAccessFields_meta_image_Update
-	delete: PostsDocAccessFields_meta_image_Delete
-}
-
-type PostsDocAccessFields_meta_image_Create {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_meta_image_Read {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_meta_image_Update {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_meta_image_Delete {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_meta_nofollow {
-	create: PostsDocAccessFields_meta_nofollow_Create
-	read: PostsDocAccessFields_meta_nofollow_Read
-	update: PostsDocAccessFields_meta_nofollow_Update
-	delete: PostsDocAccessFields_meta_nofollow_Delete
-}
-
-type PostsDocAccessFields_meta_nofollow_Create {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_meta_nofollow_Read {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_meta_nofollow_Update {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_meta_nofollow_Delete {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_meta_noindex {
-	create: PostsDocAccessFields_meta_noindex_Create
-	read: PostsDocAccessFields_meta_noindex_Read
-	update: PostsDocAccessFields_meta_noindex_Update
-	delete: PostsDocAccessFields_meta_noindex_Delete
-}
-
-type PostsDocAccessFields_meta_noindex_Create {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_meta_noindex_Read {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_meta_noindex_Update {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_meta_noindex_Delete {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_meta_description {
-	create: PostsDocAccessFields_meta_description_Create
-	read: PostsDocAccessFields_meta_description_Read
-	update: PostsDocAccessFields_meta_description_Update
-	delete: PostsDocAccessFields_meta_description_Delete
-}
-
-type PostsDocAccessFields_meta_description_Create {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_meta_description_Read {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_meta_description_Update {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_meta_description_Delete {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_authorSlug {
-	create: PostsDocAccessFields_authorSlug_Create
-	read: PostsDocAccessFields_authorSlug_Read
-	update: PostsDocAccessFields_authorSlug_Update
-	delete: PostsDocAccessFields_authorSlug_Delete
-}
-
-type PostsDocAccessFields_authorSlug_Create {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_authorSlug_Read {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_authorSlug_Update {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_authorSlug_Delete {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_publishedAt {
-	create: PostsDocAccessFields_publishedAt_Create
-	read: PostsDocAccessFields_publishedAt_Read
-	update: PostsDocAccessFields_publishedAt_Update
-	delete: PostsDocAccessFields_publishedAt_Delete
-}
-
-type PostsDocAccessFields_publishedAt_Create {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_publishedAt_Read {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_publishedAt_Update {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_publishedAt_Delete {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_authors {
-	create: PostsDocAccessFields_authors_Create
-	read: PostsDocAccessFields_authors_Read
-	update: PostsDocAccessFields_authors_Update
-	delete: PostsDocAccessFields_authors_Delete
-}
-
-type PostsDocAccessFields_authors_Create {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_authors_Read {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_authors_Update {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_authors_Delete {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_slug {
-	create: PostsDocAccessFields_slug_Create
-	read: PostsDocAccessFields_slug_Read
-	update: PostsDocAccessFields_slug_Update
-	delete: PostsDocAccessFields_slug_Delete
-}
-
-type PostsDocAccessFields_slug_Create {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_slug_Read {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_slug_Update {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_slug_Delete {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_updatedAt {
-	create: PostsDocAccessFields_updatedAt_Create
-	read: PostsDocAccessFields_updatedAt_Read
-	update: PostsDocAccessFields_updatedAt_Update
-	delete: PostsDocAccessFields_updatedAt_Delete
-}
-
-type PostsDocAccessFields_updatedAt_Create {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_updatedAt_Read {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_updatedAt_Update {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_updatedAt_Delete {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_createdAt {
-	create: PostsDocAccessFields_createdAt_Create
-	read: PostsDocAccessFields_createdAt_Read
-	update: PostsDocAccessFields_createdAt_Update
-	delete: PostsDocAccessFields_createdAt_Delete
-}
-
-type PostsDocAccessFields_createdAt_Create {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_createdAt_Read {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_createdAt_Update {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields_createdAt_Delete {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields__status {
-	create: PostsDocAccessFields__status_Create
-	read: PostsDocAccessFields__status_Read
-	update: PostsDocAccessFields__status_Update
-	delete: PostsDocAccessFields__status_Delete
-}
-
-type PostsDocAccessFields__status_Create {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields__status_Read {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields__status_Update {
-	permission: Boolean!
-}
-
-type PostsDocAccessFields__status_Delete {
-	permission: Boolean!
-}
-
-type PostsCreateDocAccess {
-	permission: Boolean!
-	where: JSONObject
-}
-
-"""
-The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
-"""
-scalar JSONObject @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
-
-type PostsReadDocAccess {
-	permission: Boolean!
-	where: JSONObject
-}
-
-type PostsUpdateDocAccess {
-	permission: Boolean!
-	where: JSONObject
-}
-
-type PostsDeleteDocAccess {
-	permission: Boolean!
-	where: JSONObject
-}
-
-type PostsReadVersionsDocAccess {
-	permission: Boolean!
-	where: JSONObject
-}
-
-type PostVersion {
-	parent(draft: Boolean, locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Post
-	version: PostVersion_Version
-	createdAt: DateTime
-	updatedAt: DateTime
-	snapshot: Boolean
-	publishedLocale: PostVersion_publishedLocale
-	latest: Boolean
-	autosave: Boolean
-	id: String
-}
-
-type PostVersion_Version {
-	title: String
-	subtitle: String
-	featuredImage(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Media
-	content: String
-	relatedPosts(draft: Boolean, locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Post!]
-	tags(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Tag!]
-	meta: PostVersion_Version_Meta
-	authorSlug: String
-	publishedAt: DateTime
-	authors(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Author!]
-	slug: String
-	updatedAt: DateTime
-	createdAt: DateTime
-	_status: PostVersion_Version__status
-}
-
-type PostVersion_Version_Meta {
-	title: String
-	image(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Media
-	nofollow: Boolean
-	noindex: Boolean
-	description: String
-}
-
-enum PostVersion_Version__status {
-	draft
-	published
-}
-
-enum PostVersion_publishedLocale {
-	en_US
-	uk_UA
-	de_DE
-	hi_IN
-	ja_JP
-	ru_RU
-	fr_FR
-	es_ES
-}
-
-type versionsPosts {
-	docs: [PostVersion!]!
-	hasNextPage: Boolean!
-	hasPrevPage: Boolean!
-	limit: Int!
-	nextPage: Int
-	offset: Int
-	page: Int!
-	pagingCounter: Int!
-	prevPage: Int
-	totalDocs: Int!
-	totalPages: Int!
-}
-
-input versionsPost_where {
-	parent: versionsPost_parent_operator
-	version__title: versionsPost_version__title_operator
-	version__subtitle: versionsPost_version__subtitle_operator
-	version__featuredImage: versionsPost_version__featuredImage_operator
-	version__content: versionsPost_version__content_operator
-	version__relatedPosts: versionsPost_version__relatedPosts_operator
-	version__tags: versionsPost_version__tags_operator
-	version__meta__title: versionsPost_version__meta__title_operator
-	version__meta__image: versionsPost_version__meta__image_operator
-	version__meta__nofollow: versionsPost_version__meta__nofollow_operator
-	version__meta__noindex: versionsPost_version__meta__noindex_operator
-	version__meta__description: versionsPost_version__meta__description_operator
-	version__authorSlug: versionsPost_version__authorSlug_operator
-	version__publishedAt: versionsPost_version__publishedAt_operator
-	version__authors: versionsPost_version__authors_operator
-	version__slug: versionsPost_version__slug_operator
-	version__updatedAt: versionsPost_version__updatedAt_operator
-	version__createdAt: versionsPost_version__createdAt_operator
-	version___status: versionsPost_version___status_operator
-	createdAt: versionsPost_createdAt_operator
-	updatedAt: versionsPost_updatedAt_operator
-	snapshot: versionsPost_snapshot_operator
-	publishedLocale: versionsPost_publishedLocale_operator
-	latest: versionsPost_latest_operator
-	autosave: versionsPost_autosave_operator
-	id: versionsPost_id_operator
-	AND: [versionsPost_where_and]
-	OR: [versionsPost_where_or]
-}
-
-input versionsPost_parent_operator {
-	equals: JSON
-	not_equals: JSON
-	in: [JSON]
-	not_in: [JSON]
-	all: [JSON]
-	exists: Boolean
-}
-
-input versionsPost_version__title_operator {
-	equals: String
-	not_equals: String
-	like: String
-	contains: String
-	in: [String]
-	not_in: [String]
-	all: [String]
-}
-
-input versionsPost_version__subtitle_operator {
-	equals: String
-	not_equals: String
-	like: String
-	contains: String
-	in: [String]
-	not_in: [String]
-	all: [String]
-}
-
-input versionsPost_version__featuredImage_operator {
-	equals: JSON
-	not_equals: JSON
-	in: [JSON]
-	not_in: [JSON]
-	all: [JSON]
-}
-
-input versionsPost_version__content_operator {
-	equals: String
-	not_equals: String
-	like: String
-	contains: String
-}
-
-input versionsPost_version__relatedPosts_operator {
-	equals: JSON
-	not_equals: JSON
-	in: [JSON]
-	not_in: [JSON]
-	all: [JSON]
-	exists: Boolean
-}
-
-input versionsPost_version__tags_operator {
-	equals: JSON
-	not_equals: JSON
-	in: [JSON]
-	not_in: [JSON]
-	all: [JSON]
-	exists: Boolean
-}
-
-input versionsPost_version__meta__title_operator {
-	equals: String
-	not_equals: String
-	like: String
-	contains: String
-	in: [String]
-	not_in: [String]
-	all: [String]
-	exists: Boolean
-}
-
-input versionsPost_version__meta__image_operator {
-	equals: JSON
-	not_equals: JSON
-	in: [JSON]
-	not_in: [JSON]
-	all: [JSON]
-	exists: Boolean
-}
-
-input versionsPost_version__meta__nofollow_operator {
-	equals: Boolean
-	not_equals: Boolean
-}
-
-input versionsPost_version__meta__noindex_operator {
-	equals: Boolean
-	not_equals: Boolean
-}
-
-input versionsPost_version__meta__description_operator {
-	equals: String
-	not_equals: String
-	like: String
-	contains: String
-	exists: Boolean
-}
-
-input versionsPost_version__authorSlug_operator {
-	equals: String
-	not_equals: String
-	like: String
-	contains: String
-	in: [String]
-	not_in: [String]
-	all: [String]
-	exists: Boolean
-}
-
-input versionsPost_version__publishedAt_operator {
-	equals: DateTime
-	not_equals: DateTime
-	greater_than_equal: DateTime
-	greater_than: DateTime
-	less_than_equal: DateTime
-	less_than: DateTime
-	like: DateTime
-	exists: Boolean
-}
-
-input versionsPost_version__authors_operator {
-	equals: JSON
-	not_equals: JSON
-	in: [JSON]
-	not_in: [JSON]
-	all: [JSON]
-}
-
-input versionsPost_version__slug_operator {
-	equals: String
-	not_equals: String
-	like: String
-	contains: String
-	in: [String]
-	not_in: [String]
-	all: [String]
-}
-
-input versionsPost_version__updatedAt_operator {
-	equals: DateTime
-	not_equals: DateTime
-	greater_than_equal: DateTime
-	greater_than: DateTime
-	less_than_equal: DateTime
-	less_than: DateTime
-	like: DateTime
-	exists: Boolean
-}
-
-input versionsPost_version__createdAt_operator {
-	equals: DateTime
-	not_equals: DateTime
-	greater_than_equal: DateTime
-	greater_than: DateTime
-	less_than_equal: DateTime
-	less_than: DateTime
-	like: DateTime
-	exists: Boolean
-}
-
-input versionsPost_version___status_operator {
-	equals: versionsPost_version___status_Input
-	not_equals: versionsPost_version___status_Input
-	in: [versionsPost_version___status_Input]
-	not_in: [versionsPost_version___status_Input]
-	all: [versionsPost_version___status_Input]
-	exists: Boolean
-}
-
-enum versionsPost_version___status_Input {
-	draft
-	published
-}
-
-input versionsPost_createdAt_operator {
-	equals: DateTime
-	not_equals: DateTime
-	greater_than_equal: DateTime
-	greater_than: DateTime
-	less_than_equal: DateTime
-	less_than: DateTime
-	like: DateTime
-	exists: Boolean
-}
-
-input versionsPost_updatedAt_operator {
-	equals: DateTime
-	not_equals: DateTime
-	greater_than_equal: DateTime
-	greater_than: DateTime
-	less_than_equal: DateTime
-	less_than: DateTime
-	like: DateTime
-	exists: Boolean
-}
-
-input versionsPost_snapshot_operator {
-	equals: Boolean
-	not_equals: Boolean
-	exists: Boolean
-}
-
-input versionsPost_publishedLocale_operator {
-	equals: versionsPost_publishedLocale_Input
-	not_equals: versionsPost_publishedLocale_Input
-	in: [versionsPost_publishedLocale_Input]
-	not_in: [versionsPost_publishedLocale_Input]
-	all: [versionsPost_publishedLocale_Input]
-	exists: Boolean
-}
-
-enum versionsPost_publishedLocale_Input {
-	en_US
-	uk_UA
-	de_DE
-	hi_IN
-	ja_JP
-	ru_RU
-	fr_FR
-	es_ES
-}
-
-input versionsPost_latest_operator {
-	equals: Boolean
-	not_equals: Boolean
-	exists: Boolean
-}
-
-input versionsPost_autosave_operator {
-	equals: Boolean
-	not_equals: Boolean
-	exists: Boolean
-}
-
-input versionsPost_id_operator {
-	equals: String
-	not_equals: String
-	like: String
-	contains: String
-	in: [String]
-	not_in: [String]
-	all: [String]
-	exists: Boolean
-}
-
-input versionsPost_where_and {
-	parent: versionsPost_parent_operator
-	version__title: versionsPost_version__title_operator
-	version__subtitle: versionsPost_version__subtitle_operator
-	version__featuredImage: versionsPost_version__featuredImage_operator
-	version__content: versionsPost_version__content_operator
-	version__relatedPosts: versionsPost_version__relatedPosts_operator
-	version__tags: versionsPost_version__tags_operator
-	version__meta__title: versionsPost_version__meta__title_operator
-	version__meta__image: versionsPost_version__meta__image_operator
-	version__meta__nofollow: versionsPost_version__meta__nofollow_operator
-	version__meta__noindex: versionsPost_version__meta__noindex_operator
-	version__meta__description: versionsPost_version__meta__description_operator
-	version__authorSlug: versionsPost_version__authorSlug_operator
-	version__publishedAt: versionsPost_version__publishedAt_operator
-	version__authors: versionsPost_version__authors_operator
-	version__slug: versionsPost_version__slug_operator
-	version__updatedAt: versionsPost_version__updatedAt_operator
-	version__createdAt: versionsPost_version__createdAt_operator
-	version___status: versionsPost_version___status_operator
-	createdAt: versionsPost_createdAt_operator
-	updatedAt: versionsPost_updatedAt_operator
-	snapshot: versionsPost_snapshot_operator
-	publishedLocale: versionsPost_publishedLocale_operator
-	latest: versionsPost_latest_operator
-	autosave: versionsPost_autosave_operator
-	id: versionsPost_id_operator
-	AND: [versionsPost_where_and]
-	OR: [versionsPost_where_or]
-}
-
-input versionsPost_where_or {
-	parent: versionsPost_parent_operator
-	version__title: versionsPost_version__title_operator
-	version__subtitle: versionsPost_version__subtitle_operator
-	version__featuredImage: versionsPost_version__featuredImage_operator
-	version__content: versionsPost_version__content_operator
-	version__relatedPosts: versionsPost_version__relatedPosts_operator
-	version__tags: versionsPost_version__tags_operator
-	version__meta__title: versionsPost_version__meta__title_operator
-	version__meta__image: versionsPost_version__meta__image_operator
-	version__meta__nofollow: versionsPost_version__meta__nofollow_operator
-	version__meta__noindex: versionsPost_version__meta__noindex_operator
-	version__meta__description: versionsPost_version__meta__description_operator
-	version__authorSlug: versionsPost_version__authorSlug_operator
-	version__publishedAt: versionsPost_version__publishedAt_operator
-	version__authors: versionsPost_version__authors_operator
-	version__slug: versionsPost_version__slug_operator
-	version__updatedAt: versionsPost_version__updatedAt_operator
-	version__createdAt: versionsPost_version__createdAt_operator
-	version___status: versionsPost_version___status_operator
-	createdAt: versionsPost_createdAt_operator
-	updatedAt: versionsPost_updatedAt_operator
-	snapshot: versionsPost_snapshot_operator
-	publishedLocale: versionsPost_publishedLocale_operator
-	latest: versionsPost_latest_operator
-	autosave: versionsPost_autosave_operator
-	id: versionsPost_id_operator
-	AND: [versionsPost_where_and]
-	OR: [versionsPost_where_or]
 }
 
 type allMedia {
@@ -2659,6 +1007,11 @@ type MediaCreateDocAccess {
 	where: JSONObject
 }
 
+"""
+The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSONObject @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
+
 type MediaReadDocAccess {
 	permission: Boolean!
 	where: JSONObject
@@ -2672,6 +1025,32 @@ type MediaUpdateDocAccess {
 type MediaDeleteDocAccess {
 	permission: Boolean!
 	where: JSONObject
+}
+
+type User {
+	id: String!
+	name: String
+	updatedAt: DateTime
+	createdAt: DateTime
+	email: EmailAddress!
+	resetPasswordToken: String
+	resetPasswordExpiration: DateTime
+	salt: String
+	hash: String
+	loginAttempts: Float
+	lockUntil: DateTime
+	sessions: [User_Sessions!]
+}
+
+"""
+A field whose value conforms to the standard internet email address format as specified in HTML Spec: https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address.
+"""
+scalar EmailAddress @specifiedBy(url: "https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address")
+
+type User_Sessions {
+	id: String
+	createdAt: DateTime
+	expiresAt: DateTime
 }
 
 type Users {
@@ -3055,6 +1434,424 @@ type usersMe {
 	strategy: String
 	token: String
 	user: User
+}
+
+type Tag {
+	id: String!
+	title: String
+	micro_posts(count: Boolean, limit: Int, page: Int, sort: String, where: Micro_post_where): Tag_Micro_posts
+	name: String!
+	updatedAt: DateTime
+	createdAt: DateTime
+}
+
+type Tag_Micro_posts {
+	docs: [Micro_post!]!
+	hasNextPage: Boolean!
+	totalDocs: Int
+}
+
+type Micro_post {
+	id: String!
+	title: String
+	cronTranslationLocalesQueued: [Micro_post_cronTranslationLocalesQueued!]
+	autoTranslated: Boolean
+	attachment(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Media
+	post_type: Micro_post_post_type
+	content: String
+	slug: String
+	tags(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Tag!]
+	meta: Micro_post_Meta
+	linkedMicroPosts(draft: Boolean, locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Micro_post!]
+	externalLinks(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Micro_post_external_link!]
+	social: Micro_post_Social
+	publishedAt: DateTime
+	authors(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Author!]
+	authorSlug: String
+	updatedAt: DateTime
+	createdAt: DateTime
+	_status: Micro_post__status
+}
+
+enum Micro_post_cronTranslationLocalesQueued {
+	en_US
+	uk_UA
+	de_DE
+	hi_IN
+	ja_JP
+	ru_RU
+	fr_FR
+	es_ES
+}
+
+enum Micro_post_post_type {
+	short
+	long
+}
+
+type Micro_post_Meta {
+	title: String
+	image(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Media
+	description: String
+}
+
+type Micro_post_external_link {
+	id: String!
+	title: String
+	target_url: String!
+	updatedAt: DateTime
+	createdAt: DateTime
+}
+
+type Micro_post_Social {
+	x: Micro_post_Social_X
+}
+
+type Micro_post_Social_X {
+	autoPost: Boolean
+	autoPosted: Boolean
+	autoPostedAt: DateTime
+}
+
+type Author {
+	id: String!
+	name: String
+	slug: String!
+	twitter: Author_Twitter
+	bio: String
+	avatar(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Media
+	user(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): User!
+	updatedAt: DateTime
+	createdAt: DateTime
+}
+
+type Author_Twitter {
+	apiKey: String
+}
+
+enum Micro_post__status {
+	draft
+	published
+}
+
+input Micro_post_where {
+	title: Micro_post_title_operator
+	cronTranslationLocalesQueued: Micro_post_cronTranslationLocalesQueued_operator
+	autoTranslated: Micro_post_autoTranslated_operator
+	attachment: Micro_post_attachment_operator
+	post_type: Micro_post_post_type_operator
+	content: Micro_post_content_operator
+	slug: Micro_post_slug_operator
+	tags: Micro_post_tags_operator
+	meta__title: Micro_post_meta__title_operator
+	meta__image: Micro_post_meta__image_operator
+	meta__description: Micro_post_meta__description_operator
+	linkedMicroPosts: Micro_post_linkedMicroPosts_operator
+	externalLinks: Micro_post_externalLinks_operator
+	social__x__autoPost: Micro_post_social__x__autoPost_operator
+	social__x__autoPosted: Micro_post_social__x__autoPosted_operator
+	social__x__autoPostedAt: Micro_post_social__x__autoPostedAt_operator
+	publishedAt: Micro_post_publishedAt_operator
+	authors: Micro_post_authors_operator
+	authorSlug: Micro_post_authorSlug_operator
+	updatedAt: Micro_post_updatedAt_operator
+	createdAt: Micro_post_createdAt_operator
+	_status: Micro_post__status_operator
+	id: Micro_post_id_operator
+	AND: [Micro_post_where_and]
+	OR: [Micro_post_where_or]
+}
+
+input Micro_post_title_operator {
+	equals: String
+	not_equals: String
+	like: String
+	contains: String
+	in: [String]
+	not_in: [String]
+	all: [String]
+	exists: Boolean
+}
+
+input Micro_post_cronTranslationLocalesQueued_operator {
+	equals: Micro_post_cronTranslationLocalesQueued_Input
+	not_equals: Micro_post_cronTranslationLocalesQueued_Input
+	in: [Micro_post_cronTranslationLocalesQueued_Input]
+	not_in: [Micro_post_cronTranslationLocalesQueued_Input]
+	all: [Micro_post_cronTranslationLocalesQueued_Input]
+	exists: Boolean
+}
+
+enum Micro_post_cronTranslationLocalesQueued_Input {
+	en_US
+	uk_UA
+	de_DE
+	hi_IN
+	ja_JP
+	ru_RU
+	fr_FR
+	es_ES
+}
+
+input Micro_post_autoTranslated_operator {
+	equals: Boolean
+	not_equals: Boolean
+	exists: Boolean
+}
+
+input Micro_post_attachment_operator {
+	equals: JSON
+	not_equals: JSON
+	in: [JSON]
+	not_in: [JSON]
+	all: [JSON]
+	exists: Boolean
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
+
+input Micro_post_post_type_operator {
+	equals: Micro_post_post_type_Input
+	not_equals: Micro_post_post_type_Input
+	in: [Micro_post_post_type_Input]
+	not_in: [Micro_post_post_type_Input]
+	all: [Micro_post_post_type_Input]
+}
+
+enum Micro_post_post_type_Input {
+	short
+	long
+}
+
+input Micro_post_content_operator {
+	equals: String
+	not_equals: String
+	like: String
+	contains: String
+}
+
+input Micro_post_slug_operator {
+	equals: String
+	not_equals: String
+	like: String
+	contains: String
+	in: [String]
+	not_in: [String]
+	all: [String]
+}
+
+input Micro_post_tags_operator {
+	equals: JSON
+	not_equals: JSON
+	in: [JSON]
+	not_in: [JSON]
+	all: [JSON]
+	exists: Boolean
+}
+
+input Micro_post_meta__title_operator {
+	equals: String
+	not_equals: String
+	like: String
+	contains: String
+	in: [String]
+	not_in: [String]
+	all: [String]
+	exists: Boolean
+}
+
+input Micro_post_meta__image_operator {
+	equals: JSON
+	not_equals: JSON
+	in: [JSON]
+	not_in: [JSON]
+	all: [JSON]
+	exists: Boolean
+}
+
+input Micro_post_meta__description_operator {
+	equals: String
+	not_equals: String
+	like: String
+	contains: String
+	exists: Boolean
+}
+
+input Micro_post_linkedMicroPosts_operator {
+	equals: JSON
+	not_equals: JSON
+	in: [JSON]
+	not_in: [JSON]
+	all: [JSON]
+	exists: Boolean
+}
+
+input Micro_post_externalLinks_operator {
+	equals: JSON
+	not_equals: JSON
+	in: [JSON]
+	not_in: [JSON]
+	all: [JSON]
+	exists: Boolean
+}
+
+input Micro_post_social__x__autoPost_operator {
+	equals: Boolean
+	not_equals: Boolean
+	exists: Boolean
+}
+
+input Micro_post_social__x__autoPosted_operator {
+	equals: Boolean
+	not_equals: Boolean
+	exists: Boolean
+}
+
+input Micro_post_social__x__autoPostedAt_operator {
+	equals: DateTime
+	not_equals: DateTime
+	greater_than_equal: DateTime
+	greater_than: DateTime
+	less_than_equal: DateTime
+	less_than: DateTime
+	like: DateTime
+	exists: Boolean
+}
+
+input Micro_post_publishedAt_operator {
+	equals: DateTime
+	not_equals: DateTime
+	greater_than_equal: DateTime
+	greater_than: DateTime
+	less_than_equal: DateTime
+	less_than: DateTime
+	like: DateTime
+	exists: Boolean
+}
+
+input Micro_post_authors_operator {
+	equals: JSON
+	not_equals: JSON
+	in: [JSON]
+	not_in: [JSON]
+	all: [JSON]
+}
+
+input Micro_post_authorSlug_operator {
+	equals: String
+	not_equals: String
+	like: String
+	contains: String
+	in: [String]
+	not_in: [String]
+	all: [String]
+	exists: Boolean
+}
+
+input Micro_post_updatedAt_operator {
+	equals: DateTime
+	not_equals: DateTime
+	greater_than_equal: DateTime
+	greater_than: DateTime
+	less_than_equal: DateTime
+	less_than: DateTime
+	like: DateTime
+	exists: Boolean
+}
+
+input Micro_post_createdAt_operator {
+	equals: DateTime
+	not_equals: DateTime
+	greater_than_equal: DateTime
+	greater_than: DateTime
+	less_than_equal: DateTime
+	less_than: DateTime
+	like: DateTime
+	exists: Boolean
+}
+
+input Micro_post__status_operator {
+	equals: Micro_post__status_Input
+	not_equals: Micro_post__status_Input
+	in: [Micro_post__status_Input]
+	not_in: [Micro_post__status_Input]
+	all: [Micro_post__status_Input]
+	exists: Boolean
+}
+
+enum Micro_post__status_Input {
+	draft
+	published
+}
+
+input Micro_post_id_operator {
+	equals: String
+	not_equals: String
+	like: String
+	contains: String
+	in: [String]
+	not_in: [String]
+	all: [String]
+	exists: Boolean
+}
+
+input Micro_post_where_and {
+	title: Micro_post_title_operator
+	cronTranslationLocalesQueued: Micro_post_cronTranslationLocalesQueued_operator
+	autoTranslated: Micro_post_autoTranslated_operator
+	attachment: Micro_post_attachment_operator
+	post_type: Micro_post_post_type_operator
+	content: Micro_post_content_operator
+	slug: Micro_post_slug_operator
+	tags: Micro_post_tags_operator
+	meta__title: Micro_post_meta__title_operator
+	meta__image: Micro_post_meta__image_operator
+	meta__description: Micro_post_meta__description_operator
+	linkedMicroPosts: Micro_post_linkedMicroPosts_operator
+	externalLinks: Micro_post_externalLinks_operator
+	social__x__autoPost: Micro_post_social__x__autoPost_operator
+	social__x__autoPosted: Micro_post_social__x__autoPosted_operator
+	social__x__autoPostedAt: Micro_post_social__x__autoPostedAt_operator
+	publishedAt: Micro_post_publishedAt_operator
+	authors: Micro_post_authors_operator
+	authorSlug: Micro_post_authorSlug_operator
+	updatedAt: Micro_post_updatedAt_operator
+	createdAt: Micro_post_createdAt_operator
+	_status: Micro_post__status_operator
+	id: Micro_post_id_operator
+	AND: [Micro_post_where_and]
+	OR: [Micro_post_where_or]
+}
+
+input Micro_post_where_or {
+	title: Micro_post_title_operator
+	cronTranslationLocalesQueued: Micro_post_cronTranslationLocalesQueued_operator
+	autoTranslated: Micro_post_autoTranslated_operator
+	attachment: Micro_post_attachment_operator
+	post_type: Micro_post_post_type_operator
+	content: Micro_post_content_operator
+	slug: Micro_post_slug_operator
+	tags: Micro_post_tags_operator
+	meta__title: Micro_post_meta__title_operator
+	meta__image: Micro_post_meta__image_operator
+	meta__description: Micro_post_meta__description_operator
+	linkedMicroPosts: Micro_post_linkedMicroPosts_operator
+	externalLinks: Micro_post_externalLinks_operator
+	social__x__autoPost: Micro_post_social__x__autoPost_operator
+	social__x__autoPosted: Micro_post_social__x__autoPosted_operator
+	social__x__autoPostedAt: Micro_post_social__x__autoPostedAt_operator
+	publishedAt: Micro_post_publishedAt_operator
+	authors: Micro_post_authors_operator
+	authorSlug: Micro_post_authorSlug_operator
+	updatedAt: Micro_post_updatedAt_operator
+	createdAt: Micro_post_createdAt_operator
+	_status: Micro_post__status_operator
+	id: Micro_post_id_operator
+	AND: [Micro_post_where_and]
+	OR: [Micro_post_where_or]
 }
 
 type Tags {
@@ -4090,6 +2887,7 @@ type micro_postsDocAccess {
 type Micro_postsDocAccessFields {
 	title: Micro_postsDocAccessFields_title
 	cronTranslationLocalesQueued: Micro_postsDocAccessFields_cronTranslationLocalesQueued
+	autoTranslated: Micro_postsDocAccessFields_autoTranslated
 	attachment: Micro_postsDocAccessFields_attachment
 	post_type: Micro_postsDocAccessFields_post_type
 	content: Micro_postsDocAccessFields_content
@@ -4150,6 +2948,29 @@ type Micro_postsDocAccessFields_cronTranslationLocalesQueued_Update {
 }
 
 type Micro_postsDocAccessFields_cronTranslationLocalesQueued_Delete {
+	permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_autoTranslated {
+	create: Micro_postsDocAccessFields_autoTranslated_Create
+	read: Micro_postsDocAccessFields_autoTranslated_Read
+	update: Micro_postsDocAccessFields_autoTranslated_Update
+	delete: Micro_postsDocAccessFields_autoTranslated_Delete
+}
+
+type Micro_postsDocAccessFields_autoTranslated_Create {
+	permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_autoTranslated_Read {
+	permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_autoTranslated_Update {
+	permission: Boolean!
+}
+
+type Micro_postsDocAccessFields_autoTranslated_Delete {
 	permission: Boolean!
 }
 
@@ -4694,6 +3515,7 @@ type Micro_postVersion {
 type Micro_postVersion_Version {
 	title: String
 	cronTranslationLocalesQueued: [Micro_postVersion_Version_cronTranslationLocalesQueued!]
+	autoTranslated: Boolean
 	attachment(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Media
 	post_type: Micro_postVersion_Version_post_type
 	content: String
@@ -4777,6 +3599,7 @@ input versionsMicro_post_where {
 	parent: versionsMicro_post_parent_operator
 	version__title: versionsMicro_post_version__title_operator
 	version__cronTranslationLocalesQueued: versionsMicro_post_version__cronTranslationLocalesQueued_operator
+	version__autoTranslated: versionsMicro_post_version__autoTranslated_operator
 	version__attachment: versionsMicro_post_version__attachment_operator
 	version__post_type: versionsMicro_post_version__post_type_operator
 	version__content: versionsMicro_post_version__content_operator
@@ -4845,6 +3668,12 @@ enum versionsMicro_post_version__cronTranslationLocalesQueued_Input {
 	ru_RU
 	fr_FR
 	es_ES
+}
+
+input versionsMicro_post_version__autoTranslated_operator {
+	equals: Boolean
+	not_equals: Boolean
+	exists: Boolean
 }
 
 input versionsMicro_post_version__attachment_operator {
@@ -5105,6 +3934,7 @@ input versionsMicro_post_where_and {
 	parent: versionsMicro_post_parent_operator
 	version__title: versionsMicro_post_version__title_operator
 	version__cronTranslationLocalesQueued: versionsMicro_post_version__cronTranslationLocalesQueued_operator
+	version__autoTranslated: versionsMicro_post_version__autoTranslated_operator
 	version__attachment: versionsMicro_post_version__attachment_operator
 	version__post_type: versionsMicro_post_version__post_type_operator
 	version__content: versionsMicro_post_version__content_operator
@@ -5139,6 +3969,7 @@ input versionsMicro_post_where_or {
 	parent: versionsMicro_post_parent_operator
 	version__title: versionsMicro_post_version__title_operator
 	version__cronTranslationLocalesQueued: versionsMicro_post_version__cronTranslationLocalesQueued_operator
+	version__autoTranslated: versionsMicro_post_version__autoTranslated_operator
 	version__attachment: versionsMicro_post_version__attachment_operator
 	version__post_type: versionsMicro_post_version__post_type_operator
 	version__content: versionsMicro_post_version__content_operator
@@ -6949,7 +5780,6 @@ type PayloadLockedDocument_Document_Relationship {
 }
 
 enum PayloadLockedDocument_Document_RelationTo {
-	posts
 	media
 	users
 	tags
@@ -6961,7 +5791,6 @@ enum PayloadLockedDocument_Document_RelationTo {
 }
 
 union PayloadLockedDocument_Document =
-	| Post
 	| Media
 	| User
 	| Tag
@@ -7013,7 +5842,6 @@ input PayloadLockedDocument_document_Relation {
 }
 
 enum PayloadLockedDocument_document_Relation_RelationTo {
-	posts
 	media
 	users
 	tags
@@ -8352,7 +7180,6 @@ type PayloadQueryPresetsDeleteDocAccess {
 
 type Access {
 	canAccessAdmin: Boolean!
-	posts: postsAccess
 	media: mediaAccess
 	users: usersAccess
 	tags: tagsAccess
@@ -8366,479 +7193,6 @@ type Access {
 	payload_locked_documents: payload_locked_documentsAccess
 	payload_preferences: payload_preferencesAccess
 	payload_query_presets: payload_query_presetsAccess
-}
-
-type postsAccess {
-	fields: PostsFields
-	create: PostsCreateAccess
-	read: PostsReadAccess
-	update: PostsUpdateAccess
-	delete: PostsDeleteAccess
-	readVersions: PostsReadVersionsAccess
-}
-
-type PostsFields {
-	title: PostsFields_title
-	subtitle: PostsFields_subtitle
-	featuredImage: PostsFields_featuredImage
-	content: PostsFields_content
-	relatedPosts: PostsFields_relatedPosts
-	tags: PostsFields_tags
-	meta: PostsFields_meta
-	authorSlug: PostsFields_authorSlug
-	publishedAt: PostsFields_publishedAt
-	authors: PostsFields_authors
-	slug: PostsFields_slug
-	updatedAt: PostsFields_updatedAt
-	createdAt: PostsFields_createdAt
-	_status: PostsFields__status
-}
-
-type PostsFields_title {
-	create: PostsFields_title_Create
-	read: PostsFields_title_Read
-	update: PostsFields_title_Update
-	delete: PostsFields_title_Delete
-}
-
-type PostsFields_title_Create {
-	permission: Boolean!
-}
-
-type PostsFields_title_Read {
-	permission: Boolean!
-}
-
-type PostsFields_title_Update {
-	permission: Boolean!
-}
-
-type PostsFields_title_Delete {
-	permission: Boolean!
-}
-
-type PostsFields_subtitle {
-	create: PostsFields_subtitle_Create
-	read: PostsFields_subtitle_Read
-	update: PostsFields_subtitle_Update
-	delete: PostsFields_subtitle_Delete
-}
-
-type PostsFields_subtitle_Create {
-	permission: Boolean!
-}
-
-type PostsFields_subtitle_Read {
-	permission: Boolean!
-}
-
-type PostsFields_subtitle_Update {
-	permission: Boolean!
-}
-
-type PostsFields_subtitle_Delete {
-	permission: Boolean!
-}
-
-type PostsFields_featuredImage {
-	create: PostsFields_featuredImage_Create
-	read: PostsFields_featuredImage_Read
-	update: PostsFields_featuredImage_Update
-	delete: PostsFields_featuredImage_Delete
-}
-
-type PostsFields_featuredImage_Create {
-	permission: Boolean!
-}
-
-type PostsFields_featuredImage_Read {
-	permission: Boolean!
-}
-
-type PostsFields_featuredImage_Update {
-	permission: Boolean!
-}
-
-type PostsFields_featuredImage_Delete {
-	permission: Boolean!
-}
-
-type PostsFields_content {
-	create: PostsFields_content_Create
-	read: PostsFields_content_Read
-	update: PostsFields_content_Update
-	delete: PostsFields_content_Delete
-}
-
-type PostsFields_content_Create {
-	permission: Boolean!
-}
-
-type PostsFields_content_Read {
-	permission: Boolean!
-}
-
-type PostsFields_content_Update {
-	permission: Boolean!
-}
-
-type PostsFields_content_Delete {
-	permission: Boolean!
-}
-
-type PostsFields_relatedPosts {
-	create: PostsFields_relatedPosts_Create
-	read: PostsFields_relatedPosts_Read
-	update: PostsFields_relatedPosts_Update
-	delete: PostsFields_relatedPosts_Delete
-}
-
-type PostsFields_relatedPosts_Create {
-	permission: Boolean!
-}
-
-type PostsFields_relatedPosts_Read {
-	permission: Boolean!
-}
-
-type PostsFields_relatedPosts_Update {
-	permission: Boolean!
-}
-
-type PostsFields_relatedPosts_Delete {
-	permission: Boolean!
-}
-
-type PostsFields_tags {
-	create: PostsFields_tags_Create
-	read: PostsFields_tags_Read
-	update: PostsFields_tags_Update
-	delete: PostsFields_tags_Delete
-}
-
-type PostsFields_tags_Create {
-	permission: Boolean!
-}
-
-type PostsFields_tags_Read {
-	permission: Boolean!
-}
-
-type PostsFields_tags_Update {
-	permission: Boolean!
-}
-
-type PostsFields_tags_Delete {
-	permission: Boolean!
-}
-
-type PostsFields_meta {
-	title: PostsFields_meta_title
-	image: PostsFields_meta_image
-	nofollow: PostsFields_meta_nofollow
-	noindex: PostsFields_meta_noindex
-	description: PostsFields_meta_description
-}
-
-type PostsFields_meta_title {
-	create: PostsFields_meta_title_Create
-	read: PostsFields_meta_title_Read
-	update: PostsFields_meta_title_Update
-	delete: PostsFields_meta_title_Delete
-}
-
-type PostsFields_meta_title_Create {
-	permission: Boolean!
-}
-
-type PostsFields_meta_title_Read {
-	permission: Boolean!
-}
-
-type PostsFields_meta_title_Update {
-	permission: Boolean!
-}
-
-type PostsFields_meta_title_Delete {
-	permission: Boolean!
-}
-
-type PostsFields_meta_image {
-	create: PostsFields_meta_image_Create
-	read: PostsFields_meta_image_Read
-	update: PostsFields_meta_image_Update
-	delete: PostsFields_meta_image_Delete
-}
-
-type PostsFields_meta_image_Create {
-	permission: Boolean!
-}
-
-type PostsFields_meta_image_Read {
-	permission: Boolean!
-}
-
-type PostsFields_meta_image_Update {
-	permission: Boolean!
-}
-
-type PostsFields_meta_image_Delete {
-	permission: Boolean!
-}
-
-type PostsFields_meta_nofollow {
-	create: PostsFields_meta_nofollow_Create
-	read: PostsFields_meta_nofollow_Read
-	update: PostsFields_meta_nofollow_Update
-	delete: PostsFields_meta_nofollow_Delete
-}
-
-type PostsFields_meta_nofollow_Create {
-	permission: Boolean!
-}
-
-type PostsFields_meta_nofollow_Read {
-	permission: Boolean!
-}
-
-type PostsFields_meta_nofollow_Update {
-	permission: Boolean!
-}
-
-type PostsFields_meta_nofollow_Delete {
-	permission: Boolean!
-}
-
-type PostsFields_meta_noindex {
-	create: PostsFields_meta_noindex_Create
-	read: PostsFields_meta_noindex_Read
-	update: PostsFields_meta_noindex_Update
-	delete: PostsFields_meta_noindex_Delete
-}
-
-type PostsFields_meta_noindex_Create {
-	permission: Boolean!
-}
-
-type PostsFields_meta_noindex_Read {
-	permission: Boolean!
-}
-
-type PostsFields_meta_noindex_Update {
-	permission: Boolean!
-}
-
-type PostsFields_meta_noindex_Delete {
-	permission: Boolean!
-}
-
-type PostsFields_meta_description {
-	create: PostsFields_meta_description_Create
-	read: PostsFields_meta_description_Read
-	update: PostsFields_meta_description_Update
-	delete: PostsFields_meta_description_Delete
-}
-
-type PostsFields_meta_description_Create {
-	permission: Boolean!
-}
-
-type PostsFields_meta_description_Read {
-	permission: Boolean!
-}
-
-type PostsFields_meta_description_Update {
-	permission: Boolean!
-}
-
-type PostsFields_meta_description_Delete {
-	permission: Boolean!
-}
-
-type PostsFields_authorSlug {
-	create: PostsFields_authorSlug_Create
-	read: PostsFields_authorSlug_Read
-	update: PostsFields_authorSlug_Update
-	delete: PostsFields_authorSlug_Delete
-}
-
-type PostsFields_authorSlug_Create {
-	permission: Boolean!
-}
-
-type PostsFields_authorSlug_Read {
-	permission: Boolean!
-}
-
-type PostsFields_authorSlug_Update {
-	permission: Boolean!
-}
-
-type PostsFields_authorSlug_Delete {
-	permission: Boolean!
-}
-
-type PostsFields_publishedAt {
-	create: PostsFields_publishedAt_Create
-	read: PostsFields_publishedAt_Read
-	update: PostsFields_publishedAt_Update
-	delete: PostsFields_publishedAt_Delete
-}
-
-type PostsFields_publishedAt_Create {
-	permission: Boolean!
-}
-
-type PostsFields_publishedAt_Read {
-	permission: Boolean!
-}
-
-type PostsFields_publishedAt_Update {
-	permission: Boolean!
-}
-
-type PostsFields_publishedAt_Delete {
-	permission: Boolean!
-}
-
-type PostsFields_authors {
-	create: PostsFields_authors_Create
-	read: PostsFields_authors_Read
-	update: PostsFields_authors_Update
-	delete: PostsFields_authors_Delete
-}
-
-type PostsFields_authors_Create {
-	permission: Boolean!
-}
-
-type PostsFields_authors_Read {
-	permission: Boolean!
-}
-
-type PostsFields_authors_Update {
-	permission: Boolean!
-}
-
-type PostsFields_authors_Delete {
-	permission: Boolean!
-}
-
-type PostsFields_slug {
-	create: PostsFields_slug_Create
-	read: PostsFields_slug_Read
-	update: PostsFields_slug_Update
-	delete: PostsFields_slug_Delete
-}
-
-type PostsFields_slug_Create {
-	permission: Boolean!
-}
-
-type PostsFields_slug_Read {
-	permission: Boolean!
-}
-
-type PostsFields_slug_Update {
-	permission: Boolean!
-}
-
-type PostsFields_slug_Delete {
-	permission: Boolean!
-}
-
-type PostsFields_updatedAt {
-	create: PostsFields_updatedAt_Create
-	read: PostsFields_updatedAt_Read
-	update: PostsFields_updatedAt_Update
-	delete: PostsFields_updatedAt_Delete
-}
-
-type PostsFields_updatedAt_Create {
-	permission: Boolean!
-}
-
-type PostsFields_updatedAt_Read {
-	permission: Boolean!
-}
-
-type PostsFields_updatedAt_Update {
-	permission: Boolean!
-}
-
-type PostsFields_updatedAt_Delete {
-	permission: Boolean!
-}
-
-type PostsFields_createdAt {
-	create: PostsFields_createdAt_Create
-	read: PostsFields_createdAt_Read
-	update: PostsFields_createdAt_Update
-	delete: PostsFields_createdAt_Delete
-}
-
-type PostsFields_createdAt_Create {
-	permission: Boolean!
-}
-
-type PostsFields_createdAt_Read {
-	permission: Boolean!
-}
-
-type PostsFields_createdAt_Update {
-	permission: Boolean!
-}
-
-type PostsFields_createdAt_Delete {
-	permission: Boolean!
-}
-
-type PostsFields__status {
-	create: PostsFields__status_Create
-	read: PostsFields__status_Read
-	update: PostsFields__status_Update
-	delete: PostsFields__status_Delete
-}
-
-type PostsFields__status_Create {
-	permission: Boolean!
-}
-
-type PostsFields__status_Read {
-	permission: Boolean!
-}
-
-type PostsFields__status_Update {
-	permission: Boolean!
-}
-
-type PostsFields__status_Delete {
-	permission: Boolean!
-}
-
-type PostsCreateAccess {
-	permission: Boolean!
-	where: JSONObject
-}
-
-type PostsReadAccess {
-	permission: Boolean!
-	where: JSONObject
-}
-
-type PostsUpdateAccess {
-	permission: Boolean!
-	where: JSONObject
-}
-
-type PostsDeleteAccess {
-	permission: Boolean!
-	where: JSONObject
-}
-
-type PostsReadVersionsAccess {
-	permission: Boolean!
-	where: JSONObject
 }
 
 type mediaAccess {
@@ -10078,6 +8432,7 @@ type micro_postsAccess {
 type Micro_postsFields {
 	title: Micro_postsFields_title
 	cronTranslationLocalesQueued: Micro_postsFields_cronTranslationLocalesQueued
+	autoTranslated: Micro_postsFields_autoTranslated
 	attachment: Micro_postsFields_attachment
 	post_type: Micro_postsFields_post_type
 	content: Micro_postsFields_content
@@ -10138,6 +8493,29 @@ type Micro_postsFields_cronTranslationLocalesQueued_Update {
 }
 
 type Micro_postsFields_cronTranslationLocalesQueued_Delete {
+	permission: Boolean!
+}
+
+type Micro_postsFields_autoTranslated {
+	create: Micro_postsFields_autoTranslated_Create
+	read: Micro_postsFields_autoTranslated_Read
+	update: Micro_postsFields_autoTranslated_Update
+	delete: Micro_postsFields_autoTranslated_Delete
+}
+
+type Micro_postsFields_autoTranslated_Create {
+	permission: Boolean!
+}
+
+type Micro_postsFields_autoTranslated_Read {
+	permission: Boolean!
+}
+
+type Micro_postsFields_autoTranslated_Update {
+	permission: Boolean!
+}
+
+type Micro_postsFields_autoTranslated_Delete {
 	permission: Boolean!
 }
 
@@ -12493,18 +10871,6 @@ type PayloadQueryPresetsDeleteAccess {
 }
 
 type Mutation {
-	createPost(data: mutationPostInput!, draft: Boolean, locale: LocaleInputType): Post
-	updatePost(
-		id: String!
-		autosave: Boolean
-		data: mutationPostUpdateInput!
-		draft: Boolean
-		locale: LocaleInputType
-		trash: Boolean
-	): Post
-	deletePost(id: String!, trash: Boolean): Post
-	duplicatePost(id: String!, data: mutationPostInput!): Post
-	restoreVersionPost(id: String, draft: Boolean): Post
 	createMedia(data: mutationMediaInput!, draft: Boolean, locale: LocaleInputType): Media
 	updateMedia(
 		id: String!
@@ -12671,66 +11037,6 @@ type Mutation {
 	): PayloadQueryPreset
 	deletePayloadQueryPreset(id: String!, trash: Boolean): PayloadQueryPreset
 	duplicatePayloadQueryPreset(id: String!, data: mutationPayloadQueryPresetInput!): PayloadQueryPreset
-}
-
-input mutationPostInput {
-	title: String
-	subtitle: String
-	featuredImage: String
-	content: String
-	relatedPosts: [String]
-	tags: [String]
-	meta: mutationPost_MetaInput
-	authorSlug: String
-	publishedAt: String
-	authors: [String]
-	slug: String!
-	updatedAt: String
-	createdAt: String
-	_status: Post__status_MutationInput
-}
-
-input mutationPost_MetaInput {
-	title: String
-	image: String
-	nofollow: Boolean
-	noindex: Boolean
-	description: String
-}
-
-enum Post__status_MutationInput {
-	draft
-	published
-}
-
-input mutationPostUpdateInput {
-	title: String
-	subtitle: String
-	featuredImage: String
-	content: String
-	relatedPosts: [String]
-	tags: [String]
-	meta: mutationPostUpdate_MetaInput
-	authorSlug: String
-	publishedAt: String
-	authors: [String]
-	slug: String
-	updatedAt: String
-	createdAt: String
-	_status: PostUpdate__status_MutationInput
-}
-
-input mutationPostUpdate_MetaInput {
-	title: String
-	image: String
-	nofollow: Boolean
-	noindex: Boolean
-	description: String
-}
-
-enum PostUpdate__status_MutationInput {
-	draft
-	published
 }
 
 input mutationMediaInput {
@@ -12901,6 +11207,7 @@ input mutationAi_call_logUpdateInput {
 input mutationMicro_postInput {
 	title: String
 	cronTranslationLocalesQueued: [Micro_post_cronTranslationLocalesQueued_MutationInput]
+	autoTranslated: Boolean
 	attachment: String
 	post_type: Micro_post_post_type_MutationInput
 	content: String
@@ -12958,6 +11265,7 @@ enum Micro_post__status_MutationInput {
 input mutationMicro_postUpdateInput {
 	title: String
 	cronTranslationLocalesQueued: [Micro_postUpdate_cronTranslationLocalesQueued_MutationInput]
+	autoTranslated: Boolean
 	attachment: String
 	post_type: Micro_postUpdate_post_type_MutationInput
 	content: String
@@ -13188,7 +11496,6 @@ input PayloadLockedDocument_DocumentRelationshipInput {
 }
 
 enum PayloadLockedDocument_DocumentRelationshipInputRelationTo {
-	posts
 	media
 	users
 	tags
@@ -13222,7 +11529,6 @@ input PayloadLockedDocumentUpdate_DocumentRelationshipInput {
 }
 
 enum PayloadLockedDocumentUpdate_DocumentRelationshipInputRelationTo {
-	posts
 	media
 	users
 	tags

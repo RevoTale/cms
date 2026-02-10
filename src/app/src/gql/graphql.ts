@@ -37,7 +37,6 @@ export type Access = {
   payload_locked_documents?: Maybe<payload_locked_documentsAccess>;
   payload_preferences?: Maybe<payload_preferencesAccess>;
   payload_query_presets?: Maybe<payload_query_presetsAccess>;
-  posts?: Maybe<postsAccess>;
   search?: Maybe<searchAccess>;
   tags?: Maybe<tagsAccess>;
   users?: Maybe<usersAccess>;
@@ -2633,6 +2632,7 @@ export type Micro_post = {
   attachment?: Maybe<Media>;
   authorSlug?: Maybe<Scalars['String']['output']>;
   authors?: Maybe<Array<Author>>;
+  autoTranslated?: Maybe<Scalars['Boolean']['output']>;
   content?: Maybe<Scalars['String']['output']>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   cronTranslationLocalesQueued?: Maybe<Array<Micro_post_cronTranslationLocalesQueued>>;
@@ -2727,6 +2727,7 @@ export type Micro_postVersion_Version = {
   attachment?: Maybe<Media>;
   authorSlug?: Maybe<Scalars['String']['output']>;
   authors?: Maybe<Array<Author>>;
+  autoTranslated?: Maybe<Scalars['Boolean']['output']>;
   content?: Maybe<Scalars['String']['output']>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   cronTranslationLocalesQueued?: Maybe<Array<Micro_postVersion_Version_cronTranslationLocalesQueued>>;
@@ -2905,6 +2906,12 @@ export type Micro_post_authors_operator = {
   in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
   not_equals?: InputMaybe<Scalars['JSON']['input']>;
   not_in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
+};
+
+export type Micro_post_autoTranslated_operator = {
+  equals?: InputMaybe<Scalars['Boolean']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  not_equals?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export type Micro_post_content_operator = {
@@ -3524,6 +3531,7 @@ export type Micro_post_where = {
   attachment?: InputMaybe<Micro_post_attachment_operator>;
   authorSlug?: InputMaybe<Micro_post_authorSlug_operator>;
   authors?: InputMaybe<Micro_post_authors_operator>;
+  autoTranslated?: InputMaybe<Micro_post_autoTranslated_operator>;
   content?: InputMaybe<Micro_post_content_operator>;
   createdAt?: InputMaybe<Micro_post_createdAt_operator>;
   cronTranslationLocalesQueued?: InputMaybe<Micro_post_cronTranslationLocalesQueued_operator>;
@@ -3551,6 +3559,7 @@ export type Micro_post_where_and = {
   attachment?: InputMaybe<Micro_post_attachment_operator>;
   authorSlug?: InputMaybe<Micro_post_authorSlug_operator>;
   authors?: InputMaybe<Micro_post_authors_operator>;
+  autoTranslated?: InputMaybe<Micro_post_autoTranslated_operator>;
   content?: InputMaybe<Micro_post_content_operator>;
   createdAt?: InputMaybe<Micro_post_createdAt_operator>;
   cronTranslationLocalesQueued?: InputMaybe<Micro_post_cronTranslationLocalesQueued_operator>;
@@ -3578,6 +3587,7 @@ export type Micro_post_where_or = {
   attachment?: InputMaybe<Micro_post_attachment_operator>;
   authorSlug?: InputMaybe<Micro_post_authorSlug_operator>;
   authors?: InputMaybe<Micro_post_authors_operator>;
+  autoTranslated?: InputMaybe<Micro_post_autoTranslated_operator>;
   content?: InputMaybe<Micro_post_content_operator>;
   createdAt?: InputMaybe<Micro_post_createdAt_operator>;
   cronTranslationLocalesQueued?: InputMaybe<Micro_post_cronTranslationLocalesQueued_operator>;
@@ -3643,6 +3653,7 @@ export type Micro_postsDocAccessFields = {
   attachment?: Maybe<Micro_postsDocAccessFields_attachment>;
   authorSlug?: Maybe<Micro_postsDocAccessFields_authorSlug>;
   authors?: Maybe<Micro_postsDocAccessFields_authors>;
+  autoTranslated?: Maybe<Micro_postsDocAccessFields_autoTranslated>;
   content?: Maybe<Micro_postsDocAccessFields_content>;
   createdAt?: Maybe<Micro_postsDocAccessFields_createdAt>;
   cronTranslationLocalesQueued?: Maybe<Micro_postsDocAccessFields_cronTranslationLocalesQueued>;
@@ -3767,6 +3778,34 @@ export type Micro_postsDocAccessFields_authors_Read = {
 
 export type Micro_postsDocAccessFields_authors_Update = {
   __typename?: 'Micro_postsDocAccessFields_authors_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type Micro_postsDocAccessFields_autoTranslated = {
+  __typename?: 'Micro_postsDocAccessFields_autoTranslated';
+  create?: Maybe<Micro_postsDocAccessFields_autoTranslated_Create>;
+  delete?: Maybe<Micro_postsDocAccessFields_autoTranslated_Delete>;
+  read?: Maybe<Micro_postsDocAccessFields_autoTranslated_Read>;
+  update?: Maybe<Micro_postsDocAccessFields_autoTranslated_Update>;
+};
+
+export type Micro_postsDocAccessFields_autoTranslated_Create = {
+  __typename?: 'Micro_postsDocAccessFields_autoTranslated_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type Micro_postsDocAccessFields_autoTranslated_Delete = {
+  __typename?: 'Micro_postsDocAccessFields_autoTranslated_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type Micro_postsDocAccessFields_autoTranslated_Read = {
+  __typename?: 'Micro_postsDocAccessFields_autoTranslated_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type Micro_postsDocAccessFields_autoTranslated_Update = {
+  __typename?: 'Micro_postsDocAccessFields_autoTranslated_Update';
   permission: Scalars['Boolean']['output'];
 };
 
@@ -4329,6 +4368,7 @@ export type Micro_postsFields = {
   attachment?: Maybe<Micro_postsFields_attachment>;
   authorSlug?: Maybe<Micro_postsFields_authorSlug>;
   authors?: Maybe<Micro_postsFields_authors>;
+  autoTranslated?: Maybe<Micro_postsFields_autoTranslated>;
   content?: Maybe<Micro_postsFields_content>;
   createdAt?: Maybe<Micro_postsFields_createdAt>;
   cronTranslationLocalesQueued?: Maybe<Micro_postsFields_cronTranslationLocalesQueued>;
@@ -4453,6 +4493,34 @@ export type Micro_postsFields_authors_Read = {
 
 export type Micro_postsFields_authors_Update = {
   __typename?: 'Micro_postsFields_authors_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type Micro_postsFields_autoTranslated = {
+  __typename?: 'Micro_postsFields_autoTranslated';
+  create?: Maybe<Micro_postsFields_autoTranslated_Create>;
+  delete?: Maybe<Micro_postsFields_autoTranslated_Delete>;
+  read?: Maybe<Micro_postsFields_autoTranslated_Read>;
+  update?: Maybe<Micro_postsFields_autoTranslated_Update>;
+};
+
+export type Micro_postsFields_autoTranslated_Create = {
+  __typename?: 'Micro_postsFields_autoTranslated_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type Micro_postsFields_autoTranslated_Delete = {
+  __typename?: 'Micro_postsFields_autoTranslated_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type Micro_postsFields_autoTranslated_Read = {
+  __typename?: 'Micro_postsFields_autoTranslated_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type Micro_postsFields_autoTranslated_Update = {
+  __typename?: 'Micro_postsFields_autoTranslated_Update';
   permission: Scalars['Boolean']['output'];
 };
 
@@ -5057,7 +5125,6 @@ export type Mutation = {
   createPayloadLockedDocument?: Maybe<PayloadLockedDocument>;
   createPayloadPreference?: Maybe<PayloadPreference>;
   createPayloadQueryPreset?: Maybe<PayloadQueryPreset>;
-  createPost?: Maybe<Post>;
   createSearch?: Maybe<Search>;
   createTag?: Maybe<Tag>;
   createUser?: Maybe<User>;
@@ -5071,7 +5138,6 @@ export type Mutation = {
   deletePayloadLockedDocument?: Maybe<PayloadLockedDocument>;
   deletePayloadPreference?: Maybe<PayloadPreference>;
   deletePayloadQueryPreset?: Maybe<PayloadQueryPreset>;
-  deletePost?: Maybe<Post>;
   deleteSearch?: Maybe<Search>;
   deleteTag?: Maybe<Tag>;
   deleteUser?: Maybe<User>;
@@ -5085,7 +5151,6 @@ export type Mutation = {
   duplicatePayloadLockedDocument?: Maybe<PayloadLockedDocument>;
   duplicatePayloadPreference?: Maybe<PayloadPreference>;
   duplicatePayloadQueryPreset?: Maybe<PayloadQueryPreset>;
-  duplicatePost?: Maybe<Post>;
   duplicateSearch?: Maybe<Search>;
   duplicateTag?: Maybe<Tag>;
   forgotPasswordUser: Scalars['Boolean']['output'];
@@ -5094,7 +5159,6 @@ export type Mutation = {
   refreshTokenUser?: Maybe<usersRefreshedUser>;
   resetPasswordUser?: Maybe<usersResetPassword>;
   restoreVersionMicro_post?: Maybe<Micro_post>;
-  restoreVersionPost?: Maybe<Post>;
   unlockUser: Scalars['Boolean']['output'];
   updateAi_call_log?: Maybe<Ai_call_log>;
   updateAuthor?: Maybe<Author>;
@@ -5106,7 +5170,6 @@ export type Mutation = {
   updatePayloadLockedDocument?: Maybe<PayloadLockedDocument>;
   updatePayloadPreference?: Maybe<PayloadPreference>;
   updatePayloadQueryPreset?: Maybe<PayloadQueryPreset>;
-  updatePost?: Maybe<Post>;
   updateSearch?: Maybe<Search>;
   updateTag?: Maybe<Tag>;
   updateUser?: Maybe<User>;
@@ -5179,13 +5242,6 @@ export type MutationcreatePayloadPreferenceArgs = {
 
 export type MutationcreatePayloadQueryPresetArgs = {
   data: mutationPayloadQueryPresetInput;
-  draft?: InputMaybe<Scalars['Boolean']['input']>;
-  locale?: InputMaybe<LocaleInputType>;
-};
-
-
-export type MutationcreatePostArgs = {
-  data: mutationPostInput;
   draft?: InputMaybe<Scalars['Boolean']['input']>;
   locale?: InputMaybe<LocaleInputType>;
 };
@@ -5272,12 +5328,6 @@ export type MutationdeletePayloadQueryPresetArgs = {
 };
 
 
-export type MutationdeletePostArgs = {
-  id: Scalars['String']['input'];
-  trash?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
 export type MutationdeleteSearchArgs = {
   id: Scalars['String']['input'];
   trash?: InputMaybe<Scalars['Boolean']['input']>;
@@ -5356,12 +5406,6 @@ export type MutationduplicatePayloadQueryPresetArgs = {
 };
 
 
-export type MutationduplicatePostArgs = {
-  data: mutationPostInput;
-  id: Scalars['String']['input'];
-};
-
-
 export type MutationduplicateSearchArgs = {
   data: mutationSearchInput;
   id: Scalars['String']['input'];
@@ -5399,12 +5443,6 @@ export type MutationresetPasswordUserArgs = {
 
 
 export type MutationrestoreVersionMicro_postArgs = {
-  draft?: InputMaybe<Scalars['Boolean']['input']>;
-  id?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type MutationrestoreVersionPostArgs = {
   draft?: InputMaybe<Scalars['Boolean']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
 };
@@ -5508,16 +5546,6 @@ export type MutationupdatePayloadPreferenceArgs = {
 export type MutationupdatePayloadQueryPresetArgs = {
   autosave?: InputMaybe<Scalars['Boolean']['input']>;
   data: mutationPayloadQueryPresetUpdateInput;
-  draft?: InputMaybe<Scalars['Boolean']['input']>;
-  id: Scalars['String']['input'];
-  locale?: InputMaybe<LocaleInputType>;
-  trash?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-export type MutationupdatePostArgs = {
-  autosave?: InputMaybe<Scalars['Boolean']['input']>;
-  data: mutationPostUpdateInput;
   draft?: InputMaybe<Scalars['Boolean']['input']>;
   id: Scalars['String']['input'];
   locale?: InputMaybe<LocaleInputType>;
@@ -7809,7 +7837,6 @@ export enum PayloadLockedDocumentUpdate_DocumentRelationshipInputRelationTo {
   Media = 'media',
   MicroPostExternalLinks = 'micro_post_external_links',
   MicroPosts = 'micro_posts',
-  Posts = 'posts',
   Search = 'search',
   Tags = 'tags',
   Users = 'users'
@@ -7824,7 +7851,7 @@ export enum PayloadLockedDocumentUpdate_UserRelationshipInputRelationTo {
   Users = 'users'
 }
 
-export type PayloadLockedDocument_Document = Ai_call_log | Author | Media | Micro_post | Micro_post_external_link | Post | Search | Tag | User;
+export type PayloadLockedDocument_Document = Ai_call_log | Author | Media | Micro_post | Micro_post_external_link | Search | Tag | User;
 
 export type PayloadLockedDocument_DocumentRelationshipInput = {
   relationTo?: InputMaybe<PayloadLockedDocument_DocumentRelationshipInputRelationTo>;
@@ -7837,7 +7864,6 @@ export enum PayloadLockedDocument_DocumentRelationshipInputRelationTo {
   Media = 'media',
   MicroPostExternalLinks = 'micro_post_external_links',
   MicroPosts = 'micro_posts',
-  Posts = 'posts',
   Search = 'search',
   Tags = 'tags',
   Users = 'users'
@@ -7849,7 +7875,6 @@ export enum PayloadLockedDocument_Document_RelationTo {
   Media = 'media',
   MicroPostExternalLinks = 'micro_post_external_links',
   MicroPosts = 'micro_posts',
-  Posts = 'posts',
   Search = 'search',
   Tags = 'tags',
   Users = 'users'
@@ -7904,7 +7929,6 @@ export enum PayloadLockedDocument_document_Relation_RelationTo {
   Media = 'media',
   MicroPostExternalLinks = 'micro_post_external_links',
   MicroPosts = 'micro_posts',
-  Posts = 'posts',
   Search = 'search',
   Tags = 'tags',
   Users = 'users'
@@ -10419,1561 +10443,6 @@ export type PayloadQueryPresetsUpdateDocAccess = {
   where?: Maybe<Scalars['JSONObject']['output']>;
 };
 
-export type Post = {
-  __typename?: 'Post';
-  _status?: Maybe<Post__status>;
-  authorSlug?: Maybe<Scalars['String']['output']>;
-  authors?: Maybe<Array<Author>>;
-  content?: Maybe<Scalars['String']['output']>;
-  createdAt?: Maybe<Scalars['DateTime']['output']>;
-  featuredImage?: Maybe<Media>;
-  id: Scalars['String']['output'];
-  meta?: Maybe<Post_Meta>;
-  publishedAt?: Maybe<Scalars['DateTime']['output']>;
-  relatedPosts?: Maybe<Array<Post>>;
-  slug?: Maybe<Scalars['String']['output']>;
-  subtitle?: Maybe<Scalars['String']['output']>;
-  tags?: Maybe<Array<Tag>>;
-  title?: Maybe<Scalars['String']['output']>;
-  updatedAt?: Maybe<Scalars['DateTime']['output']>;
-};
-
-
-export type PostauthorsArgs = {
-  fallbackLocale?: InputMaybe<FallbackLocaleInputType>;
-  locale?: InputMaybe<LocaleInputType>;
-};
-
-
-export type PostfeaturedImageArgs = {
-  fallbackLocale?: InputMaybe<FallbackLocaleInputType>;
-  locale?: InputMaybe<LocaleInputType>;
-};
-
-
-export type PostrelatedPostsArgs = {
-  draft?: InputMaybe<Scalars['Boolean']['input']>;
-  fallbackLocale?: InputMaybe<FallbackLocaleInputType>;
-  locale?: InputMaybe<LocaleInputType>;
-};
-
-
-export type PosttagsArgs = {
-  fallbackLocale?: InputMaybe<FallbackLocaleInputType>;
-  locale?: InputMaybe<LocaleInputType>;
-};
-
-export enum PostUpdate__status_MutationInput {
-  Draft = 'draft',
-  Published = 'published'
-}
-
-export type PostVersion = {
-  __typename?: 'PostVersion';
-  autosave?: Maybe<Scalars['Boolean']['output']>;
-  createdAt?: Maybe<Scalars['DateTime']['output']>;
-  id?: Maybe<Scalars['String']['output']>;
-  latest?: Maybe<Scalars['Boolean']['output']>;
-  parent?: Maybe<Post>;
-  publishedLocale?: Maybe<PostVersion_publishedLocale>;
-  snapshot?: Maybe<Scalars['Boolean']['output']>;
-  updatedAt?: Maybe<Scalars['DateTime']['output']>;
-  version?: Maybe<PostVersion_Version>;
-};
-
-
-export type PostVersionparentArgs = {
-  draft?: InputMaybe<Scalars['Boolean']['input']>;
-  fallbackLocale?: InputMaybe<FallbackLocaleInputType>;
-  locale?: InputMaybe<LocaleInputType>;
-};
-
-export type PostVersion_Version = {
-  __typename?: 'PostVersion_Version';
-  _status?: Maybe<PostVersion_Version__status>;
-  authorSlug?: Maybe<Scalars['String']['output']>;
-  authors?: Maybe<Array<Author>>;
-  content?: Maybe<Scalars['String']['output']>;
-  createdAt?: Maybe<Scalars['DateTime']['output']>;
-  featuredImage?: Maybe<Media>;
-  meta?: Maybe<PostVersion_Version_Meta>;
-  publishedAt?: Maybe<Scalars['DateTime']['output']>;
-  relatedPosts?: Maybe<Array<Post>>;
-  slug?: Maybe<Scalars['String']['output']>;
-  subtitle?: Maybe<Scalars['String']['output']>;
-  tags?: Maybe<Array<Tag>>;
-  title?: Maybe<Scalars['String']['output']>;
-  updatedAt?: Maybe<Scalars['DateTime']['output']>;
-};
-
-
-export type PostVersion_VersionauthorsArgs = {
-  fallbackLocale?: InputMaybe<FallbackLocaleInputType>;
-  locale?: InputMaybe<LocaleInputType>;
-};
-
-
-export type PostVersion_VersionfeaturedImageArgs = {
-  fallbackLocale?: InputMaybe<FallbackLocaleInputType>;
-  locale?: InputMaybe<LocaleInputType>;
-};
-
-
-export type PostVersion_VersionrelatedPostsArgs = {
-  draft?: InputMaybe<Scalars['Boolean']['input']>;
-  fallbackLocale?: InputMaybe<FallbackLocaleInputType>;
-  locale?: InputMaybe<LocaleInputType>;
-};
-
-
-export type PostVersion_VersiontagsArgs = {
-  fallbackLocale?: InputMaybe<FallbackLocaleInputType>;
-  locale?: InputMaybe<LocaleInputType>;
-};
-
-export type PostVersion_Version_Meta = {
-  __typename?: 'PostVersion_Version_Meta';
-  description?: Maybe<Scalars['String']['output']>;
-  image?: Maybe<Media>;
-  nofollow?: Maybe<Scalars['Boolean']['output']>;
-  noindex?: Maybe<Scalars['Boolean']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-};
-
-
-export type PostVersion_Version_MetaimageArgs = {
-  fallbackLocale?: InputMaybe<FallbackLocaleInputType>;
-  locale?: InputMaybe<LocaleInputType>;
-};
-
-export enum PostVersion_Version__status {
-  Draft = 'draft',
-  Published = 'published'
-}
-
-export enum PostVersion_publishedLocale {
-  DeDe = 'de_DE',
-  EnUs = 'en_US',
-  EsEs = 'es_ES',
-  FrFr = 'fr_FR',
-  HiIn = 'hi_IN',
-  JaJp = 'ja_JP',
-  RuRu = 'ru_RU',
-  UkUa = 'uk_UA'
-}
-
-export type Post_Meta = {
-  __typename?: 'Post_Meta';
-  description?: Maybe<Scalars['String']['output']>;
-  image?: Maybe<Media>;
-  nofollow?: Maybe<Scalars['Boolean']['output']>;
-  noindex?: Maybe<Scalars['Boolean']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-};
-
-
-export type Post_MetaimageArgs = {
-  fallbackLocale?: InputMaybe<FallbackLocaleInputType>;
-  locale?: InputMaybe<LocaleInputType>;
-};
-
-export enum Post__status {
-  Draft = 'draft',
-  Published = 'published'
-}
-
-export enum Post__status_Input {
-  Draft = 'draft',
-  Published = 'published'
-}
-
-export enum Post__status_MutationInput {
-  Draft = 'draft',
-  Published = 'published'
-}
-
-export type Post__status_operator = {
-  all?: InputMaybe<Array<InputMaybe<Post__status_Input>>>;
-  equals?: InputMaybe<Post__status_Input>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Post__status_Input>>>;
-  not_equals?: InputMaybe<Post__status_Input>;
-  not_in?: InputMaybe<Array<InputMaybe<Post__status_Input>>>;
-};
-
-export type Post_authorSlug_operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  contains?: InputMaybe<Scalars['String']['input']>;
-  equals?: InputMaybe<Scalars['String']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  like?: InputMaybe<Scalars['String']['input']>;
-  not_equals?: InputMaybe<Scalars['String']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type Post_authors_operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
-  equals?: InputMaybe<Scalars['JSON']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
-  not_equals?: InputMaybe<Scalars['JSON']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
-};
-
-export type Post_content_operator = {
-  contains?: InputMaybe<Scalars['String']['input']>;
-  equals?: InputMaybe<Scalars['String']['input']>;
-  like?: InputMaybe<Scalars['String']['input']>;
-  not_equals?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type Post_createdAt_operator = {
-  equals?: InputMaybe<Scalars['DateTime']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  greater_than?: InputMaybe<Scalars['DateTime']['input']>;
-  greater_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
-  less_than?: InputMaybe<Scalars['DateTime']['input']>;
-  less_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
-  like?: InputMaybe<Scalars['DateTime']['input']>;
-  not_equals?: InputMaybe<Scalars['DateTime']['input']>;
-};
-
-export type Post_featuredImage_operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
-  equals?: InputMaybe<Scalars['JSON']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
-  not_equals?: InputMaybe<Scalars['JSON']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
-};
-
-export type Post_id_operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  contains?: InputMaybe<Scalars['String']['input']>;
-  equals?: InputMaybe<Scalars['String']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  like?: InputMaybe<Scalars['String']['input']>;
-  not_equals?: InputMaybe<Scalars['String']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type Post_meta__description_operator = {
-  contains?: InputMaybe<Scalars['String']['input']>;
-  equals?: InputMaybe<Scalars['String']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  like?: InputMaybe<Scalars['String']['input']>;
-  not_equals?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type Post_meta__image_operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
-  equals?: InputMaybe<Scalars['JSON']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
-  not_equals?: InputMaybe<Scalars['JSON']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
-};
-
-export type Post_meta__nofollow_operator = {
-  equals?: InputMaybe<Scalars['Boolean']['input']>;
-  not_equals?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-export type Post_meta__noindex_operator = {
-  equals?: InputMaybe<Scalars['Boolean']['input']>;
-  not_equals?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-export type Post_meta__title_operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  contains?: InputMaybe<Scalars['String']['input']>;
-  equals?: InputMaybe<Scalars['String']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  like?: InputMaybe<Scalars['String']['input']>;
-  not_equals?: InputMaybe<Scalars['String']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type Post_publishedAt_operator = {
-  equals?: InputMaybe<Scalars['DateTime']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  greater_than?: InputMaybe<Scalars['DateTime']['input']>;
-  greater_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
-  less_than?: InputMaybe<Scalars['DateTime']['input']>;
-  less_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
-  like?: InputMaybe<Scalars['DateTime']['input']>;
-  not_equals?: InputMaybe<Scalars['DateTime']['input']>;
-};
-
-export type Post_relatedPosts_operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
-  equals?: InputMaybe<Scalars['JSON']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
-  not_equals?: InputMaybe<Scalars['JSON']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
-};
-
-export type Post_slug_operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  contains?: InputMaybe<Scalars['String']['input']>;
-  equals?: InputMaybe<Scalars['String']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  like?: InputMaybe<Scalars['String']['input']>;
-  not_equals?: InputMaybe<Scalars['String']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type Post_subtitle_operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  contains?: InputMaybe<Scalars['String']['input']>;
-  equals?: InputMaybe<Scalars['String']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  like?: InputMaybe<Scalars['String']['input']>;
-  not_equals?: InputMaybe<Scalars['String']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type Post_tags_operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
-  equals?: InputMaybe<Scalars['JSON']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
-  not_equals?: InputMaybe<Scalars['JSON']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
-};
-
-export type Post_title_operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  contains?: InputMaybe<Scalars['String']['input']>;
-  equals?: InputMaybe<Scalars['String']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  like?: InputMaybe<Scalars['String']['input']>;
-  not_equals?: InputMaybe<Scalars['String']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type Post_updatedAt_operator = {
-  equals?: InputMaybe<Scalars['DateTime']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  greater_than?: InputMaybe<Scalars['DateTime']['input']>;
-  greater_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
-  less_than?: InputMaybe<Scalars['DateTime']['input']>;
-  less_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
-  like?: InputMaybe<Scalars['DateTime']['input']>;
-  not_equals?: InputMaybe<Scalars['DateTime']['input']>;
-};
-
-export type Post_where = {
-  AND?: InputMaybe<Array<InputMaybe<Post_where_and>>>;
-  OR?: InputMaybe<Array<InputMaybe<Post_where_or>>>;
-  _status?: InputMaybe<Post__status_operator>;
-  authorSlug?: InputMaybe<Post_authorSlug_operator>;
-  authors?: InputMaybe<Post_authors_operator>;
-  content?: InputMaybe<Post_content_operator>;
-  createdAt?: InputMaybe<Post_createdAt_operator>;
-  featuredImage?: InputMaybe<Post_featuredImage_operator>;
-  id?: InputMaybe<Post_id_operator>;
-  meta__description?: InputMaybe<Post_meta__description_operator>;
-  meta__image?: InputMaybe<Post_meta__image_operator>;
-  meta__nofollow?: InputMaybe<Post_meta__nofollow_operator>;
-  meta__noindex?: InputMaybe<Post_meta__noindex_operator>;
-  meta__title?: InputMaybe<Post_meta__title_operator>;
-  publishedAt?: InputMaybe<Post_publishedAt_operator>;
-  relatedPosts?: InputMaybe<Post_relatedPosts_operator>;
-  slug?: InputMaybe<Post_slug_operator>;
-  subtitle?: InputMaybe<Post_subtitle_operator>;
-  tags?: InputMaybe<Post_tags_operator>;
-  title?: InputMaybe<Post_title_operator>;
-  updatedAt?: InputMaybe<Post_updatedAt_operator>;
-};
-
-export type Post_where_and = {
-  AND?: InputMaybe<Array<InputMaybe<Post_where_and>>>;
-  OR?: InputMaybe<Array<InputMaybe<Post_where_or>>>;
-  _status?: InputMaybe<Post__status_operator>;
-  authorSlug?: InputMaybe<Post_authorSlug_operator>;
-  authors?: InputMaybe<Post_authors_operator>;
-  content?: InputMaybe<Post_content_operator>;
-  createdAt?: InputMaybe<Post_createdAt_operator>;
-  featuredImage?: InputMaybe<Post_featuredImage_operator>;
-  id?: InputMaybe<Post_id_operator>;
-  meta__description?: InputMaybe<Post_meta__description_operator>;
-  meta__image?: InputMaybe<Post_meta__image_operator>;
-  meta__nofollow?: InputMaybe<Post_meta__nofollow_operator>;
-  meta__noindex?: InputMaybe<Post_meta__noindex_operator>;
-  meta__title?: InputMaybe<Post_meta__title_operator>;
-  publishedAt?: InputMaybe<Post_publishedAt_operator>;
-  relatedPosts?: InputMaybe<Post_relatedPosts_operator>;
-  slug?: InputMaybe<Post_slug_operator>;
-  subtitle?: InputMaybe<Post_subtitle_operator>;
-  tags?: InputMaybe<Post_tags_operator>;
-  title?: InputMaybe<Post_title_operator>;
-  updatedAt?: InputMaybe<Post_updatedAt_operator>;
-};
-
-export type Post_where_or = {
-  AND?: InputMaybe<Array<InputMaybe<Post_where_and>>>;
-  OR?: InputMaybe<Array<InputMaybe<Post_where_or>>>;
-  _status?: InputMaybe<Post__status_operator>;
-  authorSlug?: InputMaybe<Post_authorSlug_operator>;
-  authors?: InputMaybe<Post_authors_operator>;
-  content?: InputMaybe<Post_content_operator>;
-  createdAt?: InputMaybe<Post_createdAt_operator>;
-  featuredImage?: InputMaybe<Post_featuredImage_operator>;
-  id?: InputMaybe<Post_id_operator>;
-  meta__description?: InputMaybe<Post_meta__description_operator>;
-  meta__image?: InputMaybe<Post_meta__image_operator>;
-  meta__nofollow?: InputMaybe<Post_meta__nofollow_operator>;
-  meta__noindex?: InputMaybe<Post_meta__noindex_operator>;
-  meta__title?: InputMaybe<Post_meta__title_operator>;
-  publishedAt?: InputMaybe<Post_publishedAt_operator>;
-  relatedPosts?: InputMaybe<Post_relatedPosts_operator>;
-  slug?: InputMaybe<Post_slug_operator>;
-  subtitle?: InputMaybe<Post_subtitle_operator>;
-  tags?: InputMaybe<Post_tags_operator>;
-  title?: InputMaybe<Post_title_operator>;
-  updatedAt?: InputMaybe<Post_updatedAt_operator>;
-};
-
-export type Posts = {
-  __typename?: 'Posts';
-  docs: Array<Post>;
-  hasNextPage: Scalars['Boolean']['output'];
-  hasPrevPage: Scalars['Boolean']['output'];
-  limit: Scalars['Int']['output'];
-  nextPage?: Maybe<Scalars['Int']['output']>;
-  offset?: Maybe<Scalars['Int']['output']>;
-  page: Scalars['Int']['output'];
-  pagingCounter: Scalars['Int']['output'];
-  prevPage?: Maybe<Scalars['Int']['output']>;
-  totalDocs: Scalars['Int']['output'];
-  totalPages: Scalars['Int']['output'];
-};
-
-export type PostsCreateAccess = {
-  __typename?: 'PostsCreateAccess';
-  permission: Scalars['Boolean']['output'];
-  where?: Maybe<Scalars['JSONObject']['output']>;
-};
-
-export type PostsCreateDocAccess = {
-  __typename?: 'PostsCreateDocAccess';
-  permission: Scalars['Boolean']['output'];
-  where?: Maybe<Scalars['JSONObject']['output']>;
-};
-
-export type PostsDeleteAccess = {
-  __typename?: 'PostsDeleteAccess';
-  permission: Scalars['Boolean']['output'];
-  where?: Maybe<Scalars['JSONObject']['output']>;
-};
-
-export type PostsDeleteDocAccess = {
-  __typename?: 'PostsDeleteDocAccess';
-  permission: Scalars['Boolean']['output'];
-  where?: Maybe<Scalars['JSONObject']['output']>;
-};
-
-export type PostsDocAccessFields = {
-  __typename?: 'PostsDocAccessFields';
-  _status?: Maybe<PostsDocAccessFields__status>;
-  authorSlug?: Maybe<PostsDocAccessFields_authorSlug>;
-  authors?: Maybe<PostsDocAccessFields_authors>;
-  content?: Maybe<PostsDocAccessFields_content>;
-  createdAt?: Maybe<PostsDocAccessFields_createdAt>;
-  featuredImage?: Maybe<PostsDocAccessFields_featuredImage>;
-  meta?: Maybe<PostsDocAccessFields_meta>;
-  publishedAt?: Maybe<PostsDocAccessFields_publishedAt>;
-  relatedPosts?: Maybe<PostsDocAccessFields_relatedPosts>;
-  slug?: Maybe<PostsDocAccessFields_slug>;
-  subtitle?: Maybe<PostsDocAccessFields_subtitle>;
-  tags?: Maybe<PostsDocAccessFields_tags>;
-  title?: Maybe<PostsDocAccessFields_title>;
-  updatedAt?: Maybe<PostsDocAccessFields_updatedAt>;
-};
-
-export type PostsDocAccessFields__status = {
-  __typename?: 'PostsDocAccessFields__status';
-  create?: Maybe<PostsDocAccessFields__status_Create>;
-  delete?: Maybe<PostsDocAccessFields__status_Delete>;
-  read?: Maybe<PostsDocAccessFields__status_Read>;
-  update?: Maybe<PostsDocAccessFields__status_Update>;
-};
-
-export type PostsDocAccessFields__status_Create = {
-  __typename?: 'PostsDocAccessFields__status_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields__status_Delete = {
-  __typename?: 'PostsDocAccessFields__status_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields__status_Read = {
-  __typename?: 'PostsDocAccessFields__status_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields__status_Update = {
-  __typename?: 'PostsDocAccessFields__status_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_authorSlug = {
-  __typename?: 'PostsDocAccessFields_authorSlug';
-  create?: Maybe<PostsDocAccessFields_authorSlug_Create>;
-  delete?: Maybe<PostsDocAccessFields_authorSlug_Delete>;
-  read?: Maybe<PostsDocAccessFields_authorSlug_Read>;
-  update?: Maybe<PostsDocAccessFields_authorSlug_Update>;
-};
-
-export type PostsDocAccessFields_authorSlug_Create = {
-  __typename?: 'PostsDocAccessFields_authorSlug_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_authorSlug_Delete = {
-  __typename?: 'PostsDocAccessFields_authorSlug_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_authorSlug_Read = {
-  __typename?: 'PostsDocAccessFields_authorSlug_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_authorSlug_Update = {
-  __typename?: 'PostsDocAccessFields_authorSlug_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_authors = {
-  __typename?: 'PostsDocAccessFields_authors';
-  create?: Maybe<PostsDocAccessFields_authors_Create>;
-  delete?: Maybe<PostsDocAccessFields_authors_Delete>;
-  read?: Maybe<PostsDocAccessFields_authors_Read>;
-  update?: Maybe<PostsDocAccessFields_authors_Update>;
-};
-
-export type PostsDocAccessFields_authors_Create = {
-  __typename?: 'PostsDocAccessFields_authors_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_authors_Delete = {
-  __typename?: 'PostsDocAccessFields_authors_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_authors_Read = {
-  __typename?: 'PostsDocAccessFields_authors_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_authors_Update = {
-  __typename?: 'PostsDocAccessFields_authors_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_content = {
-  __typename?: 'PostsDocAccessFields_content';
-  create?: Maybe<PostsDocAccessFields_content_Create>;
-  delete?: Maybe<PostsDocAccessFields_content_Delete>;
-  read?: Maybe<PostsDocAccessFields_content_Read>;
-  update?: Maybe<PostsDocAccessFields_content_Update>;
-};
-
-export type PostsDocAccessFields_content_Create = {
-  __typename?: 'PostsDocAccessFields_content_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_content_Delete = {
-  __typename?: 'PostsDocAccessFields_content_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_content_Read = {
-  __typename?: 'PostsDocAccessFields_content_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_content_Update = {
-  __typename?: 'PostsDocAccessFields_content_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_createdAt = {
-  __typename?: 'PostsDocAccessFields_createdAt';
-  create?: Maybe<PostsDocAccessFields_createdAt_Create>;
-  delete?: Maybe<PostsDocAccessFields_createdAt_Delete>;
-  read?: Maybe<PostsDocAccessFields_createdAt_Read>;
-  update?: Maybe<PostsDocAccessFields_createdAt_Update>;
-};
-
-export type PostsDocAccessFields_createdAt_Create = {
-  __typename?: 'PostsDocAccessFields_createdAt_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_createdAt_Delete = {
-  __typename?: 'PostsDocAccessFields_createdAt_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_createdAt_Read = {
-  __typename?: 'PostsDocAccessFields_createdAt_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_createdAt_Update = {
-  __typename?: 'PostsDocAccessFields_createdAt_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_featuredImage = {
-  __typename?: 'PostsDocAccessFields_featuredImage';
-  create?: Maybe<PostsDocAccessFields_featuredImage_Create>;
-  delete?: Maybe<PostsDocAccessFields_featuredImage_Delete>;
-  read?: Maybe<PostsDocAccessFields_featuredImage_Read>;
-  update?: Maybe<PostsDocAccessFields_featuredImage_Update>;
-};
-
-export type PostsDocAccessFields_featuredImage_Create = {
-  __typename?: 'PostsDocAccessFields_featuredImage_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_featuredImage_Delete = {
-  __typename?: 'PostsDocAccessFields_featuredImage_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_featuredImage_Read = {
-  __typename?: 'PostsDocAccessFields_featuredImage_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_featuredImage_Update = {
-  __typename?: 'PostsDocAccessFields_featuredImage_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_meta = {
-  __typename?: 'PostsDocAccessFields_meta';
-  description?: Maybe<PostsDocAccessFields_meta_description>;
-  image?: Maybe<PostsDocAccessFields_meta_image>;
-  nofollow?: Maybe<PostsDocAccessFields_meta_nofollow>;
-  noindex?: Maybe<PostsDocAccessFields_meta_noindex>;
-  title?: Maybe<PostsDocAccessFields_meta_title>;
-};
-
-export type PostsDocAccessFields_meta_description = {
-  __typename?: 'PostsDocAccessFields_meta_description';
-  create?: Maybe<PostsDocAccessFields_meta_description_Create>;
-  delete?: Maybe<PostsDocAccessFields_meta_description_Delete>;
-  read?: Maybe<PostsDocAccessFields_meta_description_Read>;
-  update?: Maybe<PostsDocAccessFields_meta_description_Update>;
-};
-
-export type PostsDocAccessFields_meta_description_Create = {
-  __typename?: 'PostsDocAccessFields_meta_description_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_meta_description_Delete = {
-  __typename?: 'PostsDocAccessFields_meta_description_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_meta_description_Read = {
-  __typename?: 'PostsDocAccessFields_meta_description_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_meta_description_Update = {
-  __typename?: 'PostsDocAccessFields_meta_description_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_meta_image = {
-  __typename?: 'PostsDocAccessFields_meta_image';
-  create?: Maybe<PostsDocAccessFields_meta_image_Create>;
-  delete?: Maybe<PostsDocAccessFields_meta_image_Delete>;
-  read?: Maybe<PostsDocAccessFields_meta_image_Read>;
-  update?: Maybe<PostsDocAccessFields_meta_image_Update>;
-};
-
-export type PostsDocAccessFields_meta_image_Create = {
-  __typename?: 'PostsDocAccessFields_meta_image_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_meta_image_Delete = {
-  __typename?: 'PostsDocAccessFields_meta_image_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_meta_image_Read = {
-  __typename?: 'PostsDocAccessFields_meta_image_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_meta_image_Update = {
-  __typename?: 'PostsDocAccessFields_meta_image_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_meta_nofollow = {
-  __typename?: 'PostsDocAccessFields_meta_nofollow';
-  create?: Maybe<PostsDocAccessFields_meta_nofollow_Create>;
-  delete?: Maybe<PostsDocAccessFields_meta_nofollow_Delete>;
-  read?: Maybe<PostsDocAccessFields_meta_nofollow_Read>;
-  update?: Maybe<PostsDocAccessFields_meta_nofollow_Update>;
-};
-
-export type PostsDocAccessFields_meta_nofollow_Create = {
-  __typename?: 'PostsDocAccessFields_meta_nofollow_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_meta_nofollow_Delete = {
-  __typename?: 'PostsDocAccessFields_meta_nofollow_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_meta_nofollow_Read = {
-  __typename?: 'PostsDocAccessFields_meta_nofollow_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_meta_nofollow_Update = {
-  __typename?: 'PostsDocAccessFields_meta_nofollow_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_meta_noindex = {
-  __typename?: 'PostsDocAccessFields_meta_noindex';
-  create?: Maybe<PostsDocAccessFields_meta_noindex_Create>;
-  delete?: Maybe<PostsDocAccessFields_meta_noindex_Delete>;
-  read?: Maybe<PostsDocAccessFields_meta_noindex_Read>;
-  update?: Maybe<PostsDocAccessFields_meta_noindex_Update>;
-};
-
-export type PostsDocAccessFields_meta_noindex_Create = {
-  __typename?: 'PostsDocAccessFields_meta_noindex_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_meta_noindex_Delete = {
-  __typename?: 'PostsDocAccessFields_meta_noindex_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_meta_noindex_Read = {
-  __typename?: 'PostsDocAccessFields_meta_noindex_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_meta_noindex_Update = {
-  __typename?: 'PostsDocAccessFields_meta_noindex_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_meta_title = {
-  __typename?: 'PostsDocAccessFields_meta_title';
-  create?: Maybe<PostsDocAccessFields_meta_title_Create>;
-  delete?: Maybe<PostsDocAccessFields_meta_title_Delete>;
-  read?: Maybe<PostsDocAccessFields_meta_title_Read>;
-  update?: Maybe<PostsDocAccessFields_meta_title_Update>;
-};
-
-export type PostsDocAccessFields_meta_title_Create = {
-  __typename?: 'PostsDocAccessFields_meta_title_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_meta_title_Delete = {
-  __typename?: 'PostsDocAccessFields_meta_title_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_meta_title_Read = {
-  __typename?: 'PostsDocAccessFields_meta_title_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_meta_title_Update = {
-  __typename?: 'PostsDocAccessFields_meta_title_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_publishedAt = {
-  __typename?: 'PostsDocAccessFields_publishedAt';
-  create?: Maybe<PostsDocAccessFields_publishedAt_Create>;
-  delete?: Maybe<PostsDocAccessFields_publishedAt_Delete>;
-  read?: Maybe<PostsDocAccessFields_publishedAt_Read>;
-  update?: Maybe<PostsDocAccessFields_publishedAt_Update>;
-};
-
-export type PostsDocAccessFields_publishedAt_Create = {
-  __typename?: 'PostsDocAccessFields_publishedAt_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_publishedAt_Delete = {
-  __typename?: 'PostsDocAccessFields_publishedAt_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_publishedAt_Read = {
-  __typename?: 'PostsDocAccessFields_publishedAt_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_publishedAt_Update = {
-  __typename?: 'PostsDocAccessFields_publishedAt_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_relatedPosts = {
-  __typename?: 'PostsDocAccessFields_relatedPosts';
-  create?: Maybe<PostsDocAccessFields_relatedPosts_Create>;
-  delete?: Maybe<PostsDocAccessFields_relatedPosts_Delete>;
-  read?: Maybe<PostsDocAccessFields_relatedPosts_Read>;
-  update?: Maybe<PostsDocAccessFields_relatedPosts_Update>;
-};
-
-export type PostsDocAccessFields_relatedPosts_Create = {
-  __typename?: 'PostsDocAccessFields_relatedPosts_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_relatedPosts_Delete = {
-  __typename?: 'PostsDocAccessFields_relatedPosts_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_relatedPosts_Read = {
-  __typename?: 'PostsDocAccessFields_relatedPosts_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_relatedPosts_Update = {
-  __typename?: 'PostsDocAccessFields_relatedPosts_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_slug = {
-  __typename?: 'PostsDocAccessFields_slug';
-  create?: Maybe<PostsDocAccessFields_slug_Create>;
-  delete?: Maybe<PostsDocAccessFields_slug_Delete>;
-  read?: Maybe<PostsDocAccessFields_slug_Read>;
-  update?: Maybe<PostsDocAccessFields_slug_Update>;
-};
-
-export type PostsDocAccessFields_slug_Create = {
-  __typename?: 'PostsDocAccessFields_slug_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_slug_Delete = {
-  __typename?: 'PostsDocAccessFields_slug_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_slug_Read = {
-  __typename?: 'PostsDocAccessFields_slug_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_slug_Update = {
-  __typename?: 'PostsDocAccessFields_slug_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_subtitle = {
-  __typename?: 'PostsDocAccessFields_subtitle';
-  create?: Maybe<PostsDocAccessFields_subtitle_Create>;
-  delete?: Maybe<PostsDocAccessFields_subtitle_Delete>;
-  read?: Maybe<PostsDocAccessFields_subtitle_Read>;
-  update?: Maybe<PostsDocAccessFields_subtitle_Update>;
-};
-
-export type PostsDocAccessFields_subtitle_Create = {
-  __typename?: 'PostsDocAccessFields_subtitle_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_subtitle_Delete = {
-  __typename?: 'PostsDocAccessFields_subtitle_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_subtitle_Read = {
-  __typename?: 'PostsDocAccessFields_subtitle_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_subtitle_Update = {
-  __typename?: 'PostsDocAccessFields_subtitle_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_tags = {
-  __typename?: 'PostsDocAccessFields_tags';
-  create?: Maybe<PostsDocAccessFields_tags_Create>;
-  delete?: Maybe<PostsDocAccessFields_tags_Delete>;
-  read?: Maybe<PostsDocAccessFields_tags_Read>;
-  update?: Maybe<PostsDocAccessFields_tags_Update>;
-};
-
-export type PostsDocAccessFields_tags_Create = {
-  __typename?: 'PostsDocAccessFields_tags_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_tags_Delete = {
-  __typename?: 'PostsDocAccessFields_tags_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_tags_Read = {
-  __typename?: 'PostsDocAccessFields_tags_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_tags_Update = {
-  __typename?: 'PostsDocAccessFields_tags_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_title = {
-  __typename?: 'PostsDocAccessFields_title';
-  create?: Maybe<PostsDocAccessFields_title_Create>;
-  delete?: Maybe<PostsDocAccessFields_title_Delete>;
-  read?: Maybe<PostsDocAccessFields_title_Read>;
-  update?: Maybe<PostsDocAccessFields_title_Update>;
-};
-
-export type PostsDocAccessFields_title_Create = {
-  __typename?: 'PostsDocAccessFields_title_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_title_Delete = {
-  __typename?: 'PostsDocAccessFields_title_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_title_Read = {
-  __typename?: 'PostsDocAccessFields_title_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_title_Update = {
-  __typename?: 'PostsDocAccessFields_title_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_updatedAt = {
-  __typename?: 'PostsDocAccessFields_updatedAt';
-  create?: Maybe<PostsDocAccessFields_updatedAt_Create>;
-  delete?: Maybe<PostsDocAccessFields_updatedAt_Delete>;
-  read?: Maybe<PostsDocAccessFields_updatedAt_Read>;
-  update?: Maybe<PostsDocAccessFields_updatedAt_Update>;
-};
-
-export type PostsDocAccessFields_updatedAt_Create = {
-  __typename?: 'PostsDocAccessFields_updatedAt_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_updatedAt_Delete = {
-  __typename?: 'PostsDocAccessFields_updatedAt_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_updatedAt_Read = {
-  __typename?: 'PostsDocAccessFields_updatedAt_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsDocAccessFields_updatedAt_Update = {
-  __typename?: 'PostsDocAccessFields_updatedAt_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields = {
-  __typename?: 'PostsFields';
-  _status?: Maybe<PostsFields__status>;
-  authorSlug?: Maybe<PostsFields_authorSlug>;
-  authors?: Maybe<PostsFields_authors>;
-  content?: Maybe<PostsFields_content>;
-  createdAt?: Maybe<PostsFields_createdAt>;
-  featuredImage?: Maybe<PostsFields_featuredImage>;
-  meta?: Maybe<PostsFields_meta>;
-  publishedAt?: Maybe<PostsFields_publishedAt>;
-  relatedPosts?: Maybe<PostsFields_relatedPosts>;
-  slug?: Maybe<PostsFields_slug>;
-  subtitle?: Maybe<PostsFields_subtitle>;
-  tags?: Maybe<PostsFields_tags>;
-  title?: Maybe<PostsFields_title>;
-  updatedAt?: Maybe<PostsFields_updatedAt>;
-};
-
-export type PostsFields__status = {
-  __typename?: 'PostsFields__status';
-  create?: Maybe<PostsFields__status_Create>;
-  delete?: Maybe<PostsFields__status_Delete>;
-  read?: Maybe<PostsFields__status_Read>;
-  update?: Maybe<PostsFields__status_Update>;
-};
-
-export type PostsFields__status_Create = {
-  __typename?: 'PostsFields__status_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields__status_Delete = {
-  __typename?: 'PostsFields__status_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields__status_Read = {
-  __typename?: 'PostsFields__status_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields__status_Update = {
-  __typename?: 'PostsFields__status_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_authorSlug = {
-  __typename?: 'PostsFields_authorSlug';
-  create?: Maybe<PostsFields_authorSlug_Create>;
-  delete?: Maybe<PostsFields_authorSlug_Delete>;
-  read?: Maybe<PostsFields_authorSlug_Read>;
-  update?: Maybe<PostsFields_authorSlug_Update>;
-};
-
-export type PostsFields_authorSlug_Create = {
-  __typename?: 'PostsFields_authorSlug_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_authorSlug_Delete = {
-  __typename?: 'PostsFields_authorSlug_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_authorSlug_Read = {
-  __typename?: 'PostsFields_authorSlug_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_authorSlug_Update = {
-  __typename?: 'PostsFields_authorSlug_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_authors = {
-  __typename?: 'PostsFields_authors';
-  create?: Maybe<PostsFields_authors_Create>;
-  delete?: Maybe<PostsFields_authors_Delete>;
-  read?: Maybe<PostsFields_authors_Read>;
-  update?: Maybe<PostsFields_authors_Update>;
-};
-
-export type PostsFields_authors_Create = {
-  __typename?: 'PostsFields_authors_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_authors_Delete = {
-  __typename?: 'PostsFields_authors_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_authors_Read = {
-  __typename?: 'PostsFields_authors_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_authors_Update = {
-  __typename?: 'PostsFields_authors_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_content = {
-  __typename?: 'PostsFields_content';
-  create?: Maybe<PostsFields_content_Create>;
-  delete?: Maybe<PostsFields_content_Delete>;
-  read?: Maybe<PostsFields_content_Read>;
-  update?: Maybe<PostsFields_content_Update>;
-};
-
-export type PostsFields_content_Create = {
-  __typename?: 'PostsFields_content_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_content_Delete = {
-  __typename?: 'PostsFields_content_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_content_Read = {
-  __typename?: 'PostsFields_content_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_content_Update = {
-  __typename?: 'PostsFields_content_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_createdAt = {
-  __typename?: 'PostsFields_createdAt';
-  create?: Maybe<PostsFields_createdAt_Create>;
-  delete?: Maybe<PostsFields_createdAt_Delete>;
-  read?: Maybe<PostsFields_createdAt_Read>;
-  update?: Maybe<PostsFields_createdAt_Update>;
-};
-
-export type PostsFields_createdAt_Create = {
-  __typename?: 'PostsFields_createdAt_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_createdAt_Delete = {
-  __typename?: 'PostsFields_createdAt_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_createdAt_Read = {
-  __typename?: 'PostsFields_createdAt_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_createdAt_Update = {
-  __typename?: 'PostsFields_createdAt_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_featuredImage = {
-  __typename?: 'PostsFields_featuredImage';
-  create?: Maybe<PostsFields_featuredImage_Create>;
-  delete?: Maybe<PostsFields_featuredImage_Delete>;
-  read?: Maybe<PostsFields_featuredImage_Read>;
-  update?: Maybe<PostsFields_featuredImage_Update>;
-};
-
-export type PostsFields_featuredImage_Create = {
-  __typename?: 'PostsFields_featuredImage_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_featuredImage_Delete = {
-  __typename?: 'PostsFields_featuredImage_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_featuredImage_Read = {
-  __typename?: 'PostsFields_featuredImage_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_featuredImage_Update = {
-  __typename?: 'PostsFields_featuredImage_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_meta = {
-  __typename?: 'PostsFields_meta';
-  description?: Maybe<PostsFields_meta_description>;
-  image?: Maybe<PostsFields_meta_image>;
-  nofollow?: Maybe<PostsFields_meta_nofollow>;
-  noindex?: Maybe<PostsFields_meta_noindex>;
-  title?: Maybe<PostsFields_meta_title>;
-};
-
-export type PostsFields_meta_description = {
-  __typename?: 'PostsFields_meta_description';
-  create?: Maybe<PostsFields_meta_description_Create>;
-  delete?: Maybe<PostsFields_meta_description_Delete>;
-  read?: Maybe<PostsFields_meta_description_Read>;
-  update?: Maybe<PostsFields_meta_description_Update>;
-};
-
-export type PostsFields_meta_description_Create = {
-  __typename?: 'PostsFields_meta_description_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_meta_description_Delete = {
-  __typename?: 'PostsFields_meta_description_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_meta_description_Read = {
-  __typename?: 'PostsFields_meta_description_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_meta_description_Update = {
-  __typename?: 'PostsFields_meta_description_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_meta_image = {
-  __typename?: 'PostsFields_meta_image';
-  create?: Maybe<PostsFields_meta_image_Create>;
-  delete?: Maybe<PostsFields_meta_image_Delete>;
-  read?: Maybe<PostsFields_meta_image_Read>;
-  update?: Maybe<PostsFields_meta_image_Update>;
-};
-
-export type PostsFields_meta_image_Create = {
-  __typename?: 'PostsFields_meta_image_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_meta_image_Delete = {
-  __typename?: 'PostsFields_meta_image_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_meta_image_Read = {
-  __typename?: 'PostsFields_meta_image_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_meta_image_Update = {
-  __typename?: 'PostsFields_meta_image_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_meta_nofollow = {
-  __typename?: 'PostsFields_meta_nofollow';
-  create?: Maybe<PostsFields_meta_nofollow_Create>;
-  delete?: Maybe<PostsFields_meta_nofollow_Delete>;
-  read?: Maybe<PostsFields_meta_nofollow_Read>;
-  update?: Maybe<PostsFields_meta_nofollow_Update>;
-};
-
-export type PostsFields_meta_nofollow_Create = {
-  __typename?: 'PostsFields_meta_nofollow_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_meta_nofollow_Delete = {
-  __typename?: 'PostsFields_meta_nofollow_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_meta_nofollow_Read = {
-  __typename?: 'PostsFields_meta_nofollow_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_meta_nofollow_Update = {
-  __typename?: 'PostsFields_meta_nofollow_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_meta_noindex = {
-  __typename?: 'PostsFields_meta_noindex';
-  create?: Maybe<PostsFields_meta_noindex_Create>;
-  delete?: Maybe<PostsFields_meta_noindex_Delete>;
-  read?: Maybe<PostsFields_meta_noindex_Read>;
-  update?: Maybe<PostsFields_meta_noindex_Update>;
-};
-
-export type PostsFields_meta_noindex_Create = {
-  __typename?: 'PostsFields_meta_noindex_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_meta_noindex_Delete = {
-  __typename?: 'PostsFields_meta_noindex_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_meta_noindex_Read = {
-  __typename?: 'PostsFields_meta_noindex_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_meta_noindex_Update = {
-  __typename?: 'PostsFields_meta_noindex_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_meta_title = {
-  __typename?: 'PostsFields_meta_title';
-  create?: Maybe<PostsFields_meta_title_Create>;
-  delete?: Maybe<PostsFields_meta_title_Delete>;
-  read?: Maybe<PostsFields_meta_title_Read>;
-  update?: Maybe<PostsFields_meta_title_Update>;
-};
-
-export type PostsFields_meta_title_Create = {
-  __typename?: 'PostsFields_meta_title_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_meta_title_Delete = {
-  __typename?: 'PostsFields_meta_title_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_meta_title_Read = {
-  __typename?: 'PostsFields_meta_title_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_meta_title_Update = {
-  __typename?: 'PostsFields_meta_title_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_publishedAt = {
-  __typename?: 'PostsFields_publishedAt';
-  create?: Maybe<PostsFields_publishedAt_Create>;
-  delete?: Maybe<PostsFields_publishedAt_Delete>;
-  read?: Maybe<PostsFields_publishedAt_Read>;
-  update?: Maybe<PostsFields_publishedAt_Update>;
-};
-
-export type PostsFields_publishedAt_Create = {
-  __typename?: 'PostsFields_publishedAt_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_publishedAt_Delete = {
-  __typename?: 'PostsFields_publishedAt_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_publishedAt_Read = {
-  __typename?: 'PostsFields_publishedAt_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_publishedAt_Update = {
-  __typename?: 'PostsFields_publishedAt_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_relatedPosts = {
-  __typename?: 'PostsFields_relatedPosts';
-  create?: Maybe<PostsFields_relatedPosts_Create>;
-  delete?: Maybe<PostsFields_relatedPosts_Delete>;
-  read?: Maybe<PostsFields_relatedPosts_Read>;
-  update?: Maybe<PostsFields_relatedPosts_Update>;
-};
-
-export type PostsFields_relatedPosts_Create = {
-  __typename?: 'PostsFields_relatedPosts_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_relatedPosts_Delete = {
-  __typename?: 'PostsFields_relatedPosts_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_relatedPosts_Read = {
-  __typename?: 'PostsFields_relatedPosts_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_relatedPosts_Update = {
-  __typename?: 'PostsFields_relatedPosts_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_slug = {
-  __typename?: 'PostsFields_slug';
-  create?: Maybe<PostsFields_slug_Create>;
-  delete?: Maybe<PostsFields_slug_Delete>;
-  read?: Maybe<PostsFields_slug_Read>;
-  update?: Maybe<PostsFields_slug_Update>;
-};
-
-export type PostsFields_slug_Create = {
-  __typename?: 'PostsFields_slug_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_slug_Delete = {
-  __typename?: 'PostsFields_slug_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_slug_Read = {
-  __typename?: 'PostsFields_slug_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_slug_Update = {
-  __typename?: 'PostsFields_slug_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_subtitle = {
-  __typename?: 'PostsFields_subtitle';
-  create?: Maybe<PostsFields_subtitle_Create>;
-  delete?: Maybe<PostsFields_subtitle_Delete>;
-  read?: Maybe<PostsFields_subtitle_Read>;
-  update?: Maybe<PostsFields_subtitle_Update>;
-};
-
-export type PostsFields_subtitle_Create = {
-  __typename?: 'PostsFields_subtitle_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_subtitle_Delete = {
-  __typename?: 'PostsFields_subtitle_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_subtitle_Read = {
-  __typename?: 'PostsFields_subtitle_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_subtitle_Update = {
-  __typename?: 'PostsFields_subtitle_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_tags = {
-  __typename?: 'PostsFields_tags';
-  create?: Maybe<PostsFields_tags_Create>;
-  delete?: Maybe<PostsFields_tags_Delete>;
-  read?: Maybe<PostsFields_tags_Read>;
-  update?: Maybe<PostsFields_tags_Update>;
-};
-
-export type PostsFields_tags_Create = {
-  __typename?: 'PostsFields_tags_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_tags_Delete = {
-  __typename?: 'PostsFields_tags_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_tags_Read = {
-  __typename?: 'PostsFields_tags_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_tags_Update = {
-  __typename?: 'PostsFields_tags_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_title = {
-  __typename?: 'PostsFields_title';
-  create?: Maybe<PostsFields_title_Create>;
-  delete?: Maybe<PostsFields_title_Delete>;
-  read?: Maybe<PostsFields_title_Read>;
-  update?: Maybe<PostsFields_title_Update>;
-};
-
-export type PostsFields_title_Create = {
-  __typename?: 'PostsFields_title_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_title_Delete = {
-  __typename?: 'PostsFields_title_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_title_Read = {
-  __typename?: 'PostsFields_title_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_title_Update = {
-  __typename?: 'PostsFields_title_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_updatedAt = {
-  __typename?: 'PostsFields_updatedAt';
-  create?: Maybe<PostsFields_updatedAt_Create>;
-  delete?: Maybe<PostsFields_updatedAt_Delete>;
-  read?: Maybe<PostsFields_updatedAt_Read>;
-  update?: Maybe<PostsFields_updatedAt_Update>;
-};
-
-export type PostsFields_updatedAt_Create = {
-  __typename?: 'PostsFields_updatedAt_Create';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_updatedAt_Delete = {
-  __typename?: 'PostsFields_updatedAt_Delete';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_updatedAt_Read = {
-  __typename?: 'PostsFields_updatedAt_Read';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsFields_updatedAt_Update = {
-  __typename?: 'PostsFields_updatedAt_Update';
-  permission: Scalars['Boolean']['output'];
-};
-
-export type PostsReadAccess = {
-  __typename?: 'PostsReadAccess';
-  permission: Scalars['Boolean']['output'];
-  where?: Maybe<Scalars['JSONObject']['output']>;
-};
-
-export type PostsReadDocAccess = {
-  __typename?: 'PostsReadDocAccess';
-  permission: Scalars['Boolean']['output'];
-  where?: Maybe<Scalars['JSONObject']['output']>;
-};
-
-export type PostsReadVersionsAccess = {
-  __typename?: 'PostsReadVersionsAccess';
-  permission: Scalars['Boolean']['output'];
-  where?: Maybe<Scalars['JSONObject']['output']>;
-};
-
-export type PostsReadVersionsDocAccess = {
-  __typename?: 'PostsReadVersionsDocAccess';
-  permission: Scalars['Boolean']['output'];
-  where?: Maybe<Scalars['JSONObject']['output']>;
-};
-
-export type PostsUpdateAccess = {
-  __typename?: 'PostsUpdateAccess';
-  permission: Scalars['Boolean']['output'];
-  where?: Maybe<Scalars['JSONObject']['output']>;
-};
-
-export type PostsUpdateDocAccess = {
-  __typename?: 'PostsUpdateDocAccess';
-  permission: Scalars['Boolean']['output'];
-  where?: Maybe<Scalars['JSONObject']['output']>;
-};
-
 export type Query = {
   __typename?: 'Query';
   Access?: Maybe<Access>;
@@ -11996,8 +10465,6 @@ export type Query = {
   PayloadPreferences?: Maybe<PayloadPreferences>;
   PayloadQueryPreset?: Maybe<PayloadQueryPreset>;
   PayloadQueryPresets?: Maybe<PayloadQueryPresets>;
-  Post?: Maybe<Post>;
-  Posts?: Maybe<Posts>;
   Search?: Maybe<Search>;
   Searches?: Maybe<Searches>;
   Tag?: Maybe<Tag>;
@@ -12015,7 +10482,6 @@ export type Query = {
   countPayloadLockedDocuments?: Maybe<countPayloadLockedDocuments>;
   countPayloadPreferences?: Maybe<countPayloadPreferences>;
   countPayloadQueryPresets?: Maybe<countPayloadQueryPresets>;
-  countPosts?: Maybe<countPosts>;
   countSearches?: Maybe<countSearches>;
   countTags?: Maybe<countTags>;
   countUsers?: Maybe<countUsers>;
@@ -12030,16 +10496,13 @@ export type Query = {
   docAccessPayloadLockedDocument?: Maybe<payload_locked_documentsDocAccess>;
   docAccessPayloadPreference?: Maybe<payload_preferencesDocAccess>;
   docAccessPayloadQueryPreset?: Maybe<payload_query_presetsDocAccess>;
-  docAccessPost?: Maybe<postsDocAccess>;
   docAccessSearch?: Maybe<searchDocAccess>;
   docAccessTag?: Maybe<tagsDocAccess>;
   docAccessUser?: Maybe<usersDocAccess>;
   initializedUser?: Maybe<Scalars['Boolean']['output']>;
   meUser?: Maybe<usersMe>;
   versionMicro_post?: Maybe<Micro_postVersion>;
-  versionPost?: Maybe<PostVersion>;
   versionsMicro_posts?: Maybe<versionsMicro_posts>;
-  versionsPosts?: Maybe<versionsPosts>;
 };
 
 
@@ -12269,30 +10732,6 @@ export type QueryPayloadQueryPresetsArgs = {
 };
 
 
-export type QueryPostArgs = {
-  draft?: InputMaybe<Scalars['Boolean']['input']>;
-  fallbackLocale?: InputMaybe<FallbackLocaleInputType>;
-  id: Scalars['String']['input'];
-  locale?: InputMaybe<LocaleInputType>;
-  select?: InputMaybe<Scalars['Boolean']['input']>;
-  trash?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-export type QueryPostsArgs = {
-  draft?: InputMaybe<Scalars['Boolean']['input']>;
-  fallbackLocale?: InputMaybe<FallbackLocaleInputType>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<LocaleInputType>;
-  page?: InputMaybe<Scalars['Int']['input']>;
-  pagination?: InputMaybe<Scalars['Boolean']['input']>;
-  select?: InputMaybe<Scalars['Boolean']['input']>;
-  sort?: InputMaybe<Scalars['String']['input']>;
-  trash?: InputMaybe<Scalars['Boolean']['input']>;
-  where?: InputMaybe<Post_where>;
-};
-
-
 export type QuerySearchArgs = {
   draft?: InputMaybe<Scalars['Boolean']['input']>;
   fallbackLocale?: InputMaybe<FallbackLocaleInputType>;
@@ -12457,14 +10896,6 @@ export type QuerycountPayloadQueryPresetsArgs = {
 };
 
 
-export type QuerycountPostsArgs = {
-  draft?: InputMaybe<Scalars['Boolean']['input']>;
-  locale?: InputMaybe<LocaleInputType>;
-  trash?: InputMaybe<Scalars['Boolean']['input']>;
-  where?: InputMaybe<Post_where>;
-};
-
-
 export type QuerycountSearchesArgs = {
   draft?: InputMaybe<Scalars['Boolean']['input']>;
   locale?: InputMaybe<LocaleInputType>;
@@ -12547,11 +10978,6 @@ export type QuerydocAccessPayloadQueryPresetArgs = {
 };
 
 
-export type QuerydocAccessPostArgs = {
-  id: Scalars['String']['input'];
-};
-
-
 export type QuerydocAccessSearchArgs = {
   id: Scalars['String']['input'];
 };
@@ -12575,14 +11001,6 @@ export type QueryversionMicro_postArgs = {
 };
 
 
-export type QueryversionPostArgs = {
-  fallbackLocale?: InputMaybe<FallbackLocaleInputType>;
-  id?: InputMaybe<Scalars['String']['input']>;
-  locale?: InputMaybe<LocaleInputType>;
-  trash?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
 export type QueryversionsMicro_postsArgs = {
   fallbackLocale?: InputMaybe<FallbackLocaleInputType>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -12593,19 +11011,6 @@ export type QueryversionsMicro_postsArgs = {
   sort?: InputMaybe<Scalars['String']['input']>;
   trash?: InputMaybe<Scalars['Boolean']['input']>;
   where?: InputMaybe<versionsMicro_post_where>;
-};
-
-
-export type QueryversionsPostsArgs = {
-  fallbackLocale?: InputMaybe<FallbackLocaleInputType>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<LocaleInputType>;
-  page?: InputMaybe<Scalars['Int']['input']>;
-  pagination?: InputMaybe<Scalars['Boolean']['input']>;
-  select?: InputMaybe<Scalars['Boolean']['input']>;
-  sort?: InputMaybe<Scalars['String']['input']>;
-  trash?: InputMaybe<Scalars['Boolean']['input']>;
-  where?: InputMaybe<versionsPost_where>;
 };
 
 export type Search = {
@@ -14460,11 +12865,6 @@ export type countPayloadQueryPresets = {
   totalDocs?: Maybe<Scalars['Int']['output']>;
 };
 
-export type countPosts = {
-  __typename?: 'countPosts';
-  totalDocs?: Maybe<Scalars['Int']['output']>;
-};
-
 export type countSearches = {
   __typename?: 'countSearches';
   totalDocs?: Maybe<Scalars['Int']['output']>;
@@ -14632,6 +13032,7 @@ export type mutationMicro_postInput = {
   attachment?: InputMaybe<Scalars['String']['input']>;
   authorSlug?: InputMaybe<Scalars['String']['input']>;
   authors?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  autoTranslated?: InputMaybe<Scalars['Boolean']['input']>;
   content?: InputMaybe<Scalars['String']['input']>;
   createdAt?: InputMaybe<Scalars['String']['input']>;
   cronTranslationLocalesQueued?: InputMaybe<Array<InputMaybe<Micro_post_cronTranslationLocalesQueued_MutationInput>>>;
@@ -14652,6 +13053,7 @@ export type mutationMicro_postUpdateInput = {
   attachment?: InputMaybe<Scalars['String']['input']>;
   authorSlug?: InputMaybe<Scalars['String']['input']>;
   authors?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  autoTranslated?: InputMaybe<Scalars['Boolean']['input']>;
   content?: InputMaybe<Scalars['String']['input']>;
   createdAt?: InputMaybe<Scalars['String']['input']>;
   cronTranslationLocalesQueued?: InputMaybe<Array<InputMaybe<Micro_postUpdate_cronTranslationLocalesQueued_MutationInput>>>;
@@ -14891,56 +13293,6 @@ export type mutationPayloadQueryPreset_Access_UpdateInput = {
   users?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-export type mutationPostInput = {
-  _status?: InputMaybe<Post__status_MutationInput>;
-  authorSlug?: InputMaybe<Scalars['String']['input']>;
-  authors?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  content?: InputMaybe<Scalars['String']['input']>;
-  createdAt?: InputMaybe<Scalars['String']['input']>;
-  featuredImage?: InputMaybe<Scalars['String']['input']>;
-  meta?: InputMaybe<mutationPost_MetaInput>;
-  publishedAt?: InputMaybe<Scalars['String']['input']>;
-  relatedPosts?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  slug: Scalars['String']['input'];
-  subtitle?: InputMaybe<Scalars['String']['input']>;
-  tags?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  title?: InputMaybe<Scalars['String']['input']>;
-  updatedAt?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type mutationPostUpdateInput = {
-  _status?: InputMaybe<PostUpdate__status_MutationInput>;
-  authorSlug?: InputMaybe<Scalars['String']['input']>;
-  authors?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  content?: InputMaybe<Scalars['String']['input']>;
-  createdAt?: InputMaybe<Scalars['String']['input']>;
-  featuredImage?: InputMaybe<Scalars['String']['input']>;
-  meta?: InputMaybe<mutationPostUpdate_MetaInput>;
-  publishedAt?: InputMaybe<Scalars['String']['input']>;
-  relatedPosts?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  slug?: InputMaybe<Scalars['String']['input']>;
-  subtitle?: InputMaybe<Scalars['String']['input']>;
-  tags?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  title?: InputMaybe<Scalars['String']['input']>;
-  updatedAt?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type mutationPostUpdate_MetaInput = {
-  description?: InputMaybe<Scalars['String']['input']>;
-  image?: InputMaybe<Scalars['String']['input']>;
-  nofollow?: InputMaybe<Scalars['Boolean']['input']>;
-  noindex?: InputMaybe<Scalars['Boolean']['input']>;
-  title?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type mutationPost_MetaInput = {
-  description?: InputMaybe<Scalars['String']['input']>;
-  image?: InputMaybe<Scalars['String']['input']>;
-  nofollow?: InputMaybe<Scalars['Boolean']['input']>;
-  noindex?: InputMaybe<Scalars['Boolean']['input']>;
-  title?: InputMaybe<Scalars['String']['input']>;
-};
-
 export type mutationSearchInput = {
   createdAt?: InputMaybe<Scalars['String']['input']>;
   doc?: InputMaybe<Search_DocRelationshipInput>;
@@ -15103,26 +13455,6 @@ export type payload_query_presetsDocAccess = {
   fields?: Maybe<PayloadQueryPresetsDocAccessFields>;
   read?: Maybe<PayloadQueryPresetsReadDocAccess>;
   update?: Maybe<PayloadQueryPresetsUpdateDocAccess>;
-};
-
-export type postsAccess = {
-  __typename?: 'postsAccess';
-  create?: Maybe<PostsCreateAccess>;
-  delete?: Maybe<PostsDeleteAccess>;
-  fields?: Maybe<PostsFields>;
-  read?: Maybe<PostsReadAccess>;
-  readVersions?: Maybe<PostsReadVersionsAccess>;
-  update?: Maybe<PostsUpdateAccess>;
-};
-
-export type postsDocAccess = {
-  __typename?: 'postsDocAccess';
-  create?: Maybe<PostsCreateDocAccess>;
-  delete?: Maybe<PostsDeleteDocAccess>;
-  fields?: Maybe<PostsDocAccessFields>;
-  read?: Maybe<PostsReadDocAccess>;
-  readVersions?: Maybe<PostsReadVersionsDocAccess>;
-  update?: Maybe<PostsUpdateDocAccess>;
 };
 
 export type searchAccess = {
@@ -15339,6 +13671,12 @@ export type versionsMicro_post_version__authors_operator = {
   not_in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
 };
 
+export type versionsMicro_post_version__autoTranslated_operator = {
+  equals?: InputMaybe<Scalars['Boolean']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  not_equals?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
 export type versionsMicro_post_version__content_operator = {
   contains?: InputMaybe<Scalars['String']['input']>;
   equals?: InputMaybe<Scalars['String']['input']>;
@@ -15526,6 +13864,7 @@ export type versionsMicro_post_where = {
   version__attachment?: InputMaybe<versionsMicro_post_version__attachment_operator>;
   version__authorSlug?: InputMaybe<versionsMicro_post_version__authorSlug_operator>;
   version__authors?: InputMaybe<versionsMicro_post_version__authors_operator>;
+  version__autoTranslated?: InputMaybe<versionsMicro_post_version__autoTranslated_operator>;
   version__content?: InputMaybe<versionsMicro_post_version__content_operator>;
   version__createdAt?: InputMaybe<versionsMicro_post_version__createdAt_operator>;
   version__cronTranslationLocalesQueued?: InputMaybe<versionsMicro_post_version__cronTranslationLocalesQueued_operator>;
@@ -15560,6 +13899,7 @@ export type versionsMicro_post_where_and = {
   version__attachment?: InputMaybe<versionsMicro_post_version__attachment_operator>;
   version__authorSlug?: InputMaybe<versionsMicro_post_version__authorSlug_operator>;
   version__authors?: InputMaybe<versionsMicro_post_version__authors_operator>;
+  version__autoTranslated?: InputMaybe<versionsMicro_post_version__autoTranslated_operator>;
   version__content?: InputMaybe<versionsMicro_post_version__content_operator>;
   version__createdAt?: InputMaybe<versionsMicro_post_version__createdAt_operator>;
   version__cronTranslationLocalesQueued?: InputMaybe<versionsMicro_post_version__cronTranslationLocalesQueued_operator>;
@@ -15594,6 +13934,7 @@ export type versionsMicro_post_where_or = {
   version__attachment?: InputMaybe<versionsMicro_post_version__attachment_operator>;
   version__authorSlug?: InputMaybe<versionsMicro_post_version__authorSlug_operator>;
   version__authors?: InputMaybe<versionsMicro_post_version__authors_operator>;
+  version__autoTranslated?: InputMaybe<versionsMicro_post_version__autoTranslated_operator>;
   version__content?: InputMaybe<versionsMicro_post_version__content_operator>;
   version__createdAt?: InputMaybe<versionsMicro_post_version__createdAt_operator>;
   version__cronTranslationLocalesQueued?: InputMaybe<versionsMicro_post_version__cronTranslationLocalesQueued_operator>;
@@ -15616,361 +13957,6 @@ export type versionsMicro_post_where_or = {
 export type versionsMicro_posts = {
   __typename?: 'versionsMicro_posts';
   docs: Array<Micro_postVersion>;
-  hasNextPage: Scalars['Boolean']['output'];
-  hasPrevPage: Scalars['Boolean']['output'];
-  limit: Scalars['Int']['output'];
-  nextPage?: Maybe<Scalars['Int']['output']>;
-  offset?: Maybe<Scalars['Int']['output']>;
-  page: Scalars['Int']['output'];
-  pagingCounter: Scalars['Int']['output'];
-  prevPage?: Maybe<Scalars['Int']['output']>;
-  totalDocs: Scalars['Int']['output'];
-  totalPages: Scalars['Int']['output'];
-};
-
-export type versionsPost_autosave_operator = {
-  equals?: InputMaybe<Scalars['Boolean']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  not_equals?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-export type versionsPost_createdAt_operator = {
-  equals?: InputMaybe<Scalars['DateTime']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  greater_than?: InputMaybe<Scalars['DateTime']['input']>;
-  greater_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
-  less_than?: InputMaybe<Scalars['DateTime']['input']>;
-  less_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
-  like?: InputMaybe<Scalars['DateTime']['input']>;
-  not_equals?: InputMaybe<Scalars['DateTime']['input']>;
-};
-
-export type versionsPost_id_operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  contains?: InputMaybe<Scalars['String']['input']>;
-  equals?: InputMaybe<Scalars['String']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  like?: InputMaybe<Scalars['String']['input']>;
-  not_equals?: InputMaybe<Scalars['String']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type versionsPost_latest_operator = {
-  equals?: InputMaybe<Scalars['Boolean']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  not_equals?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-export type versionsPost_parent_operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
-  equals?: InputMaybe<Scalars['JSON']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
-  not_equals?: InputMaybe<Scalars['JSON']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
-};
-
-export enum versionsPost_publishedLocale_Input {
-  DeDe = 'de_DE',
-  EnUs = 'en_US',
-  EsEs = 'es_ES',
-  FrFr = 'fr_FR',
-  HiIn = 'hi_IN',
-  JaJp = 'ja_JP',
-  RuRu = 'ru_RU',
-  UkUa = 'uk_UA'
-}
-
-export type versionsPost_publishedLocale_operator = {
-  all?: InputMaybe<Array<InputMaybe<versionsPost_publishedLocale_Input>>>;
-  equals?: InputMaybe<versionsPost_publishedLocale_Input>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<versionsPost_publishedLocale_Input>>>;
-  not_equals?: InputMaybe<versionsPost_publishedLocale_Input>;
-  not_in?: InputMaybe<Array<InputMaybe<versionsPost_publishedLocale_Input>>>;
-};
-
-export type versionsPost_snapshot_operator = {
-  equals?: InputMaybe<Scalars['Boolean']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  not_equals?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-export type versionsPost_updatedAt_operator = {
-  equals?: InputMaybe<Scalars['DateTime']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  greater_than?: InputMaybe<Scalars['DateTime']['input']>;
-  greater_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
-  less_than?: InputMaybe<Scalars['DateTime']['input']>;
-  less_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
-  like?: InputMaybe<Scalars['DateTime']['input']>;
-  not_equals?: InputMaybe<Scalars['DateTime']['input']>;
-};
-
-export enum versionsPost_version___status_Input {
-  Draft = 'draft',
-  Published = 'published'
-}
-
-export type versionsPost_version___status_operator = {
-  all?: InputMaybe<Array<InputMaybe<versionsPost_version___status_Input>>>;
-  equals?: InputMaybe<versionsPost_version___status_Input>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<versionsPost_version___status_Input>>>;
-  not_equals?: InputMaybe<versionsPost_version___status_Input>;
-  not_in?: InputMaybe<Array<InputMaybe<versionsPost_version___status_Input>>>;
-};
-
-export type versionsPost_version__authorSlug_operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  contains?: InputMaybe<Scalars['String']['input']>;
-  equals?: InputMaybe<Scalars['String']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  like?: InputMaybe<Scalars['String']['input']>;
-  not_equals?: InputMaybe<Scalars['String']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type versionsPost_version__authors_operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
-  equals?: InputMaybe<Scalars['JSON']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
-  not_equals?: InputMaybe<Scalars['JSON']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
-};
-
-export type versionsPost_version__content_operator = {
-  contains?: InputMaybe<Scalars['String']['input']>;
-  equals?: InputMaybe<Scalars['String']['input']>;
-  like?: InputMaybe<Scalars['String']['input']>;
-  not_equals?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type versionsPost_version__createdAt_operator = {
-  equals?: InputMaybe<Scalars['DateTime']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  greater_than?: InputMaybe<Scalars['DateTime']['input']>;
-  greater_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
-  less_than?: InputMaybe<Scalars['DateTime']['input']>;
-  less_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
-  like?: InputMaybe<Scalars['DateTime']['input']>;
-  not_equals?: InputMaybe<Scalars['DateTime']['input']>;
-};
-
-export type versionsPost_version__featuredImage_operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
-  equals?: InputMaybe<Scalars['JSON']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
-  not_equals?: InputMaybe<Scalars['JSON']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
-};
-
-export type versionsPost_version__meta__description_operator = {
-  contains?: InputMaybe<Scalars['String']['input']>;
-  equals?: InputMaybe<Scalars['String']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  like?: InputMaybe<Scalars['String']['input']>;
-  not_equals?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type versionsPost_version__meta__image_operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
-  equals?: InputMaybe<Scalars['JSON']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
-  not_equals?: InputMaybe<Scalars['JSON']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
-};
-
-export type versionsPost_version__meta__nofollow_operator = {
-  equals?: InputMaybe<Scalars['Boolean']['input']>;
-  not_equals?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-export type versionsPost_version__meta__noindex_operator = {
-  equals?: InputMaybe<Scalars['Boolean']['input']>;
-  not_equals?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-export type versionsPost_version__meta__title_operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  contains?: InputMaybe<Scalars['String']['input']>;
-  equals?: InputMaybe<Scalars['String']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  like?: InputMaybe<Scalars['String']['input']>;
-  not_equals?: InputMaybe<Scalars['String']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type versionsPost_version__publishedAt_operator = {
-  equals?: InputMaybe<Scalars['DateTime']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  greater_than?: InputMaybe<Scalars['DateTime']['input']>;
-  greater_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
-  less_than?: InputMaybe<Scalars['DateTime']['input']>;
-  less_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
-  like?: InputMaybe<Scalars['DateTime']['input']>;
-  not_equals?: InputMaybe<Scalars['DateTime']['input']>;
-};
-
-export type versionsPost_version__relatedPosts_operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
-  equals?: InputMaybe<Scalars['JSON']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
-  not_equals?: InputMaybe<Scalars['JSON']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
-};
-
-export type versionsPost_version__slug_operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  contains?: InputMaybe<Scalars['String']['input']>;
-  equals?: InputMaybe<Scalars['String']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  like?: InputMaybe<Scalars['String']['input']>;
-  not_equals?: InputMaybe<Scalars['String']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type versionsPost_version__subtitle_operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  contains?: InputMaybe<Scalars['String']['input']>;
-  equals?: InputMaybe<Scalars['String']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  like?: InputMaybe<Scalars['String']['input']>;
-  not_equals?: InputMaybe<Scalars['String']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type versionsPost_version__tags_operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
-  equals?: InputMaybe<Scalars['JSON']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
-  not_equals?: InputMaybe<Scalars['JSON']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
-};
-
-export type versionsPost_version__title_operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  contains?: InputMaybe<Scalars['String']['input']>;
-  equals?: InputMaybe<Scalars['String']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  like?: InputMaybe<Scalars['String']['input']>;
-  not_equals?: InputMaybe<Scalars['String']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type versionsPost_version__updatedAt_operator = {
-  equals?: InputMaybe<Scalars['DateTime']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  greater_than?: InputMaybe<Scalars['DateTime']['input']>;
-  greater_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
-  less_than?: InputMaybe<Scalars['DateTime']['input']>;
-  less_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
-  like?: InputMaybe<Scalars['DateTime']['input']>;
-  not_equals?: InputMaybe<Scalars['DateTime']['input']>;
-};
-
-export type versionsPost_where = {
-  AND?: InputMaybe<Array<InputMaybe<versionsPost_where_and>>>;
-  OR?: InputMaybe<Array<InputMaybe<versionsPost_where_or>>>;
-  autosave?: InputMaybe<versionsPost_autosave_operator>;
-  createdAt?: InputMaybe<versionsPost_createdAt_operator>;
-  id?: InputMaybe<versionsPost_id_operator>;
-  latest?: InputMaybe<versionsPost_latest_operator>;
-  parent?: InputMaybe<versionsPost_parent_operator>;
-  publishedLocale?: InputMaybe<versionsPost_publishedLocale_operator>;
-  snapshot?: InputMaybe<versionsPost_snapshot_operator>;
-  updatedAt?: InputMaybe<versionsPost_updatedAt_operator>;
-  version___status?: InputMaybe<versionsPost_version___status_operator>;
-  version__authorSlug?: InputMaybe<versionsPost_version__authorSlug_operator>;
-  version__authors?: InputMaybe<versionsPost_version__authors_operator>;
-  version__content?: InputMaybe<versionsPost_version__content_operator>;
-  version__createdAt?: InputMaybe<versionsPost_version__createdAt_operator>;
-  version__featuredImage?: InputMaybe<versionsPost_version__featuredImage_operator>;
-  version__meta__description?: InputMaybe<versionsPost_version__meta__description_operator>;
-  version__meta__image?: InputMaybe<versionsPost_version__meta__image_operator>;
-  version__meta__nofollow?: InputMaybe<versionsPost_version__meta__nofollow_operator>;
-  version__meta__noindex?: InputMaybe<versionsPost_version__meta__noindex_operator>;
-  version__meta__title?: InputMaybe<versionsPost_version__meta__title_operator>;
-  version__publishedAt?: InputMaybe<versionsPost_version__publishedAt_operator>;
-  version__relatedPosts?: InputMaybe<versionsPost_version__relatedPosts_operator>;
-  version__slug?: InputMaybe<versionsPost_version__slug_operator>;
-  version__subtitle?: InputMaybe<versionsPost_version__subtitle_operator>;
-  version__tags?: InputMaybe<versionsPost_version__tags_operator>;
-  version__title?: InputMaybe<versionsPost_version__title_operator>;
-  version__updatedAt?: InputMaybe<versionsPost_version__updatedAt_operator>;
-};
-
-export type versionsPost_where_and = {
-  AND?: InputMaybe<Array<InputMaybe<versionsPost_where_and>>>;
-  OR?: InputMaybe<Array<InputMaybe<versionsPost_where_or>>>;
-  autosave?: InputMaybe<versionsPost_autosave_operator>;
-  createdAt?: InputMaybe<versionsPost_createdAt_operator>;
-  id?: InputMaybe<versionsPost_id_operator>;
-  latest?: InputMaybe<versionsPost_latest_operator>;
-  parent?: InputMaybe<versionsPost_parent_operator>;
-  publishedLocale?: InputMaybe<versionsPost_publishedLocale_operator>;
-  snapshot?: InputMaybe<versionsPost_snapshot_operator>;
-  updatedAt?: InputMaybe<versionsPost_updatedAt_operator>;
-  version___status?: InputMaybe<versionsPost_version___status_operator>;
-  version__authorSlug?: InputMaybe<versionsPost_version__authorSlug_operator>;
-  version__authors?: InputMaybe<versionsPost_version__authors_operator>;
-  version__content?: InputMaybe<versionsPost_version__content_operator>;
-  version__createdAt?: InputMaybe<versionsPost_version__createdAt_operator>;
-  version__featuredImage?: InputMaybe<versionsPost_version__featuredImage_operator>;
-  version__meta__description?: InputMaybe<versionsPost_version__meta__description_operator>;
-  version__meta__image?: InputMaybe<versionsPost_version__meta__image_operator>;
-  version__meta__nofollow?: InputMaybe<versionsPost_version__meta__nofollow_operator>;
-  version__meta__noindex?: InputMaybe<versionsPost_version__meta__noindex_operator>;
-  version__meta__title?: InputMaybe<versionsPost_version__meta__title_operator>;
-  version__publishedAt?: InputMaybe<versionsPost_version__publishedAt_operator>;
-  version__relatedPosts?: InputMaybe<versionsPost_version__relatedPosts_operator>;
-  version__slug?: InputMaybe<versionsPost_version__slug_operator>;
-  version__subtitle?: InputMaybe<versionsPost_version__subtitle_operator>;
-  version__tags?: InputMaybe<versionsPost_version__tags_operator>;
-  version__title?: InputMaybe<versionsPost_version__title_operator>;
-  version__updatedAt?: InputMaybe<versionsPost_version__updatedAt_operator>;
-};
-
-export type versionsPost_where_or = {
-  AND?: InputMaybe<Array<InputMaybe<versionsPost_where_and>>>;
-  OR?: InputMaybe<Array<InputMaybe<versionsPost_where_or>>>;
-  autosave?: InputMaybe<versionsPost_autosave_operator>;
-  createdAt?: InputMaybe<versionsPost_createdAt_operator>;
-  id?: InputMaybe<versionsPost_id_operator>;
-  latest?: InputMaybe<versionsPost_latest_operator>;
-  parent?: InputMaybe<versionsPost_parent_operator>;
-  publishedLocale?: InputMaybe<versionsPost_publishedLocale_operator>;
-  snapshot?: InputMaybe<versionsPost_snapshot_operator>;
-  updatedAt?: InputMaybe<versionsPost_updatedAt_operator>;
-  version___status?: InputMaybe<versionsPost_version___status_operator>;
-  version__authorSlug?: InputMaybe<versionsPost_version__authorSlug_operator>;
-  version__authors?: InputMaybe<versionsPost_version__authors_operator>;
-  version__content?: InputMaybe<versionsPost_version__content_operator>;
-  version__createdAt?: InputMaybe<versionsPost_version__createdAt_operator>;
-  version__featuredImage?: InputMaybe<versionsPost_version__featuredImage_operator>;
-  version__meta__description?: InputMaybe<versionsPost_version__meta__description_operator>;
-  version__meta__image?: InputMaybe<versionsPost_version__meta__image_operator>;
-  version__meta__nofollow?: InputMaybe<versionsPost_version__meta__nofollow_operator>;
-  version__meta__noindex?: InputMaybe<versionsPost_version__meta__noindex_operator>;
-  version__meta__title?: InputMaybe<versionsPost_version__meta__title_operator>;
-  version__publishedAt?: InputMaybe<versionsPost_version__publishedAt_operator>;
-  version__relatedPosts?: InputMaybe<versionsPost_version__relatedPosts_operator>;
-  version__slug?: InputMaybe<versionsPost_version__slug_operator>;
-  version__subtitle?: InputMaybe<versionsPost_version__subtitle_operator>;
-  version__tags?: InputMaybe<versionsPost_version__tags_operator>;
-  version__title?: InputMaybe<versionsPost_version__title_operator>;
-  version__updatedAt?: InputMaybe<versionsPost_version__updatedAt_operator>;
-};
-
-export type versionsPosts = {
-  __typename?: 'versionsPosts';
-  docs: Array<PostVersion>;
   hasNextPage: Scalars['Boolean']['output'];
   hasPrevPage: Scalars['Boolean']['output'];
   limit: Scalars['Int']['output'];
@@ -16119,17 +14105,6 @@ export type sitemap_blog_tags_list_totalQueryVariables = Exact<{
 
 export type sitemap_blog_tags_list_totalQuery = { __typename?: 'Query', Tags?: { __typename?: 'Tags', totalPages: number } | null };
 
-export type ContentfulBlogItemFragment = (
-  { __typename?: 'Post', slug?: string | null, title?: string | null, subtitle?: string | null, authors?: Array<(
-    { __typename?: 'Author' }
-    & { ' $fragmentRefs'?: { 'BlogListAuthorFragment': BlogListAuthorFragment;'GetAuthorURLFragment': GetAuthorURLFragment } }
-  )> | null, featuredImage?: (
-    { __typename?: 'Media' }
-    & { ' $fragmentRefs'?: { 'ContentfulImageFragment': ContentfulImageFragment } }
-  ) | null, tags?: Array<{ __typename?: 'Tag', name: string }> | null }
-  & { ' $fragmentRefs'?: { 'PostPublishDate_BlogPostFragment': PostPublishDate_BlogPostFragment;'GetPostURLFragment': GetPostURLFragment } }
-) & { ' $fragmentName'?: 'ContentfulBlogItemFragment' };
-
 export type BlogListAuthorFragment = (
   { __typename?: 'Author', id: string, name?: string | null, slug: string, bio?: string | null, avatar?: (
     { __typename?: 'Media' }
@@ -16138,45 +14113,7 @@ export type BlogListAuthorFragment = (
   & { ' $fragmentRefs'?: { 'GetAuthorURLFragment': GetAuthorURLFragment } }
 ) & { ' $fragmentName'?: 'BlogListAuthorFragment' };
 
-export type SingleBlogPostBreadCrumbFragment = (
-  { __typename?: 'Post', id: string, title?: string | null, authors?: Array<(
-    { __typename?: 'Author', name?: string | null, slug: string }
-    & { ' $fragmentRefs'?: { 'GetAuthorURLFragment': GetAuthorURLFragment } }
-  )> | null }
-  & { ' $fragmentRefs'?: { 'GetPostURLFragment': GetPostURLFragment } }
-) & { ' $fragmentName'?: 'SingleBlogPostBreadCrumbFragment' };
-
-export type SingleBlogPostContentFragment = (
-  { __typename?: 'Post', id: string, slug?: string | null, title?: string | null, subtitle?: string | null, authors?: Array<(
-    { __typename?: 'Author' }
-    & { ' $fragmentRefs'?: { 'BlogListAuthorFragment': BlogListAuthorFragment } }
-  )> | null, tags?: Array<{ __typename?: 'Tag', name: string }> | null }
-  & { ' $fragmentRefs'?: { 'PostPublishDate_BlogPostFragment': PostPublishDate_BlogPostFragment;'BlogPost_featuredImageFragFragment': BlogPost_featuredImageFragFragment } }
-) & { ' $fragmentName'?: 'SingleBlogPostContentFragment' };
-
-export type BlogPost_featuredImageFragFragment = { __typename?: 'Post', id: string, featuredImage?: (
-    { __typename?: 'Media', caption?: string | null }
-    & { ' $fragmentRefs'?: { 'ContentfulImageFragment': ContentfulImageFragment } }
-  ) | null } & { ' $fragmentName'?: 'BlogPost_featuredImageFragFragment' };
-
-export type SingleBlogPostJsonLDFragment = { __typename?: 'Post', id: string, slug?: string | null, title?: string | null, subtitle?: string | null, createdAt?: string | null, updatedAt?: string | null, publishedAt?: string | null, authors?: Array<(
-    { __typename?: 'Author', name?: string | null, slug: string }
-    & { ' $fragmentRefs'?: { 'GetAuthorURLFragment': GetAuthorURLFragment;'SingleAuthorJsonLdFragment': SingleAuthorJsonLdFragment } }
-  )> | null, featuredImage?: (
-    { __typename?: 'Media' }
-    & { ' $fragmentRefs'?: { 'ImageJsonLdFragment': ImageJsonLdFragment } }
-  ) | null } & { ' $fragmentName'?: 'SingleBlogPostJsonLDFragment' };
-
-export type BlogPostText_TextFragment = { __typename?: 'Post', id: string, content?: string | null } & { ' $fragmentName'?: 'BlogPostText_TextFragment' };
-
-export type PostPublishDate_BlogPostFragment = (
-  { __typename?: 'Post', id: string, publishedAt?: string | null, slug?: string | null }
-  & { ' $fragmentRefs'?: { 'GetPostURLFragment': GetPostURLFragment } }
-) & { ' $fragmentName'?: 'PostPublishDate_BlogPostFragment' };
-
 export type GetAuthorURLFragment = { __typename?: 'Author', slug: string, id: string } & { ' $fragmentName'?: 'GetAuthorURLFragment' };
-
-export type GetPostURLFragment = { __typename?: 'Post', slug?: string | null, id: string } & { ' $fragmentName'?: 'GetPostURLFragment' };
 
 export type ContentfulImageFragment = { __typename?: 'Media', id: string, alt?: string | null, description?: string | null, url?: string | null, width?: number | null, height?: number | null } & { ' $fragmentName'?: 'ContentfulImageFragment' };
 
@@ -16380,24 +14317,16 @@ export const NotesListItemFragmentDoc = {"kind":"Document","definitions":[{"kind
 export const fetchMicroblogPost_tagFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"fetchMicroblogPost_tag"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Tag"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]} as unknown as DocumentNode<fetchMicroblogPost_tagFragment, unknown>;
 export const MicroBlogTagFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MicroBlogTag"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Tag"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]} as unknown as DocumentNode<MicroBlogTagFragment, unknown>;
 export const TagFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TagFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Tag"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"fetchMicroblogPost_tag"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"MicroBlogTag"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"fetchMicroblogPost_tag"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Tag"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MicroBlogTag"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Tag"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]} as unknown as DocumentNode<TagFragmentFragment, unknown>;
-export const GetPostURLFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GetPostURL"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]} as unknown as DocumentNode<GetPostURLFragment, unknown>;
-export const PostPublishDate_BlogPostFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PostPublishDate_BlogPost"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"publishedAt"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"GetPostURL"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GetPostURL"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]} as unknown as DocumentNode<PostPublishDate_BlogPostFragment, unknown>;
-export const ContentfulImageFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ContentfulImage"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Media"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"alt"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}}]}}]} as unknown as DocumentNode<ContentfulImageFragment, unknown>;
-export const BlogListAuthorFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BlogListAuthor"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Author"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"avatar"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ContentfulImage"}}]}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"bio"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"GetAuthorURL"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ContentfulImage"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Media"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"alt"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GetAuthorURL"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Author"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]} as unknown as DocumentNode<BlogListAuthorFragment, unknown>;
-export const ContentfulBlogItemFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ContentfulBlogItem"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PostPublishDate_BlogPost"}},{"kind":"Field","name":{"kind":"Name","value":"authors"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BlogListAuthor"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"GetAuthorURL"}}]}},{"kind":"Field","name":{"kind":"Name","value":"featuredImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ContentfulImage"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tags"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"subtitle"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"GetPostURL"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GetPostURL"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ContentfulImage"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Media"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"alt"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GetAuthorURL"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Author"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PostPublishDate_BlogPost"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"publishedAt"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"GetPostURL"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BlogListAuthor"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Author"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"avatar"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ContentfulImage"}}]}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"bio"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"GetAuthorURL"}}]}}]} as unknown as DocumentNode<ContentfulBlogItemFragment, unknown>;
-export const SingleBlogPostBreadCrumbFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SingleBlogPostBreadCrumb"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"authors"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"GetAuthorURL"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"GetPostURL"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GetAuthorURL"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Author"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GetPostURL"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]} as unknown as DocumentNode<SingleBlogPostBreadCrumbFragment, unknown>;
-export const BlogPost_featuredImageFragFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BlogPost_featuredImageFrag"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"featuredImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ContentfulImage"}},{"kind":"Field","name":{"kind":"Name","value":"caption"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ContentfulImage"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Media"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"alt"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}}]}}]} as unknown as DocumentNode<BlogPost_featuredImageFragFragment, unknown>;
-export const SingleBlogPostContentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SingleBlogPostContent"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"PostPublishDate_BlogPost"}},{"kind":"Field","name":{"kind":"Name","value":"authors"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BlogListAuthor"}}]}},{"kind":"Field","name":{"kind":"Name","value":"subtitle"}},{"kind":"Field","name":{"kind":"Name","value":"tags"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"BlogPost_featuredImageFrag"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GetPostURL"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ContentfulImage"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Media"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"alt"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GetAuthorURL"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Author"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PostPublishDate_BlogPost"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"publishedAt"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"GetPostURL"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BlogListAuthor"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Author"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"avatar"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ContentfulImage"}}]}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"bio"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"GetAuthorURL"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BlogPost_featuredImageFrag"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"featuredImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ContentfulImage"}},{"kind":"Field","name":{"kind":"Name","value":"caption"}}]}}]}}]} as unknown as DocumentNode<SingleBlogPostContentFragment, unknown>;
-export const ImageJsonLdFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ImageJsonLd"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Media"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}}]} as unknown as DocumentNode<ImageJsonLdFragment, unknown>;
-export const SingleAuthorJsonLdFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SingleAuthorJsonLd"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Author"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"avatar"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ImageJsonLd"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"GetAuthorURL"}},{"kind":"Field","name":{"kind":"Name","value":"bio"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ImageJsonLd"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Media"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GetAuthorURL"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Author"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]} as unknown as DocumentNode<SingleAuthorJsonLdFragment, unknown>;
-export const SingleBlogPostJsonLDFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SingleBlogPostJsonLD"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"subtitle"}},{"kind":"Field","name":{"kind":"Name","value":"authors"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"GetAuthorURL"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"SingleAuthorJsonLd"}}]}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"publishedAt"}},{"kind":"Field","name":{"kind":"Name","value":"featuredImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ImageJsonLd"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ImageJsonLd"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Media"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GetAuthorURL"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Author"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SingleAuthorJsonLd"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Author"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"avatar"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ImageJsonLd"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"GetAuthorURL"}},{"kind":"Field","name":{"kind":"Name","value":"bio"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]} as unknown as DocumentNode<SingleBlogPostJsonLDFragment, unknown>;
-export const BlogPostText_TextFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BlogPostText_Text"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"content"}}]}}]} as unknown as DocumentNode<BlogPostText_TextFragment, unknown>;
 export const MicroBlogPostText_TextFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MicroBlogPostText_Text"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Micro_post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"content"}}]}}]} as unknown as DocumentNode<MicroBlogPostText_TextFragment, unknown>;
 export const Blog_getMicropostHrefFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Blog_getMicropostHref"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Micro_post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}}]} as unknown as DocumentNode<Blog_getMicropostHrefFragment, unknown>;
 export const SingleMicroBlogPostBreadCrumbFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SingleMicroBlogPostBreadCrumb"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Micro_post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"authors"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"GetAuthorURL"}}]}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"Blog_getMicropostHref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GetAuthorURL"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Author"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Blog_getMicropostHref"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Micro_post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}}]} as unknown as DocumentNode<SingleMicroBlogPostBreadCrumbFragment, unknown>;
+export const ContentfulImageFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ContentfulImage"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Media"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"alt"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}}]}}]} as unknown as DocumentNode<ContentfulImageFragment, unknown>;
+export const BlogListAuthorFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BlogListAuthor"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Author"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"avatar"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ContentfulImage"}}]}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"bio"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"GetAuthorURL"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ContentfulImage"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Media"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"alt"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GetAuthorURL"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Author"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]} as unknown as DocumentNode<BlogListAuthorFragment, unknown>;
 export const MicroPostPublishDate_BlogPostFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MicroPostPublishDate_BlogPost"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Micro_post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"publishedAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"Blog_getMicropostHref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Blog_getMicropostHref"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Micro_post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}}]} as unknown as DocumentNode<MicroPostPublishDate_BlogPostFragment, unknown>;
 export const OutGoingLinksListFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OutGoingLinksList"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Micro_post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"target_url"}}]}}]}}]} as unknown as DocumentNode<OutGoingLinksListFragment, unknown>;
 export const PostInternalLinksListFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PostInternalLinksList"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Micro_post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"linkedMicroPosts"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"authors"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"GetAuthorURL"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"Blog_getMicropostHref"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"MicroPostPublishDate_BlogPost"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Blog_getMicropostHref"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Micro_post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GetAuthorURL"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Author"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MicroPostPublishDate_BlogPost"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Micro_post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"publishedAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"Blog_getMicropostHref"}}]}}]} as unknown as DocumentNode<PostInternalLinksListFragment, unknown>;
+export const ImageJsonLdFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ImageJsonLd"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Media"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}}]} as unknown as DocumentNode<ImageJsonLdFragment, unknown>;
+export const SingleAuthorJsonLdFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SingleAuthorJsonLd"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Author"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"avatar"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ImageJsonLd"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"GetAuthorURL"}},{"kind":"Field","name":{"kind":"Name","value":"bio"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ImageJsonLd"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Media"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GetAuthorURL"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Author"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]} as unknown as DocumentNode<SingleAuthorJsonLdFragment, unknown>;
 export const SingleNoteJsonldFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SingleNoteJsonld"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Micro_post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"authors"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"SingleAuthorJsonLd"}}]}},{"kind":"Field","name":{"kind":"Name","value":"meta"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ImageJsonLd"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"publishedAt"}},{"kind":"Field","name":{"kind":"Name","value":"linkedMicroPosts"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"Blog_getMicropostHref"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"target_url"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"Blog_getMicropostHref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ImageJsonLd"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Media"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GetAuthorURL"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Author"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SingleAuthorJsonLd"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Author"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"avatar"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ImageJsonLd"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"GetAuthorURL"}},{"kind":"Field","name":{"kind":"Name","value":"bio"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Blog_getMicropostHref"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Micro_post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}}]} as unknown as DocumentNode<SingleNoteJsonldFragment, unknown>;
 export const SinglePostPageDataFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SinglePostPageData"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Micro_post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MicroBlogPostText_Text"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"SingleMicroBlogPostBreadCrumb"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"authors"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"BlogListAuthor"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"MicroPostPublishDate_BlogPost"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"Blog_getMicropostHref"}},{"kind":"Field","name":{"kind":"Name","value":"tags"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"MicroBlogTag"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"target_url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"linkedMicroPosts"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"Blog_getMicropostHref"}}]}},{"kind":"Field","name":{"kind":"Name","value":"attachment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ContentfulImage"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"OutGoingLinksList"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"PostInternalLinksList"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"SingleNoteJsonld"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GetAuthorURL"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Author"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Blog_getMicropostHref"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Micro_post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ContentfulImage"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Media"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"alt"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MicroPostPublishDate_BlogPost"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Micro_post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"publishedAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"Blog_getMicropostHref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ImageJsonLd"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Media"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SingleAuthorJsonLd"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Author"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"avatar"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ImageJsonLd"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"GetAuthorURL"}},{"kind":"Field","name":{"kind":"Name","value":"bio"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MicroBlogPostText_Text"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Micro_post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"content"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SingleMicroBlogPostBreadCrumb"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Micro_post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"authors"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"GetAuthorURL"}}]}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"Blog_getMicropostHref"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BlogListAuthor"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Author"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"avatar"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ContentfulImage"}}]}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"bio"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"GetAuthorURL"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MicroBlogTag"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Tag"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OutGoingLinksList"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Micro_post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"target_url"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PostInternalLinksList"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Micro_post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"linkedMicroPosts"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"authors"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"GetAuthorURL"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"Blog_getMicropostHref"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"MicroPostPublishDate_BlogPost"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SingleNoteJsonld"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Micro_post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"authors"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"SingleAuthorJsonLd"}}]}},{"kind":"Field","name":{"kind":"Name","value":"meta"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ImageJsonLd"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"publishedAt"}},{"kind":"Field","name":{"kind":"Name","value":"linkedMicroPosts"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"Blog_getMicropostHref"}}]}},{"kind":"Field","name":{"kind":"Name","value":"externalLinks"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"target_url"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"Blog_getMicropostHref"}}]}}]} as unknown as DocumentNode<SinglePostPageDataFragment, unknown>;
 export const MicroBlogListItem_toReactTranslateFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MicroBlogListItem_toReactTranslate"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Micro_post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"Blog_getMicropostHref"}},{"kind":"Field","name":{"kind":"Name","value":"content"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Blog_getMicropostHref"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Micro_post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}}]} as unknown as DocumentNode<MicroBlogListItem_toReactTranslateFragment, unknown>;

@@ -5,7 +5,6 @@ import { buttonVariants } from '@shadcn/ui/button'
 import type { FunctionComponent } from 'react'
 import { routing } from '@/i18n/routing'
 import BlogListItemAuthor from '../../../../src/content/Blog/List/BlogListItemAuthor'
-import BlogListWithDataHorizontalSkeleton from '../../../../src/content/Blog/List/BlogListWidthDataHorizontalSkeleton'
 import MicroblogListWithDataHorizontalSkeleton from '../../../../src/content/Microblog/MicroblogListWithDataHorizontalSkeleton'
 
 const Page: FunctionComponent = () => {
@@ -29,18 +28,6 @@ const Page: FunctionComponent = () => {
 					)}
 				/>
 				<MicroblogListWithDataHorizontalSkeleton />
-			</section>
-			<section className="my-6">
-				<InlineSkeleton
-					className={cn(
-						buttonVariants({
-							variant: 'link',
-							size: 'default',
-							className: 'text-2xl mb-4 w-48 h-8',
-						}),
-					)}
-				/>
-				<BlogListWithDataHorizontalSkeleton />
 			</section>
 		</div>
 	)

@@ -6,25 +6,40 @@ import { Suspense, useCallback, useEffect, useState } from 'react'
 
 const SHORT_POST_MAX = 255
 
-const getSiblingPath = (path: string, siblingFieldName: string): string => {
+const getSiblingPath = (path: string, siblingFieldName: string, fieldName?: string): string => {
 	const pathParts = path.split('.')
-	pathParts[0] = siblingFieldName
+
+	if (typeof fieldName === 'string' && fieldName.length > 0) {
+		for (let index = pathParts.length - 1; index >= 0; index -= 1) {
+			if (pathParts[index] === fieldName) {
+				pathParts[index] = siblingFieldName
+				return pathParts.join('.')
+			}
+		}
+	}
+
+	if (pathParts.length > 0) {
+		pathParts[pathParts.length - 1] = siblingFieldName
+	}
+
 	return pathParts.join('.')
 }
 
 const MDXNoSSG = dynamic(async () => await import('./MDXNoSSG'), { ssr: false })
 
-const RichTextMarkdownField: TextareaFieldClientComponent = ({ path }) => {
-	const postTypePath = getSiblingPath(path, 'post_type')
-	const titlePath = getSiblingPath(path, 'title')
-	const { getDataByPath } = useWatchForm()
+const RichTextMarkdownField: TextareaFieldClientComponent = ({ path, field }) => {
+	const fieldName = 'name' in field && typeof field.name === 'string' ? field.name : undefined
+	const postTypePath = getSiblingPath(path, 'post_type', fieldName)
+	const { getDataByPath, getSiblingData } = useWatchForm()
 	const { setValue, initialValue } = useField<string>({ path })
 	const { setValue: setPostType } = useField<'short' | 'long'>({
 		path: postTypePath,
 	})
 	const watchedValue = getDataByPath<string>(path)
-	const postType = getDataByPath<'short' | 'long'>(postTypePath)
-	const title = getDataByPath<string>(titlePath)
+	const siblingData = getSiblingData(path)
+	const postType =
+		siblingData.post_type === 'short' || siblingData.post_type === 'long' ? siblingData.post_type : undefined
+	const title = typeof siblingData.title === 'string' ? siblingData.title : undefined
 	const [editorValue, setEditorValue] = useState<string>(typeof watchedValue === 'string' ? watchedValue : '')
 	const currentValue = editorValue
 	const titleValue = typeof title === 'string' ? title.trim() : ''

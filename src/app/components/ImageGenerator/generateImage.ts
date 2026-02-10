@@ -1,7 +1,7 @@
-import 'server-only'
 import configPromise from '@payload-config'
 import OpenAI from 'openai'
 import { getPayload, type Payload } from 'payload'
+import 'server-only'
 import type { Media } from 'src/payload-types'
 import handleImagePromptRequest from './handleImagePromptRequest'
 
@@ -24,7 +24,10 @@ const handleImageCreate = async (content: string, payload: Payload, alt: string)
 		model: 'gpt-image-1.5',
 	})
 	const imageUrl = result.data?.[0]?.url
-	if (!imageUrl) throw new Error('No image URL returned')
+	if (!imageUrl) {
+		payload.logger.error(`No image url returned for the ${content}; keys returned ${Object.keys(result).join(',')}`)
+		throw new Error('No image URL returned')
+	}
 	const media = await payload.create({
 		collection: 'media',
 		data: {

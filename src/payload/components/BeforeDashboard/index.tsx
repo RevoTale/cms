@@ -1,4 +1,4 @@
-import { Banner } from '@payloadcms/ui/elements/Banner'
+import { Banner } from '@payloadcms/ui'
 import type React from 'react'
 
 import './index.scss'

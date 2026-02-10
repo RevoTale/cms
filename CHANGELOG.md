@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.1](https://github.com/RevoTale/cms/compare/v0.5.0...v0.5.1) (2026-02-10)
+
+
+### Bug Fixes
+
+* release CI broken by the Codex 5.3 ([2f9716f](https://github.com/RevoTale/cms/commit/2f9716fdc366dd35cdbd1d2ae69813cfe90131df))
+
 ## [0.5.0](https://github.com/RevoTale/cms/compare/v0.4.1...v0.5.0) (2026-02-10)
 
 

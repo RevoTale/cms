@@ -1,5 +1,28 @@
 # Changelog
 
+## [0.5.0](https://github.com/RevoTale/cms/compare/v0.4.1...v0.5.0) (2026-02-10)
+
+
+### Features
+
+* batch auto-translate localized fields for better performance and consistent cross-field updates ([4e08835](https://github.com/RevoTale/cms/commit/4e08835f46864f6ef1d56f3e1293e1ccac26cd97))
+* extract cms into dedicated devcontainer and move imgproxy to infrastructure with simplified allowed sources ([1cc00af](https://github.com/RevoTale/cms/commit/1cc00afce21a7608ec52c71a495e7c592dc457c8))
+* hide the minio url from public access. Refactor to make the `cms` as a separate devcontainer. Make no hardcoded domains. Serve the optimized image in the cmns, which gratefully improved performence of the admin UI. ([275c41c](https://github.com/RevoTale/cms/commit/275c41c23bc564b56be98180aa5145c23444af00))
+* level up gpt model ([eac1efb](https://github.com/RevoTale/cms/commit/eac1efb6788b4f61e25792cfbf9395281635c87b))
+* move dockerfile into the `docker` directory ([dcb75e4](https://github.com/RevoTale/cms/commit/dcb75e411f95a519e1d088dca340e6069666e53a))
+* no need for the sharp since we use imgproxy for everything ([b2443df](https://github.com/RevoTale/cms/commit/b2443df0a7957df02a0a029584fb9f3810a15674))
+* offline support and niode mdoules polsih for the cms deps. ([2224752](https://github.com/RevoTale/cms/commit/2224752cca3dcee52fcd75de9b740c424787f403))
+
+
+### Bug Fixes
+
+* broken url due to tewice formatting from cms ([d98c9ab](https://github.com/RevoTale/cms/commit/d98c9abc90cb49f6969eb2b8243a2de77c025f99))
+* code quality ([f6cc33b](https://github.com/RevoTale/cms/commit/f6cc33b7d62aa6cc84139af79388516208558510))
+* code queality ([3d4094f](https://github.com/RevoTale/cms/commit/3d4094f26cf8019dd4e61cf37127646ad14e1800))
+* force path style to allow private network s3 ([80a57ad](https://github.com/RevoTale/cms/commit/80a57ad4c7168a071d630d8f7d2e54bfccebbb16))
+* remove about me page. It is separate project now ([c548ef9](https://github.com/RevoTale/cms/commit/c548ef9e5ba6bb7dc695a621eacadae89878f735))
+* remove the node condig ([ab44789](https://github.com/RevoTale/cms/commit/ab44789bdaf22e1e01fd1f095c5bcfda4242727a))
+
 ## [0.4.1](https://github.com/RevoTale/cms/compare/v0.4.0...v0.4.1) (2026-02-09)
 
 

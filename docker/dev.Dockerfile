@@ -6,7 +6,7 @@ WORKDIR /app
 
 FROM base AS dev
 COPY . ./
-COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+COPY docker/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 
 ENV NEXT_PUBLIC_SERVER_URL=""
 ENV NODE_ENV=development

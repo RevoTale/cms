@@ -4,7 +4,7 @@
 - Run commands from the repository root.
 - Install deps with `bun install --frozen-lockfile --linker=isolated`.
 - In containers/devcontainers, use `bun install --frozen-lockfile --backend=copyfile` to avoid hardlink issues.
-- Keep runtime startup focused on `bun dev`; dependency install should be one-time (`.devcontainer` `postCreateCommand`) or conditional (`docker-entrypoint.sh`).
+- Keep runtime startup focused on `bun dev`; dependency install should be one-time (`.devcontainer` `postCreateCommand`) or conditional (`docker/docker-entrypoint.sh`).
 - Use Taskfile for routine commands: `task build:compile`, `task build:generate`, `task validate`, `task codegen:check`.
 - Keep Payload CLI reuse in `package.json` via `bun run p:cli <command>` instead of inlining long `PAYLOAD_CONFIG_PATH` commands in Taskfile.
 - Docker production build uses standalone runtime output only; switch build mode with `--build-arg NEXT_BUILD_MODE=<compile|default|generate>`.
@@ -13,7 +13,7 @@
 - CI plans live in `.github/workflows/test.yml` and `.github/workflows/release.yml`.
 - Before merge, run `task validate` and `task codegen:check`.
 - If generated artifacts drift, run `task codegen` and then rerun `task validate`.
-- For container-level verification, run `docker build -f Dockerfile --target runner .` (optionally with `--build-arg NEXT_BUILD_MODE=...`).
+- For container-level verification, run `docker build -f docker/Dockerfile --target runner .` (optionally with `--build-arg NEXT_BUILD_MODE=...`).
 - Keep all checks green before committing.
 
 ## PR instructions

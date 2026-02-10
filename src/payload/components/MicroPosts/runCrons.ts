@@ -1,8 +1,8 @@
-"use server"
-import { getPayload } from 'payload';
+'use server'
 import config from '@payload-config'
+import { getPayload } from 'payload'
 
-const runCrons = async()=>{
-                     (await getPayload({config})).jobs.run()
+const runCrons = async () => {
+	;(await getPayload({ config })).jobs.run()
 }
 export default runCrons

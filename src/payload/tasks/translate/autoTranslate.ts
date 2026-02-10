@@ -2,10 +2,6 @@
 import OpenAI from 'openai'
 import type { BasePayload, CollectionSlug, Field, TypedLocale } from 'payload'
 
-type RecursivePartial<T> = {
-	[P in keyof T]?: RecursivePartial<T[P]>
-}
-
 interface TranslationData {
 	[key: string]: string | TranslationData
 }
@@ -409,7 +405,7 @@ const autoTranslate = async ({
 		locale: targetLocale,
 		id: docId,
 		collection,
-		data: translatedData ,
+		data: translatedData,
 	})
 }
 

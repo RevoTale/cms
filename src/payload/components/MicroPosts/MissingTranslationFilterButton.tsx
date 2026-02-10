@@ -1,12 +1,12 @@
 'use client'
 
-import { Button } from '@payloadcms/ui';
-import { useActionState, useEffect, useTransition } from 'react';
+import { Button } from '@payloadcms/ui'
+import { useActionState, useEffect, useTransition } from 'react'
 import {
 	type CountsByLocaleResponse,
 	getCountsOfNonTranslatedPostsByLocale,
-} from 'src/payload/workflows/getCountOfNonTranslatedPosts';
-import runCrons from './runCrons';
+} from 'src/payload/workflows/getCountOfNonTranslatedPosts'
+import runCrons from './runCrons'
 
 // Note: Payload v3 exposes programmatic list filtering via useListQuery().handleWhereChange.
 // Some setups may also provide useListFilters().setFilter; if present, we call it as well.
@@ -43,7 +43,7 @@ export default function MissingTranslationFilterButton() {
 			>
 				{isPending ? 'Loading…' : 'Refresh Missing Translations'}
 			</Button>
-			<Button type='button' onClick={runCrons}>
+			<Button type="button" onClick={runCrons}>
 				Enforce CRON now
 			</Button>
 

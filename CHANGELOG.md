@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.7.0](https://github.com/RevoTale/cms/compare/v0.6.0...v0.7.0) (2026-02-10)
+
+
+### Features
+
+* optimize graphql with swc ([894c427](https://github.com/RevoTale/cms/commit/894c427997c8ce9c764e19de173064a3b75f16bf))
+
+
+### Bug Fixes
+
+* code tyle ([dba447f](https://github.com/RevoTale/cms/commit/dba447f4454e4e8a00ea5116a9ada4e642fd6fd9))
+* image ize ([748cf19](https://github.com/RevoTale/cms/commit/748cf19959ab84666dc3df1d13f45b48556ed341))
+* remove sqc, it is still broken ([0f587ec](https://github.com/RevoTale/cms/commit/0f587ec5ab753c7726a0a212e4bba752471dfcb7))
+
 ## [0.6.0](https://github.com/RevoTale/cms/compare/v0.5.1...v0.6.0) (2026-02-10)
 
 

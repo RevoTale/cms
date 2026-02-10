@@ -6,6 +6,7 @@ WORKDIR /app
 
 FROM base AS dev
 COPY . ./
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 
 ENV NEXT_PUBLIC_SERVER_URL=""
 ENV NODE_ENV=development
@@ -33,4 +34,7 @@ ENV NODE_ENV=development
 
 EXPOSE 3000
 
-CMD ["sh", "-c", "bun install && bun dev"]
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+CMD ["bun", "dev"]

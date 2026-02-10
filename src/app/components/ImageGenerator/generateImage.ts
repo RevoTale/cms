@@ -11,6 +11,55 @@ interface GenerateParams {
 	content: string
 }
 
+type UploadedImage = {
+	buffer: Buffer
+	extension: 'jpg' | 'png' | 'webp'
+	mimetype: string
+}
+
+const outputFormatToMimeType = (format?: 'jpeg' | 'png' | 'webp'): string => {
+	switch (format) {
+		case 'jpeg':
+			return 'image/jpeg'
+		case 'webp':
+			return 'image/webp'
+		default:
+			return 'image/png'
+	}
+}
+
+const mimeTypeToExtension = (mimeType: string): UploadedImage['extension'] => {
+	switch (mimeType) {
+		case 'image/jpeg':
+			return 'jpg'
+		case 'image/webp':
+			return 'webp'
+		default:
+			return 'png'
+	}
+}
+
+const downloadImageFromURL = async (url: string, fallbackMimeType: string): Promise<UploadedImage> => {
+	const response = await fetch(url)
+	if (!response.ok) {
+		throw new Error(`Failed to download generated image: ${response.status} ${response.statusText}`)
+	}
+
+	const contentTypeHeader = response.headers.get('content-type')
+	const contentType =
+		typeof contentTypeHeader === 'string' && contentTypeHeader.length > 0
+			? contentTypeHeader.split(';')[0]?.trim()
+			: undefined
+	const mimetype = contentType?.startsWith('image/') ? contentType : fallbackMimeType
+	const buffer = Buffer.from(await response.arrayBuffer())
+
+	return {
+		buffer,
+		mimetype,
+		extension: mimeTypeToExtension(mimetype),
+	}
+}
+
 const handleImageCreate = async (content: string, payload: Payload, alt: string): Promise<Media> => {
 	const apiKey = process.env.OPENAI_API_KEY
 	if (!apiKey) throw new Error('OpenAI API key is not configured')
@@ -23,19 +72,45 @@ const handleImageCreate = async (content: string, payload: Payload, alt: string)
 		size: '1536x1024',
 		model: 'gpt-image-1.5',
 	})
-	const imageUrl = result.data?.[0]?.url
-	if (!imageUrl) {
-		payload.logger.error(`No image url returned for the ${content}; keys returned ${Object.keys(result).join(',')}`)
-		throw new Error('No image URL returned')
+
+	const fallbackMimeType = outputFormatToMimeType(result.output_format)
+	const generatedImage = result.data?.[0]
+	if (!generatedImage) {
+		payload.logger.error(
+			`No image object returned for content "${content}"; keys returned ${Object.keys(result).join(',')}`,
+		)
+		throw new Error('No image data returned')
 	}
+
+	let uploadedImage: UploadedImage
+	if (generatedImage.b64_json) {
+		const buffer = Buffer.from(generatedImage.b64_json, 'base64')
+		uploadedImage = {
+			buffer,
+			mimetype: fallbackMimeType,
+			extension: mimeTypeToExtension(fallbackMimeType),
+		}
+	} else if (generatedImage.url) {
+		uploadedImage = await downloadImageFromURL(generatedImage.url, fallbackMimeType)
+	} else {
+		payload.logger.error(
+			`No image payload returned for content "${content}"; image keys returned ${Object.keys(generatedImage).join(',')}`,
+		)
+		throw new Error('No image data returned')
+	}
+
+	const filename = `note-preview-${Date.now()}.${uploadedImage.extension}`
 	const media = await payload.create({
 		collection: 'media',
 		data: {
-			filename: `note-preview-${Date.now()}.png`,
 			alt,
 			description: prompt,
-
-			url: imageUrl,
+		},
+		file: {
+			data: uploadedImage.buffer,
+			mimetype: uploadedImage.mimetype,
+			name: filename,
+			size: uploadedImage.buffer.byteLength,
 		},
 	})
 	return media

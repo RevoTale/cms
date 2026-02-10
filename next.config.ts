@@ -27,6 +27,14 @@ for (const maybeURL of [appURL, payloadPublicServerURL]) {
 }
 
 const nextConfig: NextConfig = {
+	  experimental: {
+    swcPlugins: [
+      [
+        "@swc-contrib/plugin-graphql-codegen-client-preset",
+        { artifactDirectory: "./src/app/src/gql", gqlTagName: "graphql" },
+      ],
+    ],
+  },
 	reactStrictMode: true,
 	output: 'standalone',
 	//cacheHandler: require.resolve('./cache-handler.mjs'), //waiting for https://github.com/fortedigital/nextjs-cache-handler/issues/110

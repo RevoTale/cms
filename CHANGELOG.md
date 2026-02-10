@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.6.0](https://github.com/RevoTale/cms/compare/v0.5.1...v0.6.0) (2026-02-10)
+
+
+### Features
+
+* allow auto translated posts to bypass title requirement. for loing posts. Remove legacy posts system ([69a4bdd](https://github.com/RevoTale/cms/commit/69a4bddea017d098638e8e03b5e5fd70e45628ab))
+
+
+### Bug Fixes
+
+* translation not translating due to max length ([b74f635](https://github.com/RevoTale/cms/commit/b74f63548aff7d335e6c48fb8697762a64958db8))
+
 ## [0.5.1](https://github.com/RevoTale/cms/compare/v0.5.0...v0.5.1) (2026-02-10)
 
 

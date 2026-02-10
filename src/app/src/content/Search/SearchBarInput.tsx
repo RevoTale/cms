@@ -1,7 +1,5 @@
 'use client'
 
-import getGqlLocale from '@/i18n/getGqlLocale'
-import LocaleLink from '@/i18n/LocaleLink'
 import { useLazyQuery } from '@apollo/client/react'
 import { getFragmentData } from '@blog/gql'
 import BadError from '@revotale/ui/BadError'
@@ -15,6 +13,8 @@ import type { Locale } from 'next-intl'
 import { useLinker, useParamState } from 'next-navigation-utils/client'
 import { stringType } from 'next-navigation-utils/parameters'
 import { type FunctionComponent, useEffect } from 'react'
+import getGqlLocale from '@/i18n/getGqlLocale'
+import LocaleLink from '@/i18n/LocaleLink'
 import type { PlaceholderMapTranslationKeys } from '../Microblog/shortTextPlaceholders'
 import { SearchQuery, SearchQueryDocFragment } from './gqlDef'
 import SearchItem from './SearchItem'
@@ -52,7 +52,7 @@ const SearchBarInput: FunctionComponent<Props> = ({ translationKeys, locale }) =
 	const linker = useLinker()
 	return (
 		<div className="flex flex-col gap-4 max-w-xl mx-auto">
-			<InputGroup className='px-1'>
+			<InputGroup className="px-1">
 				<InputGroupInput
 					autoFocus
 					value={value ?? ''}

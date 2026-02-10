@@ -170,8 +170,6 @@ const payloadGraphQLMaxComplexity = toPositiveInt(
 )
 const bucket = process.env.S3_BUCKET ?? ''
 const enableS3 = true //Added alway true because due to the following issues https://github.com/payloadcms/payload/issues/12475
-console.log(process.env.S3_REGION)
-console.log(bucket, serverURL,)
 const s3PluginConfig = s3Storage({
 	collections: {
 		[Media.slug]: {
@@ -193,7 +191,7 @@ const s3PluginConfig = s3Storage({
 			secretAccessKey: process.env.S3_SECRET_ACCESS_KEY ?? '',
 		},
 		region: process.env.S3_REGION,
-		forcePathStyle: true
+		forcePathStyle: true,
 		// ... Other S3 configuration
 	},
 })

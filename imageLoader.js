@@ -1,20 +1,11 @@
 const stripLeadingSlashes = value => value.replace(/^\/+/u, '')
-const isS3Host = hostname => hostname.includes('.s3.') || hostname.startsWith('s3.')
+const CDN_S3_PATH_PATTERN = /((?:^|\/)cdn\/image\/s3\/)(\d+)(\/)/u
 
-export default function cloudflareLoader({ src, width }) {
+export default function imageLoader({ src, width }) {
 	const encodedSrc = src.replace(/ /g, '%20')
 
-	try {
-		const url = new URL(encodedSrc)
-		if (isS3Host(url.hostname)) {
-			const objectPath = stripLeadingSlashes(url.pathname)
-			return `/cdn/image/s3/${width}/${objectPath}`
-		}
-
-		const relativePath = stripLeadingSlashes(url.pathname)
-		return `/cdn/image/relative/${width}/${relativePath}`
-	} catch {
-		// Relative source path, fall through to relative route below.
+	if (CDN_S3_PATH_PATTERN.test(encodedSrc)) {
+		return encodedSrc.replace(CDN_S3_PATH_PATTERN, `$1${width}$3`)
 	}
 
 	const relativePath = stripLeadingSlashes(encodedSrc)

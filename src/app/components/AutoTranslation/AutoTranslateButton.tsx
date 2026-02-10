@@ -55,7 +55,7 @@ const AutoTranslateButton: FunctionComponent = () => {
 					void handleSubmit(allLocales)
 				}}
 				disabled={pendingLocale !== null}
-				type="submit"
+				type="button"
 			>
 				{pendingLocale === null ? `Auto Translate All from ${sourceLocale}` : `Translating to ${pendingLocale}...`}
 			</Button>
@@ -67,7 +67,7 @@ const AutoTranslateButton: FunctionComponent = () => {
 						disabled={pendingLocale === locale}
 						onClick={() => {
 							void handleSubmit([locale])
-						}}
+						}} type='button'
 					>
 						To {locale}
 					</Button>

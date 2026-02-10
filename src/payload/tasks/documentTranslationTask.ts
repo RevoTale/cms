@@ -5,6 +5,10 @@ import translateHandler from './translate/translateHandler'
 const documentTranslationTask = {
 	retries: 1,
 	slug: 'translateDocument',
+	concurrency: {
+		// Serialize translations per document to avoid concurrent locale updates racing each other.
+		key: ({ input }) => `translate:${input.collection}:${input.postID}`,
+	},
 	inputSchema: [
 		{
 			name: 'postID',

@@ -4723,6 +4723,7 @@ type PayloadJob {
 	queue: String
 	waitUntil: DateTime
 	processing: Boolean
+	concurrencyKey: String
 	updatedAt: DateTime
 	createdAt: DateTime
 }
@@ -4801,6 +4802,7 @@ input PayloadJob_where {
 	queue: PayloadJob_queue_operator
 	waitUntil: PayloadJob_waitUntil_operator
 	processing: PayloadJob_processing_operator
+	concurrencyKey: PayloadJob_concurrencyKey_operator
 	updatedAt: PayloadJob_updatedAt_operator
 	createdAt: PayloadJob_createdAt_operator
 	id: PayloadJob_id_operator
@@ -5027,6 +5029,17 @@ input PayloadJob_processing_operator {
 	exists: Boolean
 }
 
+input PayloadJob_concurrencyKey_operator {
+	equals: String
+	not_equals: String
+	like: String
+	contains: String
+	in: [String]
+	not_in: [String]
+	all: [String]
+	exists: Boolean
+}
+
 input PayloadJob_updatedAt_operator {
 	equals: DateTime
 	not_equals: DateTime
@@ -5082,6 +5095,7 @@ input PayloadJob_where_and {
 	queue: PayloadJob_queue_operator
 	waitUntil: PayloadJob_waitUntil_operator
 	processing: PayloadJob_processing_operator
+	concurrencyKey: PayloadJob_concurrencyKey_operator
 	updatedAt: PayloadJob_updatedAt_operator
 	createdAt: PayloadJob_createdAt_operator
 	id: PayloadJob_id_operator
@@ -5111,6 +5125,7 @@ input PayloadJob_where_or {
 	queue: PayloadJob_queue_operator
 	waitUntil: PayloadJob_waitUntil_operator
 	processing: PayloadJob_processing_operator
+	concurrencyKey: PayloadJob_concurrencyKey_operator
 	updatedAt: PayloadJob_updatedAt_operator
 	createdAt: PayloadJob_createdAt_operator
 	id: PayloadJob_id_operator
@@ -5142,6 +5157,7 @@ type PayloadJobsDocAccessFields {
 	queue: PayloadJobsDocAccessFields_queue
 	waitUntil: PayloadJobsDocAccessFields_waitUntil
 	processing: PayloadJobsDocAccessFields_processing
+	concurrencyKey: PayloadJobsDocAccessFields_concurrencyKey
 	updatedAt: PayloadJobsDocAccessFields_updatedAt
 	createdAt: PayloadJobsDocAccessFields_createdAt
 }
@@ -5692,6 +5708,29 @@ type PayloadJobsDocAccessFields_processing_Update {
 }
 
 type PayloadJobsDocAccessFields_processing_Delete {
+	permission: Boolean!
+}
+
+type PayloadJobsDocAccessFields_concurrencyKey {
+	create: PayloadJobsDocAccessFields_concurrencyKey_Create
+	read: PayloadJobsDocAccessFields_concurrencyKey_Read
+	update: PayloadJobsDocAccessFields_concurrencyKey_Update
+	delete: PayloadJobsDocAccessFields_concurrencyKey_Delete
+}
+
+type PayloadJobsDocAccessFields_concurrencyKey_Create {
+	permission: Boolean!
+}
+
+type PayloadJobsDocAccessFields_concurrencyKey_Read {
+	permission: Boolean!
+}
+
+type PayloadJobsDocAccessFields_concurrencyKey_Update {
+	permission: Boolean!
+}
+
+type PayloadJobsDocAccessFields_concurrencyKey_Delete {
 	permission: Boolean!
 }
 
@@ -9446,6 +9485,7 @@ type PayloadJobsFields {
 	queue: PayloadJobsFields_queue
 	waitUntil: PayloadJobsFields_waitUntil
 	processing: PayloadJobsFields_processing
+	concurrencyKey: PayloadJobsFields_concurrencyKey
 	updatedAt: PayloadJobsFields_updatedAt
 	createdAt: PayloadJobsFields_createdAt
 }
@@ -9996,6 +10036,29 @@ type PayloadJobsFields_processing_Update {
 }
 
 type PayloadJobsFields_processing_Delete {
+	permission: Boolean!
+}
+
+type PayloadJobsFields_concurrencyKey {
+	create: PayloadJobsFields_concurrencyKey_Create
+	read: PayloadJobsFields_concurrencyKey_Read
+	update: PayloadJobsFields_concurrencyKey_Update
+	delete: PayloadJobsFields_concurrencyKey_Delete
+}
+
+type PayloadJobsFields_concurrencyKey_Create {
+	permission: Boolean!
+}
+
+type PayloadJobsFields_concurrencyKey_Read {
+	permission: Boolean!
+}
+
+type PayloadJobsFields_concurrencyKey_Update {
+	permission: Boolean!
+}
+
+type PayloadJobsFields_concurrencyKey_Delete {
 	permission: Boolean!
 }
 
@@ -11396,6 +11459,7 @@ input mutationPayloadJobInput {
 	queue: String
 	waitUntil: String
 	processing: Boolean
+	concurrencyKey: String
 	updatedAt: String
 	createdAt: String
 }
@@ -11445,6 +11509,7 @@ input mutationPayloadJobUpdateInput {
 	queue: String
 	waitUntil: String
 	processing: Boolean
+	concurrencyKey: String
 	updatedAt: String
 	createdAt: String
 }

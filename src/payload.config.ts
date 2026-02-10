@@ -371,6 +371,7 @@ export default buildConfig({
 
 	jobs: {
 		addParentToTaskLog: true,
+		enableConcurrencyControl: true,
 		jobsCollectionOverrides: ({ defaultJobsCollection }) => {
 			defaultJobsCollection.admin ||= {}
 

@@ -67,7 +67,8 @@ const AutoTranslateButton: FunctionComponent = () => {
 						disabled={pendingLocale === locale}
 						onClick={() => {
 							void handleSubmit([locale])
-						}} type='button'
+						}}
+						type="button"
 					>
 						To {locale}
 					</Button>

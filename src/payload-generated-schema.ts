@@ -925,6 +925,7 @@ export const payload_jobs = pgTable(
       precision: 3,
     }),
     processing: boolean("processing").default(false),
+    concurrencyKey: varchar("concurrency_key"),
     updatedAt: timestamp("updated_at", {
       mode: "string",
       withTimezone: true,
@@ -948,6 +949,7 @@ export const payload_jobs = pgTable(
     index("payload_jobs_queue_idx").on(columns.queue),
     index("payload_jobs_wait_until_idx").on(columns.waitUntil),
     index("payload_jobs_processing_idx").on(columns.processing),
+    index("payload_jobs_concurrency_key_idx").on(columns.concurrencyKey),
     index("payload_jobs_updated_at_idx").on(columns.updatedAt),
     index("payload_jobs_created_at_idx").on(columns.createdAt),
   ],

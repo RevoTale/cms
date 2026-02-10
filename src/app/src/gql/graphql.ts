@@ -5590,6 +5590,7 @@ export type MutationverifyEmailUserArgs = {
 export type PayloadJob = {
   __typename?: 'PayloadJob';
   completedAt?: Maybe<Scalars['DateTime']['output']>;
+  concurrencyKey?: Maybe<Scalars['String']['output']>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   error?: Maybe<Scalars['JSON']['output']>;
   hasError?: Maybe<Scalars['Boolean']['output']>;
@@ -5674,6 +5675,17 @@ export type PayloadJob_completedAt_operator = {
   less_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
   like?: InputMaybe<Scalars['DateTime']['input']>;
   not_equals?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type PayloadJob_concurrencyKey_operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 export type PayloadJob_createdAt_operator = {
@@ -5931,6 +5943,7 @@ export type PayloadJob_where = {
   AND?: InputMaybe<Array<InputMaybe<PayloadJob_where_and>>>;
   OR?: InputMaybe<Array<InputMaybe<PayloadJob_where_or>>>;
   completedAt?: InputMaybe<PayloadJob_completedAt_operator>;
+  concurrencyKey?: InputMaybe<PayloadJob_concurrencyKey_operator>;
   createdAt?: InputMaybe<PayloadJob_createdAt_operator>;
   error?: InputMaybe<PayloadJob_error_operator>;
   hasError?: InputMaybe<PayloadJob_hasError_operator>;
@@ -5960,6 +5973,7 @@ export type PayloadJob_where_and = {
   AND?: InputMaybe<Array<InputMaybe<PayloadJob_where_and>>>;
   OR?: InputMaybe<Array<InputMaybe<PayloadJob_where_or>>>;
   completedAt?: InputMaybe<PayloadJob_completedAt_operator>;
+  concurrencyKey?: InputMaybe<PayloadJob_concurrencyKey_operator>;
   createdAt?: InputMaybe<PayloadJob_createdAt_operator>;
   error?: InputMaybe<PayloadJob_error_operator>;
   hasError?: InputMaybe<PayloadJob_hasError_operator>;
@@ -5989,6 +6003,7 @@ export type PayloadJob_where_or = {
   AND?: InputMaybe<Array<InputMaybe<PayloadJob_where_and>>>;
   OR?: InputMaybe<Array<InputMaybe<PayloadJob_where_or>>>;
   completedAt?: InputMaybe<PayloadJob_completedAt_operator>;
+  concurrencyKey?: InputMaybe<PayloadJob_concurrencyKey_operator>;
   createdAt?: InputMaybe<PayloadJob_createdAt_operator>;
   error?: InputMaybe<PayloadJob_error_operator>;
   hasError?: InputMaybe<PayloadJob_hasError_operator>;
@@ -6056,6 +6071,7 @@ export type PayloadJobsDeleteDocAccess = {
 export type PayloadJobsDocAccessFields = {
   __typename?: 'PayloadJobsDocAccessFields';
   completedAt?: Maybe<PayloadJobsDocAccessFields_completedAt>;
+  concurrencyKey?: Maybe<PayloadJobsDocAccessFields_concurrencyKey>;
   createdAt?: Maybe<PayloadJobsDocAccessFields_createdAt>;
   error?: Maybe<PayloadJobsDocAccessFields_error>;
   hasError?: Maybe<PayloadJobsDocAccessFields_hasError>;
@@ -6095,6 +6111,34 @@ export type PayloadJobsDocAccessFields_completedAt_Read = {
 
 export type PayloadJobsDocAccessFields_completedAt_Update = {
   __typename?: 'PayloadJobsDocAccessFields_completedAt_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PayloadJobsDocAccessFields_concurrencyKey = {
+  __typename?: 'PayloadJobsDocAccessFields_concurrencyKey';
+  create?: Maybe<PayloadJobsDocAccessFields_concurrencyKey_Create>;
+  delete?: Maybe<PayloadJobsDocAccessFields_concurrencyKey_Delete>;
+  read?: Maybe<PayloadJobsDocAccessFields_concurrencyKey_Read>;
+  update?: Maybe<PayloadJobsDocAccessFields_concurrencyKey_Update>;
+};
+
+export type PayloadJobsDocAccessFields_concurrencyKey_Create = {
+  __typename?: 'PayloadJobsDocAccessFields_concurrencyKey_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PayloadJobsDocAccessFields_concurrencyKey_Delete = {
+  __typename?: 'PayloadJobsDocAccessFields_concurrencyKey_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PayloadJobsDocAccessFields_concurrencyKey_Read = {
+  __typename?: 'PayloadJobsDocAccessFields_concurrencyKey_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PayloadJobsDocAccessFields_concurrencyKey_Update = {
+  __typename?: 'PayloadJobsDocAccessFields_concurrencyKey_Update';
   permission: Scalars['Boolean']['output'];
 };
 
@@ -6795,6 +6839,7 @@ export type PayloadJobsDocAccessFields_waitUntil_Update = {
 export type PayloadJobsFields = {
   __typename?: 'PayloadJobsFields';
   completedAt?: Maybe<PayloadJobsFields_completedAt>;
+  concurrencyKey?: Maybe<PayloadJobsFields_concurrencyKey>;
   createdAt?: Maybe<PayloadJobsFields_createdAt>;
   error?: Maybe<PayloadJobsFields_error>;
   hasError?: Maybe<PayloadJobsFields_hasError>;
@@ -6834,6 +6879,34 @@ export type PayloadJobsFields_completedAt_Read = {
 
 export type PayloadJobsFields_completedAt_Update = {
   __typename?: 'PayloadJobsFields_completedAt_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PayloadJobsFields_concurrencyKey = {
+  __typename?: 'PayloadJobsFields_concurrencyKey';
+  create?: Maybe<PayloadJobsFields_concurrencyKey_Create>;
+  delete?: Maybe<PayloadJobsFields_concurrencyKey_Delete>;
+  read?: Maybe<PayloadJobsFields_concurrencyKey_Read>;
+  update?: Maybe<PayloadJobsFields_concurrencyKey_Update>;
+};
+
+export type PayloadJobsFields_concurrencyKey_Create = {
+  __typename?: 'PayloadJobsFields_concurrencyKey_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PayloadJobsFields_concurrencyKey_Delete = {
+  __typename?: 'PayloadJobsFields_concurrencyKey_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PayloadJobsFields_concurrencyKey_Read = {
+  __typename?: 'PayloadJobsFields_concurrencyKey_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type PayloadJobsFields_concurrencyKey_Update = {
+  __typename?: 'PayloadJobsFields_concurrencyKey_Update';
   permission: Scalars['Boolean']['output'];
 };
 
@@ -13117,6 +13190,7 @@ export type mutationMicro_post_external_linkUpdateInput = {
 
 export type mutationPayloadJobInput = {
   completedAt?: InputMaybe<Scalars['String']['input']>;
+  concurrencyKey?: InputMaybe<Scalars['String']['input']>;
   createdAt?: InputMaybe<Scalars['String']['input']>;
   error?: InputMaybe<Scalars['JSON']['input']>;
   hasError?: InputMaybe<Scalars['Boolean']['input']>;
@@ -13133,6 +13207,7 @@ export type mutationPayloadJobInput = {
 
 export type mutationPayloadJobUpdateInput = {
   completedAt?: InputMaybe<Scalars['String']['input']>;
+  concurrencyKey?: InputMaybe<Scalars['String']['input']>;
   createdAt?: InputMaybe<Scalars['String']['input']>;
   error?: InputMaybe<Scalars['JSON']['input']>;
   hasError?: InputMaybe<Scalars['Boolean']['input']>;

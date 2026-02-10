@@ -12,7 +12,6 @@ import { s3Storage } from '@payloadcms/storage-s3'
 import OpenAI from 'openai'
 import type { PayloadRequest, TypedLocale } from 'payload'
 import { buildConfig } from 'payload'
-import sharp from 'sharp'; // editor-import
 import type { MicroPost, Post, Tag } from 'src/payload-types'
 import { locales } from './i18n-config'
 import { migrations } from './migrations'
@@ -408,7 +407,6 @@ export default buildConfig({
 		createSearchPlugin(),
 	],
 	secret: process.env.PAYLOAD_SECRET ?? 'some_fallback',
-	sharp,
 	typescript: {
 		outputFile: path.resolve(dirname, 'payload-types.ts'),
 	},

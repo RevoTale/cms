@@ -51,7 +51,7 @@ const config: CodegenConfig = {
 			},
 			schema: [
 				{
-					'./src/graphql/schema.graphql': {},
+					'./src/gql/schema.graphql': {},
 				},
 			],
 			plugins: [

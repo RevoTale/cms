@@ -211,7 +211,7 @@ export default buildConfig({
 		disableIntrospectionInProduction: true,
 		disablePlaygroundInProduction: true,
 		maxComplexity: payloadGraphQLMaxComplexity,
-		schemaOutputFile: path.resolve(dirname, './graphql/schema.graphql'),
+		schemaOutputFile: path.resolve(dirname, './gql/schema.graphql'),
 		queries: (GraphQL, graphQLContext) => {
 			const tagType = graphQLContext.collections.tags?.graphQL?.type
 

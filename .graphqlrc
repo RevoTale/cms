@@ -1,0 +1,6 @@
+projects:
+  cms:
+    schema:
+      - ./src/gql/schema.graphql
+    documents:
+      - ./src/**/*.{ts,tsx}

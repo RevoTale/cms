@@ -24,7 +24,10 @@
 		"indentStyle": "tab",
 		"lineWidth": 120
 	},
-	"assist": { "actions": { "source": { "organizeImports": "on" } } },
+	"assist": {
+		 "enabled": true
+
+	},
 	"linter": {
 		"enabled": true,
 		"domains": {

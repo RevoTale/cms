@@ -20,6 +20,7 @@ import maybeFallbackSEOImageHook from './maybeFallbackSEOImageHook'
 import maybeReplaceMarkdownLink from './maybeReplaceMarkdownLinks'
 
 const SHORT_POST_MAX = 255
+const AUTO_TRANSLATION_UPDATE_CONTEXT_FLAG = 'isAutoTranslationUpdate'
 type MicroPostData = DataFromCollectionSlug<'micro_posts'>
 
 const getPostTypeFromContent = (content: unknown): 'short' | 'long' => {
@@ -44,7 +45,70 @@ const getPostTypeFromData = (data: Partial<MicroPostData> | undefined): 'short' 
 
 const hasNonEmptyText = (value: unknown): value is string => typeof value === 'string' && value.trim().length > 0
 
-const validateLongPostTitle: Validate<string, Partial<MicroPostData>> = (value, { data }) => {
+const isAutoTranslatedEnabled = (value: unknown, locale: unknown): boolean => {
+	if (value === true) {
+		return true
+	}
+
+	if (!value || typeof value !== 'object') {
+		return false
+	}
+
+	if (typeof locale !== 'string') {
+		return false
+	}
+
+	return (value as Record<string, unknown>)[locale] === true
+}
+
+const shouldSkipMicroPostValidation = ({
+	data,
+	locale,
+}: {
+	data: Partial<MicroPostData> | undefined
+	locale: unknown
+}): boolean => {
+	const autoTranslatedValue =
+		data && typeof data === 'object' ? (data as Record<string, unknown>).autoTranslated : undefined
+
+	return isAutoTranslatedEnabled(autoTranslatedValue, locale)
+}
+
+const isAutoTranslationUpdate = (context: unknown): boolean => {
+	if (!context || typeof context !== 'object') {
+		return false
+	}
+
+	return (context as Record<string, unknown>)[AUTO_TRANSLATION_UPDATE_CONTEXT_FLAG] === true
+}
+
+const shouldResetAutoTranslatedOnManualEdit = ({
+	data,
+	operation,
+	context,
+	user,
+}: {
+	data: Partial<MicroPostData> | undefined
+	operation: 'create' | 'delete' | 'read' | 'update' | undefined
+	context: unknown
+	user: unknown
+}): boolean => {
+	if (!data || operation !== 'update') {
+		return false
+	}
+
+	if (!user) {
+		return false
+	}
+
+	return !isAutoTranslationUpdate(context)
+}
+
+const validateLongPostTitle: Validate<string, Partial<MicroPostData>> = (value, { data, req }) => {
+	if (shouldSkipMicroPostValidation({ data, locale: req.locale })) {
+		return true
+	}
+
 	if (getPostTypeFromData(data) === 'long' && !hasNonEmptyText(value)) {
 		return 'Title is required for long posts.'
 	}
@@ -54,8 +118,12 @@ const validateLongPostTitle: Validate<string, Partial<MicroPostData>> = (value, 
 
 const validateShortPostContent: Validate<string, Partial<MicroPostData>, Partial<MicroPostData>> = (
 	value,
-	{ siblingData },
+	{ siblingData, req },
 ) => {
+	if (shouldSkipMicroPostValidation({ data: siblingData, locale: req.locale })) {
+		return true
+	}
+
 	const postType = getPostTypeFromData(siblingData)
 	if (postType === 'short' && typeof value === 'string' && value.length >= SHORT_POST_MAX) {
 		return `Short posts must be less than ${SHORT_POST_MAX} characters.`
@@ -196,6 +264,36 @@ const derivePostTypeBeforeChangeHook: CollectionBeforeChangeHook<MicroPostData> 
 	}
 }
 
+const resetAutoTranslatedOnManualEditBeforeValidateHook: CollectionBeforeValidateHook<MicroPostData> = ({
+	data,
+	operation,
+	req,
+}) => {
+	if (!shouldResetAutoTranslatedOnManualEdit({ data, operation, context: req.context, user: req.user })) {
+		return data
+	}
+
+	return {
+		...data,
+		autoTranslated: false,
+	}
+}
+
+const resetAutoTranslatedOnManualEditBeforeChangeHook: CollectionBeforeChangeHook<MicroPostData> = ({
+	data,
+	operation,
+	req,
+}) => {
+	if (!shouldResetAutoTranslatedOnManualEdit({ data, operation, context: req.context, user: req.user })) {
+		return data
+	}
+
+	return {
+		...data,
+		autoTranslated: false,
+	}
+}
+
 export const MicroPosts: CollectionConfig<'micro_posts'> = {
 	labels: {
 		plural: 'Micro Posts',
@@ -242,6 +340,18 @@ export const MicroPosts: CollectionConfig<'micro_posts'> = {
 				readOnly: true,
 			},
 			options: locales.map(locale => ({ label: locale, value: locale })),
+		},
+		{
+			name: 'autoTranslated',
+			type: 'checkbox',
+			required: false,
+			localized: true,
+			defaultValue: false,
+			admin: {
+				position: 'sidebar',
+				readOnly: true,
+				description: 'If enabled, title/content length validation is skipped.',
+			},
 		},
 		{
 			name: 'attachment',
@@ -435,8 +545,13 @@ export const MicroPosts: CollectionConfig<'micro_posts'> = {
 		},
 	],
 	hooks: {
-		beforeValidate: [derivePostTypeBeforeValidateHook, applyDefaultAuthorsBeforeValidateHook],
+		beforeValidate: [
+			resetAutoTranslatedOnManualEditBeforeValidateHook,
+			derivePostTypeBeforeValidateHook,
+			applyDefaultAuthorsBeforeValidateHook,
+		],
 		beforeChange: [
+			resetAutoTranslatedOnManualEditBeforeChangeHook,
 			derivePostTypeBeforeChangeHook,
 			dedupeCronTranslationLocalesQueuedHook,
 			maybeAddAuthorSlugHook,

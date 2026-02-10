@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign -- Translation traversal mutates accumulator objects while walking nested field trees. */
 import OpenAI from 'openai'
-import type { BasePayload, CollectionSlug, Field, TypedLocale } from 'payload'
+import type { BasePayload, CollectionSlug, DataFromCollectionSlug, Field, TypedLocale } from 'payload'
 
 interface TranslationData {
 	[key: string]: string | TranslationData
@@ -15,6 +15,8 @@ interface FieldLengthConstraint {
 	path: string
 	maxLength: number
 }
+
+const AUTO_TRANSLATION_UPDATE_CONTEXT_FLAG = 'isAutoTranslationUpdate'
 
 interface TranslateDataProps {
 	data: TranslationData
@@ -405,7 +407,19 @@ const autoTranslate = async ({
 		locale: targetLocale,
 		id: docId,
 		collection,
-		data: translatedData,
+		data:
+			collection === 'micro_posts'
+				? ({
+						...(translatedData as Record<string, unknown>),
+						autoTranslated: true,
+					} as Partial<DataFromCollectionSlug<'micro_posts'>>)
+				: translatedData,
+		context:
+			collection === 'micro_posts'
+				? {
+						[AUTO_TRANSLATION_UPDATE_CONTEXT_FLAG]: true,
+					}
+				: undefined,
 	})
 }
 

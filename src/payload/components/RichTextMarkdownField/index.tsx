@@ -1,8 +1,8 @@
 'use client'
-import { useField } from '@payloadcms/ui'
+import { useField, useWatchForm } from '@payloadcms/ui'
 import dynamic from 'next/dynamic'
 import type { TextareaFieldClientComponent } from 'payload'
-import { Suspense, useEffect } from 'react'
+import { Suspense, useCallback, useEffect, useState } from 'react'
 
 const SHORT_POST_MAX = 255
 
@@ -17,12 +17,16 @@ const MDXNoSSG = dynamic(async () => await import('./MDXNoSSG'), { ssr: false })
 const RichTextMarkdownField: TextareaFieldClientComponent = ({ path }) => {
 	const postTypePath = getSiblingPath(path, 'post_type')
 	const titlePath = getSiblingPath(path, 'title')
-	const { value, setValue, initialValue } = useField<string>({ path })
-	const { value: postType, setValue: setPostType } = useField<'short' | 'long'>({
+	const { getDataByPath } = useWatchForm()
+	const { setValue, initialValue } = useField<string>({ path })
+	const { setValue: setPostType } = useField<'short' | 'long'>({
 		path: postTypePath,
 	})
-	const { value: title } = useField<string>({ path: titlePath })
-	const currentValue = typeof value === 'string' ? value : ''
+	const watchedValue = getDataByPath<string>(path)
+	const postType = getDataByPath<'short' | 'long'>(postTypePath)
+	const title = getDataByPath<string>(titlePath)
+	const [editorValue, setEditorValue] = useState<string>(typeof watchedValue === 'string' ? watchedValue : '')
+	const currentValue = editorValue
 	const titleValue = typeof title === 'string' ? title.trim() : ''
 	const currentLength = currentValue.length
 	const nextPostType = currentLength < SHORT_POST_MAX ? 'short' : 'long'
@@ -31,10 +35,23 @@ const RichTextMarkdownField: TextareaFieldClientComponent = ({ path }) => {
 	const isTitleMissing = isTitleRequired && titleValue.length === 0
 
 	useEffect(() => {
+		const nextValue = typeof watchedValue === 'string' ? watchedValue : ''
+		setEditorValue(prev => (prev === nextValue ? prev : nextValue))
+	}, [watchedValue])
+
+	useEffect(() => {
 		if (postType !== nextPostType) {
 			setPostType(nextPostType)
 		}
 	}, [nextPostType, postType, setPostType])
+
+	const handleValueChange = useCallback(
+		(nextValue: string) => {
+			setEditorValue(nextValue)
+			setValue(nextValue)
+		},
+		[setValue],
+	)
 
 	return (
 		<Suspense fallback={<div>Loading editor...</div>}>
@@ -62,7 +79,7 @@ const RichTextMarkdownField: TextareaFieldClientComponent = ({ path }) => {
 					<div style={{ color: 'var(--theme-error-500)', fontWeight: 600 }}>Title is required for long posts.</div>
 				)}
 			</div>
-			<MDXNoSSG initialValue={initialValue ?? value} value={currentValue} setValue={setValue} />
+			<MDXNoSSG initialValue={initialValue ?? currentValue} value={currentValue} setValue={handleValueChange} />
 		</Suspense>
 	)
 }

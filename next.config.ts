@@ -13,7 +13,7 @@ const withNextIntl = createNextIntlPlugin({
 	},
 })
 
-const remoteHosts = new Set<string>(['cms.s3.revotale.com'])
+const remoteHosts = new Set<string>([])
 for (const maybeURL of [appURL, payloadPublicServerURL]) {
 	if (!maybeURL) {
 		continue

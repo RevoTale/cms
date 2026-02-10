@@ -1,16 +1,22 @@
-const normalizeSrc = src => {
-	try {
-		new URL(src)
-	} catch {
-		// If the URL is invalid, return the original src
-		return `/relative${src}`
-	}
-
-	return `/url/${src}`
-}
+const stripLeadingSlashes = value => value.replace(/^\/+/u, '')
+const isS3Host = hostname => hostname.includes('.s3.') || hostname.startsWith('s3.')
 
 export default function cloudflareLoader({ src, width }) {
-	// Encode spaces in the source URL
 	const encodedSrc = src.replace(/ /g, '%20')
-	return `/cdn/image/${width}${normalizeSrc(encodedSrc)}`
+
+	try {
+		const url = new URL(encodedSrc)
+		if (isS3Host(url.hostname)) {
+			const objectPath = stripLeadingSlashes(url.pathname)
+			return `/cdn/image/s3/${width}/${objectPath}`
+		}
+
+		const relativePath = stripLeadingSlashes(url.pathname)
+		return `/cdn/image/relative/${width}/${relativePath}`
+	} catch {
+		// Relative source path, fall through to relative route below.
+	}
+
+	const relativePath = stripLeadingSlashes(encodedSrc)
+	return `/cdn/image/relative/${width}/${relativePath}`
 }

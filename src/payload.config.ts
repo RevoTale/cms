@@ -12,7 +12,7 @@ import { s3Storage } from '@payloadcms/storage-s3'
 import OpenAI from 'openai'
 import type { PayloadRequest, TypedLocale } from 'payload'
 import { buildConfig } from 'payload'
-import sharp from 'sharp' // editor-import
+import sharp from 'sharp'; // editor-import
 import type { MicroPost, Post, Tag } from 'src/payload-types'
 import { locales } from './i18n-config'
 import { migrations } from './migrations'
@@ -124,7 +124,7 @@ HARD RULES
 const publicWebsiteURL = process.env.APP_URL ?? process.env.PAYLOAD_PUBLIC_SERVER_URL ?? ''
 const generateURL: GenerateURL<Post> = ({ doc }) =>
 	doc.slug ? `${publicWebsiteURL}/blog/${doc.slug}` : publicWebsiteURL
-const sss: GenerateFileURL = ({ filename, prefix = '' }) => `https://cms.s3.revotale.com/${prefix}/${filename}`
+const sss: GenerateFileURL = ({ filename, prefix = '' }) => `${publicWebsiteURL}/cdn/image/s3/828/${prefix}/${filename}`
 
 const toURLOrigin = (value: string | undefined): string | undefined => {
 	if (!value) {
@@ -171,6 +171,8 @@ const payloadGraphQLMaxComplexity = toPositiveInt(
 )
 const bucket = process.env.S3_BUCKET ?? ''
 const enableS3 = true //Added alway true because due to the following issues https://github.com/payloadcms/payload/issues/12475
+console.log(process.env.S3_REGION)
+console.log(bucket, serverURL,)
 const s3PluginConfig = s3Storage({
 	collections: {
 		[Media.slug]: {

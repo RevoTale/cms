@@ -1,0 +1,122 @@
+name: "payload_cms_devcontainer"
+
+services:
+  devcontainer:
+    build:
+      context: ../../infrastructure/devcontainer
+      dockerfile: Dockerfile
+    command: sleep infinity
+    depends_on:
+      cms_postgres:
+        condition: service_healthy
+      setup-minio:
+        condition: service_completed_successfully
+      imgproxy:
+        condition: service_started
+    environment:
+      APP_URL: http://${LOCAL_DOMAIN}:${CMS_PUBLIC_PORT}
+      NEXT_PUBLIC_SERVER_URL: http://${LOCAL_DOMAIN}:${CMS_PUBLIC_PORT}
+      PAYLOAD_PUBLIC_SERVER_URL: http://${LOCAL_DOMAIN}:${CMS_PUBLIC_PORT}
+      GRAPHQL_URL: http://${LOCAL_DOMAIN}:${CMS_PUBLIC_PORT}/api/graphql
+      GRAPHQL_SERVER_URL: http://${LOCAL_DOMAIN}:${CMS_PUBLIC_PORT}/api/graphql
+      PAYLOAD_AUTH_COOKIE_DOMAIN: ${LOCAL_DOMAIN}
+      DATABASE_URI: postgresql://${CMS_DB_USER}:${CMS_DB_PASSWORD}@${CMS_DB_HOST}:${CMS_DB_PORT}/${CMS_DB_NAME}
+      PAYLOAD_SECRET: ${PAYLOAD_SECRET}
+      PAYLOAD_PUBLIC_DRAFT_SECRET: ${PAYLOAD_PUBLIC_DRAFT_SECRET}
+      NEXT_PRIVATE_DRAFT_SECRET: ${NEXT_PRIVATE_DRAFT_SECRET}
+      REVALIDATION_KEY: ${REVALIDATION_KEY}
+      NEXT_PRIVATE_REVALIDATION_KEY: ${NEXT_PRIVATE_REVALIDATION_KEY}
+      S3_ENDPOINT: ${S3_ENDPOINT}
+      S3_BUCKET: ${S3_BUCKET}
+      S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID}
+      S3_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY}
+      S3_REGION: ${S3_REGION}
+      NEXT_PUBLIC_IMGPROXY_BASE_URL: http://${LOCAL_DOMAIN}:${IMGPROXY_PUBLIC_PORT}
+      NEXT_PUBLIC_IMGPROXY_SOURCE_BASE_URL: http://devcontainer:3000
+      ENABLE_CRON: ${ENABLE_CRON}
+      NEXT_PUBLIC_IS_LIVE: ${NEXT_PUBLIC_IS_LIVE}
+    networks:
+      - cms_net
+    ports:
+      - "${CMS_PUBLIC_PORT}:3000"
+    volumes:
+      - ../../:/workspaces/backend
+    working_dir: /workspaces/backend/cms
+
+  cms_postgres:
+    image: postgres:18.1
+    command:
+      - postgres
+      - -c
+      - log_min_messages=WARNING
+    environment:
+      POSTGRES_USER: ${CMS_DB_USER}
+      POSTGRES_PASSWORD: ${CMS_DB_PASSWORD}
+      POSTGRES_DB: ${CMS_DB_NAME}
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U ${CMS_DB_USER} -d ${CMS_DB_NAME}
+      interval: 3s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - cms_net
+    ports:
+      - "${CMS_DB_PORT}:5432"
+    restart: unless-stopped
+    volumes:
+      - cms_postgres_data:/var/lib/postgresql/data
+
+  minio:
+    image: quay.io/minio/minio:RELEASE.2025-09-07T16-13-09Z
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${S3_ACCESS_KEY_ID}
+      MINIO_ROOT_PASSWORD: ${S3_SECRET_ACCESS_KEY}
+    networks:
+      - cms_net
+    ports:
+      - "${S3_API_PUBLIC_PORT}:9000"
+      - "${S3_CONSOLE_PUBLIC_PORT}:9001"
+    restart: unless-stopped
+    volumes:
+      - minio_data:/data
+
+  setup-minio:
+    image: quay.io/minio/mc:RELEASE.2025-08-13T08-35-41Z
+    depends_on:
+      minio:
+        condition: service_started
+    command:
+      - /bin/sh
+      - -c
+      - |
+        until mc alias set local ${S3_ENDPOINT} ${S3_ACCESS_KEY_ID} ${S3_SECRET_ACCESS_KEY}; do sleep 1; done
+        mc mb --ignore-existing local/${S3_BUCKET}
+        mc anonymous set download local/${S3_BUCKET}
+    networks:
+      - cms_net
+    restart: "no"
+
+  imgproxy:
+    build:
+      context: ../../infrastructure/imgproxy
+      dockerfile: Dockerfile
+    image: ghcr.io/revotale/infrastructure-imgproxy:local
+    environment:
+      IMGPROXY_ALLOWED_SOURCES: ${IMGPROXY_ALLOWED_SOURCES:-http://devcontainer:3000/,http://minio:9000/}
+    networks:
+      - cms_net
+    ports:
+      - "${IMGPROXY_PUBLIC_PORT}:8080"
+    restart: unless-stopped
+
+networks:
+  cms_net:
+    driver: bridge
+
+volumes:
+  cms_postgres_data:
+  minio_data:

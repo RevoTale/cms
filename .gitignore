@@ -3,6 +3,7 @@ dist / media
 node_modules
 .DS_Store
 .env
+!.devcontainer/.env
 .next
 .vercel
 tsconfig.tsbuildinfo

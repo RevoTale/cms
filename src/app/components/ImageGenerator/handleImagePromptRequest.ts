@@ -6,12 +6,12 @@ const handleImagePromptRequest = async ({ content }: { content: string }): Promi
 	const client = new OpenAI({ apiKey })
 
 	const response = await client.responses.create({
-		model: 'gpt-5',
+		model: 'gpt-5.2',
 		text: {
 			verbosity: 'medium',
 		},
 		reasoning: {
-			effort: 'high',
+			effort: 'medium',
 		},
 		instructions:
 			process.env.GENERATE_IMAGE_INSTRUCTIONS ||

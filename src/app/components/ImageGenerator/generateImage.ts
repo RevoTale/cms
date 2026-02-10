@@ -21,7 +21,7 @@ const handleImageCreate = async (content: string, payload: Payload, alt: string)
 		prompt,
 		n: 1,
 		size: '1792x1024',
-		model: 'dall-e-3',
+		model: 'gpt-image-1.5',
 	})
 	const imageUrl = result.data?.[0]?.url
 	if (!imageUrl) throw new Error('No image URL returned')

@@ -41,7 +41,7 @@ const generateTitle: GenerateDescription<Post | MicroPost> = async ({ doc }) => 
 		throw new Error('OpenAI client is not initialized')
 	}
 	const response = await client.responses.create({
-		model: 'gpt-5',
+		model: 'gpt-5.2',
 		instructions: `
  You are a short descriptive title generator.
 
@@ -82,7 +82,7 @@ const generateDescription: GenerateDescription<Post | MicroPost> = async ({ doc 
 		throw new Error('OpenAI client is not initialized')
 	}
 	const response = await client.responses.create({
-		model: 'gpt-5',
+		model: 'gpt-5.2',
 		instructions: `
 You are a meta‑description generator.
 

@@ -77,7 +77,7 @@ const translateFn = async (
 	})
 
 	const response = await client.responses.create({
-		model: 'gpt-5',
+		model: 'gpt-5.2',
 		text: {
 			verbosity: 'medium',
 		},

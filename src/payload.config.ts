@@ -194,6 +194,7 @@ const s3PluginConfig = s3Storage({
 			secretAccessKey: process.env.S3_SECRET_ACCESS_KEY ?? '',
 		},
 		region: process.env.S3_REGION,
+		forcePathStyle: true
 		// ... Other S3 configuration
 	},
 })

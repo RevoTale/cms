@@ -20,7 +20,7 @@ const handleImageCreate = async (content: string, payload: Payload, alt: string)
 	const result = await client.images.generate({
 		prompt,
 		n: 1,
-		size: '1792x1024',
+		size: '1536x1024',
 		model: 'gpt-image-1.5',
 	})
 	const imageUrl = result.data?.[0]?.url

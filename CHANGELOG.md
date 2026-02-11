@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.8.0](https://github.com/RevoTale/cms/compare/v0.7.0...v0.8.0) (2026-02-11)
+
+
+### Features
+
+* enable concurrency to the tasks t prevent race condition during translations. ([18913aa](https://github.com/RevoTale/cms/commit/18913aa9e4e3896b601bbd287f23933fdebbae80))
+* prevent value conter lagging ([2c8bc40](https://github.com/RevoTale/cms/commit/2c8bc4090e7802033f9d13c7b4db099fb284be05))
+
+
+### Bug Fixes
+
+* **admin:** fix failing image genrationL store gpt-image base64 output as media upload instead of urlю ([a30efba](https://github.com/RevoTale/cms/commit/a30efbaa012d4e35c3a817e837e6a7139344d714))
+* **admin:** improve micro-post admin reliability for cron, image generation, and rich-text fields ([f76b219](https://github.com/RevoTale/cms/commit/f76b219ddc52f88a2254884c623ef00f01e63a5f))
+
 ## [0.7.0](https://github.com/RevoTale/cms/compare/v0.6.0...v0.7.0) (2026-02-10)
 
 

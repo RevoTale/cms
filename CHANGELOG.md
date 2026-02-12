@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.1](https://github.com/RevoTale/cms/compare/v0.8.0...v0.8.1) (2026-02-12)
+
+
+### Bug Fixes
+
+* development node_end caused a lot of issues. Maybe the reson nginx failed out ([d1366b0](https://github.com/RevoTale/cms/commit/d1366b043e2f546dc3b46965e7d3a0e589d9c28c))
+
 ## [0.8.0](https://github.com/RevoTale/cms/compare/v0.7.0...v0.8.0) (2026-02-11)
 
 

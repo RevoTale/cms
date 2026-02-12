@@ -57,7 +57,6 @@ ENV S3_ACCESS_KEY_ID=''
 ENV S3_SECRET_ACCESS_KEY=''
 ENV S3_REGION=''
 ENV ENABLE_CRON=0
-ENV NODE_ENV=development
 
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static

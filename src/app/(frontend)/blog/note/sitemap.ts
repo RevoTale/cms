@@ -10,6 +10,8 @@ import { getClient } from '../../../src/gql/getClient'
 import getUrl from '../../../src/linking/getUrl'
 import getNextJsApolloCache from '../../../src/utils/getNextJsApolloCache'
 
+export const revalidate = sitemapCache
+
 const postsQuery = graphql(/* GraphQL */ `
 	query sitemap_blog_post_list_dffd($page: Int!) {
 		Micro_posts(limit: 1000, page: $page) {
@@ -49,7 +51,10 @@ const totalCountQuery = graphql(/* GraphQL */ `
 const generateSitemaps = async (): Promise<Array<{ id: number }>> => {
 	const result = await getClient().query({
 		query: totalCountQuery,
-		context: getNextJsApolloCache(sitemapCache),
+		context: getNextJsApolloCache({
+			revalidate: sitemapCache,
+			tags: ['sitemap', 'blog:posts'],
+		}),
 	})
 	const total = result.data?.Micro_posts?.totalPages ?? null
 	if (total !== null) {
@@ -68,7 +73,10 @@ const sitemap = async ({ id }: { id: Promise<string> }): Promise<MetadataRoute.S
 		variables: {
 			page: numId + 1,
 		},
-		context: getNextJsApolloCache(sitemapCache),
+		context: getNextJsApolloCache({
+			revalidate: sitemapCache,
+			tags: ['sitemap', 'blog:posts'],
+		}),
 	})
 
 	if (!data?.Micro_posts?.docs) {

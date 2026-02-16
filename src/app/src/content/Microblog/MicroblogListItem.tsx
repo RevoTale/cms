@@ -78,7 +78,7 @@ const MicroblogListItem: FunctionComponent<Props> = ({ post, className, imageSiz
 						<InlineSkeleton className="w-3/5 h-5" />
 					</CardTitle>
 				) : data.title === '' || data.title === null ? null : (
-					<NextLink href={getMicropostHref(data).asString()} locale={locale}>
+					<NextLink href={getMicropostHref(data).asString()} locale={locale} prefetch={false}>
 						<CardTitle className="text-lg line-clamp-2 font-semibold">{data.title}</CardTitle>
 					</NextLink>
 				)}
@@ -116,6 +116,7 @@ const MicroblogListItem: FunctionComponent<Props> = ({ post, className, imageSiz
 					className="block"
 					href={getMicropostHref(data).asString()}
 					title={data.title ?? undefined}
+					prefetch={false}
 				>
 					<ContentfulImage
 						className="max-h-64 object-contain rounded-xl max-w-[70%] mx-auto mb-2 mt-2"

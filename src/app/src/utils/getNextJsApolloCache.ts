@@ -1,11 +1,22 @@
 import type { DefaultContext } from '@apollo/client'
 
-const getNextJsApolloCache = (time: number): DefaultContext => {
+interface NextJsApolloCacheOptions {
+	revalidate: number
+	tags?: string[]
+	cache?: RequestCache
+}
+
+const getNextJsApolloCache = ({
+	revalidate,
+	tags = [],
+	cache = 'force-cache',
+}: NextJsApolloCacheOptions): DefaultContext => {
 	return {
 		fetchOptions: {
+			cache,
 			next: {
-				revalidate: time,
-				cache: 'force-cache', //, BE CAREFUL THIS COULD BE THE MEMORY LEAK SOURCE. UPDATE, IT DOESN'T SEEM TO BE
+				revalidate,
+				...(tags.length > 0 ? { tags } : {}),
 			},
 		},
 	}

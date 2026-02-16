@@ -35,7 +35,10 @@ const MicroblogListWithDataHorizontal: FunctionComponent<Props> = async ({
 							authorSlugIn: [authorSlug],
 							locale: getGqlLocale(locale),
 						},
-						context: getNextJsApolloCache(staleContentCache),
+						context: getNextJsApolloCache({
+							revalidate: staleContentCache,
+							tags: ['blog:authors', `blog:author:${authorSlug}`, `blog:authors:${locale}`],
+						}),
 					})
 				).data?.Authors?.docs[0] ?? null)
 	const items = (

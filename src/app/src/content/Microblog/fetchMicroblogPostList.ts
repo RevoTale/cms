@@ -24,7 +24,10 @@ const fetchMicroblogPostList = cache(
 	): Promise<ApolloClient.QueryResult<ResultOf<typeof getPosts>>> =>
 		await client.query({
 			query: getPosts,
-			context: getNextJsApolloCache(staleContentCache),
+			context: getNextJsApolloCache({
+				revalidate: staleContentCache,
+				tags: ['blog:posts', `blog:posts:${locale}`],
+			}),
 			variables: {
 				page,
 				authorIn:

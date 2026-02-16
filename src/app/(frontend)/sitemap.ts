@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next'
 import { defaultLocale } from '@/i18n/config'
 import generateSitemapLanguages from '@/i18n/generateSitemapLanguages'
+import { sitemapCache } from '../src/cache-config'
 import getUrl from '../src/linking/getUrl'
 import {
 	RandomRecordSelector,
@@ -32,3 +33,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
 		},
 	}))
 }
+
+export const revalidate = sitemapCache

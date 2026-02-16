@@ -4,8 +4,10 @@ import type { Locale } from 'next-intl'
 import { type AbsoltuteLinkBuilder, createLinkerUrl } from 'next-navigation-utils'
 import getGqlLocale from '@/i18n/getGqlLocale'
 import { routing } from '@/i18n/routing'
+import { staleContentCache } from '../../../../src/cache-config'
 import { getClient } from '../../../../src/gql/getClient'
 import getUrl from '../../../../src/linking/getUrl'
+import getNextJsApolloCache from '../../../../src/utils/getNextJsApolloCache'
 
 const allAuthorsQuery = graphql(/* GraphQL */ `
 	query Get_AllAuthors_Slugs($locale: LocaleInputType!, $limit: Int!) {
@@ -29,29 +31,31 @@ export default async function Profile({
 }
 
 export async function generateStaticParams(): Promise<Array<{ locale: Locale; username: string }>> {
-	const params: Array<{ locale: Locale; username: string }> = []
+	const slugsByLocale = await Promise.all(
+		routing.locales.map(async locale => {
+			try {
+				const result = await getClient().query({
+					query: allAuthorsQuery,
+					variables: {
+						locale: getGqlLocale(locale),
+						limit: 10000,
+					},
+					context: getNextJsApolloCache({
+						revalidate: staleContentCache,
+						tags: ['blog:authors', `blog:authors:${locale}`],
+					}),
+				})
 
-	for (const locale of routing.locales) {
-		try {
-			const result = await getClient().query({
-				query: allAuthorsQuery,
-				variables: {
-					locale: getGqlLocale(locale),
-					limit: 10000,
-				},
-			})
-
-			const docs = result.data?.Authors?.docs ?? []
-			for (const doc of docs) {
-				if (doc.slug) {
-					params.push({ locale, username: doc.slug })
-				}
+				return (result.data?.Authors?.docs ?? [])
+					.filter((doc): doc is { slug: string } => typeof doc?.slug === 'string')
+					.map(doc => ({ locale, username: doc.slug }))
+			} catch (error) {
+				// eslint-disable-next-line no-console -- no need
+				console.error(`Failed to fetch authors for locale ${locale}:`, error)
+				return []
 			}
-		} catch (error) {
-			// eslint-disable-next-line no-console -- no need
-			console.error(`Failed to fetch authors for locale ${locale}:`, error)
-		}
-	}
+		}),
+	)
 
-	return params
+	return slugsByLocale.flat()
 }

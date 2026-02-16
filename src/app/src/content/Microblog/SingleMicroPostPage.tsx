@@ -24,7 +24,10 @@ export const fetchPost = cache(async (slug: string, locale: string) => {
 			slug,
 			locale: getGqlLocale(locale),
 		},
-		context: getNextJsApolloCache(metadataCache),
+		context: getNextJsApolloCache({
+			revalidate: metadataCache,
+			tags: ['blog:posts', `blog:post:${slug}`, `blog:post:${slug}:${locale}`],
+		}),
 	})
 	return (result.data?.Micro_posts?.docs ?? [])[0] ?? null
 })

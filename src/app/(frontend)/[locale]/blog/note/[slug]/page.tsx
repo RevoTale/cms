@@ -9,7 +9,7 @@ import generateAlternatesMeta from '@/i18n/generateAlternatesMeta'
 import getGqlLocale from '@/i18n/getGqlLocale'
 import type PagePropsWithLocale from '@/i18n/PagePropsWithLocale'
 import { routing } from '@/i18n/routing'
-import { metadataCache } from '../../../../../src/cache-config'
+import { metadataCache, staleContentCache } from '../../../../../src/cache-config'
 import getAuthorHref from '../../../../../src/content/Blog/getAuthorHref'
 import getMicropostHref from '../../../../../src/content/Microblog/getMicroPostHref'
 import SingleMicroBlogPostPage from '../../../../../src/content/Microblog/SingleMicroPostPage'
@@ -61,7 +61,10 @@ const getPostsSeo = cache(async (slug: string, locale: Locale) => {
 			slug,
 			locale: getGqlLocale(locale),
 		},
-		context: getNextJsApolloCache(metadataCache),
+		context: getNextJsApolloCache({
+			revalidate: metadataCache,
+			tags: ['blog:posts', `blog:post:${slug}`, `blog:post:${slug}:${locale}`],
+		}),
 	})
 	const docs = result.data?.Micro_posts?.docs
 	if (!docs) {
@@ -124,31 +127,32 @@ const Page: FunctionComponent<Props> = async ({ params }) => {
 	)
 }
 export async function generateStaticParams(): Promise<Array<{ locale: Locale; slug: string }>> {
-	const params: Array<{ locale: Locale; slug: string }> = []
+	const slugsByLocale = await Promise.all(
+		routing.locales.map(async locale => {
+			try {
+				const result = await getClient().query({
+					query: allPostsQuery,
+					variables: {
+						locale: getGqlLocale(locale),
+						limit: 10000, // Fetch all posts (adjust if you have more)
+					},
+					context: getNextJsApolloCache({
+						revalidate: staleContentCache,
+						tags: ['blog:posts', `blog:posts:${locale}`],
+					}),
+				})
 
-	// Generate params for all locales and all posts
-	for (const locale of routing.locales) {
-		try {
-			const result = await getClient().query({
-				query: allPostsQuery,
-				variables: {
-					locale: getGqlLocale(locale),
-					limit: 10000, // Fetch all posts (adjust if you have more)
-				},
-			})
-
-			const docs = result.data?.Micro_posts?.docs ?? []
-			for (const doc of docs) {
-				if (doc.slug) {
-					params.push({ locale, slug: doc.slug })
-				}
+				return (result.data?.Micro_posts?.docs ?? [])
+					.filter((doc): doc is { slug: string } => typeof doc?.slug === 'string')
+					.map(doc => ({ locale, slug: doc.slug }))
+			} catch (error) {
+				// eslint-disable-next-line no-console -- needed
+				console.error(`Failed to fetch posts for locale ${locale}:`, error)
+				return []
 			}
-		} catch (error) {
-			// eslint-disable-next-line no-console -- needed
-			console.error(`Failed to fetch posts for locale ${locale}:`, error)
-		}
-	}
+		}),
+	)
 
-	return params
+	return slugsByLocale.flat()
 }
 export default Page

@@ -30,7 +30,10 @@ const fetchTagNameIn = async (
 			tagNames: tagNameIn,
 			locale: getGqlLocale(locale),
 		},
-		context: getNextJsApolloCache(staleContentCache),
+		context: getNextJsApolloCache({
+			revalidate: staleContentCache,
+			tags: ['blog:tags', `blog:tags:${locale}`],
+		}),
 	})
 	const items = result.data?.Tags?.docs
 	return items?.filter(Boolean) ?? undefined
@@ -49,7 +52,10 @@ const fetchAuthorIn = async (
 			authorSlugIn,
 			locale: getGqlLocale(locale),
 		},
-		context: getNextJsApolloCache(staleContentCache),
+		context: getNextJsApolloCache({
+			revalidate: staleContentCache,
+			tags: ['blog:authors', `blog:authors:${locale}`],
+		}),
 	})
 	const docs = result.data?.Authors?.docs
 	return docs ? docs.filter(Boolean) : undefined

@@ -68,7 +68,10 @@ const fetchAuthor = cache(async (slug: string, locale: Locale) => {
 			slug,
 			locale: getGqlLocale(locale),
 		},
-		context: getNextJsApolloCache(staleContentCache),
+		context: getNextJsApolloCache({
+			revalidate: staleContentCache,
+			tags: ['blog:authors', `blog:author:${slug}`, `blog:author:${slug}:${locale}`],
+		}),
 	})
 	const authors = result.data?.Authors?.docs ?? []
 	const item = firstIndex in authors ? authors[firstIndex] : null
@@ -161,32 +164,33 @@ const Page: FunctionComponent<Props> = async ({ params }) => {
 }
 
 export async function generateStaticParams(): Promise<Array<{ locale: Locale; slug: string }>> {
-	const params: Array<{ locale: Locale; slug: string }> = []
+	const slugsByLocale = await Promise.all(
+		routing.locales.map(async locale => {
+			try {
+				const result = await getClient().query({
+					query: allAuthorsQuery,
+					variables: {
+						locale: getGqlLocale(locale),
+						limit: 10000, // Fetch all authors
+					},
+					context: getNextJsApolloCache({
+						revalidate: staleContentCache,
+						tags: ['blog:authors', `blog:authors:${locale}`],
+					}),
+				})
 
-	// Generate params for all locales and all authors
-	for (const locale of routing.locales) {
-		try {
-			const result = await getClient().query({
-				query: allAuthorsQuery,
-				variables: {
-					locale: getGqlLocale(locale),
-					limit: 10000, // Fetch all authors
-				},
-			})
-
-			const docs = result.data?.Authors?.docs ?? []
-			for (const doc of docs) {
-				if (doc.slug) {
-					params.push({ locale, slug: doc.slug })
-				}
+				return (result.data?.Authors?.docs ?? [])
+					.filter((doc): doc is { slug: string } => typeof doc?.slug === 'string')
+					.map(doc => ({ locale, slug: doc.slug }))
+			} catch (error) {
+				// eslint-disable-next-line no-console -- no need
+				console.error(`Failed to fetch authors for locale ${locale}:`, error)
+				return []
 			}
-		} catch (error) {
-			// eslint-disable-next-line no-console -- no need
-			console.error(`Failed to fetch authors for locale ${locale}:`, error)
-		}
-	}
+		}),
+	)
 
-	return params
+	return slugsByLocale.flat()
 }
 
 export default Page

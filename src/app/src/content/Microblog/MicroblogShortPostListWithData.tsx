@@ -81,6 +81,7 @@ const MicroblogShortPostListWithData: FunctionComponent<Props> = ({
 												locale={locale}
 												href={getMicropostHref(data).asString()}
 												className="block text-base font-semibold leading-tight"
+												prefetch={false}
 											>
 												{data.title}
 											</NextLink>
@@ -89,7 +90,7 @@ const MicroblogShortPostListWithData: FunctionComponent<Props> = ({
 											<MicroBlogPostText locale={locale} post={data} small rootUrl={rootUrl} />
 										</div>
 										{data.attachment ? (
-											<NextLink locale={locale} href={getMicropostHref(data).asString()}>
+											<NextLink locale={locale} href={getMicropostHref(data).asString()} prefetch={false}>
 												<ContentfulImage
 													className="max-h-96 w-full rounded-xl object-contain"
 													image={data.attachment}

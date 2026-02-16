@@ -70,6 +70,7 @@ const SearchItem: FunctionComponent<Props> = ({ item, translationKeys, locale })
 			<LocaleLink
 				locale={locale}
 				className={cn(itemVariants({}))}
+				prefetch={false}
 				href={getMicropostHref(
 					makeFragmentData(
 						{
@@ -101,6 +102,7 @@ const SearchItem: FunctionComponent<Props> = ({ item, translationKeys, locale })
 			<LocaleLink
 				locale={locale}
 				className={cn(itemVariants({}))}
+				prefetch={false}
 				href={getAuthorHref(
 					makeFragmentData(
 						{
@@ -133,6 +135,7 @@ const SearchItem: FunctionComponent<Props> = ({ item, translationKeys, locale })
 						size: 'sm',
 					}),
 				)}
+				prefetch={false}
 				href={createLinker(makeRelativeLink('/blog/notes')).setValue(tagInURLOption, [value.tagName]).asString()}
 			>
 				<ItemContent>

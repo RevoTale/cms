@@ -16,6 +16,7 @@ const MicroBlogTag: FunctionComponent<{
 		<LocaleLink
 			locale={locale}
 			className={badgeVariants({ variant: 'secondary' })}
+			prefetch={false}
 			href={createLinker(makeRelativeLink('/blog/notes')).setValue(tagInURLOption, [data.name]).asString()}
 		>
 			{data.title}

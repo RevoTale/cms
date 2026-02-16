@@ -300,6 +300,7 @@ export function toReactTranslate(
 						})}
 						key={`lang-${match.index}`}
 						href={getMicropostHref(data).asString()}
+						prefetch={false}
 						id={id}
 					/>,
 				)
@@ -321,7 +322,12 @@ export function toReactTranslate(
 			} else {
 				// Placeholder text - wrap in Link
 				result.push(
-					<Link className={classsName} key={`placeholder-${match.index}`} href={getMicropostHref(data).asString()}>
+					<Link
+						className={classsName}
+						key={`placeholder-${match.index}`}
+						href={getMicropostHref(data).asString()}
+						prefetch={false}
+					>
 						{translationKeys[PLACEHOLDER_MAP[matchedText]]}
 					</Link>,
 				)

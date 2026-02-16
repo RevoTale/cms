@@ -6,6 +6,7 @@ import { locales } from './src/app/src/i18n/config'
 
 const appURL = process.env.APP_URL
 const payloadPublicServerURL = process.env.PAYLOAD_PUBLIC_SERVER_URL
+const verboseRuntimeLogs = process.env.NEXT_RUNTIME_VERBOSE_LOGS === '1'
 const withNextIntl = createNextIntlPlugin({
 	experimental: {
 		// Provide the path to the messages that you're using in `AppConfig`
@@ -32,12 +33,14 @@ const nextConfig: NextConfig = {
 	//cacheHandler: require.resolve('./cache-handler.mjs'), //waiting for https://github.com/fortedigital/nextjs-cache-handler/issues/110
 	//cacheMaxMemorySize: 0, // Disable in-memory caching for custom handler
 	// cacheComponents: true,WARNING! DO NOT USE "use cache" DIRECTIVE AND ANY OTHER BECUASE SEA BATTLE CAUSE DIALOG AND PAGES TO BE NOT UNMOUNTED WHICH COMPLETELY BREAKS THE UI
-	logging: {
-		fetches: {
-			fullUrl: true,
-		},
-		incomingRequests: true,
-	},
+	logging: verboseRuntimeLogs
+		? {
+				fetches: {
+					fullUrl: true,
+				},
+				incomingRequests: true,
+			}
+		: undefined,
 	/* THIS IS FUCKING BULLSHIT. SAVE IT TO REMEMBER. SPENT 7 HOURS DEBUGGING NGONX CACHE ISSUES.
   THIS FUCKING PART OF CODE DISABLED SHARED CACHE IN NGIXN PROXYING.
   FUCK YOU NEXTJS AND YOUR SUGGESTION!!!

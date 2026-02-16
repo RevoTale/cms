@@ -8,6 +8,8 @@ import { getClient } from '../../../src/gql/getClient'
 import getUrl from '../../../src/linking/getUrl'
 import getNextJsApolloCache from '../../../src/utils/getNextJsApolloCache'
 
+export const revalidate = sitemapCache
+
 const authorsQuery = graphql(/* GraphQL */ `
 	query sitemap_blog_authors_list($page: Int!) {
 		Authors(limit: 1000, page: $page) {
@@ -36,7 +38,10 @@ const totalCountQuery = graphql(/* GraphQL */ `
 const generateSitemaps = async (): Promise<Array<{ id: number }>> => {
 	const result = await getClient().query({
 		query: totalCountQuery,
-		context: getNextJsApolloCache(sitemapCache),
+		context: getNextJsApolloCache({
+			revalidate: sitemapCache,
+			tags: ['sitemap', 'blog:authors'],
+		}),
 	})
 	const total = result.data?.Authors?.totalPages ?? null
 	if (total !== null) {
@@ -55,7 +60,10 @@ const sitemap = async ({ id }: { id: Promise<number> }): Promise<MetadataRoute.S
 		variables: {
 			page: numId + 1,
 		},
-		context: getNextJsApolloCache(sitemapCache),
+		context: getNextJsApolloCache({
+			revalidate: sitemapCache,
+			tags: ['sitemap', 'blog:authors'],
+		}),
 	})
 
 	if (!data?.Authors?.docs) {

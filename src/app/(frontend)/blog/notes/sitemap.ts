@@ -8,6 +8,7 @@ import getUrl from '../../../src/linking/getUrl'
 import getNextJsApolloCache from '../../../src/utils/getNextJsApolloCache'
 
 const SITEMAP_PAGE_LIMIT = 50
+export const revalidate = sitemapCache
 
 const tagsQuery = graphql(/* GraphQL */ `
 	query sitemap_blog_tags_list($page: Int!, $limit: Int!) {
@@ -55,7 +56,10 @@ const generateSitemaps = async (): Promise<Array<{ id: number }>> => {
 		variables: {
 			limit: SITEMAP_PAGE_LIMIT,
 		},
-		context: getNextJsApolloCache(sitemapCache),
+		context: getNextJsApolloCache({
+			revalidate: sitemapCache,
+			tags: ['sitemap', 'blog:tags'],
+		}),
 	})
 	const total = result.data?.Tags?.totalPages ?? null
 	if (total !== null) {
@@ -77,7 +81,10 @@ const sitemap = async ({ id }: { id: Promise<string> }): Promise<MetadataRoute.S
 			page: numId + 1,
 			limit: SITEMAP_PAGE_LIMIT,
 		},
-		context: getNextJsApolloCache(sitemapCache),
+		context: getNextJsApolloCache({
+			revalidate: sitemapCache,
+			tags: ['sitemap', 'blog:tags'],
+		}),
 	})
 
 	if (!data?.Tags?.docs) {

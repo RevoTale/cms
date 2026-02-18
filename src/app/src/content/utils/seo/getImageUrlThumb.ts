@@ -2,7 +2,7 @@ import cloudflareLoader from '../../../../../../imageLoader'
 export const thumbWidth = 1080
 const getImageUrlThumb = (
 	url: string,
-	rootUrl: string,
+	_rootUrl: string,
 	{
 		width,
 		height,
@@ -19,9 +19,9 @@ const getImageUrlThumb = (
 	const targetHeight = Math.round((targetWidth * height) / width)
 	return {
 		url: cloudflareLoader({
-				src: url,
-				width: targetWidth,
-			}),
+			src: url,
+			width: targetWidth,
+		}),
 		width: targetWidth,
 		height: targetHeight,
 	}

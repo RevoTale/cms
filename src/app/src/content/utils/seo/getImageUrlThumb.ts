@@ -1,5 +1,4 @@
 import cloudflareLoader from '../../../../../../imageLoader'
-import formatUrl from '../../../linking/formatUrl'
 export const thumbWidth = 1080
 const getImageUrlThumb = (
 	url: string,
@@ -19,14 +18,10 @@ const getImageUrlThumb = (
 	const targetWidth = thumbWidth
 	const targetHeight = Math.round((targetWidth * height) / width)
 	return {
-		url: formatUrl(
-			rootUrl,
-			cloudflareLoader({
+		url: cloudflareLoader({
 				src: url,
 				width: targetWidth,
 			}),
-			null,
-		).toString(),
 		width: targetWidth,
 		height: targetHeight,
 	}

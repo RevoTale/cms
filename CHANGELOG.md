@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.8.2](https://github.com/RevoTale/cms/compare/v0.8.1...v0.8.2) (2026-02-19)
+
+
+### Bug Fixes
+
+* bad config ([f891023](https://github.com/RevoTale/cms/commit/f891023ffb9bc743a1575abd2196630cf8756da2))
+* qq ([cf3d3ff](https://github.com/RevoTale/cms/commit/cf3d3ffc6a758b1931b658e657c5120f68ec63bc))
+
 ## [0.8.1](https://github.com/RevoTale/cms/compare/v0.8.0...v0.8.1) (2026-02-12)
 
 

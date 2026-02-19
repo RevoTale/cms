@@ -8,7 +8,7 @@ import getUrl from '../../../src/linking/getUrl'
 import getNextJsApolloCache from '../../../src/utils/getNextJsApolloCache'
 
 const SITEMAP_PAGE_LIMIT = 50
-export const revalidate = sitemapCache
+export const revalidate = 21600
 
 const tagsQuery = graphql(/* GraphQL */ `
 	query sitemap_blog_tags_list($page: Int!, $limit: Int!) {

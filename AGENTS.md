@@ -19,6 +19,7 @@
 ## PR instructions
 - Scope edits to the request and avoid unrelated refactors.
 - Preserve API/schema compatibility for `src/app/(frontend)` and `src/app/(payload)` unless explicitly requested.
+- Keep Next.js `revalidate` exports as direct numeric literals (for example, `export const revalidate = 21600`) instead of imported constants.
 - For image publishing changes, keep `.github/workflows/manual-compile-image.yml` behavior intact: manual dispatch, `build_mode` input, auto tags `latest` + latest git tag.
 - Manual image workflow builds/pushes only; VPS deployment is manual.
 - Summaries must include exact file paths changed and any assumptions/questions.

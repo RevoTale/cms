@@ -8,7 +8,7 @@ import { getClient } from '../../../src/gql/getClient'
 import getUrl from '../../../src/linking/getUrl'
 import getNextJsApolloCache from '../../../src/utils/getNextJsApolloCache'
 
-export const revalidate = sitemapCache
+export const revalidate = 21600
 
 const authorsQuery = graphql(/* GraphQL */ `
 	query sitemap_blog_authors_list($page: Int!) {

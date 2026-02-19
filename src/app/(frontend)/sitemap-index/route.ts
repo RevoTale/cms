@@ -1,10 +1,9 @@
-import { sitemapCache } from '../../src/cache-config'
 import getUrl from '../../src/linking/getUrl'
 import { generateSitemaps as authors } from '../blog/author/sitemap'
 import { generateSitemaps as notes } from '../blog/note/sitemap'
 import { generateSitemaps as noteTags } from '../blog/notes/sitemap'
 
-export const revalidate = sitemapCache
+export const revalidate = 21600
 
 const GET = async (): Promise<Response> => {
 	const notesPromise: string[] = await notes().then(notes =>

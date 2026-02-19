@@ -3,13 +3,12 @@ import { Feed } from 'feed'
 import type { NextRequest } from 'next/server'
 import type { Locale } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
-import { staleContentCache } from '../../../../src/cache-config'
 import { rssFrag } from '../../../../src/content/Microblog/blogPostListGql'
 import { defaultLocale, locales } from '../../../../src/i18n/config'
 import getUrl from '../../../../src/linking/getUrl'
 import { fetchData } from '../../../[locale]/blog/notes/fetchData'
 
-export const revalidate = staleContentCache
+export const revalidate = 3600
 
 function isValidLocale(locale: string): locale is Locale {
 	return (locales as readonly string[]).includes(locale)

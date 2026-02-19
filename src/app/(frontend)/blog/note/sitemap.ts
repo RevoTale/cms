@@ -10,7 +10,7 @@ import { getClient } from '../../../src/gql/getClient'
 import getUrl from '../../../src/linking/getUrl'
 import getNextJsApolloCache from '../../../src/utils/getNextJsApolloCache'
 
-export const revalidate = sitemapCache
+export const revalidate = 21600
 
 const postsQuery = graphql(/* GraphQL */ `
 	query sitemap_blog_post_list_dffd($page: Int!) {

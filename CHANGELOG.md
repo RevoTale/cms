@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.9.0](https://github.com/RevoTale/cms/compare/v0.8.2...v0.9.0) (2026-03-05)
+
+
+### Features
+
+* vibe code the redirects from old blog to the new blog ([8f4a3a9](https://github.com/RevoTale/cms/commit/8f4a3a97dc444766f7260265027857ede007b84f))
+
+
+### Bug Fixes
+
+* codehen ([a7c3479](https://github.com/RevoTale/cms/commit/a7c3479377556fcce0808721db72f0b514688bc4))
+
 ## [0.8.2](https://github.com/RevoTale/cms/compare/v0.8.1...v0.8.2) (2026-02-19)
 
 

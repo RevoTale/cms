@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next'
-import getUrl from '../src/linking/getUrl'
+import getUrl from './src/linking/getUrl'
 
 export default function robots(): MetadataRoute.Robots {
 	return {

@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.1](https://github.com/RevoTale/cms/compare/v0.9.0...v0.9.1) (2026-03-10)
+
+
+### Bug Fixes
+
+* missing rovots.txt ([77dc898](https://github.com/RevoTale/cms/commit/77dc898e24934017c7e0c64331b003009dc89b8b))
+
 ## [0.9.0](https://github.com/RevoTale/cms/compare/v0.8.2...v0.9.0) (2026-03-05)
 
 

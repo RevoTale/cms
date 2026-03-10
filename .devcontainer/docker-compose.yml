@@ -44,7 +44,7 @@ services:
     working_dir: /workspaces/backend/cms
 
   cms_postgres:
-    image: postgres:18.1
+    image: postgres:18.3
     command:
       - postgres
       - -c

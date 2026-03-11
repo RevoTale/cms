@@ -43,7 +43,7 @@ jobs:
       - name: Prepare Dockerfile for release build action
         run: cp docker/Dockerfile Dockerfile
       - name: Build and push Docker image
-        uses: revotale/docker-multi-arch-release-action@v1.2.0
+        uses: revotale/docker-multi-arch-release-action@v1.3.0
         with:
           context: .
           registry: ghcr.io

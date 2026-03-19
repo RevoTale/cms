@@ -486,6 +486,44 @@ declare const messages: {
 		"unknownAuthor": "不明",
 		"untitledNote": "無題のノート",
 		"internalServerError": "内部サーバーエラー"
+	},
+	"LandingPage": {
+		"nav": {
+			"dock": "ドック",
+			"departments": "部門",
+			"games": "ゲーム",
+			"utilities": "ユーティリティ",
+			"systems": "システム",
+			"journal": "ジャーナル",
+			"contact": "コンタクト"
+		},
+		"hero": {
+			"title": "クリーンなラボ。動くソフトウェア。",
+			"description": "RevoTale は、ブラウザゲーム、実用的なユーティリティ、オープンソースの仕事、セルフホスト環境、そして文章を、ひとつの独立したソフトウェア拠点にまとめます。",
+			"note": "このランディングページは、サイト全体を静かな実験室として再構成します。長い一覧の代わりに、明るいパネル、計測ライン、明確な部門で見せます。"
+		},
+		"status": {
+			"eyebrow": "観測中の資産",
+			"title": "企業然としないソフトウェア拠点。",
+			"signalLabel": "現在のシグナル"
+		},
+		"departments": {
+			"eyebrow": "サービス構成",
+			"title": "RevoTale は部門を持つラボとして読めるようになりました。",
+			"description": "各レーンに専用ステーションを与えることで、訪問者は作業の全体像を素早く把握し、必要な場所へすぐ移動できます。",
+			"openLane": "レーンを開く"
+		},
+		"sectionEyebrows": {
+			"games": "インタラクティブレーン",
+			"utilities": "実用レーン",
+			"systems": "オープンシステム",
+			"journal": "フィールドノート"
+		},
+		"contact": {
+			"eyebrow": "次のルート",
+			"title": "全体マップを開くか、そのまま作業に入ってください。",
+			"description": "サイト全体を俯瞰するならナビゲーションマップを使い、ここからユーティリティやノートへ直接進むこともできます。"
+		}
 	}
 };
 export default messages;

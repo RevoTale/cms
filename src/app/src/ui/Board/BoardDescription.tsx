@@ -4,6 +4,6 @@ interface Props {
 	children: ReactNode
 }
 const BoardDescription: FunctionComponent<Props> = ({ children }) => (
-	<p className="text-muted-foreground mb-5 leading-6 max-w-3xl text-center">{children}</p>
+	<p className="max-w-3xl text-sm leading-7 text-slate-600 dark:text-slate-300">{children}</p>
 )
 export default BoardDescription

@@ -483,5 +483,43 @@
 		"unknownAuthor": "Desconocido",
 		"untitledNote": "Nota sin título",
 		"internalServerError": "Error interno del servidor"
+	},
+	"LandingPage": {
+		"nav": {
+			"dock": "Dock",
+			"departments": "Departamentos",
+			"games": "Juegos",
+			"utilities": "Utilidades",
+			"systems": "Sistemas",
+			"journal": "Diario",
+			"contact": "Contacto"
+		},
+		"hero": {
+			"title": "Laboratorio limpio. Software en vivo.",
+			"description": "RevoTale reúne juegos de navegador, utilidades prácticas, trabajo open source, sistemas autoalojados y escritura en una sola estación de software independiente.",
+			"note": "Esta página de inicio replantea el sitio como un laboratorio sereno: paneles claros, líneas de instrumentación y departamentos definidos en lugar de una sola lista larga."
+		},
+		"status": {
+			"eyebrow": "Activos observados",
+			"title": "Estación de software independiente.",
+			"signalLabel": "Señal actual"
+		},
+		"departments": {
+			"eyebrow": "Diseño de servicios",
+			"title": "Ahora RevoTale se lee como un laboratorio con departamentos.",
+			"description": "Cada carril tiene su propia estación para que los visitantes recorran el trabajo rápido y vayan directo a la parte que necesitan.",
+			"openLane": "Abrir carril"
+		},
+		"sectionEyebrows": {
+			"games": "Carril interactivo",
+			"utilities": "Carril práctico",
+			"systems": "Sistemas abiertos",
+			"journal": "Notas de campo"
+		},
+		"contact": {
+			"eyebrow": "Siguiente ruta",
+			"title": "Abre el mapa completo o entra directo al trabajo.",
+			"description": "Usa el mapa de navegación para ver todo el sitio, o salta desde aquí directamente a utilidades y notas."
+		}
 	}
 }

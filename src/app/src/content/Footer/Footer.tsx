@@ -1,11 +1,12 @@
-import { buttonVariants } from '@shadcn/ui/button'
 import { HeartIcon } from 'lucide-react'
 import type { Locale } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import type { FunctionComponent } from 'react'
-import LocaleLink from '@/i18n/LocaleLink'
 import websiteName from '../../config/websiteName'
 import { BlogCrumb, SeaBattleCrumb, ToolsCrumb } from '../../linking/map/tools'
+import LabActionLink from '../../ui/lab/LabActionLink'
+import LabSurface from '../../ui/lab/LabSurface'
+import { labEyebrowClassName, labMonoStyle, labMutedTextClassName } from '../../ui/lab/theme'
 import FooterList from './FooterList'
 import FooterListItem from './FooterListItem'
 import LanguageItem from './LanguageItem'
@@ -14,83 +15,105 @@ import ReachUsOut from './ReachUsOut'
 interface Props {
 	locale: Locale
 }
+
 const Footer: FunctionComponent<Props> = async ({ locale }) => {
-	const t = await getTranslations({
-		locale,
-		namespace: 'Footer',
-	})
+	const [t, tMeta] = await Promise.all([
+		getTranslations({
+			locale,
+			namespace: 'Footer',
+		}),
+		getTranslations({
+			locale,
+			namespace: 'Metadata.Root',
+		}),
+	])
 	const currentYear = new Date().getFullYear().toString()
+
 	return (
-		<footer className="flex flex-col min-h-36 justify-center items-center mt-12">
-			<section className="flex flex-wrap flex-row justify-center w-full px-10 gap-y-5 gap-x-10 md:gap-x-18 lg:gap-x-30 items-start">
-				<FooterList id="languages" title={t('LangTitle')}>
-					<LanguageItem locale="en" name="🇬🇧 English" />
-					<LanguageItem locale="de" name="🇩🇪 Deutsch" />
-					<LanguageItem locale="es" name="🇪🇸 Español" />
-					<LanguageItem locale="hi" name="🇮🇳 हिंदी" />
-					<LanguageItem locale="uk" name="🇺🇦 Українська" />
-					<LanguageItem locale="ru" name="🇷🇺 Русский" />
-					<LanguageItem locale="ja" name="🇯🇵 日本語" />
-					<LanguageItem locale="fr" name="🇫🇷 Français" />
-				</FooterList>
-				<ReachUsOut locale={locale} />
-				<FooterList id="footer_navigation" title={t('Nav')}>
-					<FooterListItem locale={locale} href={ToolsCrumb.href}>
-						{t('Utils')}
-					</FooterListItem>
-					<FooterListItem locale={locale} href={BlogCrumb.href}>
-						{t('Blog')}
-					</FooterListItem>
+		<footer className="mt-8 px-3 pb-6">
+			<div className="mx-auto max-w-[94rem]">
+				<LabSurface accent="orange" as="section" tone="panel">
+					<div className="grid gap-8 p-6 sm:p-8">
+						<div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
+							<div className="max-w-2xl">
+								<p style={labMonoStyle} className={labEyebrowClassName}>
+									{tMeta('classification')}
+								</p>
+								<h2 className="mt-3 text-4xl font-semibold leading-none tracking-[-0.04em] sm:text-5xl">
+									{websiteName}
+								</h2>
+								<p className="mt-4 max-w-xl text-sm leading-7 text-slate-600 dark:text-slate-300">{tMeta('desc')}</p>
+							</div>
+							<div className="flex flex-wrap gap-3">
+								<LabActionLink locale={locale} href="/navigation-map" size="lg" variant="solid">
+									{t('OpenNavMapButton')}
+								</LabActionLink>
+								<LabActionLink locale={locale} href="/blog/notes" size="lg" variant="outline">
+									{t('notes')}
+								</LabActionLink>
+							</div>
+						</div>
 
-					<FooterListItem locale={locale} href="/blog/notes">
-						{t('notes')}
-					</FooterListItem>
+						<div className="grid gap-8 md:grid-cols-2 xl:grid-cols-[1fr_1.15fr_1fr]">
+							<FooterList title={t('LangTitle')}>
+								<LanguageItem locale="en" name="🇬🇧 English" />
+								<LanguageItem locale="de" name="🇩🇪 Deutsch" />
+								<LanguageItem locale="es" name="🇪🇸 Español" />
+								<LanguageItem locale="hi" name="🇮🇳 हिंदी" />
+								<LanguageItem locale="uk" name="🇺🇦 Українська" />
+								<LanguageItem locale="ru" name="🇷🇺 Русский" />
+								<LanguageItem locale="ja" name="🇯🇵 日本語" />
+								<LanguageItem locale="fr" name="🇫🇷 Français" />
+							</FooterList>
 
-					<FooterListItem locale={locale} href={SeaBattleCrumb.href}>
-						{t('sea_battle')}
-					</FooterListItem>
-					<FooterListItem locale={locale} href="/love-rain">
-						{t('sweetheart')} <HeartIcon />
-					</FooterListItem>
-				</FooterList>
-			</section>
-			<div className="mt-10">
-				<LocaleLink
-					locale={locale}
-					className={buttonVariants({
-						variant: 'secondary',
-						size: 'lg',
-					})}
-					href="/navigation-map"
-				>
-					{t('OpenNavMapButton')}
-				</LocaleLink>
-			</div>
-			<div className="mt-3">
-				<small className="text-base p-2 inline-block text-center" id="website_copyright">
-					{t('Rights', {
-						year: currentYear,
-						company: websiteName,
-					})}
-				</small>
-			</div>
-			<div className="mb-6">
-				<small className="text-sm p-2 inline-block text-center text-muted-foreground">
-					{t.rich('PoweredBy', {
-						a: chunks => (
-							<a
-								href="https://github.com/RevoTale/lovely-eye"
-								rel="noopener noreferrer"
-								target="_blank"
-								className="underline hover:text-foreground transition-colors"
-							>
-								{chunks}
-							</a>
-						),
-					})}
-				</small>
+							<ReachUsOut locale={locale} />
+
+							<FooterList title={t('Nav')}>
+								<FooterListItem locale={locale} href={ToolsCrumb.href}>
+									{t('Utils')}
+								</FooterListItem>
+								<FooterListItem locale={locale} href={BlogCrumb.href}>
+									{t('Blog')}
+								</FooterListItem>
+								<FooterListItem locale={locale} href="/blog/notes">
+									{t('notes')}
+								</FooterListItem>
+								<FooterListItem locale={locale} href={SeaBattleCrumb.href}>
+									{t('sea_battle')}
+								</FooterListItem>
+								<FooterListItem locale={locale} href="/love-rain">
+									{t('sweetheart')} <HeartIcon className="size-4" />
+								</FooterListItem>
+							</FooterList>
+						</div>
+
+						<div className="border-t border-slate-200/70 pt-4 text-sm dark:border-white/10">
+							<small className="block text-base text-slate-700 dark:text-slate-200" id="website_copyright">
+								{t('Rights', {
+									year: currentYear,
+									company: websiteName,
+								})}
+							</small>
+							<small className={labMutedTextClassName}>
+								{t.rich('PoweredBy', {
+									a: chunks => (
+										<a
+											href="https://github.com/RevoTale/lovely-eye"
+											rel="noopener noreferrer"
+											target="_blank"
+											className="underline decoration-cyan-400/70 underline-offset-4 hover:text-slate-950 dark:hover:text-white"
+										>
+											{chunks}
+										</a>
+									),
+								})}
+							</small>
+						</div>
+					</div>
+				</LabSurface>
 			</div>
 		</footer>
 	)
 }
+
 export default Footer

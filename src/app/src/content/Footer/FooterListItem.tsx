@@ -1,29 +1,25 @@
-import { cn } from '@shadcn/lib/utils'
-import { buttonVariants } from '@shadcn/ui/button'
 import type { Locale } from 'next-intl'
 import type { FunctionComponent, ReactNode } from 'react'
-import LocaleLink from '@/i18n/LocaleLink'
+import LabActionLink from '../../ui/lab/LabActionLink'
 
 interface Props {
-	href: string
 	children: ReactNode
+	href: string
 	locale: Locale
 }
+
 const FooterListItem: FunctionComponent<Props> = ({ href, children, locale }) => (
 	<li>
-		<LocaleLink
+		<LabActionLink
 			href={href}
 			locale={locale}
-			className={cn(
-				buttonVariants({
-					variant: 'link',
-					size: 'default',
-					className: 'text-muted-foreground px-0 has-[>svg]:px-0',
-				}), //is workarouind for bug. https://github.com/radix-ui/primitives/issues/3165
-			)}
+			size="sm"
+			variant="text"
+			className="min-h-0 justify-start px-0 py-0 text-left has-[>svg]:gap-1.5"
 		>
 			{children}
-		</LocaleLink>
+		</LabActionLink>
 	</li>
 )
+
 export default FooterListItem

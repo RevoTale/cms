@@ -74,9 +74,9 @@
 	"Metadata": {
 		"Root": {
 			"title": "RevoTale",
-			"desc": "We are a software company that specializes in building web applications. Elegant solutions for demanding tasks.",
-			"openGraphDesc": "RevoTale is a software company that specializes in building web applications. Our desire is to create eloquent solutions using the most appropriate and powerful technologies.",
-			"classification": "Software Company"
+			"desc": "We are a software organization that specializes in building web applications. Elegant solutions for demanding tasks.",
+			"openGraphDesc": "RevoTale is a software organization that specializes in building web applications. Our desire is to create eloquent solutions using the most appropriate and powerful technologies.",
+			"classification": "Software Organization"
 		},
 		"Utils": {
 			"title": "Utilities",
@@ -485,5 +485,43 @@
 		"restart_wheel": "Restart the wheel",
 		"close": "Close",
 		"winner_announcement": "We have a winner! 🎉"
+	},
+	"LandingPage": {
+		"nav": {
+			"dock": "Dock",
+			"departments": "Departments",
+			"games": "Games",
+			"utilities": "Utilities",
+			"systems": "Systems",
+			"journal": "Journal",
+			"contact": "Contact"
+		},
+		"hero": {
+			"title": "Clean lab. Live software.",
+			"description": "RevoTale brings browser games, practical utilities, open-source work, self-hosted systems, and writing into one independent software station.",
+			"note": "This landing page reframes the site as a calm laboratory: bright chamber panels, instrument lines, and clear departments instead of one long list."
+		},
+		"status": {
+			"eyebrow": "Observed assets",
+			"title": "Non-corporate software station.",
+			"signalLabel": "Current signal"
+		},
+		"departments": {
+			"eyebrow": "Service layout",
+			"title": "RevoTale now reads like a lab with departments.",
+			"description": "Each lane gets its own station so visitors can scan the work quickly and move straight to the part they need.",
+			"openLane": "Open lane"
+		},
+		"sectionEyebrows": {
+			"games": "Interactive lane",
+			"utilities": "Practical lane",
+			"systems": "Open systems",
+			"journal": "Field notes"
+		},
+		"contact": {
+			"eyebrow": "Next route",
+			"title": "Explore the full map or jump straight into the work.",
+			"description": "Use the navigation map for a site-wide overview, or head directly to utilities and notes from here."
+		}
 	}
 }

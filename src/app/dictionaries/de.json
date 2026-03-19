@@ -483,5 +483,43 @@
 		"unknownAuthor": "Unbekannt",
 		"untitledNote": "Unbenannte Notiz",
 		"internalServerError": "Interner Serverfehler"
+	},
+	"LandingPage": {
+		"nav": {
+			"dock": "Dock",
+			"departments": "Bereiche",
+			"games": "Spiele",
+			"utilities": "Werkzeuge",
+			"systems": "Systeme",
+			"journal": "Journal",
+			"contact": "Kontakt"
+		},
+		"hero": {
+			"title": "Sauberes Labor. Lebendige Software.",
+			"description": "RevoTale bringt Browser-Spiele, praktische Werkzeuge, Open-Source-Arbeit, selbst gehostete Systeme und Texte in einer unabhängigen Software-Station zusammen.",
+			"note": "Diese Startseite rahmt die Website als ruhiges Labor neu: helle Kammerflächen, Instrumentenlinien und klare Bereiche statt einer einzigen langen Liste."
+		},
+		"status": {
+			"eyebrow": "Beobachtete Bestände",
+			"title": "Unabhängige Software-Station.",
+			"signalLabel": "Aktuelles Signal"
+		},
+		"departments": {
+			"eyebrow": "Service-Struktur",
+			"title": "RevoTale liest sich jetzt wie ein Labor mit Abteilungen.",
+			"description": "Jede Spur erhält ihre eigene Station, damit Besucher die Arbeit schnell erfassen und direkt zum passenden Teil springen können.",
+			"openLane": "Bereich öffnen"
+		},
+		"sectionEyebrows": {
+			"games": "Interaktive Spur",
+			"utilities": "Praktische Spur",
+			"systems": "Offene Systeme",
+			"journal": "Feldnotizen"
+		},
+		"contact": {
+			"eyebrow": "Nächste Route",
+			"title": "Öffne die vollständige Karte oder springe direkt in die Arbeit.",
+			"description": "Nutze die Navigationskarte für einen Überblick über die ganze Website oder gehe von hier direkt zu Werkzeugen und Notizen."
+		}
 	}
 }

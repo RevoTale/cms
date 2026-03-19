@@ -486,6 +486,44 @@ declare const messages: {
 		"unknownAuthor": "Inconnu",
 		"untitledNote": "Note sans titre",
 		"internalServerError": "Erreur interne du serveur"
+	},
+	"LandingPage": {
+		"nav": {
+			"dock": "Dock",
+			"departments": "Départements",
+			"games": "Jeux",
+			"utilities": "Utilitaires",
+			"systems": "Systèmes",
+			"journal": "Journal",
+			"contact": "Contact"
+		},
+		"hero": {
+			"title": "Labo net. Logiciel vivant.",
+			"description": "RevoTale réunit jeux navigateur, utilitaires pratiques, travail open source, systèmes auto-hébergés et écrits dans une même station logicielle indépendante.",
+			"note": "Cette page d'accueil recompose le site comme un laboratoire calme : panneaux lumineux, lignes d'instrumentation et départements clairs au lieu d'une seule longue liste."
+		},
+		"status": {
+			"eyebrow": "Ressources observées",
+			"title": "Station logicielle indépendante.",
+			"signalLabel": "Signal actuel"
+		},
+		"departments": {
+			"eyebrow": "Organisation des services",
+			"title": "RevoTale se lit maintenant comme un laboratoire avec des départements.",
+			"description": "Chaque voie dispose de sa propre station pour que les visiteurs repèrent vite le travail et rejoignent directement la partie qui leur convient.",
+			"openLane": "Ouvrir la voie"
+		},
+		"sectionEyebrows": {
+			"games": "Voie interactive",
+			"utilities": "Voie pratique",
+			"systems": "Systèmes ouverts",
+			"journal": "Notes de terrain"
+		},
+		"contact": {
+			"eyebrow": "Prochaine route",
+			"title": "Ouvrez la carte complète ou entrez directement dans le travail.",
+			"description": "Utilisez la carte de navigation pour une vue d'ensemble du site, ou allez directement vers les utilitaires et les notes depuis ici."
+		}
 	}
 };
 export default messages;

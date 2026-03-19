@@ -16,10 +16,16 @@ interface Props {
 	locale: Locale
 }
 const GamesBoard: FunctionComponent<Props> = async ({ priority, locale }) => {
-	const t = await getTranslations({
-		locale,
-		namespace: 'GamesBoard',
-	})
+	const [t, tTools] = await Promise.all([
+		getTranslations({
+			locale,
+			namespace: 'GamesBoard',
+		}),
+		getTranslations({
+			locale,
+			namespace: 'ToolsBoard',
+		}),
+	])
 	return (
 		<BoardSection>
 			<BoardTitleLink href="/browser-games" locale={locale} icon={<SwordsIcon />}>
@@ -28,6 +34,7 @@ const GamesBoard: FunctionComponent<Props> = async ({ priority, locale }) => {
 			<BoardDescription>{t('desc')}</BoardDescription>
 			<BoardList>
 				<BoardListCrumbItem
+					actionLabel={tTools('LearnMore')}
 					locale={locale}
 					crumb={SeaBattleCrumb}
 					description={t('sea_battle_desc')}
@@ -36,8 +43,8 @@ const GamesBoard: FunctionComponent<Props> = async ({ priority, locale }) => {
 							alt={t('sea_battle')}
 							priority={priority}
 							fetchPriority={priority === true ? 'high' : undefined}
-							sizes="(max-width: 260px) 100vw, 270px"
-							className="h-auto w-full"
+							sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 420px"
+							className="h-full w-full object-cover"
 							src={SeaBattle}
 						/>
 					}

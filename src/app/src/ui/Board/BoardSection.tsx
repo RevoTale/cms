@@ -4,6 +4,6 @@ interface Props {
 	children: ReactNode
 }
 const BoardSection: FunctionComponent<Props> = ({ children }) => (
-	<section className="flex flex-col items-center py-4">{children}</section>
+	<section className="w-full space-y-5 py-1">{children}</section>
 )
 export default BoardSection

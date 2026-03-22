@@ -2,9 +2,7 @@ name: "revotale_cms_devcontainer"
 
 services:
   devcontainer:
-    build:
-      context: ..
-      dockerfile: docker/dev.Dockerfile
+    image: mcr.microsoft.com/devcontainers/go
     command: sleep infinity
     depends_on:
       cms_postgres:

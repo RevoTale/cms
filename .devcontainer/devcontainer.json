@@ -2,20 +2,19 @@
 	"name": "RevoTale CMS",
 	"dockerComposeFile": "docker-compose.yml",
 	"service": "devcontainer",
-	"runServices": ["cms_postgres", "minio", "setup-minio", "imgproxy"],
-	"workspaceFolder": "/workspaces/backend/cms",
+	"runServices": ["cms_postgres", "rustfs", "setup-rustfs", "imgproxy", "proxy"],
+	"workspaceFolder": "/workspaces/cms",
 	"mounts": [
+		"source=${localEnv:HOME}/.codex,target=/root/.codex,type=bind,consistency=cached",
 		"source=${localEnv:HOME}/.claude,target=/root/.claude,type=bind,consistency=cached",
-		"source=${localEnv:HOME}/.codex,target=/root/.codex,type=bind"
+		"source=${localEnv:HOME}/.cursor,target=/root/.cursor,type=bind,consistency=cached",
+		"source=${localEnv:HOME}/.continue,target=/root/.continue,type=bind,consistency=cached"
 	],
 	"shutdownAction": "stopCompose",
 	"features": {
-		"ghcr.io/rails/devcontainer/features/bun:1": {},
-		"ghcr.io/devcontainers/features/go:1": {},
 		"ghcr.io/devcontainers-extra/features/go-task:1": {}
 	},
 	"postCreateCommand": "bun install --frozen-lockfile --backend=copyfile",
-	"forwardPorts": [3000, 5432, 8080, 9000, 9001],
 	"customizations": {
 		"vscode": {
 			"extensions": [
@@ -23,7 +22,6 @@
 				"GraphQL.vscode-graphql-syntax",
 				"GraphQL.vscode-graphql",
 				"ms-azuretools.vscode-containers",
-				"golang.go",
 				"biomejs.biome"
 			],
 			"settings": {

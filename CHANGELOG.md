@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.10.0](https://github.com/RevoTale/cms/compare/v0.9.2...v0.10.0) (2026-03-22)
+
+
+### Features
+
+* completely sepratae cms project development container so can develop only cms ([73acd58](https://github.com/RevoTale/cms/commit/73acd589d774bd7c1deec311381664aa4db07db6))
+
+
+### Bug Fixes
+
+* **deps:** update dependency next to v16.1.7 [security] ([1e72417](https://github.com/RevoTale/cms/commit/1e724174d246e7773c170575c586c91b6b2934c5))
+* **deps:** update dependency next to v16.1.7 [security] ([d46bd95](https://github.com/RevoTale/cms/commit/d46bd957c614be0b7670ae8d20f7d2c7dad6d4bc))
+
 ## [0.9.2](https://github.com/RevoTale/cms/compare/v0.9.1...v0.9.2) (2026-03-10)
 
 

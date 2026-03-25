@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.10.1](https://github.com/RevoTale/cms/compare/v0.10.0...v0.10.1) (2026-03-25)
+
+
+### Bug Fixes
+
+* code quality ([8f18cf2](https://github.com/RevoTale/cms/commit/8f18cf2f19efea243359c85e992a4e7b7756b2dc))
+* release. roken ([05f5592](https://github.com/RevoTale/cms/commit/05f55920f9a826730a0b06875c34502e4650479a))
+
 ## [0.10.0](https://github.com/RevoTale/cms/compare/v0.9.2...v0.10.0) (2026-03-22)
 
 

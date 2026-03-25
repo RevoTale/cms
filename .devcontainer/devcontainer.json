@@ -13,7 +13,7 @@
 	"shutdownAction": "stopCompose",
 	"features": {
 		"ghcr.io/devcontainers-extra/features/go-task:1": {},
- 		"ghcr.io/rails/devcontainer/features/bun:1.0.2": {}
+		"ghcr.io/rails/devcontainer/features/bun:1.0.2": {}
 	},
 	"postCreateCommand": "bun install --frozen-lockfile --backend=copyfile",
 	"customizations": {

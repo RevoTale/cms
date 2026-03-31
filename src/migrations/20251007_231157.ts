@@ -47,14 +47,13 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
 
 export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
 	await db.execute(sql`
-   ALTER TABLE "search" DISABLE ROW LEVEL SECURITY;
-  ALTER TABLE "search_locales" DISABLE ROW LEVEL SECURITY;
-  ALTER TABLE "search_rels" DISABLE ROW LEVEL SECURITY;
-  DROP TABLE "search" CASCADE;
-  DROP TABLE "search_locales" CASCADE;
-  DROP TABLE "search_rels" CASCADE;
-  ALTER TABLE "payload_locked_documents_rels" DROP CONSTRAINT "payload_locked_documents_rels_search_fk";
-  
-  DROP INDEX "payload_locked_documents_rels_search_id_idx";
-  ALTER TABLE "payload_locked_documents_rels" DROP COLUMN "search_id";`)
+   ALTER TABLE "payload_locked_documents_rels" DROP CONSTRAINT IF EXISTS "payload_locked_documents_rels_search_fk";
+  DROP INDEX IF EXISTS "payload_locked_documents_rels_search_id_idx";
+  ALTER TABLE "payload_locked_documents_rels" DROP COLUMN IF EXISTS "search_id";
+  ALTER TABLE IF EXISTS "search" DISABLE ROW LEVEL SECURITY;
+  ALTER TABLE IF EXISTS "search_locales" DISABLE ROW LEVEL SECURITY;
+  ALTER TABLE IF EXISTS "search_rels" DISABLE ROW LEVEL SECURITY;
+  DROP TABLE IF EXISTS "search" CASCADE;
+  DROP TABLE IF EXISTS "search_locales" CASCADE;
+  DROP TABLE IF EXISTS "search_rels" CASCADE;`)
 }

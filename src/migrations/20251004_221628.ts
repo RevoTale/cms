@@ -53,14 +53,13 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
 
 export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
 	await db.execute(sql`
-   ALTER TABLE "payload_jobs_log" DISABLE ROW LEVEL SECURITY;
-  ALTER TABLE "payload_jobs" DISABLE ROW LEVEL SECURITY;
-  DROP TABLE "payload_jobs_log" CASCADE;
-  DROP TABLE "payload_jobs" CASCADE;
-  ALTER TABLE "payload_locked_documents_rels" DROP CONSTRAINT "payload_locked_documents_rels_payload_jobs_fk";
-  
-  DROP INDEX "payload_locked_documents_rels_payload_jobs_id_idx";
-  ALTER TABLE "payload_locked_documents_rels" DROP COLUMN "payload_jobs_id";
+   ALTER TABLE "payload_locked_documents_rels" DROP CONSTRAINT IF EXISTS "payload_locked_documents_rels_payload_jobs_fk";
+  DROP INDEX IF EXISTS "payload_locked_documents_rels_payload_jobs_id_idx";
+  ALTER TABLE "payload_locked_documents_rels" DROP COLUMN IF EXISTS "payload_jobs_id";
+  ALTER TABLE IF EXISTS "payload_jobs_log" DISABLE ROW LEVEL SECURITY;
+  ALTER TABLE IF EXISTS "payload_jobs" DISABLE ROW LEVEL SECURITY;
+  DROP TABLE IF EXISTS "payload_jobs_log" CASCADE;
+  DROP TABLE IF EXISTS "payload_jobs" CASCADE;
   DROP TYPE "public"."enum_payload_jobs_log_task_slug";
   DROP TYPE "public"."enum_payload_jobs_log_state";
   DROP TYPE "public"."enum_payload_jobs_task_slug";`)

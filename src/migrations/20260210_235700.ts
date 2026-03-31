@@ -2,6 +2,11 @@ import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres'
 
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.execute(sql`
+   ALTER TABLE "payload_locked_documents_rels" DROP CONSTRAINT IF EXISTS "payload_locked_documents_rels_posts_fk";
+  DROP INDEX IF EXISTS "payload_locked_documents_rels_posts_id_idx";
+  ALTER TABLE "payload_locked_documents_rels" DROP COLUMN IF EXISTS "posts_id";
+  ALTER TABLE "payload_jobs" ADD COLUMN IF NOT EXISTS "concurrency_key" varchar;
+  CREATE INDEX IF NOT EXISTS "payload_jobs_concurrency_key_idx" ON "payload_jobs" USING btree ("concurrency_key");
    ALTER TABLE "posts" DISABLE ROW LEVEL SECURITY;
   ALTER TABLE "posts_locales" DISABLE ROW LEVEL SECURITY;
   ALTER TABLE "posts_rels" DISABLE ROW LEVEL SECURITY;
@@ -14,12 +19,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   DROP TABLE "_posts_v" CASCADE;
   DROP TABLE "_posts_v_locales" CASCADE;
   DROP TABLE "_posts_v_rels" CASCADE;
-  ALTER TABLE "payload_locked_documents_rels" DROP CONSTRAINT "payload_locked_documents_rels_posts_fk";
-  
-  DROP INDEX "payload_locked_documents_rels_posts_id_idx";
-  ALTER TABLE "payload_jobs" ADD COLUMN "concurrency_key" varchar;
-  CREATE INDEX "payload_jobs_concurrency_key_idx" ON "payload_jobs" USING btree ("concurrency_key");
-  ALTER TABLE "payload_locked_documents_rels" DROP COLUMN "posts_id";
   DROP TYPE "public"."enum_posts_status";
   DROP TYPE "public"."enum__posts_v_version_status";
   DROP TYPE "public"."enum__posts_v_published_locale";`)

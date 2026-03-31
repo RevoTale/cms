@@ -36,7 +36,9 @@ const generateMetadata = async ({ params }: { params: Promise<{ locale: Locale }
 		},
 	}
 }
+
 export { generateMetadata }
+
 const Page: FunctionComponent<PagePropsWithLocale> = async ({ params }) => {
 	const { locale } = await params
 	return <GamesBoard locale={locale} />

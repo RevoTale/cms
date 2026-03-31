@@ -28,7 +28,9 @@ const generateMetadata = async ({ params }: { params: Promise<{ locale: Locale }
 		},
 	}
 }
+
 export { generateMetadata }
+
 const RootPage: FunctionComponent<PagePropsWithLocale> = async ({ params }) => {
 	const { locale } = await params
 	return (

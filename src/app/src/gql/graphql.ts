@@ -667,7 +667,7 @@ export type Author = {
   slug: Scalars['String']['output'];
   twitter?: Maybe<Author_Twitter>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
-  user: User;
+  user?: Maybe<User>;
 };
 
 
@@ -2631,7 +2631,7 @@ export type Micro_post = {
   _status?: Maybe<Micro_post__status>;
   attachment?: Maybe<Media>;
   authorSlug?: Maybe<Scalars['String']['output']>;
-  authors?: Maybe<Array<Author>>;
+  authors: Array<Author>;
   autoTranslated?: Maybe<Scalars['Boolean']['output']>;
   content?: Maybe<Scalars['String']['output']>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
@@ -2726,7 +2726,7 @@ export type Micro_postVersion_Version = {
   _status?: Maybe<Micro_postVersion_Version__status>;
   attachment?: Maybe<Media>;
   authorSlug?: Maybe<Scalars['String']['output']>;
-  authors?: Maybe<Array<Author>>;
+  authors: Array<Author>;
   autoTranslated?: Maybe<Scalars['Boolean']['output']>;
   content?: Maybe<Scalars['String']['output']>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
@@ -5419,9 +5419,7 @@ export type MutationduplicateTagArgs = {
 
 
 export type MutationforgotPasswordUserArgs = {
-  disableEmail?: InputMaybe<Scalars['Boolean']['input']>;
   email: Scalars['String']['input'];
-  expiration?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -7883,7 +7881,7 @@ export type PayloadLockedDocument = {
   globalSlug?: Maybe<Scalars['String']['output']>;
   id: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
-  user: PayloadLockedDocument_User_Relationship;
+  user?: Maybe<PayloadLockedDocument_User_Relationship>;
 };
 
 
@@ -8449,7 +8447,7 @@ export type PayloadPreference = {
   id: Scalars['String']['output'];
   key?: Maybe<Scalars['String']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
-  user: PayloadPreference_User_Relationship;
+  user?: Maybe<PayloadPreference_User_Relationship>;
   value?: Maybe<Scalars['JSON']['output']>;
 };
 
@@ -11089,7 +11087,7 @@ export type QueryversionsMicro_postsArgs = {
 export type Search = {
   __typename?: 'Search';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
-  doc: Search_Doc_Relationship;
+  doc?: Maybe<Search_Doc_Relationship>;
   excerpt?: Maybe<Scalars['String']['output']>;
   id: Scalars['String']['output'];
   priority?: Maybe<Scalars['Float']['output']>;
@@ -14068,10 +14066,10 @@ export type authorPersonalPageQuery = { __typename?: 'Query', Authors?: { __type
       & { ' $fragmentRefs'?: { 'BlogListAuthorFragment': BlogListAuthorFragment;'SinglePageAuthorSeoFragment': SinglePageAuthorSeoFragment;'GetAuthorURLFragment': GetAuthorURLFragment;'SingleAuthorJsonLdFragment': SingleAuthorJsonLdFragment } }
     )> } | null };
 
-export type MicroPostPage_getOGFragment = { __typename?: 'Micro_post', id: string, publishedAt?: string | null, title?: string | null, authors?: Array<(
+export type MicroPostPage_getOGFragment = { __typename?: 'Micro_post', id: string, publishedAt?: string | null, title?: string | null, authors: Array<(
     { __typename?: 'Author' }
     & { ' $fragmentRefs'?: { 'GetAuthorURLFragment': GetAuthorURLFragment } }
-  )> | null, meta?: { __typename?: 'Micro_post_Meta', title?: string | null, description?: string | null, image?: (
+  )>, meta?: { __typename?: 'Micro_post_Meta', title?: string | null, description?: string | null, image?: (
       { __typename?: 'Media' }
       & { ' $fragmentRefs'?: { 'SEO_getOGImageFragment': SEO_getOGImageFragment } }
     ) | null } | null, tags?: Array<{ __typename?: 'Tag', name: string }> | null, attachment?: (
@@ -14086,10 +14084,10 @@ export type Get_SingleMicroPost_SEOQueryVariables = Exact<{
 
 
 export type Get_SingleMicroPost_SEOQuery = { __typename?: 'Query', Micro_posts?: { __typename?: 'Micro_posts', docs: Array<(
-      { __typename?: 'Micro_post', authors?: Array<(
+      { __typename?: 'Micro_post', authors: Array<(
         { __typename?: 'Author', name?: string | null }
         & { ' $fragmentRefs'?: { 'GetAuthorURLFragment': GetAuthorURLFragment } }
-      )> | null, meta?: { __typename?: 'Micro_post_Meta', title?: string | null, description?: string | null } | null }
+      )>, meta?: { __typename?: 'Micro_post_Meta', title?: string | null, description?: string | null } | null }
       & { ' $fragmentRefs'?: { 'MicroPostPage_getOGFragment': MicroPostPage_getOGFragment;'Blog_getMicropostHrefFragment': Blog_getMicropostHrefFragment } }
     )> } | null };
 
@@ -14103,7 +14101,7 @@ export type Get_AllMicroPosts_SlugsQuery = { __typename?: 'Query', Micro_posts?:
 
 export type FetchAllData_TagFragment = { __typename?: 'Tag', id: string, name: string, title?: string | null } & { ' $fragmentName'?: 'FetchAllData_TagFragment' };
 
-export type NotesListItemFragment = { __typename?: 'Micro_post', id: string, slug?: string | null, title?: string | null, content?: string | null, publishedAt?: string | null, tags?: Array<{ __typename?: 'Tag', id: string, name: string, title?: string | null }> | null, authors?: Array<{ __typename?: 'Author', id: string, name?: string | null, slug: string, bio?: string | null, avatar?: { __typename?: 'Media', url?: string | null, alt?: string | null, width?: number | null, height?: number | null } | null }> | null, attachment?: { __typename?: 'Media', url?: string | null, alt?: string | null, width?: number | null, height?: number | null } | null, meta?: { __typename?: 'Micro_post_Meta', image?: { __typename?: 'Media', url?: string | null, alt?: string | null, width?: number | null, height?: number | null } | null } | null } & { ' $fragmentName'?: 'NotesListItemFragment' };
+export type NotesListItemFragment = { __typename?: 'Micro_post', id: string, slug?: string | null, title?: string | null, content?: string | null, publishedAt?: string | null, tags?: Array<{ __typename?: 'Tag', id: string, name: string, title?: string | null }> | null, authors: Array<{ __typename?: 'Author', id: string, name?: string | null, slug: string, bio?: string | null, avatar?: { __typename?: 'Media', url?: string | null, alt?: string | null, width?: number | null, height?: number | null } | null }>, attachment?: { __typename?: 'Media', url?: string | null, alt?: string | null, width?: number | null, height?: number | null } | null, meta?: { __typename?: 'Micro_post_Meta', image?: { __typename?: 'Media', url?: string | null, alt?: string | null, width?: number | null, height?: number | null } | null } | null } & { ' $fragmentName'?: 'NotesListItemFragment' };
 
 export type TagFragmentFragment = (
   { __typename?: 'Tag', name: string, id: string, title?: string | null }
@@ -14201,10 +14199,10 @@ export type SingleAuthorJsonLdFragment = (
 ) & { ' $fragmentName'?: 'SingleAuthorJsonLdFragment' };
 
 export type SingleNoteJsonldFragment = (
-  { __typename?: 'Micro_post', id: string, title?: string | null, publishedAt?: string | null, authors?: Array<(
+  { __typename?: 'Micro_post', id: string, title?: string | null, publishedAt?: string | null, authors: Array<(
     { __typename?: 'Author' }
     & { ' $fragmentRefs'?: { 'SingleAuthorJsonLdFragment': SingleAuthorJsonLdFragment } }
-  )> | null, meta?: { __typename?: 'Micro_post_Meta', title?: string | null, description?: string | null, image?: (
+  )>, meta?: { __typename?: 'Micro_post_Meta', title?: string | null, description?: string | null, image?: (
       { __typename?: 'Media' }
       & { ' $fragmentRefs'?: { 'ImageJsonLdFragment': ImageJsonLdFragment } }
     ) | null } | null, linkedMicroPosts?: Array<(
@@ -14217,20 +14215,20 @@ export type SingleNoteJsonldFragment = (
 export type ImageJsonLdFragment = { __typename?: 'Media', id: string, width?: number | null, height?: number | null, url?: string | null, description?: string | null } & { ' $fragmentName'?: 'ImageJsonLdFragment' };
 
 export type PostInternalLinksListFragment = { __typename?: 'Micro_post', linkedMicroPosts?: Array<(
-    { __typename?: 'Micro_post', id: string, updatedAt?: string | null, title?: string | null, authors?: Array<(
+    { __typename?: 'Micro_post', id: string, updatedAt?: string | null, title?: string | null, authors: Array<(
       { __typename?: 'Author', id: string, name?: string | null }
       & { ' $fragmentRefs'?: { 'GetAuthorURLFragment': GetAuthorURLFragment } }
-    )> | null }
+    )> }
     & { ' $fragmentRefs'?: { 'Blog_getMicropostHrefFragment': Blog_getMicropostHrefFragment;'MicroPostPublishDate_BlogPostFragment': MicroPostPublishDate_BlogPostFragment } }
   )> | null } & { ' $fragmentName'?: 'PostInternalLinksListFragment' };
 
 export type MicroBlogPostText_TextFragment = { __typename?: 'Micro_post', id: string, content?: string | null } & { ' $fragmentName'?: 'MicroBlogPostText_TextFragment' };
 
 export type MicroBlogListItemFragment = (
-  { __typename?: 'Micro_post', id: string, content?: string | null, title?: string | null, authors?: Array<(
+  { __typename?: 'Micro_post', id: string, content?: string | null, title?: string | null, authors: Array<(
     { __typename?: 'Author' }
     & { ' $fragmentRefs'?: { 'BlogListAuthorFragment': BlogListAuthorFragment } }
-  )> | null, attachment?: (
+  )>, attachment?: (
     { __typename?: 'Media' }
     & { ' $fragmentRefs'?: { 'ContentfulImageFragment': ContentfulImageFragment } }
   ) | null, tags?: Array<(
@@ -14249,10 +14247,10 @@ export type MicroBlogPostListWithDataFragment = (
 ) & { ' $fragmentName'?: 'MicroBlogPostListWithDataFragment' };
 
 export type SingleMicroBlogPostBreadCrumbFragment = (
-  { __typename?: 'Micro_post', id: string, title?: string | null, authors?: Array<(
+  { __typename?: 'Micro_post', id: string, title?: string | null, authors: Array<(
     { __typename?: 'Author', name?: string | null, slug: string }
     & { ' $fragmentRefs'?: { 'GetAuthorURLFragment': GetAuthorURLFragment } }
-  )> | null }
+  )> }
   & { ' $fragmentRefs'?: { 'Blog_getMicropostHrefFragment': Blog_getMicropostHrefFragment } }
 ) & { ' $fragmentName'?: 'SingleMicroBlogPostBreadCrumbFragment' };
 
@@ -14280,10 +14278,10 @@ export type get_singleBlogMicroPostQuery = { __typename?: 'Query', Micro_posts?:
     )> } | null };
 
 export type SinglePostPageDataFragment = (
-  { __typename?: 'Micro_post', title?: string | null, authors?: Array<(
+  { __typename?: 'Micro_post', title?: string | null, authors: Array<(
     { __typename?: 'Author', id: string }
     & { ' $fragmentRefs'?: { 'BlogListAuthorFragment': BlogListAuthorFragment } }
-  )> | null, tags?: Array<(
+  )>, tags?: Array<(
     { __typename?: 'Tag', id: string }
     & { ' $fragmentRefs'?: { 'MicroBlogTagFragment': MicroBlogTagFragment } }
   )> | null, externalLinks?: Array<{ __typename?: 'Micro_post_external_link', id: string, target_url: string }> | null, linkedMicroPosts?: Array<(
@@ -14304,7 +14302,7 @@ export type MicroBlogListItemQueryFragment = (
   & { ' $fragmentRefs'?: { 'MicroPostPublishDate_BlogPostFragment': MicroPostPublishDate_BlogPostFragment;'Blog_getMicropostHrefFragment': Blog_getMicropostHrefFragment;'MicroBlogPostText_TextFragment': MicroBlogPostText_TextFragment;'MicroBlogPostListWithDataFragment': MicroBlogPostListWithDataFragment;'MicroBlogListItemFragment': MicroBlogListItemFragment } }
 ) & { ' $fragmentName'?: 'MicroBlogListItemQueryFragment' };
 
-export type MicroPoss_RSSFragment = { __typename?: 'Micro_post', id: string, title?: string | null, content?: string | null, publishedAt?: string | null, authors?: Array<{ __typename?: 'Author', name?: string | null }> | null, meta?: { __typename?: 'Micro_post_Meta', description?: string | null } | null, tags?: Array<{ __typename?: 'Tag', name: string }> | null } & { ' $fragmentName'?: 'MicroPoss_RSSFragment' };
+export type MicroPoss_RSSFragment = { __typename?: 'Micro_post', id: string, title?: string | null, content?: string | null, publishedAt?: string | null, authors: Array<{ __typename?: 'Author', name?: string | null }>, meta?: { __typename?: 'Micro_post_Meta', description?: string | null } | null, tags?: Array<{ __typename?: 'Tag', name: string }> | null } & { ' $fragmentName'?: 'MicroPoss_RSSFragment' };
 
 export type MicroBlog_post_listQueryVariables = Exact<{
   authorIn?: InputMaybe<Array<Scalars['JSON']['input']> | Scalars['JSON']['input']>;
@@ -14363,10 +14361,10 @@ export type SearchItemFragment = { __typename?: 'Search_Doc_Relationship', value
     | { __typename: 'Tag', id: string, title?: string | null, tagName: string }
    | null } & { ' $fragmentName'?: 'SearchItemFragment' };
 
-export type SearchQueryDocFragment = { __typename?: 'Search', id: string, title?: string | null, doc: (
+export type SearchQueryDocFragment = { __typename?: 'Search', id: string, title?: string | null, doc?: (
     { __typename?: 'Search_Doc_Relationship' }
     & { ' $fragmentRefs'?: { 'SearchItemFragment': SearchItemFragment } }
-  ) } & { ' $fragmentName'?: 'SearchQueryDocFragment' };
+  ) | null } & { ' $fragmentName'?: 'SearchQueryDocFragment' };
 
 export type SearchQueryQueryVariables = Exact<{
   query: Scalars['String']['input'];

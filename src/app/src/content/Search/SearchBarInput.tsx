@@ -101,14 +101,20 @@ const SearchBarInput: FunctionComponent<Props> = ({ translationKeys, locale }) =
 						? Array.from({ length: 10 }, (_, index) => `search-skeleton-${index + 1}`).map(key => (
 								<SearchItemSkeleton key={key} />
 							))
-						: items?.map(item => (
-								<SearchItem
-									locale={locale}
-									key={getFragmentData(SearchQueryDocFragment, item).id}
-									translationKeys={translationKeys}
-									item={getFragmentData(SearchQueryDocFragment, item).doc}
-								/>
-							))}
+						: items?.map(item => {
+								const doc = getFragmentData(SearchQueryDocFragment, item).doc
+								if (null === doc || undefined === doc) {
+									return null
+								}
+								return (
+									<SearchItem
+										locale={locale}
+										key={getFragmentData(SearchQueryDocFragment, item).id}
+										translationKeys={translationKeys}
+										item={doc}
+									/>
+								)
+							})}
 				</ItemGroup>
 			)}
 		</div>

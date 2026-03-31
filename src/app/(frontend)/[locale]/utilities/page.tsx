@@ -26,7 +26,9 @@ const generateMetadata = async ({ params }: { params: Promise<{ locale: Locale }
 		description: t('desc'),
 	}
 }
+
 export { generateMetadata }
+
 const ToolsPage: FunctionComponent<PagePropsWithLocale> = async ({ params }) => {
 	const { locale } = await params
 	const t = await getTranslations({

@@ -1466,7 +1466,7 @@ type Micro_post {
 	externalLinks(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Micro_post_external_link!]
 	social: Micro_post_Social
 	publishedAt: DateTime
-	authors(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Author!]
+	authors(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Author!]!
 	authorSlug: String
 	updatedAt: DateTime
 	createdAt: DateTime
@@ -1520,7 +1520,7 @@ type Author {
 	twitter: Author_Twitter
 	bio: String
 	avatar(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Media
-	user(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): User!
+	user(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): User
 	updatedAt: DateTime
 	createdAt: DateTime
 }
@@ -3526,7 +3526,7 @@ type Micro_postVersion_Version {
 	externalLinks(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Micro_post_external_link!]
 	social: Micro_postVersion_Version_Social
 	publishedAt: DateTime
-	authors(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Author!]
+	authors(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Author!]!
 	authorSlug: String
 	updatedAt: DateTime
 	createdAt: DateTime
@@ -4232,7 +4232,7 @@ type Search {
 	id: String!
 	title: String
 	priority: Float
-	doc(draft: Boolean, locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Search_Doc_Relationship!
+	doc(draft: Boolean, locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Search_Doc_Relationship
 	excerpt: String
 	updatedAt: DateTime
 	createdAt: DateTime
@@ -5808,7 +5808,7 @@ type PayloadLockedDocument {
 		fallbackLocale: FallbackLocaleInputType
 	): PayloadLockedDocument_Document_Relationship
 	globalSlug: String
-	user(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): PayloadLockedDocument_User_Relationship!
+	user(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): PayloadLockedDocument_User_Relationship
 	updatedAt: DateTime
 	createdAt: DateTime
 }
@@ -6123,7 +6123,7 @@ type PayloadLockedDocumentsDeleteDocAccess {
 
 type PayloadPreference {
 	id: String!
-	user(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): PayloadPreference_User_Relationship!
+	user(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): PayloadPreference_User_Relationship
 	key: String
 	value: JSON
 	updatedAt: DateTime
@@ -10959,7 +10959,7 @@ type Mutation {
 	logoutUser(allSessions: Boolean): String
 	unlockUser(email: String!): Boolean!
 	loginUser(email: String!, password: String): usersLoginResult
-	forgotPasswordUser(disableEmail: Boolean, expiration: Int, email: String!): Boolean!
+	forgotPasswordUser(email: String!): Boolean!
 	resetPasswordUser(password: String, token: String): usersResetPassword
 	verifyEmailUser(token: String): Boolean
 	createTag(data: mutationTagInput!, draft: Boolean, locale: LocaleInputType): Tag

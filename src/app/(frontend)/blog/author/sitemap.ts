@@ -49,7 +49,9 @@ const generateSitemaps = async (): Promise<Array<{ id: number }>> => {
 	}
 	return []
 }
+
 export { generateSitemaps }
+
 const sitemap = async ({ id }: { id: Promise<number> }): Promise<MetadataRoute.Sitemap> => {
 	const numId = Number(await id)
 	if (Number.isNaN(numId) || numId < 0) {

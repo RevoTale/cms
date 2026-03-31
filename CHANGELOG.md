@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.10.2](https://github.com/RevoTale/cms/compare/v0.10.1...v0.10.2) (2026-03-31)
+
+
+### Bug Fixes
+
+* **deps:** update dependency lucide-react to v1 ([2d5f116](https://github.com/RevoTale/cms/commit/2d5f116e69044ddb685ecf596e64757799544f98))
+* **deps:** update dependency lucide-react to v1 ([19dd7ae](https://github.com/RevoTale/cms/commit/19dd7aeffe243797e87c07303c5cfa0c7731d748))
+* **deps:** update dependency schema-dts to v2 ([8774d0b](https://github.com/RevoTale/cms/commit/8774d0be1d11808cb7020503d76c7611f659077e))
+* **deps:** update dependency schema-dts to v2 ([3f7be81](https://github.com/RevoTale/cms/commit/3f7be819feddb6f97a379f42be625bcada77ecdc))
+* **migrations:** make cascade cleanup order safe for replay and rollback ([6c1460a](https://github.com/RevoTale/cms/commit/6c1460af2e840d0b8d16c4eafce3844914690120))
+* riggere releae-please ([37d7973](https://github.com/RevoTale/cms/commit/37d7973ec23fe84a097a3ec5e7ab20ed3fc8d83f))
+* type error ([026c8b5](https://github.com/RevoTale/cms/commit/026c8b56d56c4dd2ccca0745a4a50cbf2696e96f))
+
 ## [0.10.1](https://github.com/RevoTale/cms/compare/v0.10.0...v0.10.1) (2026-03-25)
 
 

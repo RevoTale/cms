@@ -208,7 +208,7 @@ const toTagId = (tag: string | Tag): string => (typeof tag === 'string' ? tag : 
 export default buildConfig({
 	defaultDepth: payloadDefaultDepth,
 	graphQL: {
-		disableIntrospectionInProduction: true,
+		disableIntrospectionInProduction: process.env.ENABLE_GQL_INTROPSECTION === '1',
 		disablePlaygroundInProduction: true,
 		maxComplexity: payloadGraphQLMaxComplexity,
 		schemaOutputFile: path.resolve(dirname, './gql/schema.graphql'),

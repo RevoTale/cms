@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.11.1](https://github.com/RevoTale/cms/compare/v0.11.0...v0.11.1) (2026-04-13)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([1247ab0](https://github.com/RevoTale/cms/commit/1247ab085f172ca0ee128f107a73c004e6d9b486))
+* **deps:** update all non-major dependencies ([cc6409c](https://github.com/RevoTale/cms/commit/cc6409caa49f390f134e15c14b4f6ecaf4e3c1c6))
+* **deps:** update dependency next to v16.2.3 [security] ([5a706c5](https://github.com/RevoTale/cms/commit/5a706c5c72cab45a96247d902088a8ee8500effa))
+* **deps:** update dependency next to v16.2.3 [security] ([b16dc67](https://github.com/RevoTale/cms/commit/b16dc67c2c20fc50a247b6d6508de3891df85a22))
+* intropsection didsabling ([b2f405f](https://github.com/RevoTale/cms/commit/b2f405f0e76a15dcedfa77af8ec24f1371de80bb))
+
 ## [0.11.0](https://github.com/RevoTale/cms/compare/v0.10.2...v0.11.0) (2026-04-02)
 
 

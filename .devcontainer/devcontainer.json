@@ -5,10 +5,10 @@
 	"runServices": ["cms_postgres", "rustfs", "setup-rustfs", "imgproxy", "proxy"],
 	"workspaceFolder": "/workspaces/cms",
 	"mounts": [
-		"source=${localEnv:HOME}/.codex,target=/root/.codex,type=bind,consistency=cached",
-		"source=${localEnv:HOME}/.claude,target=/root/.claude,type=bind,consistency=cached",
-		"source=${localEnv:HOME}/.cursor,target=/root/.cursor,type=bind,consistency=cached",
-		"source=${localEnv:HOME}/.continue,target=/root/.continue,type=bind,consistency=cached"
+		"source=${localEnv:HOME}/.codex,target=/root/.codex,type=bind",
+		"source=${localEnv:HOME}/.claude,target=/root/.claude,type=bind",
+		"source=${localEnv:HOME}/.cursor,target=/root/.cursor,type=bind",
+		"source=${localEnv:HOME}/.continue,target=/root/.continue,type=bind"
 	],
 	"shutdownAction": "stopCompose",
 	"features": {

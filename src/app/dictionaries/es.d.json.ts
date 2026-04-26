@@ -113,7 +113,7 @@ declare const messages: {
 	},
 	"ToolsBoard": {
 		"Utilities": "Utilidades",
-		"UtilitiesDesc": "Herramientas que simplifican la vida diaria de la persona promedio.",
+		"UtilitiesDesc": "Herramientas sencillas para tareas cotidianas.",
 		"Breadcrumbs": {
 			"Utils": "Utilidades",
 			"URlDecodeEncode": "Codificador/decodificador de URL",
@@ -125,11 +125,11 @@ declare const messages: {
 			"decoder": "Decodificador de URL"
 		},
 		"Desc": {
-			"URlDecodeEncode": "Herramienta simple para decodificar o codificar entidades URL sin conocimientos de programación.",
-			"VideoSpeedChange": "Cambia la velocidad del video directamente en el navegador. Todo es manejado por la CPU/RAM de tu dispositivo. No se comparte ningún dato con ningún servidor porque el procesamiento de video se realiza gracias al poder de WASM en tu dispositivo.",
-			"RecordRandomizer": "Ingresa la lista de registros, gira la rueda y obtén una línea seleccionada al azar. Perfecto para sorteos, toma de decisiones o cualquier situación donde se requiera una selección aleatoria rápida.",
-			"ImageCollectionTools": "Llena cada centímetro con los medios que desees. Muestra cualquier número de imágenes en una sola pantalla.",
-			"ScreenFillGallery": "Sube imágenes y llena toda tu pantalla con ellas de manera uniforme manteniendo las proporciones. Perfecto para crear galerías de fotos inmersivas."
+			"URlDecodeEncode": "Codifica y decodifica texto de URL directamente en el navegador.",
+			"VideoSpeedChange": "Cambia la velocidad de un video en el navegador. El procesamiento se ejecuta localmente en tu dispositivo, así que el video no se sube a ningún servidor.",
+			"RecordRandomizer": "Pega una lista, gira la rueda y elige un elemento al azar. Útil para sorteos, decisiones y elecciones rápidas.",
+			"ImageCollectionTools": "Llena la pantalla con los medios seleccionados y muestra muchas imágenes a la vez.",
+			"ScreenFillGallery": "Sube imágenes y llena la pantalla manteniendo las proporciones. Útil para galerías de fotos limpias e inmersivas."
 		},
 		"LearnMore": "Aprender más ➔"
 	},
@@ -145,7 +145,7 @@ declare const messages: {
 	},
 	"ScreenFillGallery": {
 		"title": "Galería de Pantalla Completa",
-		"description": "Sube imágenes y llena toda tu pantalla con ellas manteniendo las proporciones. Perfecto para crear galerías de fotos inmersivas.",
+		"description": "Sube imágenes y llena la pantalla manteniendo las proporciones. Útil para galerías de fotos limpias e inmersivas.",
 		"seo_desc": "Llena tu pantalla de manera uniforme con imágenes manteniendo las proporciones. Crea hermosas galerías de fotos que aprovechan el espacio.",
 		"seo_title": "Galería de Pantalla Completa - Distribución Uniforme de Imágenes",
 		"imageLabel": "Seleccionar Imágenes",
@@ -167,15 +167,15 @@ declare const messages: {
 	},
 	"DurationConverter": {
 		"seo_title": "Acelerar/ralentizar video en línea",
-		"seo_desc": "Cambia la velocidad del video directamente en el navegador. Todo es manejado por la CPU/RAM de tu dispositivo. No se comparte ningún dato con ningún servidor porque el procesamiento de video se realiza gracias al poder de WASM en tu dispositivo."
+		"seo_desc": "Cambia la velocidad de un video en el navegador. El procesamiento se ejecuta localmente en tu dispositivo, así que el video no se sube a ningún servidor."
 	},
 	"URLEncoder": {
 		"seo_title": "Codificador de URL",
-		"seo_desc": "Herramienta simple para decodificar o codificar entidades URL sin conocimientos de programación."
+		"seo_desc": "Codifica y decodifica texto de URL directamente en el navegador."
 	},
 	"URLDecoder": {
 		"seo_title": "Decodificador de URL",
-		"seo_desc": "Herramienta simple para decodificar o codificar entidades URL sin conocimientos de programación."
+		"seo_desc": "Codifica y decodifica texto de URL directamente en el navegador."
 	},
 	"Notes": {
 		"title": "Notas",
@@ -220,7 +220,7 @@ declare const messages: {
 	"RandomRecordSelector": {
 		"title": "Selector de registros aleatorios",
 		"settings": "Configuración",
-		"meta_desc": "Ingresa la lista de registros, gira la rueda y obtén una línea seleccionada al azar. Perfecto para sorteos, toma de decisiones o cualquier situación donde se requiera una selección aleatoria rápida.",
+		"meta_desc": "Pega una lista, gira la rueda y elige un elemento al azar. Útil para sorteos, decisiones y elecciones rápidas.",
 		"records": "Registros"
 	},
 	"ExpToolsBoard": {
@@ -259,9 +259,9 @@ declare const messages: {
 	},
 	"RecordRandomizer": {
 		"seo_title": "Aleatorizador de registros",
-		"seo_desc": "Ingresa la lista de registros, gira la rueda y obtén una línea seleccionada al azar. Perfecto para sorteos, toma de decisiones o cualquier situación donde se requiera una selección aleatoria rápida.",
+		"seo_desc": "Pega una lista, gira la rueda y elige un elemento al azar. Útil para sorteos, decisiones y elecciones rápidas.",
 		"setting_seo_title": "Configuración del aleatorizador de registros",
-		"setting_seo_desc": "Configuración del aleatorizador de registros. Ingresa la lista de registros, gira la rueda y obtén una línea seleccionada al azar. Perfecto para sorteos, toma de decisiones o cualquier situación donde se requiera una selección aleatoria rápida.",
+		"setting_seo_desc": "Configuración del aleatorizador de registros. Pega una lista, gira la rueda y elige un elemento al azar. Útil para sorteos, decisiones y elecciones rápidas.",
 		"setting_title": "Configuración del aleatorizador",
 		"duration_setting_title": "Duración",
 		"duration_setting_desc": "Tiempo en segundos después del cual la rueda debe detenerse",

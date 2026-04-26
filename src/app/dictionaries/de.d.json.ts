@@ -113,7 +113,7 @@ declare const messages: {
 	},
 	"ToolsBoard": {
 		"Utilities": "Dienstprogramme",
-		"UtilitiesDesc": "Werkzeuge, die das tägliche Leben des Durchschnittsmenschen vereinfachen.",
+		"UtilitiesDesc": "Einfache Tools für alltägliche Aufgaben.",
 		"Breadcrumbs": {
 			"Utils": "Dienstprogramme",
 			"URlDecodeEncode": "URL Encoder/Decoder",
@@ -125,11 +125,11 @@ declare const messages: {
 			"decoder": "URL Decoder"
 		},
 		"Desc": {
-			"URlDecodeEncode": "Einfaches Tool zum Dekodieren oder Kodieren von URL-Entitäten ohne Programmierkenntnisse.",
-			"VideoSpeedChange": "Ändern Sie die Geschwindigkeit des Videos direkt im Browser. Alles wird von der CPU/RAM Ihres Geräts erledigt. Es werden keine Daten mit einem Server geteilt, da die Videobearbeitung durch die Leistung von WASM auf Ihrem Gerät erfolgt.",
-			"RecordRandomizer": "Geben Sie die Liste der Datensätze ein, drehen Sie das Rad und erhalten Sie eine zufällig ausgewählte Zeile. Perfekt für Gewinnspiele, Entscheidungsfindung oder jede Situation, in der eine schnelle zufällige Auswahl erforderlich ist.",
-			"ImageCollectionTools": "Füllen Sie jeden Zentimeter mit den Medien, die Sie möchten. Zeigen Sie beliebig viele Bilder auf einem einzigen Bildschirm an.",
-			"ScreenFillGallery": "Laden Sie Bilder hoch und füllen Sie Ihren gesamten Bildschirm gleichmäßig aus, während Sie die Seitenverhältnisse beibehalten. Perfekt für die Erstellung immersiver Fotogalerien."
+			"URlDecodeEncode": "URL-Text direkt im Browser kodieren und dekodieren.",
+			"VideoSpeedChange": "Ändern Sie die Videogeschwindigkeit im Browser. Die Verarbeitung läuft lokal auf Ihrem Gerät, sodass das Video nicht auf einen Server hochgeladen wird.",
+			"RecordRandomizer": "Fügen Sie eine Liste ein, drehen Sie das Rad und wählen Sie einen zufälligen Eintrag aus. Nützlich für Verlosungen, Entscheidungen und schnelle Auswahl.",
+			"ImageCollectionTools": "Füllen Sie den Bildschirm mit ausgewählten Medien und zeigen Sie viele Bilder auf einmal an.",
+			"ScreenFillGallery": "Laden Sie Bilder hoch und füllen Sie den Bildschirm, während die Seitenverhältnisse erhalten bleiben. Nützlich für übersichtliche, immersive Fotogalerien."
 		},
 		"LearnMore": "Mehr erfahren ➔"
 	},
@@ -145,7 +145,7 @@ declare const messages: {
 	},
 	"ScreenFillGallery": {
 		"title": "Bildschirmfüllende Galerie",
-		"description": "Laden Sie Bilder hoch und füllen Sie Ihren gesamten Bildschirm damit, wobei die Seitenverhältnisse beibehalten werden. Perfekt für immersive Fotogalerien.",
+		"description": "Laden Sie Bilder hoch und füllen Sie den Bildschirm, während die Seitenverhältnisse erhalten bleiben. Nützlich für übersichtliche, immersive Fotogalerien.",
 		"seo_desc": "Füllen Sie Ihren Bildschirm gleichmäßig mit Bildern, wobei die Seitenverhältnisse beibehalten werden. Erstellen Sie schöne, platzsparende Fotogalerien.",
 		"seo_title": "Bildschirmfüllende Galerie - Gleichmäßige Bildverteilung",
 		"imageLabel": "Bilder auswählen",
@@ -167,15 +167,15 @@ declare const messages: {
 	},
 	"DurationConverter": {
 		"seo_title": "Video beschleunigen/verlangsamen online",
-		"seo_desc": "Ändern Sie die Geschwindigkeit des Videos direkt im Browser. Alles wird von der CPU/RAM Ihres Geräts erledigt. Es werden keine Daten mit einem Server geteilt, da die Videobearbeitung durch die Leistung von WASM auf Ihrem Gerät erfolgt."
+		"seo_desc": "Ändern Sie die Videogeschwindigkeit im Browser. Die Verarbeitung läuft lokal auf Ihrem Gerät, sodass das Video nicht auf einen Server hochgeladen wird."
 	},
 	"URLEncoder": {
 		"seo_title": "URL Encoder",
-		"seo_desc": "Einfaches Tool zum Dekodieren oder Kodieren von URL-Entitäten ohne Programmierkenntnisse."
+		"seo_desc": "URL-Text direkt im Browser kodieren und dekodieren."
 	},
 	"URLDecoder": {
 		"seo_title": "URL Decoder",
-		"seo_desc": "Einfaches Tool zum Dekodieren oder Kodieren von URL-Entitäten ohne Programmierkenntnisse."
+		"seo_desc": "URL-Text direkt im Browser kodieren und dekodieren."
 	},
 	"Notes": {
 		"title": "Notizen",
@@ -221,7 +221,7 @@ declare const messages: {
 		"title": "Zufälliger Datensatz-Auswähler",
 		"settings": "Einstellungen",
 		"records": "Datensätze",
-		"meta_desc": "Geben Sie die Liste der Datensätze ein, drehen Sie das Rad und erhalten Sie eine zufällig ausgewählte Zeile. Perfekt für Gewinnspiele, Entscheidungsfindung oder jede Situation, in der eine schnelle zufällige Auswahl erforderlich ist."
+		"meta_desc": "Fügen Sie eine Liste ein, drehen Sie das Rad und wählen Sie einen zufälligen Eintrag aus. Nützlich für Verlosungen, Entscheidungen und schnelle Auswahl."
 	},
 	"ExpToolsBoard": {
 		"desc": "Sie sind sehr fehlerhaft, in aktiver Entwicklung oder funktionieren nicht. ¯\\_(ツ)_/¯",
@@ -259,9 +259,9 @@ declare const messages: {
 	},
 	"RecordRandomizer": {
 		"seo_title": "Datensatz-Zufallsgenerator",
-		"seo_desc": "Geben Sie die Liste der Datensätze ein, drehen Sie das Rad und erhalten Sie eine zufällig ausgewählte Zeile. Perfekt für Gewinnspiele, Entscheidungsfindung oder jede Situation, in der eine schnelle zufällige Auswahl erforderlich ist.",
+		"seo_desc": "Fügen Sie eine Liste ein, drehen Sie das Rad und wählen Sie einen zufälligen Eintrag aus. Nützlich für Verlosungen, Entscheidungen und schnelle Auswahl.",
 		"setting_seo_title": "Datensatz-Zufallsgenerator Einstellungen",
-		"setting_seo_desc": "Datensatz-Zufallsgenerator Einstellungen. Geben Sie die Liste der Datensätze ein, drehen Sie das Rad und erhalten Sie eine zufällig ausgewählte Zeile. Perfekt für Gewinnspiele, Entscheidungsfindung oder jede Situation, in der eine schnelle zufällige Auswahl erforderlich ist.",
+		"setting_seo_desc": "Datensatz-Zufallsgenerator Einstellungen. Fügen Sie eine Liste ein, drehen Sie das Rad und wählen Sie einen zufälligen Eintrag aus. Nützlich für Verlosungen, Entscheidungen und schnelle Auswahl.",
 		"setting_title": "Randomizer Einstellungen",
 		"duration_setting_title": "Dauer",
 		"duration_setting_desc": "Zeit in Sekunden, nach der das Rad angehalten werden soll",

@@ -113,7 +113,7 @@ declare const messages: {
 	},
 	"ToolsBoard": {
 		"Utilities": "Utilitaires",
-		"UtilitiesDesc": "Des outils qui simplifient la vie quotidienne de la personne moyenne.",
+		"UtilitiesDesc": "Des outils simples pour les tâches du quotidien.",
 		"Breadcrumbs": {
 			"Utils": "Utilitaires",
 			"URlDecodeEncode": "Encodeur/Décodeur d'URL",
@@ -125,11 +125,11 @@ declare const messages: {
 			"decoder": "Décodeur d'URL"
 		},
 		"Desc": {
-			"URlDecodeEncode": "Outil simple pour décoder ou encoder des entités URL sans connaissances en programmation.",
-			"VideoSpeedChange": "Changez la vitesse de la vidéo directement dans le navigateur. Tout est fait par le CPU/RAM de votre appareil. Aucune donnée n'est partagée avec un serveur car le traitement vidéo est effectué grâce à la puissance de WASM sur votre appareil.",
-			"RecordRandomizer": "Entrez la liste des enregistrements, faites tourner la roue et obtenez une ligne sélectionnée au hasard. Parfait pour les cadeaux, la prise de décision ou toute situation nécessitant une sélection aléatoire rapide.",
-			"ImageCollectionTools": "Remplissez chaque centimètre avec les médias que vous voulez. Affichez un nombre quelconque d'images sur un seul écran.",
-			"ScreenFillGallery": "Téléchargez des images et remplissez tout votre écran avec elles de manière uniforme tout en préservant les proportions. Parfait pour créer des galeries de photos immersives."
+			"URlDecodeEncode": "Encodez et décodez du texte d’URL directement dans votre navigateur.",
+			"VideoSpeedChange": "Modifiez la vitesse d’une vidéo dans votre navigateur. Le traitement se fait localement sur votre appareil, donc la vidéo n’est pas envoyée à un serveur.",
+			"RecordRandomizer": "Collez une liste, faites tourner la roue et sélectionnez un élément au hasard. Utile pour les tirages, les décisions et les choix rapides.",
+			"ImageCollectionTools": "Remplissez l’écran avec les médias sélectionnés et affichez plusieurs images à la fois.",
+			"ScreenFillGallery": "Importez des images et remplissez l’écran tout en conservant les proportions. Utile pour des galeries photo propres et immersives."
 		},
 		"LearnMore": "En savoir plus ➔"
 	},
@@ -145,7 +145,7 @@ declare const messages: {
 	},
 	"ScreenFillGallery": {
 		"title": "Galerie Plein Écran",
-		"description": "Téléchargez des images et remplissez tout votre écran avec elles en préservant les proportions. Parfait pour créer des galeries de photos immersives.",
+		"description": "Importez des images et remplissez l’écran tout en conservant les proportions. Utile pour des galeries photo propres et immersives.",
 		"seo_desc": "Remplissez votre écran de manière uniforme avec des images en préservant les proportions. Créez de belles galeries de photos optimisées pour l'espace.",
 		"seo_title": "Galerie Plein Écran - Distribution Uniforme d'Images",
 		"imageLabel": "Sélectionner des Images",
@@ -167,15 +167,15 @@ declare const messages: {
 	},
 	"DurationConverter": {
 		"seo_title": "Accélérer/ralentir une vidéo en ligne",
-		"seo_desc": "Changez la vitesse de la vidéo directement dans le navigateur. Tout est fait par le CPU/RAM de votre appareil. Aucune donnée n'est partagée avec un serveur car le traitement vidéo est effectué grâce à la puissance de WASM sur votre appareil."
+		"seo_desc": "Modifiez la vitesse d’une vidéo dans votre navigateur. Le traitement se fait localement sur votre appareil, donc la vidéo n’est pas envoyée à un serveur."
 	},
 	"URLEncoder": {
 		"seo_title": "Encodeur d'URL",
-		"seo_desc": "Outil simple pour décoder ou encoder des entités URL sans connaissances en programmation."
+		"seo_desc": "Encodez et décodez du texte d’URL directement dans votre navigateur."
 	},
 	"URLDecoder": {
 		"seo_title": "Décodeur d'URL",
-		"seo_desc": "Outil simple pour décoder ou encoder des entités URL sans connaissances en programmation."
+		"seo_desc": "Encodez et décodez du texte d’URL directement dans votre navigateur."
 	},
 	"Notes": {
 		"title": "Notes",
@@ -220,7 +220,7 @@ declare const messages: {
 	"RandomRecordSelector": {
 		"title": "Sélecteur de record aléatoire",
 		"settings": "Paramètres",
-		"meta_desc": "Entrez la liste des enregistrements, faites tourner la roue et obtenez une ligne sélectionnée au hasard. Parfait pour les cadeaux, la prise de décision ou toute situation nécessitant une sélection aléatoire rapide.",
+		"meta_desc": "Collez une liste, faites tourner la roue et sélectionnez un élément au hasard. Utile pour les tirages, les décisions et les choix rapides.",
 		"records": "Enregistrements"
 	},
 	"ExpToolsBoard": {
@@ -259,9 +259,9 @@ declare const messages: {
 	},
 	"RecordRandomizer": {
 		"seo_title": "Randomiseur d'enregistrements",
-		"seo_desc": "Entrez la liste des enregistrements, faites tourner la roue et obtenez une ligne sélectionnée au hasard. Parfait pour les cadeaux, la prise de décision ou toute situation nécessitant une sélection aléatoire rapide.",
+		"seo_desc": "Collez une liste, faites tourner la roue et sélectionnez un élément au hasard. Utile pour les tirages, les décisions et les choix rapides.",
 		"setting_seo_title": "Paramètres du randomiseur d'enregistrements",
-		"setting_seo_desc": "Paramètres du randomiseur d'enregistrements. Entrez la liste des enregistrements, faites tourner la roue et obtenez une ligne sélectionnée au hasard. Parfait pour les cadeaux, la prise de décision ou toute situation nécessitant une sélection aléatoire rapide.",
+		"setting_seo_desc": "Paramètres du randomiseur d'enregistrements. Collez une liste, faites tourner la roue et sélectionnez un élément au hasard. Utile pour les tirages, les décisions et les choix rapides.",
 		"setting_title": "Paramètres du randomiseur",
 		"duration_setting_title": "Durée",
 		"duration_setting_desc": "Temps en secondes après lequel la roue doit s'arrêter",

@@ -108,7 +108,7 @@
 	},
 	"ToolsBoard": {
 		"Utilities": "Utilities",
-		"UtilitiesDesc": "Tools that simplify the daily life of the average person.",
+		"UtilitiesDesc": "Simple tools for everyday tasks.",
 		"Breadcrumbs": {
 			"Utils": "Utilities",
 			"URlDecodeEncode": "URL Encoder/Decoder",
@@ -120,17 +120,17 @@
 			"decoder": "URL Decoder"
 		},
 		"Desc": {
-			"URlDecodeEncode": "Simple tool to decode or encode URL entities without programming knowledge.",
-			"VideoSpeedChange": "Change the speed of the video directly in the browser. Everything is done by your device's CPU/RAM. No data is shared with any server because video processing is done by the power of WASM on your device.",
-			"RecordRandomizer": "Enter the list of records, spin the wheel and get a randomly selected line. Perfect for giveaways, decision making or any situation where a quick random selection is required.",
-			"ImageCollectionTools": "Fill every inch with the media you want. Display any number of images on a single screen.",
-			"ScreenFillGallery": "Upload images and fill your entire screen equally while preserving aspect ratios. Perfect for creating immersive photo galleries."
+			"URlDecodeEncode": "Encode and decode URL text directly in your browser.",
+			"VideoSpeedChange": "Change video speed in your browser. Processing runs locally on your device, so the video is not uploaded to a server.",
+			"RecordRandomizer": "Paste a list, spin the wheel, and pick one random item. Useful for giveaways, decisions, and quick choices.",
+			"ImageCollectionTools": "Fill the screen with selected media and display many images at once.",
+			"ScreenFillGallery": "Upload images and fill the screen while preserving aspect ratios. Useful for clean, immersive photo galleries."
 		},
 		"LearnMore": "Learn more ➔"
 	},
 	"ImageCollectionRenderer": {
 		"title": "Image Collection Renderer",
-		"seo_desc": "Render your image collection comfortably. Every inch of space is filled",
+		"seo_desc": "Display an image collection so available screen space is used cleanly.",
 		"seo_title": "Image Collection Renderer"
 	},
 	"Breadcrumbs": {
@@ -140,8 +140,8 @@
 	},
 	"ScreenFillGallery": {
 		"title": "Screen Fill Gallery",
-		"description": "Upload images and fill your entire screen with them while preserving aspect ratios. Perfect for creating immersive photo galleries.",
-		"seo_desc": "Fill your screen equally with images while preserving aspect ratios. Create beautiful, space-efficient photo galleries.",
+		"description": "Upload images and fill the screen while preserving aspect ratios. Useful for clean, immersive photo galleries.",
+		"seo_desc": "Fill the screen with uploaded images while preserving aspect ratios. Create clean, space-efficient photo galleries.",
 		"seo_title": "Screen Fill Gallery - Equal Image Distribution",
 		"imageLabel": "Select Images",
 		"fullscreenMode": "Fullscreen Mode",
@@ -162,15 +162,15 @@
 	},
 	"DurationConverter": {
 		"seo_title": "Video speed up/slow down online",
-		"seo_desc": "Change the speed of the video directly in the browser. Everything is done by your device's CPU/RAM. No data is shared with any server because video processing is done by the power of WASM on your device."
+		"seo_desc": "Change video speed in your browser. Processing runs locally on your device, so the video is not uploaded to a server."
 	},
 	"URLEncoder": {
 		"seo_title": "URL Encoder",
-		"seo_desc": "Simple tool to decode or encode URL entities without programming knowledge."
+		"seo_desc": "Encode and decode URL text directly in your browser."
 	},
 	"URLDecoder": {
 		"seo_title": "URL Decoder",
-		"seo_desc": "Simple tool to decode or encode URL entities without programming knowledge."
+		"seo_desc": "Encode and decode URL text directly in your browser."
 	},
 	"Notes": {
 		"title": "Notes",
@@ -215,7 +215,7 @@
 	"RandomRecordSelector": {
 		"title": "Random Record Selector",
 		"settings": "Settings",
-		"meta_desc": "Enter the list of records, spin the wheel and get a randomly selected line. Perfect for giveaways, decision making or any situation where a quick random selection is required.",
+		"meta_desc": "Paste a list, spin the wheel, and pick one random item. Useful for giveaways, decisions, and quick choices.",
 		"records": "Records"
 	},
 	"ExpToolsBoard": {
@@ -255,9 +255,9 @@
 	},
 	"RecordRandomizer": {
 		"seo_title": "Record Randomizer",
-		"seo_desc": "Enter the list of records, spin the wheel and get a randomly selected line. Perfect for giveaways, decision making or any situation where a quick random selection is required.",
+		"seo_desc": "Paste a list, spin the wheel, and pick one random item. Useful for giveaways, decisions, and quick choices.",
 		"setting_seo_title": "Record Randomizer settings",
-		"setting_seo_desc": "Record Randomizer settings. Enter the list of records, spin the wheel and get a randomly selected line. Perfect for giveaways, decision making or any situation where a quick random selection is required.",
+		"setting_seo_desc": "Record Randomizer settings. Paste a list, spin the wheel, and pick one random item. Useful for giveaways, decisions, and quick choices.",
 		"setting_title": "Randomizer settings",
 		"duration_setting_title": "Duration",
 		"duration_setting_desc": "Time in seconds after which wheel should be stopped",

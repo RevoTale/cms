@@ -7,6 +7,7 @@ import generateAlternatesMeta from '@/i18n/generateAlternatesMeta'
 import SchemaNavigation from '../../../src/content/SchemaNavigation/SchemaNavigation'
 import getUrl from '../../../src/linking/getUrl'
 import {
+	getToolsHref,
 	RandomRecordSelector,
 	ScreenFillGalleryTool,
 	URLStringDecoder,
@@ -50,33 +51,33 @@ const Page: FunctionComponent<{ params: Promise<{ locale: Locale }> }> = async (
 			children: [
 				{
 					name: t('navigation.utilities'),
-					href: `/utilities`,
+					href: getToolsHref(locale),
 					children: [
 						{
 							name: t('navigation.recordsRandomizer'),
-							href: RandomRecordSelector.href,
+							href: getToolsHref(locale, RandomRecordSelector.href),
 						},
 						{
 							name: t('navigation.urlEncoderDecoder'),
-							href: URLStringToolCrumb.href,
+							href: getToolsHref(locale, URLStringToolCrumb.href),
 							children: [
 								{
 									name: t('navigation.encode'),
-									href: URLStringEncoder.href,
+									href: getToolsHref(locale, URLStringEncoder.href),
 								},
 								{
 									name: t('navigation.decode'),
-									href: URLStringDecoder.href,
+									href: getToolsHref(locale, URLStringDecoder.href),
 								},
 							],
 						},
 						{
 							name: t('navigation.screenFillGallery'),
-							href: ScreenFillGalleryTool.href,
+							href: getToolsHref(locale, ScreenFillGalleryTool.href),
 						},
 						{
 							name: t('navigation.videoDurationChanger'),
-							href: VideoDurationChanger.href,
+							href: getToolsHref(locale, VideoDurationChanger.href),
 						},
 					],
 				},

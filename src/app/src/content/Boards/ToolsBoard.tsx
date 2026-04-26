@@ -6,7 +6,7 @@ import type { Locale } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import type { FunctionComponent } from 'react'
 import NextLink from '@/i18n/LocaleLink'
-import { ToolsCrumb } from '../../linking/map/tools'
+import { getToolsHref } from '../../linking/map/tools'
 import StableToolsList from './Lists/StableToolsList'
 
 interface Props {
@@ -17,13 +17,14 @@ const ToolsBoard: FunctionComponent<Props> = async ({ locale }) => {
 		locale,
 		namespace: 'ToolsBoard',
 	})
+	const toolsHref = getToolsHref(locale)
 	return (
 		<BoardSection>
-			<BoardTitleLink icon={<FolderKanbanIcon />} href={ToolsCrumb.href} locale={locale}>
+			<BoardTitleLink icon={<FolderKanbanIcon />} href={toolsHref} locale={locale}>
 				{t('Utilities')}
 			</BoardTitleLink>
 			<BoardDescription>
-				<NextLink locale={locale} className="hover:text-foreground" href={ToolsCrumb.href} title={t('Utilities')}>
+				<NextLink locale={locale} className="hover:text-foreground" href={toolsHref} title={t('Utilities')}>
 					{t('UtilitiesDesc')}
 				</NextLink>
 			</BoardDescription>

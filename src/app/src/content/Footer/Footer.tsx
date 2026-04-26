@@ -5,7 +5,7 @@ import { getTranslations } from 'next-intl/server'
 import type { FunctionComponent } from 'react'
 import LocaleLink from '@/i18n/LocaleLink'
 import websiteName from '../../config/websiteName'
-import { BlogCrumb, SeaBattleCrumb, ToolsCrumb } from '../../linking/map/tools'
+import { BlogCrumb, getToolsHref, SeaBattleCrumb } from '../../linking/map/tools'
 import FooterList from './FooterList'
 import FooterListItem from './FooterListItem'
 import LanguageItem from './LanguageItem'
@@ -35,7 +35,7 @@ const Footer: FunctionComponent<Props> = async ({ locale }) => {
 				</FooterList>
 				<ReachUsOut locale={locale} />
 				<FooterList id="footer_navigation" title={t('Nav')}>
-					<FooterListItem locale={locale} href={ToolsCrumb.href}>
+					<FooterListItem locale={locale} href={getToolsHref(locale)}>
 						{t('Utils')}
 					</FooterListItem>
 					<FooterListItem locale={locale} href={BlogCrumb.href}>

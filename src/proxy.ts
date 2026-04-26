@@ -8,6 +8,7 @@ type AppLocale = (typeof routing.locales)[number]
 const intlProxy = createMiddleware(routing)
 const localeSet = new Set<AppLocale>(routing.locales)
 const noLocaleRewritePaths = new Set(['/sitemap-index'])
+const toolsBaseURL = 'https://tools.revotale.com'
 const isLocale = (value: string): value is AppLocale => (localeSet as Set<string>).has(value)
 
 const normalizePathname = (pathname: string): string => {
@@ -32,6 +33,15 @@ export default function proxy(request: NextRequest): Response {
 	if (maybeLocale && isLocale(maybeLocale)) {
 		locale = maybeLocale
 		offset = 1
+	}
+
+	if (segments[offset] === 'utilities') {
+		const utilityPath = segments.slice(offset + 1).join('/')
+		const nextPath = utilityPath === 'image-collection-renderer' ? 'screen-fill-gallery' : utilityPath
+		const targetPath = nextPath.length > 0 ? `/${locale}/${nextPath}` : `/${locale}`
+		const target = new URL(`${toolsBaseURL}${targetPath}`)
+		target.search = request.nextUrl.search
+		return NextResponse.redirect(target, 308)
 	}
 
 	if (segments[offset] === 'sea-battle-game') {

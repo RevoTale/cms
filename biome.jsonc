@@ -10,6 +10,7 @@
 		"includes": [
 			"**",
 			"!next-env.d.ts",
+			"!apps/tools",
 			"!**/importMap.js",
 			"!src/payload-generated-schema.ts",
 			"!src/payload-types.ts",

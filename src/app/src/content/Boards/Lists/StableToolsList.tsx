@@ -1,10 +1,11 @@
 import BoardList from '@revotale/ui/Board/BoardList'
-import BoardListCrumbItem from '@revotale/ui/Board/BoardListCrumbItem'
+import BoardListItem from '@revotale/ui/Board/BoardListItem'
 import Image from 'next/image'
 import type { Locale } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import type { FunctionComponent } from 'react'
 import {
+	getToolsHref,
 	RandomRecordSelector,
 	ScreenFillGalleryTool,
 	URLStringToolCrumb,
@@ -31,39 +32,43 @@ const StableToolsList: FunctionComponent<{
 	])
 	return (
 		<BoardList>
-			<BoardListCrumbItem
+			<BoardListItem
 				locale={locale}
-				crumb={RandomRecordSelector}
+				href={getToolsHref(locale, RandomRecordSelector.href)}
+				external
 				description={t('RecordRandomizer')}
 				image={
 					<Image alt={crumbs('RecordRandomizer')} sizes={sizes} className="h-auto w-full" src={RecordRandomizer} />
 				}
 				title={crumbs('RecordRandomizer')}
 			/>
-			<BoardListCrumbItem
+			<BoardListItem
 				locale={locale}
-				crumb={URLStringToolCrumb}
+				href={getToolsHref(locale, URLStringToolCrumb.href)}
+				external
 				description={t('URlDecodeEncode')}
 				image={
 					<Image alt={crumbs('URlDecodeEncode')} sizes={sizes} className="h-auto w-full" src={EncodeDecodeImage} />
 				}
 				title={crumbs('URlDecodeEncode')}
 			/>
-			<BoardListCrumbItem
+			<BoardListItem
 				locale={locale}
-				crumb={VideoDurationChanger}
+				href={getToolsHref(locale, VideoDurationChanger.href)}
+				external
 				description={t('VideoSpeedChange')}
 				image={
 					<Image alt={crumbs('VideoSpeedChange')} sizes={sizes} className="h-auto w-full" src={VideoSpeedChangeImage} />
 				}
 				title={crumbs('VideoSpeedChange')}
 			/>
-			<BoardListCrumbItem
+			<BoardListItem
 				locale={locale}
 				image={
 					<Image alt={crumbs('ScreenFillGallery')} sizes={sizes} className="h-auto w-full" src={ScreenFillGallery} />
 				}
-				crumb={ScreenFillGalleryTool}
+				href={getToolsHref(locale, ScreenFillGalleryTool.href)}
+				external
 				description={t('ScreenFillGallery')}
 				title={crumbs('ScreenFillGallery')}
 			/>

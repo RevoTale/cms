@@ -43,5 +43,5 @@
 		"next.config.ts",
 		".next/dev/types/**/*.ts"
 	],
-	"exclude": ["node_modules", ".next"]
+	"exclude": ["node_modules", ".next", "apps/tools"]
 }

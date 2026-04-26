@@ -1,0 +1,3 @@
+[submodule "apps/tools"]
+	path = apps/tools
+	url = https://github.com/RevoTale/tools-client.git

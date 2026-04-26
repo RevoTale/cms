@@ -293,8 +293,8 @@ declare const messages: {
 		"LangTitle": "Languages",
 		"Rights": "© {year} {company}. All rights reserved.",
 		"Nav": "Navigation",
-		"TwitterAlt": "Follow us on Twitter",
-		"GithubAlt": "Rate us on GitHub",
+		"TwitterAlt": "Open RevoTale on X",
+		"GithubAlt": "Open RevoTale on GitHub",
 		"ReachOutTitle": "Reach out to us"
 	},
 	"LoveRain": {

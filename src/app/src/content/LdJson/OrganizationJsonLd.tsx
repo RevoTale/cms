@@ -11,7 +11,7 @@ export const getOrganizationJsonLD = (rootUrl: string): WithContext<Organization
 		logo: formatUrl(rootUrl, '/apple-touch-icon.png', null).toString(),
 		url: formatUrl(rootUrl, '', null).toString(),
 		sameAs: [
-			'https://twitter.com/RevoTale',
+			'https://x.com/RevoTale',
 			'https://github.com/RevoTale',
 			'https://www.npmjs.com/~grisaia',
 			'https://packagist.org/users/grisaia/',

@@ -294,8 +294,8 @@ declare const messages: {
 		"LangTitle": "Языки",
 		"Rights": "© {year} {company}. Все права защищены.",
 		"Nav": "Навигация",
-		"TwitterAlt": "Следите за нами в Twitter",
-		"GithubAlt": "Оцените нас на GitHub",
+		"TwitterAlt": "Открыть RevoTale в X",
+		"GithubAlt": "Открыть RevoTale на GitHub",
 		"ReachOutTitle": "Свяжитесь с нами"
 	},
 	"SeaBattle": {

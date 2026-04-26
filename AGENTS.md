@@ -1,5 +1,15 @@
 # AGENTS.md
 
+## Product direction
+- RevoTale builds fast, lightweight software that respects your privacy, bandwidth, resources, and time.
+- Preserve this positioning in UI copy, metadata, SEO content, documentation, and release notes.
+- Avoid describing RevoTale as only a web-application company; web is one delivery surface, not the whole scope.
+
+## Repository split
+- Tools have moved out of this CMS repo into https://github.com/RevoTale/tools-client and are included here only through the `apps/tools` submodule.
+- The root RevoTale website has moved out of this CMS repo into https://github.com/RevoTale/root-website.
+- Keep CMS changes focused on Payload/CMS concerns, redirects, and links to those external apps. Do not reintroduce moved tools or root-website page implementations here.
+
 ## Dev environment tips
 - Run commands from the repository root.
 - Install deps with `bun install --frozen-lockfile --linker=isolated`.

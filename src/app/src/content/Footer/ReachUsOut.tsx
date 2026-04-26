@@ -3,11 +3,29 @@ import { buttonVariants } from '@shadcn/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@shadcn/ui/card'
 import type { Locale } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
-import type { FunctionComponent } from 'react'
+import type { FunctionComponent, SVGProps } from 'react'
 
 interface Props {
 	locale: Locale
 }
+
+const GitHubBrandIcon = (props: SVGProps<SVGSVGElement>) => (
+	<svg aria-hidden="true" fill="currentColor" viewBox="0 0 24 24" {...props}>
+		<title>GitHub</title>
+		<path
+			fillRule="evenodd"
+			d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.85 10.91.58.11.79-.25.79-.56v-2.02c-3.2.69-3.88-1.38-3.88-1.38-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.25 3.33.95.1-.74.4-1.25.73-1.53-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.47.11-3.06 0 0 .96-.31 3.16 1.18A11 11 0 0 1 12 6.11c.98 0 1.96.13 2.88.39 2.2-1.49 3.16-1.18 3.16-1.18.62 1.59.23 2.77.11 3.06.74.81 1.18 1.84 1.18 3.1 0 4.43-2.7 5.4-5.27 5.69.41.36.78 1.06.78 2.13v3.05c0 .31.21.67.79.56A11.52 11.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"
+			clipRule="evenodd"
+		/>
+	</svg>
+)
+
+const XBrandIcon = (props: SVGProps<SVGSVGElement>) => (
+	<svg aria-hidden="true" fill="currentColor" viewBox="0 0 24 24" {...props}>
+		<title>X</title>
+		<path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.58-6.64 7.58H.47l8.6-9.83L0 1.15h7.59l5.24 6.93 6.07-6.93Zm-1.29 19.49h2.04L6.49 3.35H4.3l13.31 17.29Z" />
+	</svg>
+)
 
 const ReachUsOut: FunctionComponent<Props> = async ({ locale }) => {
 	const t = await getTranslations({
@@ -28,48 +46,28 @@ const ReachUsOut: FunctionComponent<Props> = async ({ locale }) => {
 								className: 'h-auto',
 							}),
 						)}
-						aria-label="GitHub"
+						aria-label="RevoTale on GitHub"
 						href="https://github.com/RevoTale"
 						rel="noopener noreferrer"
 						target="_blank"
 						title={t('GithubAlt')}
 					>
-						<svg className="size-10" aria-label="github" height="90" viewBox="0 0 14 14" width="90">
-							<title>GitHub</title>
-							<path
-								d="M7 .175c-3.872 0-7 3.128-7 7 0 3.084 2.013 5.71 4.79 6.65.35.066.482-.153.482-.328v-1.181c-1.947.415-2.363-.941-2.363-.941-.328-.81-.787-1.028-.787-1.028-.634-.438.044-.416.044-.416.7.044 1.071.722 1.071.722.635 1.072 1.641.766 2.035.59.066-.459.24-.765.437-.94-1.553-.175-3.193-.787-3.193-3.456 0-.766.262-1.378.721-1.881-.065-.175-.306-.897.066-1.86 0 0 .59-.197 1.925.722a6.754 6.754 0 0 1 1.75-.24c.59 0 1.203.087 1.75.24 1.335-.897 1.925-.722 1.925-.722.372.963.131 1.685.066 1.86.46.48.722 1.115.722 1.88 0 2.691-1.641 3.282-3.194 3.457.24.219.481.634.481 1.29v1.926c0 .197.131.415.481.328C11.988 12.884 14 10.259 14 7.175c0-3.872-3.128-7-7-7z"
-								fill="currentColor"
-								fillRule="nonzero"
-							/>
-						</svg>
+						<GitHubBrandIcon className="size-10" />
 					</a>
 					<a
-						aria-label="Twitter"
+						aria-label="RevoTale on X"
 						className={cn(
 							buttonVariants({
 								variant: 'ghost',
 								className: 'h-auto',
 							}),
 						)}
-						href="https://twitter.com/RevoTale"
+						href="https://x.com/RevoTale"
 						rel="noopener noreferrer"
 						target="_blank"
 						title={t('TwitterAlt')}
 					>
-						<svg
-							className="size-10"
-							aria-label="twitter"
-							fill="currentColor"
-							height="16"
-							width="16"
-							viewBox="0 0 18 15"
-						>
-							<title>Twitter</title>
-							<path
-								d="M18 1.684l-1.687 1.684v.28c0 .307-.05.602-.123.886-.04 2.316-.777 5.387-3.816 7.81C6.404 17.115 0 12.907 0 12.907c5.063 0 5.063-1.684 5.063-1.684-1.126 0-3.376-2.243-3.376-2.243.563.56 1.689 0 1.689 0C.56 7.295.56 5.61.56 5.61c.563.561 1.689 0 1.689 0C-.563 3.368 1.124.561 1.124.561 1.687 3.368 9 4.49 9 4.49l.093-.046A6.637 6.637 0 0 1 9 3.368C9 1.353 10.636 0 12.656 0c1.112 0 2.094.506 2.765 1.286l.329-.163L17.437 0l-1.122 2.245L18 1.684z"
-								fillRule="nonzero"
-							/>
-						</svg>
+						<XBrandIcon className="size-10" />
 					</a>
 				</div>
 				<small className="text-sm p-2 inline-block text-center">

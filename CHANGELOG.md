@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.12.0](https://github.com/RevoTale/cms/compare/v0.11.1...v0.12.0) (2026-04-27)
+
+
+### Features
+
+* **tools:** add static tools app submodule ([443991b](https://github.com/RevoTale/cms/commit/443991bbb4dc4a9ddfb86b6dfb564aa6a3bf5516))
+* **tools:** add static tools app submodule ([0afa1a5](https://github.com/RevoTale/cms/commit/0afa1a5e02519a19fce112107b70d7d2b3a8c5a9))
+* use sematic release for devcontainers ([f139911](https://github.com/RevoTale/cms/commit/f13991182e9cd786a4c55df9a08e08525918cf00))
+
 ## [0.11.1](https://github.com/RevoTale/cms/compare/v0.11.0...v0.11.1) (2026-04-13)
 
 

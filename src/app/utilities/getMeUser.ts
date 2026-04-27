@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
-
+import { cmsUrl } from '../../config/siteUrls'
 import type { User } from '../../payload-types'
 
 export const getMeUser = async (args?: {
@@ -14,7 +14,7 @@ export const getMeUser = async (args?: {
 	const cookieStore = await cookies()
 	const token = cookieStore.get('payload-token')?.value ?? ''
 
-	const meUserReq = await fetch(`${process.env.PAYLOAD_PUBLIC_SERVER_URL}/api/users/me`, {
+	const meUserReq = await fetch(`${cmsUrl.origin}/api/users/me`, {
 		headers: {
 			Authorization: `JWT ${token}`,
 		},

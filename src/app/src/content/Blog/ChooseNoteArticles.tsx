@@ -5,6 +5,7 @@ import type { Locale } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import type { FunctionComponent } from 'react'
 import NextLink from '@/i18n/LocaleLink'
+import { blogPaths, getBlogHref } from '../../linking/map/tools'
 
 interface Props {
 	className?: string
@@ -19,7 +20,7 @@ const ChooseNoteArticles: FunctionComponent<Props> = async ({ className, locale 
 		<div className={cn('flex gap-4', className)}>
 			<NextLink
 				locale={locale}
-				href="/blog/notes"
+				href={getBlogHref(locale, blogPaths.notes)}
 				className={cn(
 					buttonVariants({
 						variant: 'outline',
@@ -31,7 +32,7 @@ const ChooseNoteArticles: FunctionComponent<Props> = async ({ className, locale 
 			</NextLink>
 			<NextLink
 				locale={locale}
-				href="/blog/micro"
+				href={getBlogHref(locale, blogPaths.micro)}
 				className={cn(
 					buttonVariants({
 						variant: 'outline',

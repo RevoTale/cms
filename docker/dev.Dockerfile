@@ -11,6 +11,7 @@ COPY docker/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 ENV NEXT_PUBLIC_SERVER_URL=""
 ENV NODE_ENV=development
 ENV APP_URL=""
+ENV ROOT_WEBSITE_URL="https://revotale.com"
 ENV GRAPHQL_URL=""
 ENV GRAPHQL_SERVER_URL=""
 ENV LOVELY_EYE_SCRIPT_URL=""

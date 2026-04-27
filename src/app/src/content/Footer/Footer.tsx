@@ -5,7 +5,7 @@ import { getTranslations } from 'next-intl/server'
 import type { FunctionComponent } from 'react'
 import LocaleLink from '@/i18n/LocaleLink'
 import websiteName from '../../config/websiteName'
-import { BlogCrumb, getToolsHref, SeaBattleCrumb } from '../../linking/map/tools'
+import { blogPaths, getBlogHref, getRootWebsiteHref, getToolsHref, SeaBattleCrumb } from '../../linking/map/tools'
 import FooterList from './FooterList'
 import FooterListItem from './FooterListItem'
 import LanguageItem from './LanguageItem'
@@ -20,6 +20,8 @@ const Footer: FunctionComponent<Props> = async ({ locale }) => {
 		namespace: 'Footer',
 	})
 	const currentYear = new Date().getFullYear().toString()
+	const blogHref = getBlogHref(locale)
+	const notesHref = getBlogHref(locale, blogPaths.notes)
 	return (
 		<footer className="flex flex-col min-h-36 justify-center items-center mt-12">
 			<section className="flex flex-wrap flex-row justify-center w-full px-10 gap-y-5 gap-x-10 md:gap-x-18 lg:gap-x-30 items-start">
@@ -38,18 +40,18 @@ const Footer: FunctionComponent<Props> = async ({ locale }) => {
 					<FooterListItem locale={locale} href={getToolsHref(locale)}>
 						{t('Utils')}
 					</FooterListItem>
-					<FooterListItem locale={locale} href={BlogCrumb.href}>
+					<FooterListItem locale={locale} href={blogHref}>
 						{t('Blog')}
 					</FooterListItem>
 
-					<FooterListItem locale={locale} href="/blog/notes">
+					<FooterListItem locale={locale} href={notesHref}>
 						{t('notes')}
 					</FooterListItem>
 
 					<FooterListItem locale={locale} href={SeaBattleCrumb.href}>
 						{t('sea_battle')}
 					</FooterListItem>
-					<FooterListItem locale={locale} href="/love-rain">
+					<FooterListItem locale={locale} href={getRootWebsiteHref(locale, '/love-rain')}>
 						{t('sweetheart')} <HeartIcon />
 					</FooterListItem>
 				</FooterList>
@@ -61,7 +63,7 @@ const Footer: FunctionComponent<Props> = async ({ locale }) => {
 						variant: 'secondary',
 						size: 'lg',
 					})}
-					href="/navigation-map"
+					href={getRootWebsiteHref(locale, '/navigation-map')}
 				>
 					{t('OpenNavMapButton')}
 				</LocaleLink>

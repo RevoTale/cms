@@ -9,6 +9,8 @@ permissions:
 jobs:
   static-checks:
     runs-on: ubuntu-latest
+    env:
+      ROOT_WEBSITE_URL: https://revotale.com
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6

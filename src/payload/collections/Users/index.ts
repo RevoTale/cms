@@ -32,7 +32,12 @@ const toCookieDomain = (value: string | undefined): string | undefined => {
 	return `.${maybeDomain}`
 }
 
-const authCookieDomain = toCookieDomain(process.env.PAYLOAD_AUTH_COOKIE_DOMAIN ?? process.env.APP_URL)
+const authCookieDomain = toCookieDomain(
+	process.env.PAYLOAD_AUTH_COOKIE_DOMAIN ??
+		process.env.CMS_URL ??
+		process.env.PAYLOAD_PUBLIC_SERVER_URL ??
+		process.env.APP_URL,
+)
 
 const Users: CollectionConfig = {
 	slug: 'users',

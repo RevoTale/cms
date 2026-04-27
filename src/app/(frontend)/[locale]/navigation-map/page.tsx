@@ -7,9 +7,13 @@ import generateAlternatesMeta from '@/i18n/generateAlternatesMeta'
 import SchemaNavigation from '../../../src/content/SchemaNavigation/SchemaNavigation'
 import getUrl from '../../../src/linking/getUrl'
 import {
+	blogPaths,
+	getBlogHref,
+	getRootWebsiteHref,
 	getToolsHref,
 	RandomRecordSelector,
 	ScreenFillGalleryTool,
+	SeaBattleCrumb,
 	URLStringDecoder,
 	URLStringEncoder,
 	URLStringToolCrumb,
@@ -47,7 +51,7 @@ const Page: FunctionComponent<{ params: Promise<{ locale: Locale }> }> = async (
 	const schema = [
 		{
 			name: t('navigation.revotale'),
-			href: `/`,
+			href: getRootWebsiteHref(locale),
 			children: [
 				{
 					name: t('navigation.utilities'),
@@ -83,35 +87,35 @@ const Page: FunctionComponent<{ params: Promise<{ locale: Locale }> }> = async (
 				},
 				{
 					name: t('navigation.browserGames'),
-					href: `/browser-games`,
+					href: getRootWebsiteHref(locale, '/browser-games'),
 					children: [
 						{
 							name: t('navigation.battleShipGame'),
-							href: `/sea-battle`,
+							href: SeaBattleCrumb.href,
 						},
 					],
 				},
 				{
 					name: t('navigation.blog'),
-					href: `/blog`,
+					href: getBlogHref(locale),
 					children: [
 						{
 							name: t('navigation.articles'),
-							href: `/blog/articles`,
+							href: getBlogHref(locale, blogPaths.articles),
 						},
 						{
 							name: t('navigation.notes'),
-							href: `/blog/notes`,
+							href: getBlogHref(locale, blogPaths.notes),
 						},
 						{
 							name: t('navigation.microTales'),
-							href: `/blog/micro`,
+							href: getBlogHref(locale, blogPaths.micro),
 						},
 					],
 				},
 				{
 					name: t('navigation.selfHostedServices'),
-					href: `/homelab`,
+					href: getRootWebsiteHref(locale, '/homelab'),
 					children: [
 						{
 							name: t('navigation.tv'),

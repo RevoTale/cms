@@ -1,10 +1,8 @@
 import 'server-only'
+import { rootWebsiteUrl } from '../../../config/siteUrls'
+
 const getDomain = (): string => {
-	const domain = process.env.APP_URL ?? process.env.PAYLOAD_PUBLIC_SERVER_URL
-	if (!domain) {
-		throw new Error('no domain')
-	}
-	return domain
+	return rootWebsiteUrl.origin
 }
 
 export default getDomain

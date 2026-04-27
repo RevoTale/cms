@@ -6,7 +6,7 @@ import type { Locale } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import { type FunctionComponent, Suspense } from 'react'
 import NextLink from '@/i18n/LocaleLink'
-import { BlogCrumb } from '../../linking/map/tools'
+import { blogPaths, getBlogHref } from '../../linking/map/tools'
 import ChooseNoteArticles from '../Blog/ChooseNoteArticles'
 import BlogSectionIntroduce from '../Blog/ui/BlogSectionIntroduce'
 import MicroblogListWithDataHorizontal from '../Microblog/MicroblogListWithDataHorizontal'
@@ -20,14 +20,16 @@ const BlogPostsBoard: FunctionComponent<Props> = async ({ locale }) => {
 		locale,
 		namespace: 'BlogBoard',
 	})
+	const blogHref = getBlogHref(locale)
+	const notesHref = getBlogHref(locale, blogPaths.notes)
 
 	return (
 		<BoardSection>
-			<BoardTitleLink icon={<LibraryBigIcon />} href={BlogCrumb.href} locale={locale}>
+			<BoardTitleLink icon={<LibraryBigIcon />} href={blogHref} locale={locale}>
 				{t('title')}
 			</BoardTitleLink>
 			<BoardDescription>
-				<NextLink locale={locale} className="hover:text-foreground" href="/blog" title={t('go_to_blog')}>
+				<NextLink locale={locale} className="hover:text-foreground" href={blogHref} title={t('go_to_blog')}>
 					{t('desc')}
 				</NextLink>
 			</BoardDescription>
@@ -36,7 +38,7 @@ const BlogPostsBoard: FunctionComponent<Props> = async ({ locale }) => {
 				locale={locale}
 				title={t('discover_notes')}
 				icon={<NotebookTextIcon className="size-6" />}
-				href="/blog/notes"
+				href={notesHref}
 			>
 				<Suspense fallback={<MicroblogListWithDataHorizontalSkeleton className="basis-64" />}>
 					<MicroblogListWithDataHorizontal locale={locale} />

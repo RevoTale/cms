@@ -8,7 +8,7 @@ import Image from 'next/image'
 import type { Locale } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import type { FunctionComponent } from 'react'
-import { SeaBattleCrumb } from '../../linking/map/tools'
+import { getRootWebsiteHref, SeaBattleCrumb } from '../../linking/map/tools'
 import SeaBattle from './images/sea-battle.png'
 
 interface Props {
@@ -22,7 +22,7 @@ const GamesBoard: FunctionComponent<Props> = async ({ priority, locale }) => {
 	})
 	return (
 		<BoardSection>
-			<BoardTitleLink href="/browser-games" locale={locale} icon={<SwordsIcon />}>
+			<BoardTitleLink href={getRootWebsiteHref(locale, '/browser-games')} locale={locale} icon={<SwordsIcon />}>
 				{t('title')}
 			</BoardTitleLink>
 			<BoardDescription>{t('desc')}</BoardDescription>

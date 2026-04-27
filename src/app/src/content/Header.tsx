@@ -2,6 +2,7 @@ import type { Locale } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import type { FunctionComponent, ReactNode } from 'react'
 import LocaleLink from '@/i18n/LocaleLink'
+import { getRootWebsiteHref } from '../linking/map/tools'
 import Logo from './Logo'
 
 interface Props {
@@ -19,7 +20,7 @@ const Header: FunctionComponent<Props> = async ({ search, locale }) => {
 			<header className="flex justify-center gap-3 my-4 ">
 				<LocaleLink
 					locale={locale}
-					href="/"
+					href={getRootWebsiteHref(locale)}
 					title={t('GoHome')}
 					className="text-2xl flex col-span-1 items-center justify-center tracking-wider"
 				>

@@ -1,13 +1,12 @@
 import type { Metadata } from 'next'
+import { cmsUrl } from '../../config/siteUrls'
 
 const defaultOpenGraph: Metadata['openGraph'] = {
 	type: 'website',
 	description: 'An open-source website built with Payload and Next.js.',
 	images: [
 		{
-			url: process.env.PAYLOAD_PUBLIC_SERVER_URL
-				? `${process.env.PAYLOAD_PUBLIC_SERVER_URL}/website-template-OG.webp`
-				: '/website-template-OG.webp',
+			url: `${cmsUrl.origin}/website-template-OG.webp`,
 		},
 	],
 	siteName: 'RevoTale',

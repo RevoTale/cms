@@ -13,6 +13,7 @@ import OpenAI from 'openai'
 import type { PayloadRequest, TypedLocale } from 'payload'
 import { buildConfig } from 'payload'
 import type { MicroPost, Tag } from 'src/payload-types'
+import { blogUrl, cmsUrl, rootWebsiteUrl, seaBattleUrl, toOrigin, toolsUrl } from './config/siteUrls'
 import { locales } from './i18n-config'
 import { migrations } from './migrations'
 import AICallLogs from './payload/collections/AICallLog'
@@ -119,29 +120,25 @@ HARD RULES
 
 	return response.output_text
 }
-const publicWebsiteURL = process.env.APP_URL ?? process.env.PAYLOAD_PUBLIC_SERVER_URL ?? ''
+const publicWebsiteURL = cmsUrl.origin
 
 const sss: GenerateFileURL = ({ filename, prefix = '' }) => `${publicWebsiteURL}/cdn/image/s3/828/${prefix}/${filename}`
 
-const toURLOrigin = (value: string | undefined): string | undefined => {
-	if (!value) {
-		return undefined
-	}
-
-	try {
-		return new URL(value).origin
-	} catch {
-		return undefined
-	}
-}
-
 const enableCron = process.env.ENABLE_CRON === '1'
-const serverURL = toURLOrigin(process.env.PAYLOAD_PUBLIC_SERVER_URL)
+const serverURL = toOrigin(process.env.PAYLOAD_PUBLIC_SERVER_URL) ?? cmsUrl.origin
 const allowedOrigins = Array.from(
 	new Set(
-		[toURLOrigin(process.env.APP_URL), serverURL].filter(
-			(origin): origin is string => origin !== undefined && origin.length > 0,
-		),
+		[
+			toOrigin(rootWebsiteUrl),
+			toOrigin(cmsUrl),
+			toOrigin(blogUrl),
+			toOrigin(toolsUrl),
+			toOrigin(seaBattleUrl),
+			toOrigin(process.env.APP_URL),
+			toOrigin(process.env.PAYLOAD_PUBLIC_SERVER_URL),
+			toOrigin(process.env.NEXT_PUBLIC_SERVER_URL),
+			serverURL,
+		].filter((origin): origin is string => origin !== undefined && origin.length > 0),
 	),
 )
 const DEFAULT_API_DEPTH = 1

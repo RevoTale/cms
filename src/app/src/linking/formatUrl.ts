@@ -1,12 +1,17 @@
 import type { RelativeURL } from 'next-navigation-utils'
 import { defaultLocale } from '@/i18n/config'
+import { withSubdomain } from '../../../config/siteUrls'
 
-const formatUrl = (rootUrl: string, path: string | RelativeURL, locale: string | null, sub?: string): URL => {
+const isAbsoluteUrl = (url: string): boolean => /^[a-z][a-z\d+.-]*:\/\//iv.test(url)
+
+const formatUrl = (rootUrl: string | URL, path: string | RelativeURL, locale: string | null, sub?: string): URL => {
 	const pathStr = typeof path === 'string' ? path : path.asString()
-	let domain = rootUrl
-	if ((sub ?? '') !== '') {
-		domain = domain.replace('https://', `https://${sub}.`)
+	if (isAbsoluteUrl(pathStr)) {
+		return new URL(pathStr)
 	}
-	return new URL(`${domain}${locale === defaultLocale || locale === null ? '' : `/${locale}`}${pathStr}`)
+
+	const root = typeof rootUrl === 'string' ? new URL(rootUrl) : rootUrl
+	const domain = sub ? withSubdomain(root, sub) : root
+	return new URL(`${domain.origin}${locale === defaultLocale || locale === null ? '' : `/${locale}`}${pathStr}`)
 }
 export default formatUrl

@@ -5,6 +5,7 @@ import { BookHeartIcon } from 'lucide-react'
 import type { Locale } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import type { FunctionComponent } from 'react'
+import { getRootWebsiteHref } from '../../linking/map/tools'
 import SelfHostList from './Lists/SelfHostList'
 
 interface Props {
@@ -17,7 +18,7 @@ const SelfHostingBoard: FunctionComponent<Props> = async ({ locale }) => {
 	})
 	return (
 		<BoardSection>
-			<BoardTitleLink locale={locale} href="/homelab" icon={<BookHeartIcon />}>
+			<BoardTitleLink locale={locale} href={getRootWebsiteHref(locale, '/homelab')} icon={<BookHeartIcon />}>
 				{t('title')}
 			</BoardTitleLink>
 			<BoardDescription>{t('desc')}</BoardDescription>

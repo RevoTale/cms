@@ -1,6 +1,6 @@
 import type { BreadcrumbInfo } from '@revotale/ui/Board/BoardListCrumbItem'
-
-export const toolsBaseUrl = 'https://tools.revotale.com'
+import { defaultLocale } from '@/i18n/config'
+import { blogUrl, rootWebsiteUrl, seaBattleUrl, toolsUrl } from '../../../../config/siteUrls'
 
 export const toolPaths = {
 	root: '/',
@@ -12,19 +12,49 @@ export const toolPaths = {
 	randomRecordSelector: '/random-record-selector',
 } as const
 
-export const getToolsHref = (locale: string, path: string = toolPaths.root): string => {
-	const normalizedPath = path === '/' ? '' : path
-	return `${toolsBaseUrl}/${locale}${normalizedPath}`
+export const blogPaths = {
+	root: '/',
+	notes: '/',
+	articles: '/tales',
+	micro: '/micro-tales',
+} as const
+
+const normalizePath = (path: string): string => {
+	if (path === '/') {
+		return ''
+	}
+
+	return path.startsWith('/') ? path : `/${path}`
 }
 
+const getLocalizedHref = (
+	baseUrl: URL,
+	locale: string,
+	path: string = '/',
+	options: { alwaysLocale?: boolean } = {},
+): string => {
+	const localePrefix = options.alwaysLocale || locale !== defaultLocale ? `/${locale}` : ''
+	return `${baseUrl.origin}${localePrefix}${normalizePath(path)}`
+}
+
+export const getRootWebsiteHref = (locale: string, path: string = '/'): string =>
+	getLocalizedHref(rootWebsiteUrl, locale, path)
+
+export const getToolsHref = (locale: string, path: string = toolPaths.root): string => {
+	return getLocalizedHref(toolsUrl, locale, path, { alwaysLocale: true })
+}
+
+export const getBlogHref = (locale: string, path: string = blogPaths.root): string =>
+	getLocalizedHref(blogUrl, locale, path)
+
 export const ToolsCrumb: BreadcrumbInfo = {
-	href: toolsBaseUrl,
+	href: toolsUrl.origin,
 } as const
 export const URLStringToolCrumb: BreadcrumbInfo = {
 	href: toolPaths.urlEncodeDecode,
 } as const
 export const SeaBattleCrumb: BreadcrumbInfo = {
-	href: `https://sea-battle.revotale.com`, //Nextjs doe snot allow me much iteractivity
+	href: seaBattleUrl.origin,
 } as const
 export const URLStringDecoder: BreadcrumbInfo = {
 	href: toolPaths.urlDecoder,
@@ -43,5 +73,5 @@ export const RandomRecordSelector: BreadcrumbInfo = {
 	href: toolPaths.randomRecordSelector,
 }
 export const BlogCrumb: BreadcrumbInfo = {
-	href: `/blog`,
+	href: getBlogHref(defaultLocale),
 } as const

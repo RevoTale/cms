@@ -3,6 +3,7 @@ import { withPayload } from '@payloadcms/next/withPayload'
 import type { NextConfig } from 'next'
 import createNextIntlPlugin from 'next-intl/plugin'
 import { locales } from './src/app/src/i18n/config'
+import { blogUrl, cmsUrl, rootWebsiteUrl, seaBattleUrl, toOrigin, toolsUrl } from './src/config/siteUrls'
 
 const appURL = process.env.APP_URL
 const payloadPublicServerURL = process.env.PAYLOAD_PUBLIC_SERVER_URL
@@ -21,25 +22,9 @@ type LegacyBlogRedirectRule = {
 	preserveLocaleInDestination: boolean
 }
 
-const resolveBlogBaseURL = (): string => {
-	for (const maybeURL of [appURL, payloadPublicServerURL]) {
-		if (!maybeURL) {
-			continue
-		}
-		try {
-			const parsed = new URL(maybeURL)
-			const hostname = parsed.hostname.startsWith('www.') ? parsed.hostname.slice(4) : parsed.hostname
-			return `${parsed.protocol}//blog.${hostname}`
-		} catch {
-			// Ignore malformed optional URLs so local development can still boot.
-		}
-	}
-	return 'https://blog.revotale.com'
-}
-
-const joinDestination = (baseURL: string, destinationPath: string): string => {
+const joinDestination = (baseURL: URL, destinationPath: string): string => {
 	const trimmedPath = destinationPath.startsWith('/') ? destinationPath : `/${destinationPath}`
-	return `${baseURL}${trimmedPath}`
+	return `${baseURL.origin}${trimmedPath}`
 }
 
 const legacyBlogRedirectRules: LegacyBlogRedirectRule[] = [
@@ -72,13 +57,12 @@ const buildLegacyBlogRedirects = (): Array<{
 	destination: string
 	permanent: true
 }> => {
-	const blogBaseURL = resolveBlogBaseURL()
 	const redirects: Array<{ source: string; destination: string; permanent: true }> = []
 
 	for (const rule of legacyBlogRedirectRules) {
 		redirects.push({
 			source: rule.source,
-			destination: joinDestination(blogBaseURL, rule.destination),
+			destination: joinDestination(blogUrl, rule.destination),
 			permanent: true,
 		})
 
@@ -87,7 +71,7 @@ const buildLegacyBlogRedirects = (): Array<{
 			: rule.destination
 		redirects.push({
 			source: `/:locale(${localePattern})${rule.source}`,
-			destination: joinDestination(blogBaseURL, localeDestination),
+			destination: joinDestination(blogUrl, localeDestination),
 			permanent: true,
 		})
 	}
@@ -96,15 +80,10 @@ const buildLegacyBlogRedirects = (): Array<{
 }
 
 const remoteHosts = new Set<string>([])
-for (const maybeURL of [appURL, payloadPublicServerURL]) {
-	if (!maybeURL) {
-		continue
-	}
-
-	try {
-		remoteHosts.add(new URL(maybeURL).hostname)
-	} catch {
-		// Ignore malformed optional URLs so local development can still boot.
+for (const maybeURL of [appURL, payloadPublicServerURL, cmsUrl, rootWebsiteUrl, blogUrl, toolsUrl, seaBattleUrl]) {
+	const origin = toOrigin(maybeURL)
+	if (origin) {
+		remoteHosts.add(new URL(origin).hostname)
 	}
 }
 

@@ -1,15 +1,18 @@
 import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client'
 import { registerApolloClient } from '@apollo/client-integration-nextjs'
 import 'server-only'
+import { cmsUrl } from '../../../config/siteUrls'
 
 export const { getClient } = registerApolloClient(() => {
+	const defaultServerGraphqlUrl =
+		process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:3000/api/graphql' : `${cmsUrl.origin}/api/graphql`
 	const serverGraphqlUrl =
 		process.env.GRAPHQL_SERVER_URL ??
 		process.env.GRAPHQL_URL ??
-		(process.env.APP_URL ? `${process.env.APP_URL}/api/graphql` : undefined) ??
 		(process.env.PAYLOAD_PUBLIC_SERVER_URL
 			? `${process.env.PAYLOAD_PUBLIC_SERVER_URL}/api/graphql`
-			: 'http://127.0.0.1:3000/api/graphql')
+			: undefined) ??
+		defaultServerGraphqlUrl
 	const clientGraphqlUrl = process.env.GRAPHQL_URL ?? '/api/graphql'
 
 	return new ApolloClient({

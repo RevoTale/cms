@@ -1,3 +1,6 @@
 [submodule "apps/tools"]
 	path = apps/tools
 	url = https://github.com/RevoTale/tools-client.git
+[submodule "apps/root-website"]
+	path = apps/root-website
+	url = https://github.com/RevoTale/root-website.git

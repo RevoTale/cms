@@ -17,7 +17,8 @@
 			"!**/@shadcn/ui",
 			"!src/app/src/gql",
 			"!src/migrations",
-			"!src/**/*.d.json.ts"
+			"!src/**/*.d.json.ts",
+			"!apps"
 		]
 	},
 	"formatter": {

@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.13.0](https://github.com/RevoTale/cms/compare/v0.12.0...v0.13.0) (2026-05-29)
+
+
+### Features
+
+* fix redirects from old tools. ([f2e13f9](https://github.com/RevoTale/cms/commit/f2e13f92f911c7c55e845fcca5b84a65dcc56fe6))
+
+
+### Bug Fixes
+
+* code stlye ([56db2d0](https://github.com/RevoTale/cms/commit/56db2d05da1410247e5f4b30fc41ec923a441d29))
+* **deps:** update dependency next to v16.2.6 [security] ([21b05b3](https://github.com/RevoTale/cms/commit/21b05b32420f4feffdb56dde528a709ae1a6ea45))
+* **deps:** update dependency next to v16.2.6 [security] ([9050167](https://github.com/RevoTale/cms/commit/9050167ca0d1a48a1ccf161d17f6c17ae33edcff))
+* I found out the reason blog completely removed from the index in google. Reason was disallowed robots.txt. Blog contained urls of the picture to the CMS with disallowed indexing... Regress happended due to AI refactoring back to subdomain in the https://github.com/RevoTale/cms/commit/a283fdabcfeeff1aabc76661f9e1f0cc63b10f16 ([8cb3263](https://github.com/RevoTale/cms/commit/8cb3263bee63104fbb3c48d7fa93c49b230e2f76))
+* redction in the roto websote ([370e6ba](https://github.com/RevoTale/cms/commit/370e6ba4f6e029e3520362c3a94d941dc34dbec1))
+
 ## [0.12.0](https://github.com/RevoTale/cms/compare/v0.11.1...v0.12.0) (2026-04-27)
 
 

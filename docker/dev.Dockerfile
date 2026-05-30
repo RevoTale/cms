@@ -1,6 +1,6 @@
-FROM oven/bun:1-alpine AS base
+FROM node:25.9.0-alpine AS base
 
-RUN apk add --no-cache libc6-compat
+RUN apk add --no-cache libc6-compat && npm install -g pnpm@11.5.0
 
 WORKDIR /app
 
@@ -38,4 +38,4 @@ EXPOSE 3000
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
-CMD ["bun", "dev"]
+CMD ["pnpm", "dev"]

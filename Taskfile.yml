@@ -7,25 +7,31 @@ tasks:
       - task: build:compile
   build:compile:
     desc: Build Next.js with experimental compile mode
+    env:
+      NODE_ENV: production
     cmds:
-      - NODE_ENV=production bun --bun --disable-transpile next build --experimental-build-mode=compile
+      - pnpm run build:compile
   build:generate:
     desc: Build Next.js with experimental generate mode
+    env:
+      NODE_ENV: production
     cmds:
-      - NODE_ENV=production bun --bun --disable-transpile next build --experimental-build-mode=generate
+      - pnpm run build:generate
   build:default:
     desc: Build Next.js with default mode
+    env:
+      NODE_ENV: production
     cmds:
-      - NODE_ENV=production bun --bun --disable-transpile next build
+      - pnpm run build:default
   codegen:
     desc: Run CMS + frontend generators (Payload + Next + GraphQL types)
     cmds:
-      - bun run p:cli generate:types
-      - bun run p:cli generate:importmap
-      - bunx cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts bunx --bun payload-graphql --disable-transpile generate:schema
-      - bun run p:cli generate:db-schema
-      - bunx next typegen
-      - bunx graphql-codegen --config codegen.ts
+      - pnpm run p:cli generate:types
+      - pnpm run p:cli generate:importmap
+      - pnpm run p:gql generate:schema
+      - pnpm run p:cli generate:db-schema
+      - pnpm run next:typegen
+      - pnpm exec graphql-codegen --config codegen.ts
       - task: fix
 
   codegen:check:
@@ -42,25 +48,25 @@ tasks:
   fix:
     desc: Auto-fix lint issues
     cmds:
-      - bunx biome check --write --unsafe .
+      - pnpm run fix
   migrate:create:
     cmds:
-      - bun run p:cli migrate:create --skip-empty
+      - pnpm run p:cli migrate:create --skip-empty
   migrate:is-up-to-date:
     cmds:
-      - bun run p:cli migrate:create --check
+      - pnpm run p:cli migrate:create --check
   lint:
     desc: Lint sources
     cmds:
-      - bunx biome check .
+      - pnpm run lint
   typegen:
     desc: Generate Next.js type metadata (needed for build validation)
     cmds:
-      - bunx next typegen
+      - pnpm run next:typegen
   typecheck:
     desc: Run TypeScript typecheck
     cmds:
-      - bunx tsc --noEmit
+      - pnpm run typecheck
 
   validate:
     desc: Run lint + typecheck in parallel

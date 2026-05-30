@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.13.1](https://github.com/RevoTale/cms/compare/v0.13.0...v0.13.1) (2026-05-30)
+
+
+### Bug Fixes
+
+* **docker:** run CMS on Node 25 with pnpm ([412f8ab](https://github.com/RevoTale/cms/commit/412f8ab3f8ad76fb5923479361e7fbc83effc3ee))
+
 ## [0.13.0](https://github.com/RevoTale/cms/compare/v0.12.0...v0.13.0) (2026-05-29)
 
 

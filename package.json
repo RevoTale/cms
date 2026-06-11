@@ -30,7 +30,7 @@
 		"@lexical/react": "^0.43.0",
 		"@lexical/rich-text": "^0.43.0",
 		"@lexical/table": "^0.43.0",
-		"@mdxeditor/editor": "^3.53.1",
+		"@mdxeditor/editor": "^4.0.0",
 		"@next/bundle-analyzer": "^16.2.1",
 		"@payloadcms/db-postgres": "3.82.1",
 		"@payloadcms/graphql": "3.82.1",

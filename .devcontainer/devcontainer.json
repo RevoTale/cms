@@ -14,10 +14,11 @@
 	"features": {
 		"ghcr.io/devcontainers-extra/features/go-task:1": {},
 		"ghcr.io/devcontainers/features/node:2": {
-			"version": "25.9.0"
+			"version": "25.9.0",
+			"pnpm": true
 		}
 	},
-	"postCreateCommand": "npm install -g pnpm@11.5.0 && pnpm install --frozen-lockfile",
+	"postCreateCommand": "pnpm install --frozen-lockfile",
 	"customizations": {
 		"vscode": {
 			"extensions": [

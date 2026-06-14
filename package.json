@@ -12,8 +12,8 @@
 		"fix": "biome check --write --unsafe .",
 		"lint": "biome check .",
 		"next:typegen": "next typegen",
-		"p:cli": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload",
-		"p:gql": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload-graphql",
+		"p:cli": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload --use-swc",
+		"p:gql": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload-graphql --use-swc",
 		"typecheck": "tsc --noEmit",
 		"start": "next start"
 	},
@@ -53,6 +53,7 @@
 		"@radix-ui/react-switch": "^1.3.0",
 		"@radix-ui/react-tooltip": "^1.2.9",
 		"@swc-contrib/plugin-graphql-codegen-client-preset": "^0.24.0",
+		"@swc-node/register": "^1.11.1",
 		"@types/unist": "^3.0.3",
 		"class-variance-authority": "^0.7.1",
 		"clipboardy": "^5.3.1",

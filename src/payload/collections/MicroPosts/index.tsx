@@ -134,8 +134,8 @@ const validateShortPostContent: Validate<string, Partial<MicroPostData>, Partial
 
 const formatSlugValue = (value: string): string =>
 	value
-		.replace(/ /gv, '-')
-		.replace(/[^\w-]+/gv, '')
+		.replace(/ /g, '-')
+		.replace(/[^\w-]+/g, '')
 		.toLowerCase()
 
 const pickFirstText = (value: unknown): string | undefined => {

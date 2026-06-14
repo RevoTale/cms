@@ -3,6 +3,7 @@ import { ScrollArea, ScrollBar } from '@shadcn/ui/scroll-area'
 import { Table } from '@shadcn/ui/table'
 import { type FunctionComponent, type ReactNode, Suspense } from 'react'
 import 'server-only'
+
 interface Props {
 	children: ReactNode
 }

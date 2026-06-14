@@ -22,6 +22,7 @@ import { default as default_85bc59714294c8b0fddcdba92bbdc31b } from '../../../pa
 import { S3ClientUploadHandler as S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24 } from '@payloadcms/storage-s3/client'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 
+/** @type import('payload').ImportMap */
 export const importMap = {
   "@/components/AutoTranslation/AutoTranslateButton#default": default_2803ba5d37e0e98c0a514325dba8ed4c,
   "/payload/components/RichTextMarkdownField#default": default_c51dc83ac3463891537e2c689e3bace3,

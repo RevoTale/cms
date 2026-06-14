@@ -14,6 +14,7 @@ import { visit } from 'unist-util-visit'
 import NextLink from '@/i18n/LocaleLink'
 import CopyButtonWithSkeleton from './CopyButtonWithSkeleton'
 import './mdwn.css'
+
 const externallinkPrefix = 'external_link://'
 const internallinkPrefix = 'micro_post://'
 

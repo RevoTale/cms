@@ -11,6 +11,7 @@ import remarkGfm from 'remark-gfm'
 import NextLink from '@/i18n/LocaleLink'
 import getDomain from '../../config/getDomain'
 import './../Blog/Post/mdwn.css'
+
 const plugins = [remarkGfm, rehypeSlug]
 const getCodeLang = (className: string): string | null => {
 	const match = /language-(\w+)/.exec(className)

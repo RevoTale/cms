@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.13.2](https://github.com/RevoTale/cms/compare/v0.13.1...v0.13.2) (2026-06-15)
+
+
+### Bug Fixes
+
+* **cms:** migrate TypeScript 6 and unblock dev proxy ([b8dd245](https://github.com/RevoTale/cms/commit/b8dd24564990206da172e2e8df6764afa23a94f0))
+* could not run migration create. Helped fix from the `https://github.com/payloadcms/payload/issues/16949#issuecomment-4669366973`, but we were forced to install more deps ([3360365](https://github.com/RevoTale/cms/commit/3360365710c2a9952bb459e7f5f35337191b0625))
+
 ## [0.13.1](https://github.com/RevoTale/cms/compare/v0.13.0...v0.13.1) (2026-05-30)
 
 

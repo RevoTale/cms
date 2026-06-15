@@ -38,7 +38,7 @@ services:
     working_dir: /workspaces/cms
 
   cms_postgres:
-    image: postgres:18.3
+    image: postgres:18.4
     command:
       - postgres
       - -c
@@ -93,7 +93,7 @@ services:
     restart: unless-stopped
 
   proxy:
-    image: nginx:1.29-alpine
+    image: nginx:1.31-alpine
     depends_on:
       devcontainer:
         condition: service_started

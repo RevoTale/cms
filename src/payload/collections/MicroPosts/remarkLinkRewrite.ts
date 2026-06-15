@@ -76,7 +76,7 @@ export const replaceAsync = async (
  * @returns {Promise<*>}
  */
 export const rewriteJSXURL = async (value: string, replacer: Replacer): Promise<string> =>
-	await replaceAsync(value, /href="(.*?)"/gv, async (_: string, url: string) => {
+	await replaceAsync(value, /href="(.*?)"/g, async (_: string, url: string) => {
 		const newUrl = await replacer(url)
 		return `href="${newUrl}"`
 	})

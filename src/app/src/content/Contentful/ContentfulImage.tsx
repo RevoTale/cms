@@ -23,11 +23,18 @@ interface ContentfulImageProps {
 	id?: string
 }
 
+const getNonEmptyText = (value: string | null | undefined): string | undefined => {
+	const trimmed = value?.trim()
+	return trimmed === '' ? undefined : trimmed
+}
+
 const ContentfulImage: FunctionComponent<ContentfulImageProps> = ({ image, priority, ...props }) => {
 	const data = getFragmentData(contentfulImageFragment, image)
 	const url = data.url ?? null
 	const height = data.height ?? null
 	const width = data.width ?? null
+	const imageAlt = getNonEmptyText(props.alt) ?? getNonEmptyText(data.alt) ?? getNonEmptyText(data.description) ?? ''
+	const imageDescription = getNonEmptyText(data.description)
 	if (url === null || height === null || width === null) {
 		throw new Error('No url returned by image')
 	}
@@ -35,8 +42,8 @@ const ContentfulImage: FunctionComponent<ContentfulImageProps> = ({ image, prior
 	return (
 		<Image
 			{...props}
-			alt={data.alt ?? ''}
-			aria-description={data.description ?? ''}
+			alt={imageAlt}
+			aria-description={imageDescription}
 			height={height}
 			width={width}
 			priority={priority}

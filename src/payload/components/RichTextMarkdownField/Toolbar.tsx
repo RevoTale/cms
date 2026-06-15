@@ -12,7 +12,6 @@ import {
 	InsertThematicBreak,
 	ListsToggle,
 	Separator,
-	ShowSandpackInfo,
 	StrikeThroughSupSubToggles,
 	UndoRedo,
 } from '@mdxeditor/editor'
@@ -31,10 +30,6 @@ export const KitchenSinkToolbar: React.FC = () => (
 				{
 					when: editor => editor?.editorType === 'codeblock',
 					contents: () => <ChangeCodeMirrorLanguage />,
-				},
-				{
-					when: editor => editor?.editorType === 'sandpack',
-					contents: () => <ShowSandpackInfo />,
 				},
 				{
 					fallback: () => (

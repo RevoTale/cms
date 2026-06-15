@@ -24,7 +24,6 @@ import {
 } from '../../../../src/content/Microblog/blogPostListGql'
 import MicroBlogPostListWithData from '../../../../src/content/Microblog/MicroblogPostListWithData'
 import MicroBlogPostListWithDataSkeleton from '../../../../src/content/Microblog/MicroblogPostListWithDataSkeleton'
-import { Micro_post_post_type_Input } from '../../../../src/gql/graphql'
 import getGqlLocale from '../../../../src/i18n/getGqlLocale'
 import canonizeSearchQuery from '../../../../src/utils/canonizeSearchQuery'
 import AvailableTags from './AvailableTags'
@@ -69,7 +68,7 @@ const NotesPageClient: FunctionComponent<{
 			page: currentPage,
 			limit: pageLimit,
 			locale: getGqlLocale(locale),
-			postType: Micro_post_post_type_Input.Long,
+			postType: 'long',
 			tagsIn: tagsIn?.map(tag => getFragmentData(tagFragment, tag).id),
 			authorIn: authorIn?.map(author => getFragmentData(authorQueryInFrag, author).id),
 		},
@@ -101,7 +100,7 @@ const NotesPageClient: FunctionComponent<{
 				<h1 className="text-2xl font-semibold text-center sm:text-left">{t('notes_heading')}</h1>
 			</div>
 			<Suspense>
-				<AvailableTags usedNames={tagNameInValues ?? []} locale={locale} postType={Micro_post_post_type_Input.Long} />
+				<AvailableTags usedNames={tagNameInValues ?? []} locale={locale} postType="long" />
 			</Suspense>
 			{showSkeletons ? (
 				<div className="flex flex-wrap gap-3 items-center">

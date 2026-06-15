@@ -1,14 +1,15 @@
-import { LocaleInputType } from '../gql/graphql'
+import type { LocaleInputType } from '../gql/graphql'
 
-const getGqlLocale = (locale: string): LocaleInputType =>
-	({
-		en: LocaleInputType.EnUs,
-		de: LocaleInputType.DeDe,
-		uk: LocaleInputType.UkUa,
-		es: LocaleInputType.EsEs,
-		fr: LocaleInputType.FrFr,
-		hi: LocaleInputType.HiIn,
-		ja: LocaleInputType.JaJp,
-		ru: LocaleInputType.RuRu,
-	})[locale] ?? LocaleInputType.EnUs
+const gqlLocaleByLocale: Record<string, LocaleInputType> = {
+	en: 'en_US',
+	de: 'de_DE',
+	uk: 'uk_UA',
+	es: 'es_ES',
+	fr: 'fr_FR',
+	hi: 'hi_IN',
+	ja: 'ja_JP',
+	ru: 'ru_RU',
+}
+
+const getGqlLocale = (locale: string): LocaleInputType => gqlLocaleByLocale[locale] ?? 'en_US'
 export default getGqlLocale

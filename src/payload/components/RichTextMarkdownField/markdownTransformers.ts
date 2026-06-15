@@ -56,7 +56,7 @@ const TABLE: ElementTransformer = {
 					continue
 				}
 
-				const cellMarkdown = $convertToMarkdownString(TRANSFORMERS, cell).replace(/\n/gv, '\\n').trim()
+				const cellMarkdown = $convertToMarkdownString(TRANSFORMERS, cell).replace(/\n/g, '\\n').trim()
 				cells.push(cellMarkdown)
 
 				if (cell.__headerState === TableCellHeaderStates.ROW) {
@@ -179,7 +179,7 @@ const insertTable = (parentNode: ElementNode, tableNode: TableNode, maxColumns: 
 }
 
 const createTableCell = (rawText: string): TableCellNode => {
-	const textContent = rawText.replace(/\\n/gv, '\n').trim()
+	const textContent = rawText.replace(/\\n/g, '\n').trim()
 	const cell = $createTableCellNode(TableCellHeaderStates.NO_STATUS)
 	$convertFromMarkdownString(textContent, BASE_TRANSFORMERS, cell)
 	if (cell.getChildrenSize() === 0) {

@@ -196,7 +196,7 @@ const gqlLocaleToPayloadLocale = (locale: unknown): TypedLocale | undefined => {
 		return undefined
 	}
 
-	const localeWithDash = locale.replace(/_/gv, '-')
+	const localeWithDash = locale.replace(/_/g, '-')
 	return locales.find(availableLocale => availableLocale === localeWithDash)
 }
 

@@ -6,8 +6,38 @@ import { locales } from './src/app/src/i18n/config'
 import { blogUrl, cmsUrl, rootWebsiteUrl, seaBattleUrl, toOrigin, toolsUrl } from './src/config/siteUrls'
 
 const appURL = process.env.APP_URL
+const nextPublicServerURL = process.env.NEXT_PUBLIC_SERVER_URL
 const payloadPublicServerURL = process.env.PAYLOAD_PUBLIC_SERVER_URL
 const verboseRuntimeLogs = process.env.NEXT_RUNTIME_VERBOSE_LOGS === '1'
+const parseListEnv = (value: string | undefined): string[] =>
+	value
+		?.split(',')
+		.map(item => item.trim())
+		.filter(item => item.length > 0) ?? []
+const parseURLHostname = (value: string | undefined): string | undefined => {
+	if (!value) {
+		return undefined
+	}
+
+	try {
+		return new URL(value).hostname
+	} catch {
+		return undefined
+	}
+}
+const allowedDevOrigins = Array.from(
+	new Set(
+		[
+			...parseListEnv(process.env.NEXT_ALLOWED_DEV_ORIGINS),
+			parseURLHostname(appURL),
+			parseURLHostname(nextPublicServerURL),
+			parseURLHostname(payloadPublicServerURL),
+			'*.revotale-cms-devcontainer.orb.local',
+			'*.proxy.revotale-cms-devcontainer.orb.local',
+			'proxy.revotale-cms-devcontainer.orb.local',
+		].filter((origin): origin is string => origin !== undefined && origin.length > 0),
+	),
+)
 const localePattern = locales.join('|')
 const withNextIntl = createNextIntlPlugin({
 	experimental: {
@@ -90,6 +120,7 @@ for (const maybeURL of [appURL, payloadPublicServerURL, cmsUrl, rootWebsiteUrl, 
 const nextConfig: NextConfig = {
 	reactStrictMode: true,
 	output: 'standalone',
+	allowedDevOrigins,
 	//cacheHandler: require.resolve('./cache-handler.mjs'), //waiting for https://github.com/fortedigital/nextjs-cache-handler/issues/110
 	//cacheMaxMemorySize: 0, // Disable in-memory caching for custom handler
 	// cacheComponents: true,WARNING! DO NOT USE "use cache" DIRECTIVE AND ANY OTHER BECUASE SEA BATTLE CAUSE DIALOG AND PAGES TO BE NOT UNMOUNTED WHICH COMPLETELY BREAKS THE UI

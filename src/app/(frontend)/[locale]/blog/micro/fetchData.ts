@@ -13,7 +13,6 @@ import {
 } from '../../../../src/content/Microblog/blogPostListGql'
 import fetchMicroblogPost from '../../../../src/content/Microblog/fetchMicroblogPostList'
 import { getClient } from '../../../../src/gql/getClient'
-import { Micro_post_post_type_Input } from '../../../../src/gql/graphql'
 import getNextJsApolloCache from '../../../../src/utils/getNextJsApolloCache'
 import { getTagIds, tagFragment } from './microQueries'
 
@@ -91,7 +90,7 @@ export const fetchData = cache(
 			tagsIn: tagsIn?.map(tag => getFragmentData(tagFragment, tag)),
 			locale,
 			page,
-			postType: Micro_post_post_type_Input.Short,
+			postType: 'short',
 		})
 
 		const docs = result.data?.Micro_posts?.docs

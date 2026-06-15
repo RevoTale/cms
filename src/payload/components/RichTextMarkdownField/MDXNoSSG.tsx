@@ -12,7 +12,6 @@ import {
 	MDXEditor,
 	markdownShortcutPlugin,
 	quotePlugin,
-	sandpackPlugin,
 	tablePlugin,
 	thematicBreakPlugin,
 	toolbarPlugin,
@@ -50,7 +49,6 @@ const RichTextMarkdownField: FunctionComponent<{
 						imageUploadHandler: async () => await Promise.resolve('https://picsum.photos/200/300'), //TODO - replace with actual upload logic
 						imageAutocompleteSuggestions: [],
 					}),
-					sandpackPlugin(),
 
 					codeBlockPlugin({
 						codeBlockEditorDescriptors: [{ priority: -10, match: _ => true, Editor: CodeMirrorEditor }],

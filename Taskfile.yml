@@ -66,6 +66,7 @@ tasks:
   typecheck:
     desc: Run TypeScript typecheck
     cmds:
+      - task: typegen
       - pnpm run typecheck
 
   validate:

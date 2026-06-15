@@ -19,7 +19,6 @@ import {
 	type rssFrag,
 } from '../../../../src/content/Microblog/blogPostListGql'
 import fetchMicroblogPostList from '../../../../src/content/Microblog/fetchMicroblogPostList'
-import { Micro_post_post_type_Input } from '../../../../src/gql/graphql'
 import canonizeSearchQuery from '../../../../src/utils/canonizeSearchQuery'
 import MicroPageClient from './MicroPageClient'
 import { availableParams } from './microParams'
@@ -95,7 +94,7 @@ const fetchData = async (
 		tagsIn: tagsIn?.map(tag => getFragmentData(tagFragment, tag)),
 		locale,
 		page,
-		postType: Micro_post_post_type_Input.Short,
+		postType: 'short',
 	})
 
 	const docs = result.data?.Micro_posts?.docs

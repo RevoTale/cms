@@ -20,7 +20,6 @@ import {
 	getPosts,
 } from '../../../../src/content/Microblog/blogPostListGql'
 import MicroblogShortPostListWithData from '../../../../src/content/Microblog/MicroblogShortPostListWithData'
-import { Micro_post_post_type_Input } from '../../../../src/gql/graphql'
 import getGqlLocale from '../../../../src/i18n/getGqlLocale'
 import canonizeSearchQuery from '../../../../src/utils/canonizeSearchQuery'
 import AvailableTags from '../notes/AvailableTags'
@@ -65,7 +64,7 @@ const MicroPageClient: FunctionComponent<{
 			page: currentPage,
 			limit: pageLimit,
 			locale: getGqlLocale(locale),
-			postType: Micro_post_post_type_Input.Short,
+			postType: 'short',
 			tagsIn: tagsIn?.map(tag => getFragmentData(tagFragment, tag).id),
 			authorIn: authorIn?.map(author => getFragmentData(authorQueryInFrag, author).id),
 		},
@@ -98,7 +97,7 @@ const MicroPageClient: FunctionComponent<{
 				<h1 className="text-2xl font-semibold text-center sm:text-left">{title}</h1>
 			</div>
 			<Suspense>
-				<AvailableTags usedNames={tagNameInValues ?? []} locale={locale} postType={Micro_post_post_type_Input.Short} />
+				<AvailableTags usedNames={tagNameInValues ?? []} locale={locale} postType="short" />
 			</Suspense>
 			{showSkeletons ? (
 				<div className="flex flex-wrap gap-3 items-center">

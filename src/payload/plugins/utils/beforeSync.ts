@@ -1,4 +1,4 @@
-import type { BeforeSync } from 'node_modules/@payloadcms/plugin-search/dist/types'
+import type { BeforeSync } from '@payloadcms/plugin-search/types'
 import type { CollectionSlug, Payload } from 'payload'
 import { locales } from 'src/i18n-config'
 

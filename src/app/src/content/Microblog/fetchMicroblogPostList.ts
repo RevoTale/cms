@@ -4,7 +4,7 @@ import type { ResultOf } from '@graphql-typed-document-node/core'
 import { cache } from 'react'
 import getGqlLocale from '@/i18n/getGqlLocale'
 import { staleContentCache } from '../../cache-config'
-import { Micro_post_post_type_Input } from '../../gql/graphql'
+import type { Micro_post_post_type_Input } from '../../gql/graphql'
 import getNextJsApolloCache from '../../utils/getNextJsApolloCache'
 import { authorInFrag, getPosts, tagFrag } from './blogPostListGql'
 
@@ -20,7 +20,7 @@ const emptyTags = 0
 const fetchMicroblogPostList = cache(
 	async (
 		client: ApolloClient,
-		{ authorIn, limit, tagsIn, locale, page = 1, postType = Micro_post_post_type_Input.Long }: Props,
+		{ authorIn, limit, tagsIn, locale, page = 1, postType = 'long' }: Props,
 	): Promise<ApolloClient.QueryResult<ResultOf<typeof getPosts>>> =>
 		await client.query({
 			query: getPosts,

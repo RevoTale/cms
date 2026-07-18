@@ -65,7 +65,7 @@
 		"embla-carousel-autoplay": "^8.6.0",
 		"embla-carousel-react": "^8.6.0",
 		"feed": "^5.2.0",
-		"graphql": "^16.14.2",
+		"graphql": "^17.0.0",
 		"highlight.js": "^11.11.1",
 		"jose": "^6.2.2",
 		"lexical": "^0.45.0",

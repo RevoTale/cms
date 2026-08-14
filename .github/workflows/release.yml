@@ -39,7 +39,7 @@ jobs:
       id-token: write
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Prepare Dockerfile for release build action
         run: cp docker/Dockerfile Dockerfile
       - name: Build and push Docker image

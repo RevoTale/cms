@@ -107,11 +107,7 @@ export const generateMetadata = async ({ params }: LayoutProps<'/[locale]'>): Pr
 	return metadata
 }
 
-const Layout: FunctionComponent<LayoutProps<'/[locale]'>> = async ({
-	children,
-	params,
-	searchButton,
-}) => {
+const Layout: FunctionComponent<LayoutProps<'/[locale]'>> = async ({ children, params, searchButton }) => {
 	const { locale } = await params
 	if (!hasLocale(locales, locale)) {
 		notFound()

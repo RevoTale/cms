@@ -1,7 +1,7 @@
 # syntax=docker.io/docker/dockerfile:1
 
 FROM node:25.9.0-alpine AS base
-RUN apk add --no-cache libc6-compat && npm install -g pnpm@11.5.0
+RUN apk add --no-cache libc6-compat && npm install -g pnpm@11.23.0
 WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
 

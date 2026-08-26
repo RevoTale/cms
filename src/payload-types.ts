@@ -223,8 +223,7 @@ export interface MicroPost {
    */
   title?: string | null;
   cronTranslationLocalesQueued?:
-    | ('en-US' | 'uk-UA' | 'de-DE' | 'hi-IN' | 'ja-JP' | 'ru-RU' | 'fr-FR' | 'es-ES')[]
-    | null;
+    ('en-US' | 'uk-UA' | 'de-DE' | 'hi-IN' | 'ja-JP' | 'ru-RU' | 'fr-FR' | 'es-ES')[] | null;
   /**
    * If enabled, title/content length validation is skipped.
    */

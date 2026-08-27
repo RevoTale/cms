@@ -2,9 +2,8 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { hasLocale, type Locale } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
-import type { FunctionComponent, ReactNode } from 'react'
+import type { FunctionComponent } from 'react'
 import { locales } from '@/i18n/config'
-import type PagePropsWithLocale from '@/i18n/PagePropsWithLocale'
 import { routing } from '@/i18n/routing'
 import ImageIcon from '../../../../public/android-chrome-512x512.png'
 import Analytics from '../../src/Analytics'
@@ -14,11 +13,11 @@ import MainLayout from '../../src/content/MainLayout'
 import getImageUrlThumb from '../../src/content/utils/seo/getImageUrlThumb'
 import getUrl from '../../src/linking/getUrl'
 
-interface Props {
-	children: ReactNode
-}
-export const generateMetadata = async ({ params }: PagePropsWithLocale): Promise<Metadata> => {
+export const generateMetadata = async ({ params }: LayoutProps<'/[locale]'>): Promise<Metadata> => {
 	const { locale } = await params
+	if (!hasLocale(locales, locale)) {
+		notFound()
+	}
 	const t = await getTranslations({ locale, namespace: 'Metadata.Root' })
 	const metadata: Metadata = {
 		appleWebApp: true,
@@ -108,11 +107,7 @@ export const generateMetadata = async ({ params }: PagePropsWithLocale): Promise
 	return metadata
 }
 
-const Layout: FunctionComponent<Props & PagePropsWithLocale & LayoutProps<'/[locale]'>> = async ({
-	children,
-	params,
-	searchButton,
-}) => {
+const Layout: FunctionComponent<LayoutProps<'/[locale]'>> = async ({ children, params, searchButton }) => {
 	const { locale } = await params
 	if (!hasLocale(locales, locale)) {
 		notFound()

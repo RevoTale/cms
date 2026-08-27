@@ -12,7 +12,7 @@
 
 ## Dev environment tips
 - Run commands from the repository root.
-- Install pnpm with `npm install -g pnpm@11.5.0`, then install deps with `pnpm install --frozen-lockfile`.
+- Install pnpm with `npm install -g pnpm@11.23.0`, then install deps with `pnpm install --frozen-lockfile`.
 - pnpm's default package import method handles hardlink/copy fallback; avoid forcing copy unless a filesystem issue proves it is needed.
 - Keep runtime startup focused on `pnpm dev`; dependency install should be one-time (`.devcontainer` `postCreateCommand`) or conditional (`docker/docker-entrypoint.sh`).
 - Use Taskfile for routine commands: `task build:compile`, `task build:generate`, `task validate`, `task codegen:check`.

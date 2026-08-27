@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.13.3](https://github.com/RevoTale/cms/compare/v0.13.2...v0.13.3) (2026-08-27)
+
+
+### Bug Fixes
+
+* apply repository formatting to TS7 migration ([a213c83](https://github.com/RevoTale/cms/commit/a213c838a11717f9bb825a29a39d45ed9a5478ad))
+* **deps:** update dependency feed to v6 ([bdc8f43](https://github.com/RevoTale/cms/commit/bdc8f43cebd5af34e90d88f995435d56af2d0f1b))
+* **deps:** update dependency feed to v6 ([4429cde](https://github.com/RevoTale/cms/commit/4429cde161672f2d6c53bf5a738930a519e4d018))
+* **deps:** update dependency next to v16.2.11 [security] ([5235084](https://github.com/RevoTale/cms/commit/5235084db7b9c7e09dbccd1bb205669b89f9ea0a))
+* **deps:** update dependency next to v16.2.11 [security] ([08cceac](https://github.com/RevoTale/cms/commit/08cceac349c8bce86ef389d0978df8615753c632))
+* **deps:** update dependency openai to v7 ([ec8495e](https://github.com/RevoTale/cms/commit/ec8495e1498bfe7587e1e841551af8ba792a7434))
+* **deps:** update dependency openai to v7 ([f62323b](https://github.com/RevoTale/cms/commit/f62323b044b6b92d6281d9a89044e15445b01850))
+
 ## [0.13.2](https://github.com/RevoTale/cms/compare/v0.13.1...v0.13.2) (2026-06-15)
 
 

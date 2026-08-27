@@ -1,7 +1,7 @@
 # syntax=docker.io/docker/dockerfile:1
 
-FROM node:25.9.0-alpine AS base
-RUN apk add --no-cache libc6-compat && npm install -g pnpm@11.23.0
+FROM node:25.9.0-trixie AS base
+RUN npm install -g pnpm@11.23.0
 WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
 
@@ -24,9 +24,7 @@ COPY . .
 RUN pnpm run "build:${NEXT_BUILD_MODE}"
 
 # 3. Lightweight production image with standalone output only
-FROM node:25.9.0-alpine AS runner
-
-RUN apk add --no-cache libc6-compat
+FROM node:25.9.0-trixie AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production

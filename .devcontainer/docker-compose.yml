@@ -2,7 +2,7 @@ name: "revotale_cms_devcontainer"
 
 services:
   devcontainer:
-    image: mcr.microsoft.com/devcontainers/go:2.1-1.26
+    image: mcr.microsoft.com/devcontainers/go:2.1-1.26-trixie
     command: sleep infinity
     depends_on:
       cms_postgres:

@@ -1,6 +1,6 @@
-FROM node:25.9.0-alpine AS base
+FROM node:25.9.0-trixie AS base
 
-RUN apk add --no-cache libc6-compat && npm install -g pnpm@11.23.0
+RUN npm install -g pnpm@11.23.0
 
 WORKDIR /app
 

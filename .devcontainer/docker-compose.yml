@@ -38,7 +38,7 @@ services:
     working_dir: /workspaces/cms
 
   cms_postgres:
-    image: postgres:18.4
+    image: postgres:18.4@sha256:a02db8cac496f15b094798a38254f14d6e00741f709360e5e00bb6668ea31636
     command:
       - postgres
       - -c
@@ -54,7 +54,7 @@ services:
       - cms_postgres_data:/var/lib/postgresql
 
   rustfs:
-    image: rustfs/rustfs:1.0.0-beta.6
+    image: rustfs/rustfs:1.0.0-beta.6@sha256:e620d37756fff072b10bf648c7bb9d370d7e91a928b7e6a5e1ac85bdfb4e4dab
     environment:
       RUSTFS_ACCESS_KEY: ${S3_ACCESS_KEY_ID}
       RUSTFS_SECRET_KEY: ${S3_SECRET_ACCESS_KEY}
@@ -85,7 +85,7 @@ services:
     restart: "no"
 
   imgproxy:
-    image: ghcr.io/revotale/infrastructure-imgproxy:0.0.20
+    image: ghcr.io/revotale/infrastructure-imgproxy:0.0.20@sha256:b876d6788d59e19f770b213b310d990dcacea31ea03f453bf8b7d4ce1806948f
     environment:
       IMGPROXY_ALLOWED_SOURCES: http://devcontainer:3000/,http://rustfs:9000/
     networks:
@@ -93,7 +93,7 @@ services:
     restart: unless-stopped
 
   proxy:
-    image: nginx:1.31-alpine
+    image: nginx:1.31-alpine@sha256:df221db836e1754089190208cee7eeda94f233197056426eda74a43ab1abeac2
     depends_on:
       devcontainer:
         condition: service_started

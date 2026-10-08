@@ -13,7 +13,7 @@ jobs:
       ROOT_WEBSITE_URL: https://revotale.com
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
       - name: Set up Node.js
         uses: actions/setup-node@v7
         with:
@@ -23,7 +23,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Install Task
-        uses: go-task/setup-task@v2
+        uses: go-task/setup-task@a00fbb05ce67b35648be3c78cbc9fd85354c757e # v2
       - run: task typegen
       - name: Validate
         run: task validate
@@ -35,6 +35,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
       - name: Build Docker image
         run: docker build -f docker/Dockerfile .

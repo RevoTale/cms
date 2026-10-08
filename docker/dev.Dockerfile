@@ -1,4 +1,4 @@
-FROM node:25.9.0-trixie AS base
+FROM node:25.9.0-trixie@sha256:b6cf8d20ee78aa10f0a6b98242e26d547869801abd6bc3f7094b0a54301dee02 AS base
 
 RUN npm install -g pnpm@11.23.0
 

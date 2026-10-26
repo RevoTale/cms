@@ -21,8 +21,8 @@ importers:
         specifier: ^3.2.0
         version: 3.2.0(graphql@16.14.2)
       '@hookform/resolvers':
-        specifier: ^5.9.1
-        version: 5.9.1(ajv@8.18.0)(react-hook-form@7.86.0(react@19.2.8))(zod@4.4.3)
+        specifier: ^6.0.0
+        version: 6.0.0(ajv@8.18.0)(react-hook-form@7.86.0(react@19.2.8))(zod@4.4.3)
       '@lexical/code':
         specifier: ^0.49.0
         version: 0.49.0(typescript@7.0.2)
@@ -1653,8 +1653,8 @@ packages:
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
 
-  '@hookform/resolvers@5.9.1':
-    resolution: {integrity: sha512-7b7vsbraJxKgjVSA1Nur9tLwj539WGJUBLA7QNvXnFoT2pM5Z7G+6rlukk4B2/QrTZy6huRtH6wKeESPKuIr6w==}
+  '@hookform/resolvers@6.0.0':
+    resolution: {integrity: sha512-6iBzQnB+YwAveVc8HUi6QYLITn5X+xNKRMFIcNXHZlvp2aTI7yWbj4n/JodXxirMCcBc4VCjb2aYAJh4x07mVw==}
     peerDependencies:
       '@sinclair/typebox': '>=0.25.24'
       '@standard-schema/spec': ^1.0.0
@@ -1664,11 +1664,11 @@ packages:
       ajv-errors: ^3.0.0
       ajv-formats: ^2.1.1
       arktype: ^2.0.0
-      ata-validator: ^1.2.0
+      ata-validator: ^1.23.0
       class-transformer: '>=0.4.0'
       class-validator: '>=0.12.0'
       computed-types: ^1.0.0
-      effect: ^3.10.3
+      effect: ^4.0.0
       fluentvalidation-ts: ^3.0.0
       fp-ts: ^2.7.0
       io-ts: ^2.0.0
@@ -8065,7 +8065,7 @@ snapshots:
     dependencies:
       graphql: 16.14.2
 
-  '@hookform/resolvers@5.9.1(ajv@8.18.0)(react-hook-form@7.86.0(react@19.2.8))(zod@4.4.3)':
+  '@hookform/resolvers@6.0.0(ajv@8.18.0)(react-hook-form@7.86.0(react@19.2.8))(zod@4.4.3)':
     dependencies:
       '@standard-schema/utils': 0.3.0
       react-hook-form: 7.86.0(react@19.2.8)

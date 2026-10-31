@@ -85,7 +85,7 @@ services:
     restart: "no"
 
   imgproxy:
-    image: ghcr.io/revotale/infrastructure-imgproxy:0.0.20
+    image: ghcr.io/revotale/infrastructure-imgproxy:0.0.21@sha256:124452ce761082ccde610c0ad3ad27e6faf3327890cd1f5301fa67d97d260f56
     environment:
       IMGPROXY_ALLOWED_SOURCES: http://devcontainer:3000/,http://rustfs:9000/
     networks:

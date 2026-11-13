@@ -38,7 +38,7 @@ services:
     working_dir: /workspaces/cms
 
   cms_postgres:
-    image: postgres:18.4
+    image: postgres:18.6@sha256:e3d24f6906d0760bf4da0dae872415391ededefad23fd471c47dc53b0ddf3c42
     command:
       - postgres
       - -c
@@ -85,7 +85,7 @@ services:
     restart: "no"
 
   imgproxy:
-    image: ghcr.io/revotale/infrastructure-imgproxy:0.0.20
+    image: ghcr.io/revotale/infrastructure-imgproxy:0.0.21@sha256:124452ce761082ccde610c0ad3ad27e6faf3327890cd1f5301fa67d97d260f56
     environment:
       IMGPROXY_ALLOWED_SOURCES: http://devcontainer:3000/,http://rustfs:9000/
     networks:

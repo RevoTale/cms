@@ -20,7 +20,7 @@
 - Docker production build uses standalone runtime output only; switch build mode with `--build-arg NEXT_BUILD_MODE=<compile|default|generate>`.
 
 ## Testing instructions
-- CI plans live in `.github/workflows/test.yml` and `.github/workflows/release.yml`.
+- CI and release workflows live in `.woodpecker/`.
 - Before merge, run `task validate` and `task codegen:check`.
 - If generated artifacts drift, run `task codegen` and then rerun `task validate`.
 - For container-level verification, run `docker build -f docker/Dockerfile --target runner .` (optionally with `--build-arg NEXT_BUILD_MODE=...`).

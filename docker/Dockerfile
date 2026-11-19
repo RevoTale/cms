@@ -1,6 +1,6 @@
 # syntax=docker.io/docker/dockerfile:1
 
-FROM node:25.9.0-trixie AS base
+FROM node:26.13.1-trixie@sha256:e18c3ccdf7d71619990b0e85639f506e2028a95410999cab24cc373cbd10e0ac AS base
 RUN npm install -g pnpm@11.23.0
 WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
@@ -24,7 +24,7 @@ COPY . .
 RUN pnpm run "build:${NEXT_BUILD_MODE}"
 
 # 3. Lightweight production image with standalone output only
-FROM node:25.9.0-trixie AS runner
+FROM node:26.13.1-trixie@sha256:e18c3ccdf7d71619990b0e85639f506e2028a95410999cab24cc373cbd10e0ac AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
